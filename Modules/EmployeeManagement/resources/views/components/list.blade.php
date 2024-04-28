@@ -77,7 +77,7 @@
         </style>
     <div class="content">
         <a href="{{ route('employeemanagement.create') }}"><button class="btn btn-md btn-success "
-                style="float:right;margin:10px">Add Client</button></a>
+                style="float:right;margin:10px">Add Employee</button></a>
         <br>
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"

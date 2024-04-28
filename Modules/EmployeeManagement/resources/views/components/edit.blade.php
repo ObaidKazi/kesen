@@ -27,7 +27,7 @@
     {{-- Main Content --}}
     
     <div class="content" style="margin-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="New Employee" theme="success"  icon="fas fa-lg fa-person"
+        <x-adminlte-card title="Edit Employee" theme="success"  icon="fas fa-lg fa-person"
     >
     
         <form action="{{ route('employeemanagement.update', $user->id) }}" method="POST" >
