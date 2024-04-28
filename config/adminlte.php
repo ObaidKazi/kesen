@@ -324,6 +324,14 @@ return [
             'icon' => 'fas fa-fw fa-language',
             'active' => ['language-management', 'language-management/*', 'regex:@^language-management/[0-9]+$@']
         ]
+        ,
+        [
+            'text' => 'Employee Management',
+            'url' => '/employee-management',
+            'href' => '/employee-management',
+            'icon' => 'fas fa-fw fa-user',
+            'active' => ['employee-management', 'employee-management/*', 'regex:@^employee-management/[0-9]+$@']
+        ]
         // [
         //     'text' => 'pages',
         //     'url' => 'admin/pages',
@@ -536,8 +544,13 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'asset' => true,
+                    'location' => 'vendor/sweetalert2/sweetalert2.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
                 ],
             ],
         ],

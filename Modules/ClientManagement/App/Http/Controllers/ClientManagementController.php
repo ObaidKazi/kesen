@@ -35,9 +35,9 @@ class ClientManagementController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email|unique:clients,email,except,id',
-            'phone_no'=>'required|numeric|unique:clients,phone_no,except,id',
-            'landline'=>'nullable|numeric|unique:clients,landline,except,id',
+            'email'=>'required|email|unique:clients,email',
+            'phone_no'=>'required|numeric|unique:clients,phone_no',
+            'landline'=>'nullable|numeric|unique:clients,landline',
             'type'=>'required|in:1,2',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',
@@ -79,9 +79,9 @@ class ClientManagementController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email|unique:clients,email,except,id',
-            'phone_no'=>'required|numeric|unique:clients,phone_no,except,id',
-            'landline'=>'nullable|numeric|unique:clients,landline,except,id',
+            'email'=>'required|email|unique:clients,email,' . $id . ',id',
+            'phone_no'=>'required|numeric|unique:clients,phone_no,' . $id . ',id',
+            'landline'=>'nullable|numeric|unique:clients,landline,' . $id . ',id',
             'type'=>'required|in:1,2',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',

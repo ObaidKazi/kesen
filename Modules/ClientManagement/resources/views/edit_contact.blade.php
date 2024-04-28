@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('clientmanagement::component.edit-contact')
+            @include('clientmanagement::components.edit-contact')
         
 
         {{-- Footer --}}

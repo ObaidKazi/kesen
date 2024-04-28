@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('clientmanagement::component.list')
+            @include('clientmanagement::components.list')
         
 
         {{-- Footer --}}

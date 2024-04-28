@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('clientmanagement::component.create')
+            @include('clientmanagement::components.create')
         
 
         {{-- Footer --}}
