@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
 
     {{-- Base Meta Tags --}}
     <meta charset="utf-8">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -39,6 +41,7 @@
     @include('plugins', ['type' => 'css'])
 
     {{-- Livewire Styles --}}
+    
     @if(config('adminlte.livewire'))
         @if(intval(app()->version()) >= 7)
             @livewireStyles
@@ -74,7 +77,7 @@
     @endif
 
 </head>
-
+{!! Toastr::message() !!}
 <body class="@yield('classes_body')" @yield('body_data')>
 
     {{-- Body Content --}}

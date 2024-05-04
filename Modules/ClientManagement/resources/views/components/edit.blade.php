@@ -25,8 +25,8 @@
     @endif
 
     {{-- Main Content --}}
-    <div class="content" style="margin-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="Edit Contact" theme="success"  icon="fas fa-lg fa-person"
+    <div class="content" style="padding-top: 20px;margin-left: 10px">
+        <x-adminlte-card title="Edit Client" theme="success"  icon="fas fa-lg fa-person"
      >
         <form action="{{ route('clientmanagement.update', $client->id) }}" method="POST">
             @method('PUT')

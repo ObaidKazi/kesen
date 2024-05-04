@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('clientmanagement::components.create-contact')
+        @include('clientmanagement::components.create-contact')
         
 
         {{-- Footer --}}

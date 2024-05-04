@@ -27,17 +27,26 @@
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
         
-        <x-adminlte-card title="New Language" theme="success"  icon="fas fa-lg fa-language"
+        <x-adminlte-card title="New Writer" theme="success"  icon="fas fa-lg fa-language"
     >
     
 
-        <form action="{{ route('language-management.store') }}" method="POST" >
+        <form action="{{ route('writermanagement.store') }}" method="POST" >
             @csrf
             <div class="row pt-2">
-                <x-adminlte-input name="name"  placeholder="Language Name"
-                    fgroup-class="col-md-6" required value="{{ old('name') }}"/>
-                <x-adminlte-input name="code"  placeholder="Language Code"
+                <x-adminlte-input name="writer_name"  placeholder="Writer Name"
+                    fgroup-class="col-md-6" required value="{{ old('writer_name') }}"/>
+                    <x-adminlte-input name="email"  placeholder="Email"
+                    fgroup-class="col-md-6" required value="{{ old('email') }}"/>
+                    <x-adminlte-input name="phone"  placeholder="Phone Number"
+                    fgroup-class="col-md-6" required value="{{ old('phone') }}"/>
+                    <x-adminlte-input name="landline"  placeholder="Landline"
+                    fgroup-class="col-md-6" required value="{{ old('landline') }}"/>
+                <x-adminlte-input name="code"  placeholder="Writer Code"
                     fgroup-class="col-md-6" value="{{ old('code') }}"/>
+                    <x-adminlte-textarea name="address"  placeholder="Address"
+                    fgroup-class="col-md-6" value="{{ old('address') }}"/>
+
                     
                     
             </div>

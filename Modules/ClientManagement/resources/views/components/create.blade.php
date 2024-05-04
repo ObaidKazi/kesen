@@ -25,7 +25,7 @@
     @endif
 
     {{-- Main Content --}}
-    <div class="content" style="margin-top: 20px;margin-left: 10px">
+    <div class="content" style="padding-top: 20px;margin-left: 10px">
         <x-adminlte-card title="New Client" theme="success"  icon="fas fa-lg fa-person"
     >
         <form action="{{ route('clientmanagement.store') }}" method="POST" >

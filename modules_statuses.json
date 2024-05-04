@@ -1,5 +1,6 @@
 {
     "ClientManagement": true,
     "LanguageManagement": true,
-    "EmployeeManagement": true
+    "EmployeeManagement": true,
+    "WriterManagement": true
 }
