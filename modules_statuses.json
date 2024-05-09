@@ -2,5 +2,7 @@
     "ClientManagement": true,
     "LanguageManagement": true,
     "EmployeeManagement": true,
-    "WriterManagement": true
+    "WriterManagement": true,
+    "JobCardManagement": true,
+    "EstimateManagement": true
 }

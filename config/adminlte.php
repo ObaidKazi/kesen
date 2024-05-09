@@ -340,6 +340,14 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'active' => ['writer-management', 'writer-management/*', 'regex:@^writer-management/[0-9]+$@']
         ]
+        ,
+        [
+            'text' => 'Estimate Management',
+            'url' => '/estimate-management',
+            'href' => '/estimate-management',
+            'icon' => 'fas fa-fw fa-user',
+            'active' => ['estimate-management', 'estimate-management/*', 'regex:@^estimate-management/[0-9]+$@']
+        ]
         // [
         //     'text' => 'pages',
         //     'url' => 'admin/pages',

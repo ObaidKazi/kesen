@@ -30,5 +30,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'metrix'=>[
+        'KeSen Language Bureau ( KLB )'=>'KeSen Language Bureau ( KLB )',
+        'Linguistic Systems ( LGS )'=>'Linguistic Systems ( LGS )',
+        'KeSen Communications LLP ( KCL )'=>'KeSen Communications LLP ( KCL )',
+        'KeSen Linguistic Services LLP ( KLS )'=>'KeSen Linguistic Services LLP ( KLS )',
+    ]
 
 ];
