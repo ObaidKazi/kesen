@@ -5,6 +5,8 @@ namespace Modules\EstimateManagement\App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\ClientManagement\App\Models\Client;
+use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\Database\factories\EstimatesFactory;
 
 class Estimates extends Model
@@ -14,5 +16,14 @@ class Estimates extends Model
    protected $table="estimates";
 
    protected $guarded=['id'];
+
+
+   public function client(){
+      return $this->belongsTo(Client::class,'client_id');
+   }
+
+   public function client_person(){
+      return $this->belongsTo(ContactPerson::class,'client_contact_person_id');
+   }
 
 }

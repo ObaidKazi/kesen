@@ -32,7 +32,6 @@
         @if(!$layoutHelper->isLayoutTopnavEnabled())
             @include('partials.sidebar.left-sidebar')
         @endif
-
         {{-- Content Wrapper --}}
         
             @include('writermanagement::components.edit')
@@ -47,6 +46,7 @@
         @if(config('adminlte.right_sidebar'))
             @include('partials.sidebar.right-sidebar')
         @endif
+        
 
     </div>
 @stop

@@ -25,7 +25,7 @@
     @endif
 
     {{-- Main Content --}}
-    <div class="content" style="padding-top: 20px;margin-left: 10px">
+    <div class="content" style="padding-top: 20px;margin-left: 10px">       
         <x-adminlte-card title="New Language Map" theme="success"  >
             <form action="{{ route('writermanagement.addLanguageMap', $id) }}" method="POST" >
                 @method('POST')

@@ -36,10 +36,10 @@
                 
                     <x-adminlte-input name="estimate_no"  placeholder="Estimate Number"
                     fgroup-class="col-md-6"  value="{{ $estimate->estimate_no }}" disabled/>
-                <x-adminlte-input name="client_name"  placeholder="Client Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_name }}" disabled/>
-                    <x-adminlte-input name="client_contact_person_name"  placeholder="Client Contact Person Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_contact_person_name }}" disabled/>
+                <x-adminlte-input name="client_id"  placeholder="Client Name"
+                    fgroup-class="col-md-6" value="{{ $estimate->client_id }}" disabled/>
+                    <x-adminlte-input name="client_contact_person_id"  placeholder="Client Contact Person Name"
+                    fgroup-class="col-md-6" value="{{ $estimate->client_contact_person_id }}" disabled/>
                     <x-adminlte-input name="headline"  placeholder="Headline"
                     fgroup-class="col-md-6" type='text' value="{{ $estimate->headline }}" disabled/>
 
@@ -62,6 +62,20 @@
                             <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
+                    <x-adminlte-input name="unit"  placeholder="Unit"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->unit }}" disable/>
+                    <x-adminlte-input name="rate"  placeholder="Rate"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->rate }}" disable/>
+                    <x-adminlte-input name="verification"  placeholder="Verification"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->verification }}" disable/>
+                    <x-adminlte-input name="bank_translation"  placeholder="Bank Translation"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->bank_translation }}" disable/>
+                    <x-adminlte-input name="layout_charges"  placeholder="Layout Charges"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges }}" disable/>
+                    <x-adminlte-input name="layout_charges_2"  placeholder="Layout Charges 2"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges_2 }}" disable/>
+                    <x-adminlte-input name="lang"  placeholder="Lang"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->lang }}" disable/>
 
                     </span>
             </div>

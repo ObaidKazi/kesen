@@ -94,8 +94,8 @@
 
                         <td>{{ $index+1 }}</td>
                         <td>{{ $row->estimate_no }}</td>
-                        <td>{{ $row->client_name }}</td>
-                        <td>{{ $row->client_contact_person_name }}</td>
+                        <td>{{ $row->client_id }}</td>
+                        <td>{{ $row->client_contact_person_id }}</td>
                         <td>{{ $row->metrix }}</td>
                         <td>{{ $row->headline }}</td>
                         <td>{{ $row->amount }}</td>
@@ -106,8 +106,12 @@
                             <a href="{{route('estimatemanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                Edit
                             </button></a>
+                            
                             <a href="{{route('estimatemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
                                 View
+                            </button></a>
+                            <a href="{{route('estimatemanagement.viewPdf', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
+                                Export
                             </button></a>
                             
                       

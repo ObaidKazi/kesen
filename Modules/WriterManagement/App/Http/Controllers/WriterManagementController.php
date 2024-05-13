@@ -7,6 +7,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 use Modules\LanguageManagement\App\Models\Language;
 use Modules\WriterManagement\App\Models\Writer;
 use Modules\WriterManagement\App\Models\WriterLanguageMap;
@@ -53,7 +54,7 @@ class WriterManagementController extends Controller
         $writer->created_by=auth()->user()->id;
         $writer->updated_by=auth()->user()->id;
         $writer->save();
-        return redirect()->route('writermanagement.index')->with('success','Writer Added Successfully');
+        return redirect()->route('writermanagement.index')->with('message','Writer Added Successfully');
 
     }
 
@@ -96,7 +97,7 @@ class WriterManagementController extends Controller
         $writer->code=$request->code;
         $writer->updated_by=auth()->user()->id;
         $writer->save();
-        return redirect()->route('writermanagement.index')->with('success','Writer Updated Successfully');
+        return redirect()->route('writermanagement.index')->with('message','Writer Updated Successfully');
     }
 
     /**
@@ -126,6 +127,7 @@ class WriterManagementController extends Controller
     }
 
     public function updateLanguageMap($writer_id,$id,Request $request){
+       
         $request->validate([
             'language' => 'required|exists:languages,id',
             'per_unit_charges' => 'required|numeric',
@@ -142,7 +144,7 @@ class WriterManagementController extends Controller
         $language_map->bt_checking_charges=$request->bt_checking_charges;
         $language_map->advertising_charges=$request->advertising_charges;
         $language_map->save();
-        Toastr::success('Language Map Updated Successfully', 'Success');
+        Session::flash('message', 'Language Map Updated Successfully');
         return redirect(route('writermanagement.viewLanguageMaps',['writer_id'=>$writer_id]));
     }
 
@@ -170,7 +172,7 @@ class WriterManagementController extends Controller
         $language_map->bt_checking_charges=$request->bt_checking_charges;
         $language_map->advertising_charges=$request->advertising_charges;
         $language_map->save();
-        Toastr::success('Language Map Added Successfully', 'Success');
+        Session::flash('message', 'Language Map Added Successfully');
         return redirect(route('writermanagement.viewLanguageMaps',['writer_id'=>$writer_id]));
         
     }

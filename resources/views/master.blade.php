@@ -77,11 +77,15 @@
     @endif
 
 </head>
-{!! Toastr::message() !!}
+
 <body class="@yield('classes_body')" @yield('body_data')>
 
     {{-- Body Content --}}
+    
     @yield('body')
+    
+   
+    
 
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
@@ -98,6 +102,7 @@
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))
+    
         @if(intval(app()->version()) >= 7)
             @livewireScripts
         @else

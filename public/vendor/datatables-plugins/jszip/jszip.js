@@ -170,8 +170,7 @@ CompressedObject.prototype = {
             .withStreamInfo("compressedSize", this.compressedSize)
             .withStreamInfo("uncompressedSize", this.uncompressedSize)
             .withStreamInfo("crc32", this.crc32)
-            .withStreamInfo("compression", this.compression)
-            ;
+            .withStreamInfo("compression", this.compression);
     }
 };
 

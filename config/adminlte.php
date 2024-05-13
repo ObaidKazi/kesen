@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '',
-    'logo_img' => '/img/logo.png',
+    'logo_img' => '/img/transparent-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => '/img/transparent-logo.png',
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => true,
         'img' => [
-            'path' => '/img/logo.png',
+            'path' => '/img/transparent-logo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 144,
@@ -113,11 +113,11 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => '/img/logo.png',
+            'path' => '/img/transparent-logo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 140,
-            'height' => 53,
+            'width' => 80,
+            'height' => 33,
         ],
     ],
 
@@ -315,7 +315,7 @@ return [
             'url' => '/client-management',
             'href' => '/client-management',
             'icon' => 'fas fa-fw fa-user',
-            'active' => ['client-management', 'client-management/*', 'regex:@^client-management/[0-9]+$@']
+            'active' => ['client-management', 'client-management/*', 'regex:@^client-management/[0-9]+$@'],
         ],
         [
             'text' => 'Language Management',

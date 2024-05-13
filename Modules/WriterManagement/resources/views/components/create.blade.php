@@ -26,7 +26,6 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
-        
         <x-adminlte-card title="New Writer" theme="success"  icon="fas fa-lg fa-language"
     >
     

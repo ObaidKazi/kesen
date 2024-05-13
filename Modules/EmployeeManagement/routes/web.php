@@ -14,7 +14,8 @@ use Modules\EmployeeManagement\App\Http\Controllers\EmployeeManagementController
 |
 */
 
-
+Route::group(['middleware' => 'auth'], function () {
 Route::resource('employee-management', EmployeeManagementController::class)->names('employeemanagement');
 
 Route::get('employee-management/{id}/disable-enable-client', [EmployeeManagementController::class, 'disableEnableClient'])->name('employeemanagement.disableEnableClient');
+});

@@ -36,10 +36,10 @@
                 
                     <x-adminlte-input name="estimate_no"  placeholder="Estimate Number"
                     fgroup-class="col-md-6" required value="{{ $estimate->estimate_no }}"/>
-                <x-adminlte-input name="client_name"  placeholder="Client Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_name }}"/>
-                    <x-adminlte-input name="client_contact_person_name"  placeholder="Client Contact Person Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_contact_person_name }}"/>
+                <x-adminlte-input name="client_id"  placeholder="Client Name"
+                    fgroup-class="col-md-6" value="{{ $estimate->client_id }}"/>
+                    <x-adminlte-input name="client_contact_person_id"  placeholder="Client Contact Person Name"
+                    fgroup-class="col-md-6" value="{{ $estimate->client_contact_person_id }}"/>
                     <x-adminlte-input name="headline"  placeholder="Headline"
                     fgroup-class="col-md-6" type='text' value="{{ $estimate->headline }}" required/>
 
@@ -62,6 +62,22 @@
                             <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
+                    <x-adminlte-input name="unit"  placeholder="Unit"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->unit }}" required/>
+                    <x-adminlte-input name="rate"  placeholder="Rate"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->rate }}" required/>
+                    <x-adminlte-input name="verification"  placeholder="Verification"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->verification }}" required/>
+                    <x-adminlte-input name="bank_translation"  placeholder="Bank Translation"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->bank_translation }}" required/>
+                    <x-adminlte-input name="layout_charges"  placeholder="Layout Charges"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges }}" required/>
+                    <x-adminlte-input name="layout_charges_2"  placeholder="Layout Charges 2"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges_2 }}" required/>
+                    <x-adminlte-input name="lang"  placeholder="Lang"
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->lang }}" required/>
+
+
 
                     </span>
             </div>

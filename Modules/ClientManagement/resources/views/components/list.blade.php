@@ -87,12 +87,12 @@
                         <td>{{ $row->phone_no }}</td>
                         <td>{{ $row->landline }}</td>
                         <td>{{ $row->address }}</td>
-                        <td>
+                        <td width="200px">
                             <a href="{{route('clientmanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                                Edit
                             </button></a>
                             <a href="{{route('clientmanagement.viewContacts', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Contacts">
-                                <i class="fa fa-lg fa-fw fa-user"></i></a>
+                                View Contacts
                             </button>
                             @if($row->status == 1)
                                 <a href="{{route('clientmanagement.disableEnableClient', $row->id)}}"><button class="btn btn-xs btn-danger mx-1 shadow" title="Disable">

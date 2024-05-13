@@ -183,6 +183,9 @@ class ClientManagementController extends Controller
     }
     public function deleteContact($id,$contact_id){
         $contact_person=ContactPerson::find($contact_id);
+        $contact_person->email=$contact_person->email.'-deleted'.date('Y-m-d H:i:s');
+        $contact_person->landline=$contact_person->landline.'-deleted'.date('Y-m-d H:i:s');
+        $contact_person->phone_no=$contact_person->phone_no.'-deleted'.date('Y-m-d H:i:s');
         $contact_person->delete();
         return redirect(route('clientmanagement.viewContacts', $id));
     }

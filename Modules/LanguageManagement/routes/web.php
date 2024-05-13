@@ -14,7 +14,7 @@ use Modules\LanguageManagement\App\Http\Controllers\LanguageManagementController
 |
 */
 
-
+Route::group(['middleware' => 'auth'], function () {
 Route::resource('language-management', LanguageManagementController::class)->names('language-management');
 Route::get('language-management/disable-enable-language/{id}', [LanguageManagementController::class, 'disableEnableClient'])->name('language-management.disableEnableClient');
-
+});

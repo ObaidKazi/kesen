@@ -14,7 +14,7 @@ use Modules\ClientManagement\App\Http\Controllers\ClientManagementController;
 |
 */
 
-
+Route::group(['middleware' => 'auth'], function () {
 Route::resource('client-management', ClientManagementController::class)->names('clientmanagement');
 Route::get('client-management/{id}/add-contact', [ClientManagementController::class, 'addContactForm'])->name('clientmanagement.addContact');
 Route::post('client-management/{id}/add-contact', [ClientManagementController::class, 'storeContact'])->name('clientmanagement.storeContact');
@@ -25,3 +25,4 @@ Route::get('client-management/{id}/disable-enable-contact/{contact_id}', [Client
 Route::get('client-management/{id}/delete-contact/{contact_id}', [ClientManagementController::class, 'deleteContact'])->name('clientmanagement.deleteContact');
 
 Route::get('client-management/{id}/disable-enable-client', [ClientManagementController::class, 'disableEnableClient'])->name('clientmanagement.disableEnableClient');
+});

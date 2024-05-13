@@ -13,5 +13,6 @@ use Modules\JobCardManagement\App\Http\Controllers\JobCardManagementController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::group(['middleware' => 'auth'], function () {
 Route::resource('jobcard-management', JobCardManagementController::class)->names('jobcard-management');
+});

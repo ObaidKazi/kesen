@@ -26,31 +26,32 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="New Language Map" theme="success"  >
-            <form action="{{ route('writermanagement.editLanguageMap', [$id, $language_map->id]) }}" method="PUT" >
-                @method('PUT')
+        <x-adminlte-card title="Update Language Map" theme="success">
+            <form action="{{ route('writermanagement.updateLanguageMap', [$id, $language_map->id]) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row pt-2">
-                    <x-adminlte-select name="language" fgroup-class="col-md-6" required >
+                    <x-adminlte-select name="language" fgroup-class="col-md-6" required>
                         <option value="">Language</option>
-                        @foreach($languages as $language)
-                            <option value="{{ $language->id }}" @if($language_map->language_id == $language->name) selected  @endif>{{ $language->name }}</option>
+                        @foreach ($languages as $language)
+                            <option value="{{ $language->id }}" @if ($language_map->language_id == $language->name) selected @endif>
+                                {{ $language->name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-input name="per_unit_charges"  placeholder="Per Unit Charges"
-                        fgroup-class="col-md-6" value="{{ $language_map->per_unit_charges}}" />
-                        <x-adminlte-input name="checking_charges"  placeholder="Checking Charges"
-                        fgroup-class="col-md-6" value="{{ $language_map->checking_charges }}"/>
-                        <x-adminlte-input name="bt_charges"  placeholder="BT Charges"
-                        fgroup-class="col-md-6" type='text' value="{{ $language_map->bt_charges }}"/>
-                        <x-adminlte-input name="bt_checking_charges"  placeholder="BT Checking Charges"
-                        fgroup-class="col-md-6" value="{{ $language_map->bt_checking_charges }}"/>
-                        <x-adminlte-input name="advertising_charges"  placeholder="Advertising Charges"
-                        fgroup-class="col-md-6" value="{{ $language_map->advertising_charges }}"/>
-                        
+                    <x-adminlte-input name="per_unit_charges" placeholder="Per Unit Charges" fgroup-class="col-md-6"
+                        value="{{ $language_map->per_unit_charges }}" />
+                    <x-adminlte-input name="checking_charges" placeholder="Checking Charges" fgroup-class="col-md-6"
+                        value="{{ $language_map->checking_charges }}" />
+                    <x-adminlte-input name="bt_charges" placeholder="BT Charges" fgroup-class="col-md-6" type='text'
+                        value="{{ $language_map->bt_charges }}" />
+                    <x-adminlte-input name="bt_checking_charges" placeholder="BT Checking Charges"
+                        fgroup-class="col-md-6" value="{{ $language_map->bt_checking_charges }}" />
+                    <x-adminlte-input name="advertising_charges" placeholder="Advertising Charges"
+                        fgroup-class="col-md-6" value="{{ $language_map->advertising_charges }}" />
+
                 </div>
-                
-                <x-adminlte-button label="Submit" type="submit" class="mt-3"/>
+
+                <x-adminlte-button label="Submit" type="submit" class="mt-3" />
 
             </form>
         </x-adminlte-card>
