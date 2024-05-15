@@ -94,8 +94,8 @@
 
                         <td>{{ $index+1 }}</td>
                         <td>{{ $row->estimate_no }}</td>
-                        <td>{{ $row->client_id }}</td>
-                        <td>{{ $row->client_contact_person_id }}</td>
+                        <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
+                        <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>
                         <td>{{ $row->metrix }}</td>
                         <td>{{ $row->headline }}</td>
                         <td>{{ $row->amount }}</td>
