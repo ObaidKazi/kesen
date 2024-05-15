@@ -16,8 +16,8 @@ return new class extends Migration
             $table->integer('sr_no')->autoIncrement();
             $table->string('estimate_no')->unique();
             $table->string('metrix')->nullable();
-            $table->string('client_name');
-            $table->string('client_contact_person_name')->nullable();
+            $table->string('client_id');
+            $table->string('client_contact_person_id')->nullable();
             $table->string('headline')->nullable();
             $table->string('amount')->nullable();
             $table->string('currency')->nullable();

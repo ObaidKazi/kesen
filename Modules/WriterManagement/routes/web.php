@@ -24,6 +24,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('writer-management/{writer_id}/edit-language-maps/{id}', [WriterManagementController::class, 'editLanguageMap'])->name('writermanagement.editLanguageMap');
     Route::put('writer-management/{writer_id}/update-language-maps/{id}', [WriterManagementController::class, 'updateLanguageMap'])->name('writermanagement.updateLanguageMap');
     Route::get('writer-management/{writer_id}/delete-language-maps/{id}', [WriterManagementController::class, 'deleteLanguageMap'])->name('writermanagement.deleteLanguageMap');
-        
+    Route::get('writer-management/{writer_id}/view-payments', [WriterManagementController::class, 'viewPayments'])->name('writermanagement.viewPayments');
+    Route::get('writer-management/{writer_id}/edit-payments/{id}', [WriterManagementController::class, 'editPaymentView'])->name('writermanagement.editPaymentView');
+    Route::put('writer-management/{writer_id}/edit-payments/{id}', [WriterManagementController::class, 'editPayment'])->name('writermanagement.editPayment');
+    Route::get('writer-management/{writer_id}/add-payments', [WriterManagementController::class, 'addPaymentView'])->name('writermanagement.addPaymentView');
+    Route::post('writer-management/{writer_id}/add-payments', [WriterManagementController::class, 'addPayment'])->name('writermanagement.addPayment');
+    Route::get('writer-management/{writer_id}/show-payments{id}', [WriterManagementController::class, 'showPayment'])->name('writermanagement.showPayment');
+    
 });
 

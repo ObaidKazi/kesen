@@ -109,8 +109,11 @@
                                 @if ($row->status == 1)class="btn btn-xs btn-default text-dark mx-1 shadow" @else class="btn btn-xs btn-default text-dart mx-1 shadow" disabled @endif  title="Edit">
                                     <i class="fa fa-lg fa-fw fa-pen"></i>
                                 </button></a>
-                                <a href="{{route('writermanagement.viewLanguageMaps', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Contacts">
-                                    <i class="fa fa-lg fa-fw fa-list"></i></a>
+                                <a href="{{route('writermanagement.viewLanguageMaps', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Language">
+                                    View Language
+                                </button>
+                                <a href="{{route('writermanagement.viewPayments', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Payment">
+                                    View Payment
                                 </button>
                             @if ($row->status == 1)
                                 <a href="{{ route('writermanagement.disableEnableWriter', $row->id) }}"><button

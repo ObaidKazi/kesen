@@ -8,9 +8,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Modules\LanguageManagement\App\Models\Language;
 use Modules\WriterManagement\App\Models\Writer;
 use Modules\WriterManagement\App\Models\WriterLanguageMap;
+use Modules\WriterManagement\App\Models\WriterPayment;
 
 class WriterManagementController extends Controller
 {
@@ -187,4 +189,77 @@ class WriterManagementController extends Controller
         $writer->save();
         return redirect()->route('writermanagement.index');
     }
+
+
+    public function viewPayments($writer_id){
+       $writer_payments= WriterPayment::where('writer_id',$writer_id)->get();
+       return view('writermanagement::view-payments')->with('id',$writer_id)->with('payments',$writer_payments);
+    }
+
+    public function addPaymentView($writer_id){
+        return view('writermanagement::add-payment')->with('id',$writer_id);
+    }
+
+    public function addPayment(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'writer_id' => 'required|string',
+            'payment_method' => 'required|string',
+            'metrix' => 'required|string',
+            'apply_gst' => 'required|boolean',
+            'apply_tds' => 'required|boolean',
+            'period_from' => 'required|date',
+            'period_to' => 'required|date',
+            'online_ref_no' => 'nullable|string',
+            'cheque_no' => 'nullable|string',
+            'performance_charge' => 'required|numeric',
+            'deductible' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $payment = new WriterPayment($request->all());
+        $payment->save();
+
+        return redirect(route('writermanagement.viewPayments',$payment->writer_id))->with('message', 'Payment added successfully.');
+    }
+
+    public function editPaymentView($writer_id,$id){
+        $payment = WriterPayment::find($id);
+        return view('writermanagement::edit-payment')->with('payment',$payment)->with('id',$writer_id);
+    }
+
+    public function editPayment(Request $request, $writer_id,$id)
+    {
+        $validator = Validator::make($request->all(), [
+            'payment_method' => 'required|string',
+            'metrix' => 'required|string',
+            'apply_gst' => 'required|boolean',
+            'apply_tds' => 'required|boolean',
+            'period_from' => 'required|date',
+            'period_to' => 'required|date',
+            'online_ref_no' => 'nullable|string',
+            'cheque_no' => 'nullable|string',
+            'performance_charge' => 'required|numeric',
+            'deductible' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+        $payment = WriterPayment::where('id',$id)->first();
+        $payment->update($request->all());
+        
+        return redirect(route('writermanagement.viewPayments',$payment->writer_id))->with('message', 'Payment updated successfully.');
+    }
+
+    public function showPayment($writer_id,$id)
+    {
+        $payment = WriterPayment::findOrFail($id);
+        return view('writermanagement::show-payments', compact('payment'));
+    }
+
 }

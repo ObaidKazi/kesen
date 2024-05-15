@@ -1,6 +1,7 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $metrics=config('services.metrix'); @endphp
+@php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -36,10 +37,15 @@
                 
                     <x-adminlte-input name="estimate_no"  placeholder="Estimate Number"
                     fgroup-class="col-md-6" required value="{{ $estimate->estimate_no }}"/>
-                <x-adminlte-input name="client_id"  placeholder="Client Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_id }}"/>
-                    <x-adminlte-input name="client_contact_person_id"  placeholder="Client Contact Person Name"
-                    fgroup-class="col-md-6" value="{{ $estimate->client_contact_person_id }}"/>
+                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6"  required >
+                        <option value="">Select Client</option>
+                        @foreach ($clients as $client)
+                           <option value="{{ $client->id }}" {{ $estimate->client_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                        @endforeach
+                </x-adminlte-select>
+                <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id" fgroup-class="col-md-6"  required >
+                    <option value="">Select Contact Person</option>
+                </x-adminlte-select>
                     <x-adminlte-input name="headline"  placeholder="Headline"
                     fgroup-class="col-md-6" type='text' value="{{ $estimate->headline }}" required/>
 
@@ -88,3 +94,16 @@
     </div>
 
 </div>
+<script type="text/javascript">
+    document.getElementById('client_id').addEventListener('change', function() {
+        let client_id = this.value;
+        console.log(client_id);
+        $.ajax({
+            url: "/estimate-management/client/"+client_id,
+            method: 'GET',
+            success: function(data) {
+                $('#client_contact_person_id').html(data.html);
+            }
+        });
+    });
+    </script>

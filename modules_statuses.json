@@ -4,5 +4,6 @@
     "EmployeeManagement": true,
     "WriterManagement": true,
     "JobCardManagement": true,
-    "EstimateManagement": true
+    "EstimateManagement": true,
+    "JobRegisterManagement": true
 }
