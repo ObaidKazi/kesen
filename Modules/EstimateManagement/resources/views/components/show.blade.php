@@ -63,19 +63,19 @@
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-input name="unit"  placeholder="Unit"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->unit }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->unit }}" disabled/>
                     <x-adminlte-input name="rate"  placeholder="Rate"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->rate }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->rate }}" disabled/>
                     <x-adminlte-input name="verification"  placeholder="Verification"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->verification }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->verification }}" disabled/>
                     <x-adminlte-input name="bank_translation"  placeholder="Bank Translation"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->bank_translation }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->bank_translation }}" disabled/>
                     <x-adminlte-input name="layout_charges"  placeholder="Layout Charges"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges }}" disabled/>
                     <x-adminlte-input name="layout_charges_2"  placeholder="Layout Charges 2"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges_2 }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->layout_charges_2 }}" disabled/>
                     <x-adminlte-input name="lang"  placeholder="Lang"
-                    fgroup-class="col-md-6" type='text' value="{{ $estimate->lang }}" disable/>
+                    fgroup-class="col-md-6" type='text' value="{{ $estimate->lang }}" disabled/>
 
                     </span>
             </div>
