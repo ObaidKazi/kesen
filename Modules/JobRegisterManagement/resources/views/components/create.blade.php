@@ -93,12 +93,15 @@
                         <option value="1">Protocol</option>
                         <option value="2">Non-Protocol / Advertising - Consolidate CON</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="language" fgroup-class="col-md-6"  required value="{{ old('language') }}">
-                        <option value="">Select Language</option>
+                    <span class="col-md-6">
+                    <select class="selectpicker" name="language[]" multiple data-live-search="true">
                         @foreach ($languages as $language)
-                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                            <option value="{{ $language->id }}">
+                                {{ $language->name }}
+                            </option>
                         @endforeach
-                    </x-adminlte-select>
+                      </select>
+                    </span>
                     <x-adminlte-input name="protocol_no"  placeholder="Protocol Number"
                     fgroup-class="col-md-6" value="{{ old('protocol_no') }}"/>
                     <x-adminlte-input name="date"  placeholder="Date"

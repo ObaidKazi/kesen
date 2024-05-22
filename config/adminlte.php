@@ -356,6 +356,14 @@ return [
             'icon' => 'fas fa-fw fa-list',
             'active' => ['job-register-management', 'job-register-management/*', 'regex:@^job-register-management/[0-9]+$@']
         ]
+        ,
+        [
+            'text' => 'Job Card Management',
+            'url' => '/job-card-management',
+            'href' => '/job-card-management',
+            'icon' => 'fas fa-fw fa-list',
+            'active' => ['job-card-management', 'job-card-management/*', 'regex:@^job-card-management/[0-9]+$@']
+        ]
         // [
         //     'text' => 'pages',
         //     'url' => 'admin/pages',

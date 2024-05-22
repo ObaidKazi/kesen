@@ -2,6 +2,7 @@
 
 namespace Modules\JobCardManagement\App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,4 +15,9 @@ class JobCard extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function handle_by(){
+        return $this->belongsTo(User::class,'handled_by');
+    }
+
 }

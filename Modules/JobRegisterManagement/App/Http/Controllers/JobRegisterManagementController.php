@@ -46,7 +46,7 @@ class JobRegisterManagementController extends Controller
             'client_accountant_person_id' => 'required|string',
             'other_details' => 'required|string',
             'type' => 'required|integer',
-            'language' => 'required|string',
+            'language' => 'required|array',
             'date' => 'required|date',
             'description' => 'nullable|string',
             'protocol_no' => 'nullable|string',
@@ -67,7 +67,7 @@ class JobRegisterManagementController extends Controller
         $job_register->other_details = $request->other_details;
         $job_register->type = $request->type;
         $job_register->client_accountant_person_id = $request->client_accountant_person_id;
-        $job_register->language_id = $request->language;
+        $job_register->language_id = json_encode($request->input('language'));
         $job_register->date = $request->date;
         $job_register->description = $request->description;
         $job_register->protocol_no = $request->protocol_no;
@@ -102,6 +102,7 @@ class JobRegisterManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $validator = Validator::make($request->all(), [
             'client_id' => 'required|string',
             'client_contact_person_id' => 'required|string',
@@ -111,7 +112,7 @@ class JobRegisterManagementController extends Controller
             'client_accountant_person_id' => 'required|string',
             'other_details' => 'required|string',
             'type' => 'required|integer',
-            'language' => 'required|string',
+            'language' => 'required|array',
             'date' => 'required|date',
             'description' => 'nullable|string',
             'protocol_no' => 'nullable|string',
@@ -133,7 +134,7 @@ class JobRegisterManagementController extends Controller
             'handled_by_id' => $request->handled_by_id,
             'other_details' => $request->other_details,
             'type' => $request->type,
-            'language_id' => $request->language,
+            'language_id' =>$request->input('language'),
             'date' => $request->date,
             'description' => $request->description,
             'protocol_no' => $request->protocol_no,

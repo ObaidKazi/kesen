@@ -14,5 +14,7 @@ use Modules\JobCardManagement\App\Http\Controllers\JobCardManagementController;
 |
 */
 Route::group(['middleware' => 'auth'], function () {
-Route::resource('jobcard-management', JobCardManagementController::class)->names('jobcard-management');
+Route::resource('job-card-management', JobCardManagementController::class)->names('jobcardmanagement');
 });
+
+Route::get('job-card-management/client/{client_id}', [JobCardManagementController::class, 'getEstimateNo'])->name('jobcardmanagement.estimate');

@@ -21,6 +21,12 @@
         "actionsBox" => true
     ]
 @endphp
+@php
+    $config_language = [
+        "placeholder" => "Search Language...",
+        "allowClear" => true,
+    ]
+@endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -94,13 +100,17 @@
                         <option value="1" {{ $jobRegister->type == 1 ? 'selected' : '' }}>Protocol</option>
                         <option value="2" {{ $jobRegister->type == 2 ? 'selected' : '' }}>Non-Protocol / Advertising - Consolidate CON</option>
                     </x-adminlte-select>
-
-                    <x-adminlte-select name="language" fgroup-class="col-md-6" required>
-                        <option value="">Select Language</option>
-                        @foreach ($languages as $language)
-                            <option value="{{ $language->id }}" {{ $jobRegister->language_id == $language->id ? 'selected' : '' }}>{{ $language->name }}</option>
-                        @endforeach
-                    </x-adminlte-select>
+                    <span class="col-md-6">
+                        <select class="selectpicker" name="language[]" multiple data-live-search="true">
+                            @foreach ($languages as $language)
+                                <option value="{{ $language->id }}" {{ in_array($language->id, $jobRegister->language_id) ? 'selected' : '' }}>
+                                    {{ $language->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </span>
+                    
+                    
 
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-6" value="{{ $jobRegister->protocol_no }}"/>
 

@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('jobcardmanagement::components.list')
+            @include('jobcardmanagement::components.show')
         
 
         {{-- Footer --}}

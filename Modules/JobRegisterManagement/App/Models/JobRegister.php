@@ -21,7 +21,6 @@ class JobRegister extends Model
 
     protected $table='job_register';
 
-
     public function estimate(){
         return $this->belongsTo(Estimates::class,'estimate_id');
     }
@@ -33,5 +32,13 @@ class JobRegister extends Model
     public function handle_by(){
         return $this->belongsTo(User::class,'handled_by_id');
     }
+
+    public function setLanguageIdAttribute($value){
+        $this->attributes['language_id'] = json_encode($value);
+    }
     
+    // Accessor for getting language_id
+    public function getLanguageIdAttribute($value){
+        return json_decode($value, true) ?? [];
+    }
 }
