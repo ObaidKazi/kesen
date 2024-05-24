@@ -55,16 +55,7 @@
     </style>
     <div class="content">
         <div class="content" style="padding-top: 20px;margin-left: 10px">
-            @if(Session::has('message'))
-                <x-adminlte-alert theme="success" title="Success" dismissable>
-                    {{ Session::get('message') }}
-                </x-adminlte-alert>
-            @endif
-            @if(Session::has('alert'))
-                <x-adminlte-alert theme="danger" title="Danger" dismissable>
-                    {{ Session::get('alert') }}
-                </x-adminlte-alert>
-            @endif
+            @include('components.notification')
             <a href="{{ route('writermanagement.addPaymentView',$id) }}"><button class="btn btn-md btn-success" style="float:right;margin:10px">Add Payment</button></a>
             <br>
             
@@ -85,12 +76,12 @@
                             <td>
                                 <a href="{{ route('writermanagement.editPaymentView', [$id,$payment->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                       edit
+                                       Edit
                                     </button>
                                 </a>
                                 <a href="{{ route('writermanagement.showPayment', [$id,$payment->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                       view
+                                       View
                                     </button>
                                 </a>
                                 

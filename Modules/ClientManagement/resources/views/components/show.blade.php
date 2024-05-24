@@ -26,38 +26,50 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="New Client" theme="success"  icon="fas fa-lg fa-person"
-    >
-        <form action="{{ route('clientmanagement.store') }}" method="POST" >
+        <x-adminlte-card title="View Client" theme="success"  icon="fas fa-lg fa-person"
+     >
+        <form action="{{ route('clientmanagement.update', $client->id) }}" method="POST">
+            @method('PUT')
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="name"  placeholder="Client Name"
-                    fgroup-class="col-md-6" required value="{{ old('name') }}" label="Client Name"/>
+                    fgroup-class="col-md-6" required value="{{ $client->name }}" label="Client Name"  disabled/>
                 <x-adminlte-input name="phone_no"  placeholder="Client Number"
-                    fgroup-class="col-md-6" value="{{ old('phone_no') }}" label="Client Number"/>
+                    fgroup-class="col-md-6" value="{{ $client->phone_no}}" label="Client Number" disabled/>
                     <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-6" value="{{ old('landline') }}" label="Landline Number"/>
+                    fgroup-class="col-md-6" value="{{ $client->landline}}" label="Landline Number" disabled/>
                     <x-adminlte-input name="email"  placeholder="Email"
-                    fgroup-class="col-md-6" type='email' value="{{ old('email') }}" label="Email"/>
-                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required value="{{ old('type') }}" label="Client Type">
+                    fgroup-class="col-md-6" type='email' value="{{ $client->email}}" label="Email" disabled/>
+                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required  label="Client Type" disabled>
                         <option value="">Client Type</option>
-                        <option value="1">Protocol</option>
-                        <option value="2">Non Protocol</option>
+                        <option value="1" @if($client->type == '1') selected @else '' @endif>Protocol</option>
+                        <option value="2" @if($client->type == '2') selected @else '' @endif>Non Protocol</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required value="{{ old('metrix') }}" label="Metrix">
+                    <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required label="Metrix" disabled>
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                            <option value="{{ $key }}" @if ($client->metrix == $key) selected @endif>{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-textarea name="address"  placeholder="Address"
-                    fgroup-class="col-md-6" value="{{ old('address') }}" label="Address"/>
+                    fgroup-class="col-md-6" label="Address" disabled>{{ $client->address}}</x-adminlte-textarea>
                     <span id="protocol" class="col-md-6">
-
+                    <span id="protocol" class="col-md-6">
+                        @if($client->type == '2')
+                            <div class="form-group col-md-12" style="padding: 0px;margin:0px">
+                                <div class="input-group" >
+                                    <select name="protocol_data" class="form-control" required="required" disabled>
+                                        <option value="">Non Protocol Type</option>
+                                        <option value="Advertisement ADV" @if($client->protocol_data == 'Advertisement ADV') selected @else '' @endif>Advertisement ADV</option>
+                                        <option value="Consolidated CON" @if($client->protocol_data == 'Consolidated CON') selected @else '' @endif>Consolidated CON</option>
+                                    </select>
+                                </div>
+                            </div>
+                        @endif
                     </span>
             </div>
             
-            <x-adminlte-button label="Submit" type="submit" class="mt-3"/>
+            <x-adminlte-button label="Back" onclick="window.history.back();" class="mt-3"/>
 
         </form>
         </x-adminlte-card>

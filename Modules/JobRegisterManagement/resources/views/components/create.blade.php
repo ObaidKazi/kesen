@@ -50,36 +50,36 @@
         <form action="{{ route('jobregistermanagement.store') }}" method="POST" >
             @csrf
             <div class="row pt-2">
-                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6"  required >
+                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6"  required  label="Client">
                     <option value="">Select Client</option>
                     @foreach ($clients as $client)
                        <option value="{{ $client->id }}">{{ $client->name }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id" fgroup-class="col-md-6"  required >
+                <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id" fgroup-class="col-md-6"  required  label="Contact Person">
                     <option value="">Select Contact Person</option>
                 </x-adminlte-select>
-                <x-adminlte-select2 name="estimate_id"  fgroup-class="col-md-6"  required :config="$config" >
+                <x-adminlte-select2 name="estimate_id"  fgroup-class="col-md-6"  required :config="$config" label="Estimate Number">
                     <option value="">Select Estimate</option>
                     @foreach ($estimates as $estimate)
                        <option value="{{ $estimate->id }}">{{ $estimate->estimate_no }}</option>
                     @endforeach
                 </x-adminlte-select2>
-                <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required value="{{ old('metrix') }}">
+                <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required value="{{ old('metrix') }}" label="Metrix">
                     <option value="">Select Metrix</option>
                     @foreach ($metrics as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
                 </x-adminlte-select>
 
-                <x-adminlte-select name="handled_by_id" fgroup-class="col-md-6"  required value="{{ old('handled_by_id') }}">
+                <x-adminlte-select name="handled_by_id" fgroup-class="col-md-6"  required value="{{ old('handled_by_id') }}" label="Handled By">
                     <option value="">Select Handled By</option>
                     @foreach ($users as  $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </x-adminlte-select>
 
-                <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-6"  required value="{{ old('client_accountant_person_id') }}">
+                <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-6"  required value="{{ old('client_accountant_person_id') }}" label="Accountant">
                     <option value="">Select Accountant</option>
                     @foreach ($accountants as  $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -87,13 +87,16 @@
                 </x-adminlte-select>
            
                 <x-adminlte-textarea name="other_details"  placeholder="Other Details"
-                    fgroup-class="col-md-6" value="{{ old('other_details') }}"/>
-                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required value="{{ old('type') }}">
+                    fgroup-class="col-md-6" value="{{ old('other_details') }}" label="Other Details"/>
+                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required value="{{ old('type') }}" label="Job Type">
                         <option value="">Job Type</option>
                         <option value="1">Protocol</option>
                         <option value="2">Non-Protocol / Advertising - Consolidate CON</option>
                     </x-adminlte-select>
                     <span class="col-md-6">
+                        <label for="language">
+                            Select Language
+                        </label>
                     <select class="selectpicker" name="language[]" multiple data-live-search="true">
                         @foreach ($languages as $language)
                             <option value="{{ $language->id }}">
@@ -103,14 +106,14 @@
                       </select>
                     </span>
                     <x-adminlte-input name="protocol_no"  placeholder="Protocol Number"
-                    fgroup-class="col-md-6" value="{{ old('protocol_no') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('protocol_no') }}" label="Protocol Number"/>
                     <x-adminlte-input name="date"  placeholder="Date"
-                    fgroup-class="col-md-6" type='date' value="{{ old('date') }}" required/>
+                    fgroup-class="col-md-6" type='date' value="{{ old('date') }}" required label="Date"/>
                     <x-adminlte-textarea name="description"  placeholder="HEADING / DESCRIPTION"
-                    fgroup-class="col-md-6" value="{{ old('description') }}"/>
-                    <x-adminlte-select name="status" fgroup-class="col-md-6"  required value="{{ old('status') }}">
+                    fgroup-class="col-md-6" value="{{ old('description') }}"  label="HEADING / DESCRIPTION"/>
+                    <x-adminlte-select name="status" fgroup-class="col-md-6"  required value="{{ old('status') }}" label="Status">
                         <option value="">Select Status</option>
-                            <option value="0">Pending</option>
+                            <option value="0" selected>Pending</option>
                             <option value="1">Approve</option>
                             <option value="2">Cancel</option>
                     </x-adminlte-select>

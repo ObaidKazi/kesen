@@ -76,6 +76,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('employeemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Employee</button></a>
         <br>
@@ -96,7 +97,10 @@
                         <td>{{ $row->updated_by }}</td>
                         <td>
                             <a href="{{route('employeemanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                                Edit
+                            </button></a>
+                            <a href="{{route('employeemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                View
                             </button></a>
                             </button>
                             @if($row->status == 1)

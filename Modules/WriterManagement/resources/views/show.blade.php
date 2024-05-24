@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
             
-            @include('writermanagement::components.list')
+            @include('writermanagement::components.show')
         
 
         {{-- Footer --}}

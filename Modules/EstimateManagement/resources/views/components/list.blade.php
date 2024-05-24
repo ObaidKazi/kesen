@@ -82,6 +82,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('estimatemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Estimate</button></a>
         <br>

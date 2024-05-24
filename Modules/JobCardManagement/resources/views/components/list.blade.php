@@ -88,6 +88,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('jobcardmanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Job Card</button></a>
         <br>

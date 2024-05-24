@@ -1,6 +1,44 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
-@inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
+@inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
+@php
+    $metrics = config('services.metrix');
+    $language_heads = [
+        ['label' => 'Sr. No.'],
+        ['label' => 'Language Name'],
+        ['label' => 'Per Unit Charges'],
+        ['label' => 'Checking Charges'],
+        ['label' => 'Bt Charges'],
+        ['label' => 'Bt Checking Charges'],
+        ['label' => 'Advertising Charges'],
+        ['label' => 'Action'],
+    ];
 
+    $language_config = [
+        'order' => [[1, 'asc']],
+        'paging' => true,
+        'lengthMenu' => [10, 50, 100, 500],
+    ];
+
+    $payment_heads = [
+        ['label' => 'Sr. No.'],
+        ['label' => 'Payment Method'],
+        ['label' => 'Metrix'],
+        ['label' => 'Apply GST'],
+        ['label' => 'Apply TDS'],
+        ['label' => 'Period (From)'],
+        ['label' => 'Period (To)'],
+        ['label' => 'Online-REF no / Cheque no'],
+        ['label' => 'Performance Charge'],
+        ['label' => 'Deductible'],
+        ['label' => 'Action'],
+    ];
+
+    $payment_config = [
+        'order' => [[1, 'asc']],
+        'paging' => true,
+        'lengthMenu' => [10, 50, 100, 500],
+    ];
+@endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -25,36 +63,96 @@
     @endif
 
     {{-- Main Content --}}
-    <div class="content" style="padding-top: 20px;margin-left: 10px">
+    <div class="content" style="padding-top: 20px; margin-left: 10px">
+        <x-adminlte-card title="Edit Writer" theme="success" icon="fas fa-lg fa-language">
+            <form action="{{ route('writermanagement.update', $writer->id) }}" method="POST">
+                @method('PUT')
+                @csrf
+                <div class="row pt-2">
+                    <x-adminlte-input name="writer_name" placeholder="Writer Name" fgroup-class="col-md-6" required value="{{ $writer->writer_name }}" label="Writer Name" />
+                    <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-6" required value="{{ $writer->email }}" label="Email" />
+                    <x-adminlte-input name="phone_no" placeholder="Phone Number" fgroup-class="col-md-6" required value="{{ $writer->phone_no }}" label="Phone Number" />
+                    <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-6" required value="{{ $writer->landline }}" label="Landline" />
+                    <x-adminlte-input name="code" placeholder="Writer Code" fgroup-class="col-md-6" value="{{ $writer->code }}" label="Writer Code" />
+                    <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-6" label="Address">{{ $writer->address }}</x-adminlte-textarea>
+                </div>
 
-            <x-adminlte-card title="New Writer" theme="success" icon="fas fa-lg fa-language">
+                <x-adminlte-button label="Submit" type="submit" class="mt-3" />
+            </form>
 
+            <x-adminlte-datatable id="table8" class="mt-3" :heads="$language_heads" head-theme="dark" striped :config="$language_config" with-buttons>
+                @foreach ($language_map as $index => $row)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $row->language_id }}</td>
+                        <td>{{ $row->per_unit_charges }}</td>
+                        <td>{{ $row->checking_charges }}</td>
+                        <td>{{ $row->bt_charges }}</td>
+                        <td>{{ $row->bt_checking_charges }}</td>
+                        <td>{{ $row->advertising_charges }}</td>
+                        <td>
+                            <a href="{{ route('writermanagement.editLanguageMap', [$writer->id, $row->id]) }}">
+                                <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button>
+                            </a>
+                            <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$writer->id, $row->id]) }}')">
+                                <i class="fa fa-lg fa-fw fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+            </x-adminlte-datatable>
 
-                <form action="{{ route('writermanagement.update', $writer->id) }}" method="POST">
-                    @method('PUT')
-                    @csrf
-                    <div class="row pt-2">
-                        <x-adminlte-input name="writer_name" placeholder="Writer Name" fgroup-class="col-md-6" required
-                            value="{{ $writer->writer_name }}" />
-                        <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-6" required
-                            value="{{ $writer->email }}" />
-                        <x-adminlte-input name="phone" placeholder="Phone Number" fgroup-class="col-md-6" required
-                            value="{{ $writer->phone }}" />
-                        <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-6" required
-                            value="{{ $writer->landline }}" />
-                        <x-adminlte-input name="code" placeholder="Writer Code" fgroup-class="col-md-6"
-                            value="{{ $writer->code }}" />
-                        <x-adminlte-textarea name="address" placeholder="Address"
-                            fgroup-class="col-md-6">{{ $writer->address }}</x-adminlte-textarea>
-
-
-
-                    </div>
-
-                    <x-adminlte-button label="Submit" type="submit" class="mt-3" />
-
-                </form>
-            </x-adminlte-card>
-        </div>
-
+            <x-adminlte-datatable id="table9" class="mt-3" :heads="$payment_heads" head-theme="dark" striped :config="$payment_config" with-buttons>
+                @foreach ($payments as $index => $payment)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $payment->payment_method }}</td>
+                        <td>{{ $payment->metrix }}</td>
+                        <td>{{ $payment->apply_gst ? 'Yes' : 'No' }}</td>
+                        <td>{{ $payment->apply_tds ? 'Yes' : 'No' }}</td>
+                        <td>{{ $payment->period_from }}</td>
+                        <td>{{ $payment->period_to }}</td>
+                        <td>{{ $payment->online_ref_no ?? $payment->cheque_no }}</td>
+                        <td>{{ $payment->performance_charge }}</td>
+                        <td>{{ $payment->deductible }}</td>
+                        <td>
+                            <a href="{{ route('writermanagement.editPaymentView', [$writer->id, $payment->id]) }}">
+                                <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button>
+                            </a>
+                            <a href="{{ route('writermanagement.showPayment', [$writer->id, $payment->id]) }}">
+                                <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">View</button>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </x-adminlte-datatable>
+        </x-adminlte-card>
     </div>
+</div>
+
+<script>
+    function deleteLanguageMap(url) {
+        Swal.fire({
+            title: "Are you sure?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = url;
+            }
+        });
+    }
+</script>
+<script>
+    function deletePayment(url) {
+        Swal.fire({
+            title: "Are you sure?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = url;
+            }
+        });
+    }
+</script>

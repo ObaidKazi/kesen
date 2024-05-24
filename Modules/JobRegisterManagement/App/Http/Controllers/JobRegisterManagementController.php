@@ -75,7 +75,7 @@ class JobRegisterManagementController extends Controller
         $job_register->cancel_reason = $request->cancel_reason;
         $job_register->save();
         
-        return redirect()->route('jobregistermanagement.index')->with('success', 'Job register created successfully.');
+        return redirect()->route('jobregistermanagement.index')->with('message', 'Job register created successfully.');
     }
 
     /**
@@ -142,7 +142,7 @@ class JobRegisterManagementController extends Controller
             'cancel_reason' => $request->cancel_reason,
         ]);
 
-        return redirect()->route('jobregistermanagement.index')->with('success', 'Job register updated successfully.');
+        return redirect()->route('jobregistermanagement.index')->with('message', 'Job register updated successfully.');
     }
 
     /**

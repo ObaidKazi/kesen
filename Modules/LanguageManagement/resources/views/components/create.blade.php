@@ -35,9 +35,9 @@
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="name"  placeholder="Language Name"
-                    fgroup-class="col-md-6" required value="{{ old('name') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('name') }}" label="Language Name"/>
                 <x-adminlte-input name="code"  placeholder="Language Code"
-                    fgroup-class="col-md-6" value="{{ old('code') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('code') }}" label="Language Code"/>
                     
                     
             </div>

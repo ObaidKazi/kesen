@@ -44,24 +44,24 @@
         <form action="{{ route('jobcardmanagement.store') }}" method="POST" >
             @csrf
             <div class="row pt-2">
-                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6"  required >
+                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6"  required label="Client">
                     <option value="">Select Client</option>
                     @foreach ($clients as $client)
                        <option value="{{ $client->id }}">{{ $client->name }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-select name="estimate_id" id="estimate_id_span" fgroup-class="col-md-6"  required >
+                <x-adminlte-select name="estimate_id" id="estimate_id_span" fgroup-class="col-md-6"  required label="Estimate Number">
                     <option value="">Select Estimate Number</option>
                 </x-adminlte-select>
                 
 
-                <x-adminlte-select name="handled_by" fgroup-class="col-md-6"  required value="{{ old('handled_by_id') }}">
+                <x-adminlte-select name="handled_by" fgroup-class="col-md-6"  required value="{{ old('handled_by_id') }}" label="Handled By">
                     <option value="">Select Handled By</option>
                     @foreach ($users as  $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-select name="informed_to" fgroup-class="col-md-6"  required value="{{ old('informed_to') }}">
+                <x-adminlte-select name="informed_to" fgroup-class="col-md-6"  required value="{{ old('informed_to') }}" label="Infomed To">
                     <option value="">Select Informed To</option>
                     @foreach ($users as  $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -69,16 +69,16 @@
                 </x-adminlte-select>
            
                 <x-adminlte-textarea name="description"  placeholder="Description"
-                    fgroup-class="col-md-6" value="{{ old('description') }}"/>
-                    <x-adminlte-select name="site_specific" fgroup-class="col-md-6" id="site_specific" required value="{{ old('site_specific') }}">
+                    fgroup-class="col-md-6" value="{{ old('description') }}"  label="Description"/>
+                    <x-adminlte-select name="site_specific" fgroup-class="col-md-6" id="site_specific" required value="{{ old('site_specific') }}" label="Site Specific">
                         <option value="">Select Site Specific</option>
                         <option value="1">Yes</option>
                         <option value="0">No</option>
                     </x-adminlte-select>
                     <x-adminlte-input name="bill_no"  placeholder="Bill Number"
-                    fgroup-class="col-md-6" value="{{ old('bill_no') }}" />
+                    fgroup-class="col-md-6" value="{{ old('bill_no') }}"  label="Bill Number"/>
                     <x-adminlte-input name="protocol_no"  placeholder="Protocol Number"
-                    fgroup-class="col-md-6" value="{{ old('protocol_no') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('protocol_no') }}" label="Protocol Number"/>
                     <x-adminlte-input name="job_card_no"  placeholder="Job Card Number"
                     fgroup-class="col-md-6" value="{{ old('job_card_no') }}" label="Job Card Number"/>
                     <x-adminlte-input name="date"  placeholder="Date"
@@ -88,13 +88,13 @@
                     <x-adminlte-input name="bill_date"  placeholder="Bill Date"
                     fgroup-class="col-md-6" type='date' value="{{ old('bill_date') }}" label="Bill Date"/>
                     <x-adminlte-input name="pd"  placeholder="PD"
-                    fgroup-class="col-md-6" value="{{ old('pd') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('pd') }}" label="PD"/>
                     <x-adminlte-input name="cr"  placeholder="CR"
-                    fgroup-class="col-md-6" value="{{ old('cr') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('cr') }}" label="CR"/>
                     <x-adminlte-input name="cn"  placeholder="CN"
-                    fgroup-class="col-md-6" value="{{ old('cn') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('cn') }}" label="CN"/>
                     <x-adminlte-input name="dv"  placeholder="DV"
-                    fgroup-class="col-md-6" value="{{ old('dv') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('dv') }}" label="DV"/>
                     <x-adminlte-input name="qc"  placeholder="QC"
                     fgroup-class="col-md-6" value="{{ old('qc') }}" label="QC"/>
                     <x-adminlte-input name="sent_date"  placeholder="Date"

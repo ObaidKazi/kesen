@@ -59,7 +59,7 @@
     </header>
 
     <section>
-        <div>No: Auto</div>
+        <div>No: {{$estimate->estimate_no}}</div>
         <div class="right-align">F/P/7.2.3</div>
         <div class="right-align">Date: {{$estimate->created_at->format('d/m/Y')}}</div>
 

@@ -26,7 +26,7 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="Edit Language" theme="success"  icon="fas fa-lg fa-language"
+        <x-adminlte-card title="Show Language" theme="success"  icon="fas fa-lg fa-language"
     >
         
         <form action="{{ route('language-management.update', $language->id) }}" method="POST">
@@ -34,13 +34,13 @@
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="name"  placeholder="Language Name"
-                    fgroup-class="col-md-6" required value="{{ $language->name }}" label="Language Name"/>
+                    fgroup-class="col-md-6" required value="{{ $language->name }}" label="Language Name" disabled/>
                 <x-adminlte-input name="code"  placeholder="Language Code"
-                    fgroup-class="col-md-6" value="{{ $language->code}}" label="Language Code"/>
+                    fgroup-class="col-md-6" value="{{ $language->code}}" label="Language Code" disabled/>
                     
             </div>
             
-            <x-adminlte-button label="Submit" type="submit" class="mt-3"/>
+            <x-adminlte-button label="Back" onclick="window.history.back();" class="mt-3"/>
 
         </form>
         </x-adminlte-card>

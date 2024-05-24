@@ -15,6 +15,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #success-msg {
+            transition: opacity 1s ease-out;
+        }
+        #alert-msg {
+            transition: opacity 1s ease-out;
+        }
+    </style>
+    
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Custom Meta Tags --}}
@@ -118,7 +127,35 @@
 
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
+    
+    
+    <script>
+        // Wait for the document to load
+        document.addEventListener("DOMContentLoaded", function() {
+            // Find the alert element by its ID
+            var alertSuccess = document.getElementById('success-msg');
+            var alertDanger = document.getElementById('alert-msg');
+            
+            // Set a timeout to hide the alert after 5 seconds (5000 milliseconds)
+            setTimeout(function() {
+                alertSuccess.style.opacity = '0';
+            }, 5000);
+    
+            // Set another timeout to set display to 'none' after the transition ends
+            setTimeout(function() {
+                alertSuccess.style.display = 'none';
+            }, 6000); 
 
+            setTimeout(function() {
+                alertDanger.style.opacity = '0';
+            }, 5000);
+    
+            // Set another timeout to set display to 'none' after the transition ends
+            setTimeout(function() {
+                alertDanger.style.display = 'none';
+            }, 6000); // Allow 1 second for the opacity transition
+        });
+    </script>
 </body>
 
 </html>

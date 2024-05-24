@@ -65,7 +65,8 @@ class WriterManagementController extends Controller
      */
     public function show($id)
     {
-        return view('writermanagement::show');
+        $writer=Writer::find($id);
+        return view('writermanagement::show')->with('writer',$writer);
     }
 
     /**
@@ -74,7 +75,9 @@ class WriterManagementController extends Controller
     public function edit($id)
     {
         $writer=Writer::find($id);
-        return view('writermanagement::edit')->with('writer',$writer);
+        $language_map=WriterLanguageMap::where('writer_id',$id)->get();
+        $payments= WriterPayment::where('writer_id',$id)->get();
+        return view('writermanagement::edit',compact('writer','language_map','payments'))->with('id',$id);
     }
 
     /**
@@ -118,7 +121,7 @@ class WriterManagementController extends Controller
     public  function deleteLanguageMap($writer_id,$id){
         $language_map=WriterLanguageMap::find($id);
         $language_map->delete();
-        return redirect(route('writermanagement.viewLanguageMaps',['writer_id'=>$writer_id]));
+        return redirect()->back();
     }
 
     public function editLanguageMap($writer_id,$id){
@@ -147,7 +150,7 @@ class WriterManagementController extends Controller
         $language_map->advertising_charges=$request->advertising_charges;
         $language_map->save();
         Session::flash('message', 'Language Map Updated Successfully');
-        return redirect(route('writermanagement.viewLanguageMaps',['writer_id'=>$writer_id]));
+        return redirect()->back();
     }
 
     public function addLanguageMapView($writer_id){
@@ -253,7 +256,7 @@ class WriterManagementController extends Controller
         $payment = WriterPayment::where('id',$id)->first();
         $payment->update($request->all());
         
-        return redirect(route('writermanagement.viewPayments',$payment->writer_id))->with('message', 'Payment updated successfully.');
+        return redirect()->back();
     }
 
     public function showPayment($writer_id,$id)

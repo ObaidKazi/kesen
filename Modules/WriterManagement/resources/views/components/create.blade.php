@@ -34,17 +34,17 @@
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="writer_name"  placeholder="Writer Name"
-                    fgroup-class="col-md-6" required value="{{ old('writer_name') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('writer_name') }}" label="Writer Name"/>
                     <x-adminlte-input name="email"  placeholder="Email"
-                    fgroup-class="col-md-6" required value="{{ old('email') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('email') }}" label="Email"/>
                     <x-adminlte-input name="phone"  placeholder="Phone Number"
-                    fgroup-class="col-md-6" required value="{{ old('phone') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('phone') }}" label="Phone Number"/>
                     <x-adminlte-input name="landline"  placeholder="Landline"
-                    fgroup-class="col-md-6" required value="{{ old('landline') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('landline') }}" label="Landline"/>
                 <x-adminlte-input name="code"  placeholder="Writer Code"
-                    fgroup-class="col-md-6" value="{{ old('code') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('code') }}" label="Writer Code"/>
                     <x-adminlte-textarea name="address"  placeholder="Address"
-                    fgroup-class="col-md-6" value="{{ old('address') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('address') }}" label="Address"/>
 
                     
                     

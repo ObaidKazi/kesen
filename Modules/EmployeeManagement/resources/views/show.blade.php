@@ -34,8 +34,8 @@
         @endif
 
         {{-- Content Wrapper --}}
-            
-            @include('writermanagement::components.list')
+        
+            @include('employeemanagement::components.show')
         
 
         {{-- Footer --}}

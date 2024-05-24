@@ -70,6 +70,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('clientmanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Client</button></a>
         <br>
@@ -90,6 +91,9 @@
                         <td width="200px">
                             <a href="{{route('clientmanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
+                            </button></a>
+                            <a href="{{route('clientmanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                View
                             </button></a>
                             <a href="{{route('clientmanagement.viewContacts', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Contacts">
                                 View Contacts

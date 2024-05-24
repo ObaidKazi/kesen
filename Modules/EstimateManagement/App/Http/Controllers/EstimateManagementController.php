@@ -22,7 +22,7 @@ class EstimateManagementController extends Controller
     {
         $estimate=Estimates::where('id',$id)->first();
         $pdf = FacadePdf::loadView('estimatemanagement::pdf.estimate',['estimate'=>$estimate]);
-        return $pdf->download('estimate.pdf');
+        return $pdf->download('estimate-'.str_replace(' ', '-', $estimate->client->name).' .pdf');
     }
 
     public function getContactPerson($id){
@@ -91,7 +91,7 @@ class EstimateManagementController extends Controller
         $estimate->created_by = Auth()->user()->id;
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
-        return redirect('/estimate-management');
+        return redirect('/estimate-management')->with('message', 'Estimate created successfully.');;
     }
 
     /**
@@ -99,7 +99,7 @@ class EstimateManagementController extends Controller
      */
     public function show($id)
     {
-        $estimate=Estimates::find($id);
+        $estimate=Estimates::where('id',$id)->with('client','client_person')->first();
         return view('estimatemanagement::show')->with('estimate',$estimate);
     }
 
@@ -109,7 +109,8 @@ class EstimateManagementController extends Controller
     public function edit($id)
     {
         $estimate=Estimates::find($id);
-        return view('estimatemanagement::edit')->with('estimate',$estimate);
+        $contact_persons=ContactPerson::where('client_id',$estimate->client_id)->get();
+        return view('estimatemanagement::edit',compact('estimate','contact_persons'));
     }
 
     /**
@@ -154,7 +155,7 @@ class EstimateManagementController extends Controller
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
 
-        return redirect('/estimate-management');
+        return redirect('/estimate-management')->with('message', 'Estimate updated successfully.');;
     }
 
   

@@ -39,6 +39,7 @@ class ClientManagementController extends Controller
             'phone_no'=>'required|numeric|unique:clients,phone_no',
             'landline'=>'nullable|numeric|unique:clients,landline',
             'type'=>'required|in:1,2',
+            'metrix'=>'required',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',
         ]);
@@ -48,10 +49,11 @@ class ClientManagementController extends Controller
         $client->phone_no=$request->phone_no;
         $client->landline=$request->landline;
         $client->type=$request->type;
+        $client->metrix=$request->metrix;
         $client->protocol_data=$request->protocol_data;
         $client->address=$request->address;
         $client->save();
-        return redirect('/client-management');
+        return redirect('/client-management')->with('message', 'Client created successfully.');;
     }
    
     /**
@@ -59,7 +61,8 @@ class ClientManagementController extends Controller
      */
     public function show($id)
     {
-        return view('clientmanagement::show');
+        $client=Client::find($id);
+        return view('clientmanagement::show')->with('client',$client);
     }
 
     
@@ -69,7 +72,8 @@ class ClientManagementController extends Controller
     public function edit($id)
     {
         $client=Client::find($id);
-        return view('clientmanagement::edit')->with('client',$client);
+        $contact_persons=ContactPerson::where('client_id',$id)->get();
+        return view('clientmanagement::edit',compact('client','contact_persons'));
     }
 
     /**
@@ -83,6 +87,7 @@ class ClientManagementController extends Controller
             'phone_no'=>'required|numeric|unique:clients,phone_no,' . $id . ',id',
             'landline'=>'nullable|numeric|unique:clients,landline,' . $id . ',id',
             'type'=>'required|in:1,2',
+            'metrix'=>'required',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',
         ]);
@@ -91,11 +96,12 @@ class ClientManagementController extends Controller
         $client->email=$request->email;
         $client->phone_no=$request->phone_no;
         $client->landline=$request->landline;
+        $client->metrix=$request->metrix;
         $client->type=$request->type;
         $client->protocol_data=$request->protocol_data;
         $client->address=$request->address;
         $client->save();
-        return redirect('/client-management');
+        return redirect('/client-management')->with('message', 'Client updated successfully.');;
     }
 
     /**
@@ -142,7 +148,7 @@ class ClientManagementController extends Controller
         $contact_persons->landline=$request->landline;
         $contact_persons->designation=$request->designation;
         $contact_persons->save();
-        return redirect(route('clientmanagement.viewContacts', $id));
+        return redirect(route('clientmanagement.viewContacts', $id))->with('message', 'Contact added successfully.');;
     }
 
 
@@ -168,7 +174,7 @@ class ClientManagementController extends Controller
         $contact_person->designation=$request->designation;
         $contact_person->save();
 
-        return redirect(route('clientmanagement.viewContacts', $id));
+        return redirect(route('clientmanagement.viewContacts', $id))->with('message', 'Contact updated successfully.');;
     }
 
     public function disableEnableContact($id,$contact_id){

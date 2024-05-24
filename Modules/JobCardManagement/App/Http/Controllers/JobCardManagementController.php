@@ -58,7 +58,7 @@ class JobCardManagementController extends Controller
 
         $jobCard->save();
 
-        return redirect(route('jobcardmanagement.index'));
+        return redirect(route('jobcardmanagement.index'))->with('message', 'Job Card created successfully.');;
     }
 
     public function show($id)
@@ -99,7 +99,7 @@ class JobCardManagementController extends Controller
         $jobCard = JobCard::find($id);
 
         if (!$jobCard) {
-            return abort(403, 'Job Card not found');
+            return abort(403);
         }
 
         $jobCard->fill($request->except('site_specific_path'));
@@ -114,7 +114,7 @@ class JobCardManagementController extends Controller
 
         $jobCard->save();
 
-        return redirect(route('jobcardmanagement.index'));
+        return redirect(route('jobcardmanagement.index'))->with('message', 'Job Card updated successfully.');;
     }
 
     public function edit($id){

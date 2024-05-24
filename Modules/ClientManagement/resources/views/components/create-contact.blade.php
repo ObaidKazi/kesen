@@ -33,15 +33,15 @@
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="name"  placeholder="Contact Person Name"
-                    fgroup-class="col-md-6" required value="{{ old('name') }}"/>
+                    fgroup-class="col-md-6" required value="{{ old('name') }}" label="Contact Person Name"/>
                 <x-adminlte-input name="phone_no"  placeholder="Contact Person Number"
-                    fgroup-class="col-md-6" value="{{ old('phone_no') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('phone_no') }}" label="Contact Person Number"/>
                     <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-6" value="{{ old('landline') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('landline') }}" label="Landline Number"/>
                     <x-adminlte-input name="email"  placeholder="Email"
-                    fgroup-class="col-md-6" type='email' value="{{ old('email') }}"/>
+                    fgroup-class="col-md-6" type='email' value="{{ old('email') }}" label="Email"/>
                     <x-adminlte-input name="designation"  placeholder="Designation"
-                    fgroup-class="col-md-6" value="{{ old('designation') }}"/>
+                    fgroup-class="col-md-6" value="{{ old('designation') }}" label="Designation"/>
                     <span id="protocol" class="col-md-6">
 
                     </span>

@@ -310,6 +310,31 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+
+        [
+            'text' => 'Estimate Management',
+            'url' => '/estimate-management',
+            'href' => '/estimate-management',
+            'icon' => 'fas fa-fw fa-list',
+            'active' => ['estimate-management', 'estimate-management/*', 'regex:@^estimate-management/[0-9]+$@']
+        ]
+        ,
+        [
+            'text' => 'Job Register Management',
+            'url' => '/job-register-management',
+            'href' => '/job-register-management',
+            'icon' => 'fas fa-fw fa-list',
+            'active' => ['job-register-management', 'job-register-management/*', 'regex:@^job-register-management/[0-9]+$@']
+        ]
+        ,
+        [
+            'text' => 'Job Card Management',
+            'url' => '/job-card-management',
+            'href' => '/job-card-management',
+            'icon' => 'fas fa-fw fa-list',
+            'active' => ['job-card-management', 'job-card-management/*', 'regex:@^job-card-management/[0-9]+$@']
+        ],
+        ['header' => 'SETTINGS'],
         [
             'text' => 'Client Management',
             'url' => '/client-management',
@@ -339,30 +364,6 @@ return [
             'href' => '/writer-management',
             'icon' => 'fas fa-fw fa-user',
             'active' => ['writer-management', 'writer-management/*', 'regex:@^writer-management/[0-9]+$@']
-        ]
-        ,
-        [
-            'text' => 'Estimate Management',
-            'url' => '/estimate-management',
-            'href' => '/estimate-management',
-            'icon' => 'fas fa-fw fa-list',
-            'active' => ['estimate-management', 'estimate-management/*', 'regex:@^estimate-management/[0-9]+$@']
-        ]
-        ,
-        [
-            'text' => 'Job Register Management',
-            'url' => '/job-register-management',
-            'href' => '/job-register-management',
-            'icon' => 'fas fa-fw fa-list',
-            'active' => ['job-register-management', 'job-register-management/*', 'regex:@^job-register-management/[0-9]+$@']
-        ]
-        ,
-        [
-            'text' => 'Job Card Management',
-            'url' => '/job-card-management',
-            'href' => '/job-card-management',
-            'icon' => 'fas fa-fw fa-list',
-            'active' => ['job-card-management', 'job-card-management/*', 'regex:@^job-card-management/[0-9]+$@']
         ]
         // [
         //     'text' => 'pages',

@@ -56,51 +56,54 @@
                 @csrf
                 @method('PUT')
                 <div class="row pt-2">
-                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" required label="Client"> 
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}" {{ $jobRegister->client_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id" fgroup-class="col-md-6" required label="Contact Person">
                         <option value="">Select Contact Person</option>
                         <!-- Populate this dynamically based on selected client -->
                     </x-adminlte-select>
-                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-6" required :config="$config">
+                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-6" required :config="$config" label="Estimate Number">
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)
                             <option value="{{ $estimate->id }}" {{ $jobRegister->estimate_id == $estimate->id ? 'selected' : '' }}>{{ $estimate->estimate_no }}</option>
                         @endforeach
                     </x-adminlte-select2>
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="metrix" fgroup-class="col-md-6" required label="Metrix">
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $key => $value)
                             <option value="{{ $key }}" {{ $jobRegister->metrix == $key ? 'selected' : '' }}>{{ $value }}</option>
                         @endforeach
                     </x-adminlte-select>
 
-                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-6" required label="Handled By">
                         <option value="">Select Handled By</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" {{ $jobRegister->handled_by_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
                     </x-adminlte-select>
 
-                    <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-6" required label="Accountant">
                         <option value="">Select Accountant</option>
                         @foreach ($accountants as $user)
                             <option value="{{ $user->id }}" {{ $jobRegister->client_accountant_person_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
                     </x-adminlte-select>
 
-                    <x-adminlte-textarea name="other_details" placeholder="Other Details" fgroup-class="col-md-6">{{ $jobRegister->other_details }}</x-adminlte-textarea>
+                    <x-adminlte-textarea name="other_details" placeholder="Other Details" fgroup-class="col-md-6" label="Other Details">{{ $jobRegister->other_details }}</x-adminlte-textarea>
 
-                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required>
+                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required label="Job Type">
                         <option value="">Job Type</option>
                         <option value="1" {{ $jobRegister->type == 1 ? 'selected' : '' }}>Protocol</option>
                         <option value="2" {{ $jobRegister->type == 2 ? 'selected' : '' }}>Non-Protocol / Advertising - Consolidate CON</option>
                     </x-adminlte-select>
                     <span class="col-md-6">
+                        <label for="language">
+                            Select Language
+                        </label>
                         <select class="selectpicker" name="language[]" multiple data-live-search="true">
                             @foreach ($languages as $language)
                                 <option value="{{ $language->id }}" {{ in_array($language->id, $jobRegister->language_id) ? 'selected' : '' }}>
@@ -112,13 +115,13 @@
                     
                     
 
-                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-6" value="{{ $jobRegister->protocol_no }}"/>
+                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-6" value="{{ $jobRegister->protocol_no }}" label="Protocol Number"/>
 
-                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type="date" value="{{ $jobRegister->date }}" required/>
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type="date" value="{{ $jobRegister->date }}" required label="Date"/>
 
-                    <x-adminlte-textarea name="description" placeholder="HEADING / DESCRIPTION" fgroup-class="col-md-6">{{ $jobRegister->description }}</x-adminlte-textarea>
+                    <x-adminlte-textarea name="description" placeholder="HEADING / DESCRIPTION" fgroup-class="col-md-6" label="HEADING / DESCRIPTION">{{ $jobRegister->description }}</x-adminlte-textarea>
 
-                    <x-adminlte-select name="status" fgroup-class="col-md-6" required>
+                    <x-adminlte-select name="status" fgroup-class="col-md-6" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" {{ $jobRegister->status == 0 ? 'selected' : '' }}>Pending</option>
                         <option value="1" {{ $jobRegister->status == 1 ? 'selected' : '' }}>Approve</option>
@@ -126,6 +129,9 @@
                     </x-adminlte-select>
 
                     <span id="cancel" class="col-md-6">
+                        <label for="language">
+                            Cancel Reason
+                        </label>
                         @if($jobRegister->status == 2)
                             <div class="form-group col-md-12" style="padding: 0px;margin:0px">
                                 <div class="input-group">

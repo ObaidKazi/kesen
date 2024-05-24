@@ -68,6 +68,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('clientmanagement.addContact',$id) }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Contact</button></a>
         <br>
@@ -86,7 +87,7 @@
                         <td>{{ $row->designation }}</td>
                         <td>
                             <a href="{{route('clientmanagement.editContactForm',[$id,$row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                                Edit
                             </button></a>
                             @if($row->status==1)
                             <a href="{{route('clientmanagement.disableEnableContact',[$id,$row->id])}}"><button class="btn btn-xs btn-danger  mx-1 shadow" title="Disable">

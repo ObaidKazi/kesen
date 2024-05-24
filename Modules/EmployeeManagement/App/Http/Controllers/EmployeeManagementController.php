@@ -60,7 +60,7 @@ class EmployeeManagementController extends Controller
         $user->status = 1;
         $user->save();
         $user->assignRole($request->role);
-        return redirect('/employee-management');
+        return redirect('/employee-management')->with('message', 'Employee created successfully.');;
     }
 
     /**
@@ -68,7 +68,8 @@ class EmployeeManagementController extends Controller
      */
     public function show($id)
     {
-        return view('employeemanagement::show');
+        $user=User::find($id);
+        return view('employeemanagement::show')->with('user',$user);
     }
 
     /**
@@ -113,7 +114,7 @@ class EmployeeManagementController extends Controller
         $user->save();
         $user->syncRoles($request->role);
 
-        return redirect('/employee-management');
+        return redirect('/employee-management')->with('message', 'Employee updated successfully.');;
     }
 
     /**

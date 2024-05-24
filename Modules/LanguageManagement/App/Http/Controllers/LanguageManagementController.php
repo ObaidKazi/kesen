@@ -42,7 +42,7 @@ class LanguageManagementController extends Controller
         $language->created_by=auth()->user()->id;
         $language->updated_by=auth()->user()->id;
         $language->save();
-        return redirect('/language-management');
+        return redirect('/language-management')->with('message', 'Language created successfully.');;
 
     }
 
@@ -51,7 +51,8 @@ class LanguageManagementController extends Controller
      */
     public function show($id)
     {
-        return view('languagemanagement::show');
+        $language=Language::find($id);
+        return view('languagemanagement::show')->with('language',$language);
     }
 
     /**
@@ -77,7 +78,7 @@ class LanguageManagementController extends Controller
         $language->code=$request->code;
         $language->updated_by=auth()->user()->id;
         $language->save();
-        return redirect('/language-management');
+        return redirect('/language-management')->with('message', 'Language updated successfully.');;
     }
 
     /**

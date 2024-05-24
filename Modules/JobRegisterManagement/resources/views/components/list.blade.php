@@ -67,6 +67,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('jobregistermanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Job Register</button></a>
         <br>
@@ -85,11 +86,11 @@
                         <td>{{ $row->client->name }}</td>
                         <td>
                             <a href="{{route('jobregistermanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                edit
+                                Edit
                             </button></a>
                             
                             <a href="{{route('jobregistermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                view
+                                View
                             </button></a>
                             
                         </td>

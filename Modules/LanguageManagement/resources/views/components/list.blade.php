@@ -57,6 +57,7 @@
                 }
         </style>
     <div class="content">
+        @include('components.notification')
         <a href="{{ route('language-management.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Language</button></a>
         <br>
@@ -73,8 +74,11 @@
                         <td>{{ $row->created_by }}</td>
                         <td>
                             <a href="{{route('language-management.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                               Edit
                             </button></a>
+                            <a href="{{route('language-management.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                View
+                             </button></a>
                             @if($row->status == 1)
                                 <a href="{{route('language-management.disableEnableClient', $row->id)}}"><button class="btn btn-xs btn-danger mx-1 shadow" title="Disable">
                                     Disable</button></a>
