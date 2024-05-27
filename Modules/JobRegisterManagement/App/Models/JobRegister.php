@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\ClientManagement\App\Models\Client;
 use Modules\EstimateManagement\App\Models\Estimates;
+use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobRegisterManagement\Database\factories\JobRegisterFactory;
 
 class JobRegister extends Model
@@ -23,6 +24,10 @@ class JobRegister extends Model
 
     public function estimate(){
         return $this->belongsTo(Estimates::class,'estimate_id');
+    }
+
+    public function estimate_details(){
+        return $this->belongsTo(EstimatesDetails::class,'estimate_document_id');
     }
 
     public function client(){

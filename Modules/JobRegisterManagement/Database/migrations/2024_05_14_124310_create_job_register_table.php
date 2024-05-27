@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('handled_by_id');
             $table->string('created_by_id');
             $table->text('other_details');
-            $table->integer('type');
+            $table->integer('category');
+            $table->string('type');
             $table->string('protocol_data')->nullable();
             $table->string('language_id');
             $table->date('date')->default(now());

@@ -35,7 +35,7 @@ trait AuthenticatesUsersCustom
     public function login(Request $request)
     {
         $this->validateLogin($request);
-        $user=User::where('email', request()->email)->first();
+        $user=User::where('code', request()->code)->first();
         if($user){
             if($user->status==0){
                 throw ValidationException::withMessages([
@@ -164,7 +164,7 @@ trait AuthenticatesUsersCustom
      */
     public function username()
     {
-        return 'email';
+        return 'code';
     }
 
     /**

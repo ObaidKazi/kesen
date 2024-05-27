@@ -8,27 +8,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\ClientManagement\App\Models\Client;
 use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\Database\factories\EstimatesFactory;
+use Modules\LanguageManagement\App\Models\Language;
 
-class Estimates extends Model
+class EstimatesDetails extends Model
 {
    use HasFactory,HasUuids;
 
-   protected $table="estimates";
+   protected $table="estimate_details";
 
    protected $guarded=['id'];
 
+   public function getLangAttribute(){
 
-   public function client(){
-      return $this->belongsTo(Client::class,'client_id');
+       $lang=Language::where('id',$this->attributes['lang'])->first();
+       return $lang->name;
    }
-
-   public function client_person(){
-      return $this->belongsTo(ContactPerson::class,'client_contact_person_id');
-   }
-
-   public function details(){
-      return $this->hasMany(EstimatesDetails::class,'estimate_id');
-   }
-   
 
 }

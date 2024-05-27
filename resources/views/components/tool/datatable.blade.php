@@ -39,8 +39,8 @@
 
 @push('js')
 <script>
-
     $(() => {
+        
         $('#{{ $id }}').DataTable( @json($config) );
     })
 

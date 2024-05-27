@@ -22,6 +22,12 @@ if (!function_exists('checkRequestUrl')) {
     }
 }
 
+if(!function_exists('getCurrentDate')){
+    function getCurrentDate(){
+        return date('Y-m-d');
+    }
+}
+
 if(!function_exists('getCurrencyDropDown')){
     function getCurrencyDropDown(){
         return <<<HTML

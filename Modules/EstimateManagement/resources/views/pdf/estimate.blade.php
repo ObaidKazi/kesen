@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proforma Invoice</title>
+    <title>Proforma Invoice {{$estimate->client->name}}</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            margin: 20px;
-            padding: 20px;
+            margin: 10px;
+            padding: 10px;
             border: 2px solid #000;
         }
         header, footer {
+            width: 100%;
             text-align: center;
             margin-bottom: 20px;
         }
@@ -47,11 +48,12 @@
             text-align: center;
         }
         .financials td {
-            text-align: right; /* Aligns numbers to the right for better readability */
-            padding-right: 20px; /* Provides some padding on the right for alignment */
+            text-align: center; /* Aligns numbers to the right for better readability */
+            
         }
     </style>
 </head>
+@php $sub_total=0; @endphp
 <body>
     <header>
         <div class="header-title">{{$estimate->metrix}}</div>
@@ -67,7 +69,7 @@
         <p><strong>Address:</strong> {{$estimate->address}}</p>
         <p><strong>Ref:</strong> Quotation for Translation & Back Translation – Description</p>
         <p><strong>Mail Received on:</strong> {{$estimate->mail_received_on}}</p>
-        <p><strong>Languages Required:</strong> {{$estimate->languages_required}}</p>
+        <p><strong>Languages Required:</strong></p>
 
         <table border="1">
             <thead>
@@ -81,61 +83,73 @@
                     <th>Back Translation</th>
                     <th>Verification</th>
                     <th>Layout Charges</th>
-                    <th>Lang. Total (Rs.)</th>
+                    <th>Lang</th>
                     <th >Total (Rs.)</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($estimate->details as $detail)
                 <tr>
-                    <td>[Document]</td>
-                    <td>{{$estimate->unit}}</td>
-                    <td>{{$estimate->rate}}</td>
-                    <td>{{$estimate->unit*$estimate->rate}}</td>
-                    <td>{{$estimate->verification}}</td>
-                    <td>{{$estimate->layout_charges}}</td>
-                    <td>{{$estimate->bank_translation}}</td>
-                    <td>{{$estimate->verification_2}}</td>
-                    <td>{{$estimate->layout_charges_2}}</td>
-                    <td>{{$estimate->lang_total}}</td>
-                    <td colspan="3">{{(($estimate->unit*$estimate->rate)+($estimate->layout_charges)+($estimate->bank_translation)+($estimate->verification)+($estimate->verification_2)+($estimate->layout_charges_2))*($estimate->lang)}}</td>
-                </tr>
-                <tr class="financials">
-                    <td colspan="10">Sub Total</td>
-                    <td colspan="3"></td>
+                    <td>{{$detail->document_name}}</td>
+                    <td>{{strtoupper($detail->type)}} - {{$detail->unit}}</td>
+                    <td>{{$detail->rate}}</td>
+                    <td>{{$detail->unit*$detail->rate}}</td>
+                    <td>{{$detail->verification}}</td>
+                    <td>{{$detail->layout_charges}}</td>
+                    <td>{{$detail->back_translation}}</td>
+                    <td>{{$detail->verification_2}}</td>
+                    <td>{{$detail->layout_charges_2}}</td>
+                    <td>{{$detail->lang}}</td>
+                    <td colspan="3">{{(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))}}</td>
+                    @php $sub_total=$sub_total+(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))@endphp
+                </tr>    
+                @endforeach
+                
+                <tr class="financials" style="background-color: #f0f0f0">
+                    <td colspan="10" style="font-size: 12px;font-weight: bold">Sub Total</td>
+                    <td colspan="3" style="font-size: 8px;font-weight: bold">{{$sub_total}}</td>
                 </tr>
                 <tr class="financials">
                     <td colspan="10">Discount</td>
-                    <td colspan="3"></td>
+                    <td colspan="3"  style="font-size: 6px;">{{$estimate->discount??0}}</td>
                 </tr>
-                <tr class="financials">
+                <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="10">Net Total</td>
-                    <td colspan="3"></td>
+                    <td colspan="3"  style="font-size: 6px;">{{$sub_total-($estimate->discount)}}</td>
+                    @php $net_total=$sub_total-($estimate->discount) @endphp
                 </tr>
                 <tr class="financials">
                     <td colspan="10">GST (18%)</td>
-                    <td colspan="3"></td>
+                    <td colspan="3"  style="font-size: 6px;">{{$net_total/100*18}}</td>
                 </tr>
-                <tr class="financials">
-                    <td colspan="10">Total</td>
-                    <td colspan="3"></td>
+                <tr class="financials" style="background-color: #f0f0f0">
+                    <td colspan="10"  style="font-size: 14px;font-weight: bold">Total</td>
+                    <td colspan="3"  style="font-size: 6px;font-weight: bold">{{$net_total+($net_total/100*18)}}</td>
                 </tr>
             </tbody>
         </table>
     </section>
 
-    <footer style="text-align: left;float: left">
+    <footer style="text-align: left;float: left;margin-top: 10px">
         <p style="font-weight: bold;font-size: 12px">SAC Code: 998395</p>
         <p style="font-weight: bold;font-size: 12px">PS: TAXES AS APPLICABLE FROM TIME TO TIME.</p>
         <p style="font-size: 12px">The Job will be completed as per TAT provided.</p>
         <p style="font-size: 12px">Kindly let us have your approval.</p>
         <p style="font-size: 12px"> In case you need any clarification, please do not hesitate to call the undersigned.</p>
         <p style="font-size: 12px">Assuring you of our best services at all times.</p>
-        <p >For <p style="font-weight: bold;font-size: 12px">{{$estimate->metrix}}</p></p>
-        <div style="margin-top:20px; ">
-            ____________________
+        <div style="display: block">
+            <p style="display: inline">For </p>
+            (<p style="font-weight: bold;display: inline">{{$estimate->metrix}}</p>)
         </div>
-        <p>Authorized Signatory</p>
-        <p style="float: right;font-weight: bold;font-size: 12px">Help us to Serve you Better</p>
+        <div style="margin-top:35px; ">
+            _________________________
+        </div>
+        <div style="display: block">
+            <p style="display: inline;padding-left: 35px;">Authorized Signatory</p>
+            <p style="float: right;font-weight: bold;font-size: 12px;display: inline">Help us to Serve you Better</p>
+        </div>
+        
+        
     </footer>
 </body>
 </html>

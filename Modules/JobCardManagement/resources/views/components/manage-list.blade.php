@@ -7,42 +7,18 @@
             'label' => '#',
         ],
         [
-            'label' => 'Estimated No',
+            'label' => 'Document Name',
         ],
         [
-            'label' => 'Date',
+            'label' => 'Job No',
         ],
         [
-            'label' => 'Protocol no',
-        ],
+            'label' => 'Language',
+        ],   
 
-        [
-            'label' => 'Client name',
-        ],
-        [
-            'label' => 'Description',
-        ],
-
-        [
-            'label' => 'Handled By',
-        ],
-        [
-            'label' => 'Bill no',
-        ],
-        [
-            'label' => 'Bill date',
-        ],
-
-        [
-            'label' => 'Informed to',
-        ],
-        [
-            'label' => 'Invoicedate',
-        ],
         [
             'label' => 'Action',
-        ],
-        
+        ],   
     ];
 
     
@@ -92,24 +68,17 @@
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
-                @foreach ($job_registers as $index=>$row)
+                @foreach ($estimate_details as $index=>$row)
                 
                     <tr>
 
                         <td>{{ $index+1 }}</td>
-                        <td>{{ Modules\EstimateManagement\App\Models\Estimates::where('id',$row->estimate_id)->first()->estimate_no??''}}</td>
-                        <td>{{ $row->date}}</td>
-                        <td>{{  $row->protocol_no}}</td>
-                        <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
-                        <td>{{ $row->description }}</td>
-                        <td>{{ $row->handle_by->name }}</td>
-                        <td>{{ $row->bill_no }}</td>
-                        <td>{{ $row->bill_date }}</td>
-                        <td>{{  App\Models\User::where('id',$row->informed_to)->first()->name??'';}}</td>
-                        <td>{{ $row->invoice_date }}</td>
+                        <td>{{$row->document_name}}</td>
+                        <td>{{ $job_register->sr_no}}</td>
+                        <td>{{  $row->lang}}</td>
                         <td>
-                            <a href="{{route('jobcardmanagement.manage', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                               Manage
+                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $job_register->id, 'estimate_detail_id' => $row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                              Edit
                             </button></a>
 
                         </td>

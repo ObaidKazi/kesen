@@ -10,10 +10,10 @@
             'label' => 'Job No',
         ],
         [
-            'label' => 'Date',
+            'label' => 'Estimate No',
         ],
         [
-            'label' => 'Word/Unit',
+            'label' => 'Date',
         ],
         [
             'label' => 'Handled By',
@@ -80,8 +80,8 @@
 
                         <td>{{ $index+1 }}</td>
                         <td>{{ $row->sr_no }}</td>
+                        <td>{{ $row->estimate->estimate_no }}</td>
                         <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d-m-Y') }}</td>
-                        <td>{{ $row->estimate->unit }}</td>
                         <td>{{ $row->handle_by->name }}</td>
                         <td>{{ $row->client->name }}</td>
                         <td>

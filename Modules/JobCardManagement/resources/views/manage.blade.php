@@ -35,7 +35,7 @@
 
         {{-- Content Wrapper --}}
         
-            @include('jobregistermanagement::components.create')
+            @include('jobcardmanagement::components.manage-list')
         
 
         {{-- Footer --}}

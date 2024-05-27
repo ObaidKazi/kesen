@@ -2,7 +2,7 @@
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $metrics=config('services.metrix'); @endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
-
+@php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -34,6 +34,12 @@
                 @csrf
                 <div class="row pt-2">
                     <x-adminlte-input name="estimate_no" placeholder="Estimate Number" fgroup-class="col-md-6" required value="{{ $estimate->estimate_no }}" label="Estimate Number" />
+                        <x-adminlte-select name="metrix" fgroup-class="col-md-6" required label="Metrix">
+                            <option value="">Select Metrix</option>
+                            @foreach ($metrics as $key => $value)
+                                <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>{{ $value }}</option>
+                            @endforeach
+                        </x-adminlte-select>
                     <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
@@ -215,26 +221,53 @@
                         <option value="1" @if ($estimate->status == '1') selected @endif>Approve</option>
                         <option value="2" @if ($estimate->status == '2') selected @endif>Reject</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-6" required label="Metrix">
-                        <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>{{ $value }}</option>
+                    
+                    <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-6" type="text"
+                        value="{{ old('discount', $estimate->discount) }}" required label="Discount" />
+                    <div id="repeater">
+                        @foreach($estimate->details as $index => $detail)
+                        <div class="repeater-item mt-3">
+                            <div class="row">
+                                
+                                <x-adminlte-input name="document_name[{{ $index }}]" placeholder="Document Name" fgroup-class="col-md-6" type="text" value="{{ old('document_name.' . $index, $detail->document_name) }}" required label="Document Name"  disabled/>
+                                
+                                <x-adminlte-select name="type[{{ $index }}]" fgroup-class="col-md-6" required
+                                label="Type">
+                                    <option value="">Select Type</option>
+                                    <option value="word" {{ old('type.' . $index, $detail->type) == 'word' ? 'selected' : '' }}>Word</option>
+                                    <option value="unit" {{ old('type.' . $index, $detail->type) == 'unit' ? 'selected' : '' }}>Unit</option>
+                                </x-adminlte-select>
+                                <x-adminlte-input name="unit[{{ $index }}]" placeholder="Unit" fgroup-class="col-md-6" type="text" value="{{ old('unit.' . $index, $detail->unit) }}" required label="Unit" />
+                                <x-adminlte-input name="rate[{{ $index }}]" placeholder="Rate" fgroup-class="col-md-6" type="text" value="{{ old('rate.' . $index, $detail->rate) }}" required label="Rate" />
+                                <x-adminlte-input name="verification[{{ $index }}]" placeholder="Verification" fgroup-class="col-md-6" type="text" value="{{ old('verification.' . $index, $detail->verification) }}" required label="Verification" />
+                                    <x-adminlte-input name="layout_charges[{{ $index }}]" placeholder="Layout Charges" fgroup-class="col-md-6" type="text" value="{{ old('layout_charges.' . $index, $detail->layout_charges) }}" required label="Layout Charges" />
+                                        <x-adminlte-input name="back_translation[{{ $index }}]" placeholder="Back Translation" fgroup-class="col-md-6" type="text" value="{{ old('back_translation.' . $index, $detail->back_translation) }}" required label="Back Translation" />
+                                    <x-adminlte-input name="verification_2[{{ $index }}]" placeholder="Back Translation Verification" fgroup-class="col-md-6" type="text" value="{{ old('verification_2.' . $index, $detail->verification_2) }}" required label="Back Translation Verification" />
+                               
+                                    <x-adminlte-input name="layout_charges_second[{{ $index }}]" placeholder="Layout Charges 2" fgroup-class="col-md-6" type="text" value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}" required label="Layout Charges 2" />
+                                    <x-adminlte-select name="lang[{{ $index }}]" fgroup-class="col-md-6"  required value="{{ old('language') }}" label="Language">
+                                        <option value="">Select Language</option>
+                                        @foreach ($languages as $language)
+                                            <option value="{{ $language->id }}" {{ $language->id==$detail->getRawOriginal('lang') ? 'selected' : '' }}>{{ $language->name }}</option>
+                                        @endforeach
+                                    </x-adminlte-select>
+                                    <x-adminlte-input name="id[{{ $index }}]" placeholder="ID" fgroup-class="col-md-6" type="hidden" value="{{ old('id.' . $index, $detail->id) }}" required />
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-danger remove-item mt-3 mb-3" style="float:right;width: 100px" data-detail-id="{{ $detail->id }}">Remove</button>
+                            </div>
+                        </div>
                         @endforeach
-                    </x-adminlte-select>
-                    <x-adminlte-input name="unit" placeholder="Unit" fgroup-class="col-md-6" type="text" value="{{ $estimate->unit }}" required label="Unit" />
-                    <x-adminlte-input name="rate" placeholder="Rate" fgroup-class="col-md-6" type="text" value="{{ $estimate->rate }}" required label="Rate" />
-                    <x-adminlte-input name="verification" placeholder="Verification" fgroup-class="col-md-6" type="text" value="{{ $estimate->verification }}" required label="Verification" />
-                    <x-adminlte-input name="bank_translation" placeholder="Bank Translation" fgroup-class="col-md-6" type="text" value="{{ $estimate->bank_translation }}" required label="Bank Translation" />
-                    <x-adminlte-input name="layout_charges" placeholder="Layout Charges" fgroup-class="col-md-6" type="text" value="{{ $estimate->layout_charges }}" required label="Layout Charges" />
-                    <x-adminlte-input name="layout_charges_2" placeholder="Layout Charges 2" fgroup-class="col-md-6" type="text" value="{{ $estimate->layout_charges_2 }}" required label="Layout Charges 2" />
-                    <x-adminlte-input name="lang" placeholder="Lang" fgroup-class="col-md-6" type="text" value="{{ $estimate->lang }}" required label="Lang" />
+                    </div>
                 </div>
+                <br>
+                <button type="button" class="btn btn-primary mt-5" id="add-item">Add Item</button>
+                <br>
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
             </form>
         </x-adminlte-card>
     </div>
 </div>
-
 <script type="text/javascript">
     document.getElementById('client_id').addEventListener('change', function() {
         let client_id = this.value;
@@ -246,5 +279,66 @@
                 $('#client_contact_person_id').html(data.html);
             }
         });
+    });
+
+    $(document).ready(function() {
+        let itemIndex = {{ count($estimate->details) }};
+        console.log(itemIndex);
+        $('#add-item').click(function() {
+            let newItem = $('.repeater-item.mt-3:first').clone();
+            newItem.find('input, select').each(function() {
+                $(this).val('');
+                let name = $(this).attr('name');
+                if(name=='verification_2[0]'){
+                    name = 'verification_2['+itemIndex+']';
+                }else{
+                    name = name.replace(/\d+/, itemIndex);
+                }
+                $(this).attr('name', name);
+            });
+
+            // Update IDs for radio buttons and their labels
+           
+            newItem.appendTo('#repeater');
+            itemIndex++;
+        });
+
+        $(document).on('click', '.remove-item', function() {
+            if ($('.repeater-item').length > 1) {
+                let detailId = $(this).data('detail-id');
+                if (detailId) {
+                    $.ajax({
+                        url: "{{ url('/estimate-management/detail/delete') }}/" + detailId,
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            console.log(response.success);
+                        }
+                    });
+                }
+                $(this).closest('.repeater-item').remove();
+                updateIndices();
+            }
+        });
+
+        function updateIndices() {
+            itemIndex = 0;
+            $('.repeater-item').each(function() {
+                $(this).find('input, select').each(function() {
+                    let name = $(this).attr('name');
+                    name = name.replace(/\d+/, itemIndex);
+                    if(name=='verification_2[0]'){
+                    name = 'verification_2['+itemIndex+']';
+                }else{
+                    name = name.replace(/\d+/, itemIndex);
+                }
+                    $(this).attr('name', name);
+                });
+
+                itemIndex++;
+            });
+        }
     });
 </script>

@@ -68,33 +68,13 @@
                 </x-adminlte-select>
            
                 <x-adminlte-textarea name="description" placeholder="Description" fgroup-class="col-md-6" disabled label="Description">{{$jobCard->description}}</x-adminlte-textarea>
-                <x-adminlte-select name="site_specific" fgroup-class="col-md-6" id="site_specific" disabled value="{{ old('site_specific', $jobCard->site_specific) }}" label="Site Specific">
-                    <option value="">Select Site Specific</option>
-                    <option value="1" {{ $jobCard->site_specific == '1' ? 'selected' : '' }}>Yes</option>
-                    <option value="0" {{ $jobCard->site_specific == '0' ? 'selected' : '' }}>No</option>
-                </x-adminlte-select>
-                <x-adminlte-input name="bill_no" placeholder="Bill Number" fgroup-class="col-md-6" value="{{ old('bill_no', $jobCard->bill_no) }}" disabled label="Bill Number"/>
-                <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-6" value="{{ old('protocol_no', $jobCard->protocol_no) }}" disabled  label="Protocol Number"/>
-                <x-adminlte-input name="job_card_no" placeholder="Job Card Number" fgroup-class="col-md-6" value="{{ old('job_card_no', $jobCard->job_card_no) }}" disabled label="Job Card Number"/>
-                <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type='date' value="{{ old('date', $jobCard->date) }}" disabled label="Date"/>
-                <x-adminlte-input name="invoice_date" placeholder="Invoice Date" fgroup-class="col-md-6" type='date' value="{{ old('invoice_date', $jobCard->invoice_date) }}" disabled label="Invoice Date"/>
-                <x-adminlte-input name="bill_date" placeholder="Bill Date" fgroup-class="col-md-6" type='date' value="{{ old('bill_date', $jobCard->bill_date) }}" disabled label="Bill Date"/>
+                
                 <x-adminlte-input name="pd" placeholder="PD" fgroup-class="col-md-6" value="{{ old('pd', $jobCard->pd) }}" disabled label="PD"/>
                 <x-adminlte-input name="cr" placeholder="CR" fgroup-class="col-md-6" value="{{ old('cr', $jobCard->cr) }}" disabled label="CR"/>
                 <x-adminlte-input name="cn" placeholder="CN" fgroup-class="col-md-6" value="{{ old('cn', $jobCard->cn) }}" disabled label="CN"/>
                 <x-adminlte-input name="dv" placeholder="DV" fgroup-class="col-md-6" value="{{ old('dv', $jobCard->dv) }}" disabled label="DV"/>
                 <x-adminlte-input name="qc" placeholder="QC" fgroup-class="col-md-6" value="{{ old('qc', $jobCard->qc) }}" disabled label="QC"/>
-                <x-adminlte-input name="sent_date" placeholder="Sent Date" fgroup-class="col-md-6" type='date' value="{{ old('sent_date', $jobCard->sent_date) }}" disabled label="Sent Date"/>
-
-                <span id="site_specific_path" class="col-md-6">
-                    @if($jobCard->site_specific == '1')
-                        <div class="form-group col-md-12" style="padding: 0px;margin:0px">
-                            <div class="input-group">
-                                <input type="file" id="site_specific_path" name="site_specific_path" class="form-control" disabled />
-                            </div>
-                        </div>
-                    @endif
-                </span>
+                    
             </div>
             
             <x-adminlte-button label="Back" onclick="window.history.back();" class="mt-3"/>

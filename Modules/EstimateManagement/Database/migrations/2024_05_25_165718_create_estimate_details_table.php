@@ -11,15 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('estimates', function (Blueprint $table) {
+        Schema::create('estimate_details', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->integer('sr_no')->autoIncrement();
+            $table->foreignUuid('estimate_id');
+            $table->string('document_name');
+            $table->string('type');
             $table->string('unit');
-            $table->string('rate');
+            $table->decimal('rate', 10, 2);
             $table->string('verification');
             $table->string('verification_2');
-            $table->string('bank_translation');
+            $table->string('back_translation');
             $table->string('layout_charges');
             $table->string('layout_charges_2');
             $table->string('lang');
+            $table->timestamps();
         });
     }
 
@@ -28,8 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('', function (Blueprint $table) {
-            
-        });
+        Schema::dropIfExists('estimate_details');
     }
 };

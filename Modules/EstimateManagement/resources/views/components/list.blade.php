@@ -87,6 +87,15 @@
                 style="float:right;margin:10px">Add Estimate</button></a>
         <br>
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+            <br>
+            <table border="0" cellspacing="5" cellpadding="5">
+                <tbody><tr>
+                    <td>From Date:</td>
+                    <td><input type="date" id="min" name="min" ></td>
+                    <td>To Date:</td>
+                    <td><input type="date" id="max" name="max"></td>
+                </tr>
+            </tbody></table>
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
                 @foreach ($estimates as $index=>$row)

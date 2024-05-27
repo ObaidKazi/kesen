@@ -65,9 +65,9 @@
                 <div class="row pt-2">
                     <x-adminlte-input name="name" placeholder="Client Name" fgroup-class="col-md-6" required
                         value="{{ $client->name }}" label="Client Name" />
-                    <x-adminlte-input name="phone_no" placeholder="Client Number" fgroup-class="col-md-6"
+                    <x-adminlte-input name="phone_no" required placeholder="Client Number" fgroup-class="col-md-6"
                         value="{{ $client->phone_no }}" label="Client Number" />
-                    <x-adminlte-input name="landline" placeholder="Landline Number" fgroup-class="col-md-6"
+                    <x-adminlte-input name="landline" required placeholder="Landline Number" fgroup-class="col-md-6"
                         value="{{ $client->landline }}" label="Landline Number" />
                     <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-6" type='email'
                         value="{{ $client->email }}" label="Email" />
@@ -126,7 +126,7 @@
                             <td>
                                 <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}"><button
                                         class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                        Edit
+                                        <i class="fa fa-lg fa-fw fa-pen"></i>
                                     </button></a>
                                 @if ($row->status == 1)
                                     <a

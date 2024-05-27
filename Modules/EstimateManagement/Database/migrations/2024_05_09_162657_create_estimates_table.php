@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('client_contact_person_id')->nullable();
             $table->string('headline')->nullable();
             $table->string('amount')->nullable();
+            $table->string('discount')->nullable();
             $table->string('currency')->nullable();
             $table->string('status')->default(0);
             $table->string('created_by');

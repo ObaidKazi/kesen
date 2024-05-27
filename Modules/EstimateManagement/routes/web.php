@@ -17,6 +17,9 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('estimate-management', EstimateManagementController::class)->names('estimatemanagement');
 
 Route::get('estimate-management/client/{id}', [EstimateManagementController::class, 'getContactPerson'])->name('estimatemanagement.client');
+Route::get('estimate-management/estimate/{id}', [EstimateManagementController::class, 'getEstimateData'])->name('estimatemanagement.estimatedata');
+Route::get('estimate-management/estimate-details/{id}', [EstimateManagementController::class, 'getEstimateDetails'])->name('estimatemanagement.estimatedetails');
 Route::get('estimate-management/client/view-pdf/{id}', [EstimateManagementController::class, 'viewPdf'])->name('estimatemanagement.viewPdf');
+Route::delete('estimate-management/detail/delete/{id}', [EstimateManagementController::class, 'deleteDetail'])->name('estimatemanagement.deleteDetail');
 });
 

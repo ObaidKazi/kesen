@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('$TABLE$', function (Blueprint $table) {
-            $FIELDS_UP$
+        Schema::table('job_register', function (Blueprint $table) {
+            $table->string('estimate_document_id');   
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('$TABLE$', function (Blueprint $table) {
-            $FIELDS_DOWN$
+        Schema::table('job_register', function (Blueprint $table) {
+            $table->dropColumn('estimate_document_id');   
         });
     }
 };

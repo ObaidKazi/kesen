@@ -47,8 +47,8 @@
                         <option value="0" {{ old('apply_tds', $payment->apply_tds) == 0 ? 'selected' : '' }}>No</option>
                         <option value="1" {{ old('apply_tds', $payment->apply_tds) == 1 ? 'selected' : '' }}>Yes</option>
                     </x-adminlte-select>
-                    <x-adminlte-input name="period_from" label="Period From" fgroup-class="col-md-6" type="date" required value="{{ old('period_from', $payment->period_from) }}" label="Period From" />
-                    <x-adminlte-input name="period_to" label="Period To" fgroup-class="col-md-6" type="date" required value="{{ old('period_to', $payment->period_to) }}" label="Period To"/>
+                    <x-adminlte-input name="period_from" label="Period From" fgroup-class="col-md-6" type="date" required value="{{ old('period_from', $payment->period_from) }}" label="Period From" min="{{ getCurrentDate() }}"/>
+                    <x-adminlte-input name="period_to" label="Period To" fgroup-class="col-md-6" type="date" required value="{{ old('period_to', $payment->period_to) }}" label="Period To" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-input name="online_ref_no" placeholder="Online REF no" fgroup-class="col-md-6" value="{{ old('online_ref_no', $payment->online_ref_no) }}" label="Online REF no"/>
                     <x-adminlte-input name="cheque_no" placeholder="Cheque no" fgroup-class="col-md-6" value="{{ old('cheque_no', $payment->cheque_no) }}" label="Cheque no"/>
                     <x-adminlte-input name="performance_charge" placeholder="Performance Charge" fgroup-class="col-md-6" type="number" step="0.01" required value="{{ old('performance_charge', $payment->performance_charge) }}" label="Performance Charge"/>
@@ -59,3 +59,4 @@
         </x-adminlte-card>
     </div>
 </div>
+

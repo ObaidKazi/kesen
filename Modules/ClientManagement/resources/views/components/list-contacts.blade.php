@@ -87,7 +87,7 @@
                         <td>{{ $row->designation }}</td>
                         <td>
                             <a href="{{route('clientmanagement.editContactForm',[$id,$row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                Edit
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
                             </button></a>
                             @if($row->status==1)
                             <a href="{{route('clientmanagement.disableEnableContact',[$id,$row->id])}}"><button class="btn btn-xs btn-danger  mx-1 shadow" title="Disable">
