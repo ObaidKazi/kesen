@@ -111,6 +111,9 @@
                             <a href="{{route('jobcardmanagement.manage', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                Manage
                             </button></a>
+                            <a href="{{route('jobregistermanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Edit
+                             </button></a>
 
                         </td>
 
