@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\ClientManagement\App\Models\Client;
+use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
+use Modules\JobCardManagement\App\Models\JobCard;
 use Modules\JobRegisterManagement\Database\factories\JobRegisterFactory;
 
 class JobRegister extends Model
@@ -29,6 +31,15 @@ class JobRegister extends Model
     public function estimate_details(){
         return $this->belongsTo(EstimatesDetails::class,'estimate_document_id');
     }
+    public function estimateDetail()
+    {
+        return $this->hasOne(EstimatesDetails::class, 'document_name', 'estimate_document_id');
+    }
+
+    public function jobCard()
+    {
+        return $this->hasOneThrough(JobCard::class, EstimatesDetails::class, 'document_name', 'estimate_detail_id', 'estimate_document_id', 'id');
+    }
 
     public function client(){
         return $this->belongsTo(Client::class,'client_id');
@@ -46,4 +57,8 @@ class JobRegister extends Model
     public function getLanguageIdAttribute($value){
         return json_decode($value, true) ?? [];
     }
+
+    public function client_person(){
+        return $this->belongsTo(ContactPerson::class,'client_contact_person_id');
+     }
 }

@@ -264,9 +264,9 @@
 
                             </div>
                             <div class="row">
-                                <button type="button" class="btn btn-danger remove-item mt-3 mb-3"
+                                <input type="button" name="button" class="btn btn-danger remove-item mt-3 mb-3"
                                     style="float:right;width: 100px"
-                                    data-detail-id="{{ $job->id }}">Remove</button>
+                                    data-detail-id="{{ $job->id }}" value="Remove"></button>
                             </div>
 
                         </div>
@@ -291,9 +291,12 @@
             newItem.find('input, select').each(function() {
                 $(this).val('');
                 let name = $(this).attr('name');
-                if (name == 'verification_2[{{ $index }}]') {
-                    name = 'verification_2[' + itemIndex + ']';
-                } else {
+                
+                
+                if(name=="button"){
+                    $(this).attr('value', 'Remove');
+                    $(this).attr('data-detail-id', '');
+                }else{
                     name = name.replace(/\d+/, itemIndex);
                 }
                 $(this).attr('name', name);
@@ -309,7 +312,7 @@
             console.log($('.repeater-item').length);
             if ($('.repeater-item').length > 1) {
                 let detailId = $(this).data('detail-id');
-                console.log(detailId);
+                
                 if (detailId) {
                     $.ajax({
                         url: "{{ url('/job-card-management/manage/delete/') }}/" + detailId,
@@ -333,11 +336,8 @@
                 $(this).find('input, select').each(function() {
                     let name = $(this).attr('name');
                     name = name.replace(/\d+/, itemIndex);
-                    if (name == 'verification_2[{{ $index }}]') {
-                        name = 'verification_2[' + itemIndex + ']';
-                    } else {
-                        name = name.replace(/\d+/, itemIndex);
-                    }
+                    
+                    
                     $(this).attr('name', name);
                 });
 

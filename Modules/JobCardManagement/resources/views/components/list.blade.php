@@ -114,6 +114,9 @@
                             <a href="{{route('jobregistermanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
                              </button></a>
+                             <a href="{{route('jobcardmanagement.pdf', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="PDF">
+                                PDF
+                             </button></a>
 
                         </td>
 

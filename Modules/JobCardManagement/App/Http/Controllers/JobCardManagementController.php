@@ -34,6 +34,15 @@ class JobCardManagementController extends Controller
         return view('jobcardmanagement::create',compact('job_register','estimate_detail'));
     }
 
+    public function viewPdf($job_id){
+        $job_register = JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])
+        ->where('id', $job_id)
+        ->first();
+    
+
+       return view('jobcardmanagement::pdf')->with('job',$job_register);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
