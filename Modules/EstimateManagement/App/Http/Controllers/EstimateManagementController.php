@@ -69,13 +69,13 @@ class EstimateManagementController extends Controller
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
             'type.*' => 'required|string|max:255',
-            'unit.*' => 'required|numeric|max:255',
+            'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'required|string|max:255',
-            'back_translation.*' => 'required|string|max:255',
-            'layout_charges.*' => 'required|string|max:255',
-            'layout_charges_second.*' => 'required|string|max:255',
-            'lang.*' => 'required|string|max:255',
+            'verification.*' => 'required|string',
+            'back_translation.*' => 'required|string',
+            'layout_charges.*' => 'required|string',
+            'layout_charges_second.*' => 'required|string',
+            'lang.*' => 'required|string',
         ]);
 
         $estimate = new Estimates();
@@ -150,13 +150,13 @@ class EstimateManagementController extends Controller
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
             'type.*' => 'required|string|max:255',
-            'unit.*' => 'required|numeric|max:255',
+            'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'required|string|max:255',
-            'back_translation.*' => 'required|string|max:255',
-            'layout_charges.*' => 'required|string|max:255',
-            'layout_charges_second.*' => 'required|string|max:255',
-            'lang.*' => 'required|string|max:255',
+            'verification.*' => 'required|string',
+            'back_translation.*' => 'required|string',
+            'layout_charges.*' => 'required|string',
+            'layout_charges_second.*' => 'required|string',
+            'lang.*' => 'required|string',
         ]);
 
         $estimate = Estimates::find($id);
@@ -171,7 +171,6 @@ class EstimateManagementController extends Controller
         $estimate->status = $request->status;
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
-        
         foreach ($request['document_name'] as $index => $document_name) {
             EstimatesDetails::updateOrCreate([
                 'id' => isset($request['id'][$index]) ? $request['id'][$index] : null

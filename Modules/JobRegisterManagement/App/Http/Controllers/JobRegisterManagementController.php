@@ -91,6 +91,8 @@ class JobRegisterManagementController extends Controller
         if ($request['site_specific'] == 'yes' && $request->hasFile('site_specific_path')) {
             $path = $request->file('site_specific_path')->store('site_specific_files');
             $job_register->site_specific_path = $path;
+        }else{
+            $job_register->site_specific_path = '';
         }
 
         $job_register->save();

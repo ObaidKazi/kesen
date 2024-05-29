@@ -482,7 +482,6 @@
 
     $(document).ready(function() {
         let itemIndex = {{ count($estimate->details) }};
-        console.log(itemIndex);
         $('#add-item').click(function() {
             let newItem = $('.repeater-item.mt-3:first').clone();
             newItem.find('input, select').each(function() {
@@ -496,6 +495,13 @@
                         name = 'verification_2[' + itemIndex + ']';
                     } else {
                         name = name.replace(/\d+/, itemIndex);
+                        if(name=='document_name[0]'){
+                            $(this).removeAttr('readonly');
+                        }
+                        if (name == 'verification[0]') {
+                            name = 'verification[' + itemIndex + ']';
+                        }
+                        
                     }
                 }
                 $(this).attr('name', name);
@@ -540,6 +546,13 @@
                         name = 'verification_2[' + itemIndex + ']';
                     } else {
                         name = name.replace(/\d+/, itemIndex);
+                        if(name=='document_name[0]'){
+                            $(this).removeAttr('readonly');
+                        }
+                        if (name == 'verification[0]') {
+                            name = 'verification[' + itemIndex + ']';
+                        }
+                        
                     }
                 }
                     $(this).attr('name', name);
