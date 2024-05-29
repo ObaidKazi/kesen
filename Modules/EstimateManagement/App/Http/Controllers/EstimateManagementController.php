@@ -171,7 +171,7 @@ class EstimateManagementController extends Controller
         $estimate->status = $request->status;
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
-        if ($request['document_name'] != null) {
+        
         foreach ($request['document_name'] as $index => $document_name) {
             EstimatesDetails::updateOrCreate([
                 'id' => isset($request['id'][$index]) ? $request['id'][$index] : null
@@ -188,7 +188,7 @@ class EstimateManagementController extends Controller
                 'layout_charges_2' => $request['layout_charges_second'][$index],
                 'lang' => $request['lang'][$index]
             ]);
-        }
+        
     }
         Session::flash('message', 'Estimate updated successfully');
         return redirect('/estimate-management');
