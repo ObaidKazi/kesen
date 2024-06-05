@@ -12,7 +12,7 @@
 @php $accountants=App\Models\User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->whereHas('roles', function($query) {
     $query->where('name','Accounts');
 })->get(); @endphp
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
 @php
     $contact_person=Modules\ClientManagement\App\Models\ContactPerson::where('id',$jobRegister->client_contact_person_id)->first()->name;
 @endphp
@@ -56,8 +56,9 @@
 
                     <x-adminlte-select name="metrix" fgroup-class="col-md-6" disabled label="Metrix">
                         <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}" {{ $jobRegister->metrix == $key ? 'selected' : '' }}>{{ $value }}</option>
+                        @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}" @if ($jobRegister->metrix == $metric->id) selected @endif>
+                                {{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
 

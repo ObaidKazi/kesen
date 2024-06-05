@@ -21,14 +21,13 @@ class EstimatesDetails extends Model
    protected $guarded=['id'];
 
    public function getLangAttribute(){
-
-       $lang=Language::where('id',$this->attributes['lang'])->first();
-       return $lang->name;
+       return explode(",",$this->attributes['lang']);
    }
+
 
    public function jobRegister()
     {
-        return $this->belongsTo(JobRegister::class, 'estimate_document_id', 'document_name');
+        return $this->belongsTo(JobRegister::class,'document_name', 'estimate_document_id');
     }
 
     public function jobCard()

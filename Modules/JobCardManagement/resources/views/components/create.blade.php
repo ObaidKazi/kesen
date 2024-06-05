@@ -43,7 +43,19 @@
 
     <div class="content" style="padding-top: 20px;margin-left: 10px">
         <x-adminlte-card title="Job Card" theme="success" icon="fas fa-lg fa-person">
-            <h4>Job No :{{ $job_register->sr_no . '-' . $estimate_detail->lang }}</h4>
+            <h4>Job No :{{ $job_register->sr_no}} -  
+             @foreach ($estimate_detail->lang as $index=>$language)
+            
+            @if($index==0)
+                {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+            
+            @else
+                 - {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+            
+            @endif
+        
+      
+    @endforeach</h4>
             <form action="{{ route('jobcardmanagement.store') }}" method="POST">
                 @csrf
                 <div id="repeater">
@@ -52,151 +64,151 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row pt-2">
-                                        <x-adminlte-select name="t_writer[0]" fgroup-class="col-md-6" required
-                                            value="{{ old('t_writer[0]') }}" label="Translation Writer">
+                                        <x-adminlte-select name="t_writer[0]" fgroup-class="col-md-2" required
+                                            value="{{ old('t_writer[0]') }}" label="T Writer">
                                             <option value="">Select Writer</option>
                                             @foreach ($writers as $writer)
                                                 <option value="{{ $writer->id }}">{{ $writer->writer_name }}</option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-select name="t_emp_code[0]" fgroup-class="col-md-6" required
-                                            value="{{ old('t_emp_code[0]') }}" label="Translation Employee">
+                                        <x-adminlte-select name="t_emp_code[0]" fgroup-class="col-md-2" required
+                                            value="{{ old('t_emp_code[0]') }}" label="T Employee">
                                             <option value="">Select Employee</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-6"
+                                        <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-1"
                                             type='date' value="{{ old('t_pd[0]', getCurrentDate()) }}"
-                                            label="Translation PD" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-6"
+                                            label="T PD" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                             type='date' value="{{ old('t_cr[0]', getCurrentDate()) }}"
-                                            label="Translation CR" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="t_cnc[0]" placeholder="CN" fgroup-class="col-md-6"
-                                            value="{{ old('t_cnc[0]') }}" label="Translation C/CN" />
-                                        <x-adminlte-input name="t_dv[0]" placeholder="DV" fgroup-class="col-md-6"
-                                            value="{{ old('t_dv[0]') }}" label="Translation DV" />
-                                        <x-adminlte-input name="t_fqc[0]" placeholder="QC" fgroup-class="col-md-6"
-                                            value="{{ old('t_fqc[0]') }}" label="Translation F/QC" />
+                                            label="T CR" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="t_cnc[0]" placeholder="CN" fgroup-class="col-md-1"
+                                            value="{{ old('t_cnc[0]') }}" label="T C/CN" />
+                                        <x-adminlte-input name="t_dv[0]" placeholder="DV" fgroup-class="col-md-1"
+                                            value="{{ old('t_dv[0]') }}" label="T DV" />
+                                        <x-adminlte-input name="t_fqc[0]" placeholder="QC" fgroup-class="col-md-1"
+                                            value="{{ old('t_fqc[0]') }}" label="T F/QC" />
                                         <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
-                                            fgroup-class="col-md-6" type='date'
+                                            fgroup-class="col-md-2" type='date'
                                             value="{{ old('t_sentdate[0]', getCurrentDate()) }}"
-                                            label="Translation Sent Date" min="{{ getCurrentDate() }}" />
+                                            label="T Sent Date" min="{{ getCurrentDate() }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row pt-2">
-                                        <x-adminlte-select name="v_writer[0]" fgroup-class="col-md-6"
-                                            value="{{ old('v_writer[0]') }}" label="Verifcation Writer">
+                                        <x-adminlte-select name="v_writer[0]" fgroup-class="col-md-2"
+                                            value="{{ old('v_writer[0]') }}" label="V Writer">
                                             <option value="">Select Writer</option>
                                             @foreach ($writers as $writer)
                                                 <option value="{{ $writer->id }}">{{ $writer->writer_name }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-select name="v_emp_code[0]" fgroup-class="col-md-6"
-                                            value="{{ old('v_emp_code[0]') }}" label="Verifcation Employee">
+                                        <x-adminlte-select name="v_emp_code[0]" fgroup-class="col-md-2"
+                                            value="{{ old('v_emp_code[0]') }}" label="V Employee">
                                             <option value="">Select Employee</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-input name="v_pd[0]" placeholder="PD" fgroup-class="col-md-6"
+                                        <x-adminlte-input name="v_pd[0]" placeholder="PD" fgroup-class="col-md-1"
                                             type='date' value="{{ old('v_pd[0]', getCurrentDate()) }}"
-                                            label="Verifcation PD" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="v_cr[0]" placeholder="CR" fgroup-class="col-md-6"
+                                            label="V PD" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="v_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                             type='date' value="{{ old('v_cr[0]', getCurrentDate()) }}"
-                                            label="Verifcation CR" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="v_cnc[0]" placeholder="CN" fgroup-class="col-md-6"
-                                            value="{{ old('v_cnc[0]') }}" label="Verifcation C/CN" />
-                                        <x-adminlte-input name="v_dv[0]" placeholder="DV" fgroup-class="col-md-6"
-                                            value="{{ old('v_dv[0]') }}" label="Verifcation DV" />
-                                        <x-adminlte-input name="v_fqc[0]" placeholder="QC" fgroup-class="col-md-6"
-                                            value="{{ old('v_fqc[0]') }}" label="Verifcation F/QC" />
+                                            label="V CR" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="v_cnc[0]" placeholder="CN" fgroup-class="col-md-1"
+                                            value="{{ old('v_cnc[0]') }}" label="V C/CN" />
+                                        <x-adminlte-input name="v_dv[0]" placeholder="DV" fgroup-class="col-md-1"
+                                            value="{{ old('v_dv[0]') }}" label="V DV" />
+                                        <x-adminlte-input name="v_fqc[0]" placeholder="QC" fgroup-class="col-md-1"
+                                            value="{{ old('v_fqc[0]') }}" label="V F/QC" />
                                         <x-adminlte-input name="v_sentdate[0]" placeholder="Sent Date"
-                                            fgroup-class="col-md-6" type='date'
+                                            fgroup-class="col-md-2" type='date'
                                             value="{{ old('v_sentdate[0]', getCurrentDate()) }}"
-                                            label="Verifcation Sent Date" min="{{ getCurrentDate() }}" />
+                                            label="V Sent Date" min="{{ getCurrentDate() }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row pt-2">
-                                        <x-adminlte-select name="bt_writer[0]" fgroup-class="col-md-6"
-                                            value="{{ old('bt_writer[0]') }}" label="Back Translation Writer">
+                                        <x-adminlte-select name="bt_writer[0]" fgroup-class="col-md-2"
+                                            value="{{ old('bt_writer[0]') }}" label="BT Writer">
                                             <option value="">Select Writer</option>
                                             @foreach ($writers as $writer)
                                                 <option value="{{ $writer->id }}">{{ $writer->writer_name }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-select name="bt_emp_code[0]" fgroup-class="col-md-6"
-                                            value="{{ old('bt_emp_code[0]') }}" label="Back Translation Employee">
+                                        <x-adminlte-select name="bt_emp_code[0]" fgroup-class="col-md-2"
+                                            value="{{ old('bt_emp_code[0]') }}" label="BT Employee">
                                             <option value="">Select Employee</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-input name="bt_pd[0]" placeholder="PD" fgroup-class="col-md-6"
+                                        <x-adminlte-input name="bt_pd[0]" placeholder="PD" fgroup-class="col-md-1"
                                             type='date' value="{{ old('bt_pd[0]', getCurrentDate()) }}"
-                                            label="Back Translation PD" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="bt_cr[0]" placeholder="CR" fgroup-class="col-md-6"
+                                            label="BT PD" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="bt_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                             type='date' value="{{ old('bt_cr[0]', getCurrentDate()) }}"
-                                            label="Back Translation CR" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="bt_cnc[0]" placeholder="CN" fgroup-class="col-md-6"
-                                            value="{{ old('bt_cnc[0]') }}" label="Back Translation C/CN" />
-                                        <x-adminlte-input name="bt_dv[0]" placeholder="DV" fgroup-class="col-md-6"
-                                            value="{{ old('bt_dv[0]') }}" label="Back Translation DV" />
-                                        <x-adminlte-input name="bt_fqc[0]" placeholder="QC" fgroup-class="col-md-6"
-                                            value="{{ old('bt_fqc[0]') }}" label="Back Translation F/QC" />
+                                            label="BT CR" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="bt_cnc[0]" placeholder="CN" fgroup-class="col-md-1"
+                                            value="{{ old('bt_cnc[0]') }}" label="BT C/CN" />
+                                        <x-adminlte-input name="bt_dv[0]" placeholder="DV" fgroup-class="col-md-1"
+                                            value="{{ old('bt_dv[0]') }}" label="BT DV" />
+                                        <x-adminlte-input name="bt_fqc[0]" placeholder="QC" fgroup-class="col-md-1"
+                                            value="{{ old('bt_fqc[0]') }}" label="BT F/QC" />
                                         <x-adminlte-input name="bt_sentdate[0]" placeholder="Sent Date"
-                                            fgroup-class="col-md-6" type='date'
+                                            fgroup-class="col-md-2" type='date'
                                             value="{{ old('bt_sentdate[0]', getCurrentDate()) }}"
-                                            label="Back Translation Sent Date" min="{{ getCurrentDate() }}" />
+                                            label="BT Sent Date" min="{{ getCurrentDate() }}" />
                                     </div>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row pt-2">
-                                        <x-adminlte-select name="btv_writer[0]" fgroup-class="col-md-6"
+                                        <x-adminlte-select name="btv_writer[0]" fgroup-class="col-md-2"
                                             value="{{ old('btv_writer[0]') }}"
-                                            label="Back Translation Verifcation Writer">
+                                            label="BTV Writer">
                                             <option value="">Select Writer</option>
                                             @foreach ($writers as $writer)
                                                 <option value="{{ $writer->id }}">{{ $writer->writer_name }}
                                                 </option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-select name="btv_emp_code[0]" fgroup-class="col-md-6"
+                                        <x-adminlte-select name="btv_emp_code[0]" fgroup-class="col-md-2"
                                             value="{{ old('btv_emp_code[0]') }}"
-                                            label="Back Translation Verifcation Employee">
+                                            label="BTV Employee">
                                             <option value="">Select Employee</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </x-adminlte-select>
-                                        <x-adminlte-input name="btv_pd[0]" placeholder="PD" fgroup-class="col-md-6"
+                                        <x-adminlte-input name="btv_pd[0]" placeholder="PD" fgroup-class="col-md-1"
                                             type='date' value="{{ old('btv_pd[0]', getCurrentDate()) }}"
-                                            label="Back Translation Verifcation PD" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="btv_cr[0]" placeholder="CR" fgroup-class="col-md-6"
+                                            label="BTV PD" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="btv_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                             type='date' value="{{ old('btv_cr[0]', getCurrentDate()) }}"
-                                            label="Back Translation Verifcation CR" min="{{ getCurrentDate() }}" />
-                                        <x-adminlte-input name="btv_cnc[0]" placeholder="CN" fgroup-class="col-md-6"
+                                            label="BTV CR" min="{{ getCurrentDate() }}" />
+                                        <x-adminlte-input name="btv_cnc[0]" placeholder="CN" fgroup-class="col-md-1"
                                             value="{{ old('btv_cnc[0]') }}"
-                                            label="Back Translation Verifcation C/CN" />
-                                        <x-adminlte-input name="btv_dv[0]" placeholder="DV" fgroup-class="col-md-6"
-                                            value="{{ old('btv_dv[0]') }}" label="Back Translation Verifcation DV" />
-                                        <x-adminlte-input name="btv_fqc[0]" placeholder="QC" fgroup-class="col-md-6"
+                                            label="BTV C/CN" />
+                                        <x-adminlte-input name="btv_dv[0]" placeholder="DV" fgroup-class="col-md-1"
+                                            value="{{ old('btv_dv[0]') }}" label="BTV DV" />
+                                        <x-adminlte-input name="btv_fqc[0]" placeholder="QC" fgroup-class="col-md-1"
                                             value="{{ old('btv_fqc[0]') }}"
-                                            label="Back Translation Verifcation F/QC" />
+                                            label="BTV F/QC" />
                                         <x-adminlte-input name="btv_sentdate[0]" placeholder="Sent Date"
-                                            fgroup-class="col-md-6" type='date'
+                                            fgroup-class="col-md-2" type='date'
                                             value="{{ old('btv_sentdate[0]', getCurrentDate()) }}"
-                                            label="Back Translation Verifcation Sent Date"
+                                            label="BTV Sent Date"
                                             min="{{ getCurrentDate() }}" />
                                     </div>
                                 </div>

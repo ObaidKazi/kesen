@@ -1,6 +1,6 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 
 @if ($layoutHelper->isLayoutTopnavEnabled())
@@ -38,10 +38,10 @@
                         value="{{ $estimate->estimate_no }}" label="Estimate Number" disabled />
                         <x-adminlte-select name="metrix" fgroup-class="col-md-6" required label="Metrix" disabled>
                             <option value="">Select Metrix</option>
-                            @foreach ($metrics as $key => $value)
-                                <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>
-                                    {{ $value }}</option>
-                            @endforeach
+                            @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}" @if ($estimate->metrix == $metric->id) selected @endif>
+                                {{ $metric->name }}</option>
+                        @endforeach
                         </x-adminlte-select>
                     <x-adminlte-input name="client_id" placeholder="Client Name" fgroup-class="col-md-6"
                         value="{{ $estimate->client->name??'' }}" disabled label="Client Name" />

@@ -21,7 +21,7 @@
         })
         ->get();
 @endphp
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
 @php
     $config = [
         'title' => 'Select Estimate Number',
@@ -64,8 +64,8 @@
                     <x-adminlte-select name="metrix" fgroup-class="col-md-6" required value="{{ old('metrix') }}"
                         label="Metrix">
                         <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                        @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}">{{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-6" required :config="$config"
@@ -131,7 +131,7 @@
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-6"
                         value="{{ old('protocol_no') }}" label="Protocol Number" />
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type='date'
-                        value="{{ old('date', date('Y-m-d')) }}" required label="Date" />
+                        value="{{ old('date', date('Y-m-d')) }}" required label="Date" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-textarea name="description" placeholder="HEADING / DESCRIPTION" fgroup-class="col-md-6"
                         value="{{ old('description') }}" label="HEADING / DESCRIPTION" />
                     

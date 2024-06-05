@@ -1,6 +1,6 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
@@ -32,15 +32,6 @@
             <form action="{{ route('estimatemanagement.store') }}" method="POST">
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-input name="estimate_no" placeholder="Estimate Number" fgroup-class="col-md-6" required
-                        value="{{ old('estimate_no') }}" label="Estimate Number" />
-                        <x-adminlte-select name="metrix" fgroup-class="col-md-6" required value="{{ old('metrix') }}"
-                        label="Metrix">
-                        <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
-                        @endforeach
-                    </x-adminlte-select>
                     <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
@@ -53,17 +44,24 @@
                     </x-adminlte-select>
                     <x-adminlte-input name="headline" placeholder="Headline" fgroup-class="col-md-6" type="text"
                         value="{{ old('headline') }}" required label="Headline" />
-                    <x-adminlte-input name="amount" placeholder="Amount" fgroup-class="col-md-6" type="text"
-                        value="{{ old('amount') }}" required label="Amount" />
-                        
+                       
                     <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-6" required
                         value="{{ old('currency') }}" label="Currency">
                         
                         <option value="">Select Currency</option>
                         {!! getCurrencyDropDown() !!}
                     </x-adminlte-select>
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type='date'
+                    value="{{ old('date', date('Y-m-d')) }}" required label="Mail Received on" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-6" type="text"
                         value="{{ old('discount') }}" required label="Discount" />
+                        <x-adminlte-select name="type" fgroup-class="col-md-6" required
+                                        value="{{ old('type') }}" label="Type">
+                                        <option value="">Select Type</option>
+                                        <option value="word">Word</option>
+                                        <option value="unit">Unit</option>
+                                        <option value="minimum">Minimum</option>
+                                    </x-adminlte-select>
                     <x-adminlte-select name="status" fgroup-class="col-md-6" required value="{{ old('status') }}"
                         label="Status">
                         <option value="">Select Status</option>
@@ -78,43 +76,57 @@
                 <div id="repeater">
                     <div class="repeater-item mt-3">
 
-                        <div class="row">
-                            <x-adminlte-input name="document_name[0]" placeholder="Document Name"
-                                fgroup-class="col-md-6" type="text" value="{{ old('document_name[0]') }}" required
-                                label="Document Name" />
-                            <x-adminlte-select name="type[0]" fgroup-class="col-md-6" required
-                                value="{{ old('type[0]') }}" label="Type">
-                                <option value="">Select Type</option>
-                                <option value="word">Word</option>
-                                <option value="unit">Unit</option>
-                            </x-adminlte-select>
-                            <x-adminlte-input name="unit[0]" placeholder="Unit" fgroup-class="col-md-6" type="text"
-                                value="{{ old('unit[0]') }}" required label="Unit/Words" />
-                            <x-adminlte-input name="rate[0]" placeholder="Rate" fgroup-class="col-md-6" type="text"
-                                value="{{ old('rate[0]') }}" required label="Rate" />
-                            <x-adminlte-input name="verification[0]" placeholder="Verification" fgroup-class="col-md-6"
-                                type="text" value="{{ old('verification[0]') }}" required label="Verification" />
-                                <x-adminlte-input name="layout_charges[0]" placeholder="Layout Charges"
-                                fgroup-class="col-md-6" type="text" value="{{ old('layout_charges[0]') }}"
-                                required label="Layout Charges" />
-                                <x-adminlte-input name="back_translation[0]" placeholder="Back Translation"
-                                fgroup-class="col-md-6" type="text" value="{{ old('back_translation[0]') }}"
-                                required label="Back Translation" />
-                                <x-adminlte-input name="verification_2[0]" placeholder="Back Translation Verification" fgroup-class="col-md-6"
-                                type="text" value="{{ old('verification_2[0]') }}" required label="Back Translation Verification" />
-                            <x-adminlte-input name="layout_charges_second[0]" placeholder="Layout Charges 2"
-                                fgroup-class="col-md-6" type="text" value="{{ old('layout_charges_second[0]') }}"
-                                required label="Layout Charges 2" />
-                                <x-adminlte-select name="lang[0]" fgroup-class="col-md-6"  required value="{{ old('language') }}" label="Language">
-                                    <option value="">Select Language</option>
-                                    @foreach ($languages as $language)
-                                        <option value="{{ $language->id }}">{{ $language->name }}</option>
-                                    @endforeach
-                                </x-adminlte-select>
-                        </div>
-                        <div class="row">
-                            <button type="button" class="btn btn-danger remove-item mt-3 mb-3"
-                                style="float:right;width: 100px">Remove</button>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Documents 1</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <x-adminlte-input name="document_name[0]" placeholder="Document Name"
+                                        fgroup-class="col-md-3" type="text" value="{{ old('document_name[0]') }}" required
+                                        label="Document Name" />
+                                    
+                                    <x-adminlte-input name="unit[0]" placeholder="Unit" fgroup-class="col-md-3" type="text"
+                                        value="{{ old('unit[0]') }}" required label="Unit/Words" />
+                                    <x-adminlte-input name="rate[0]" placeholder="Rate" fgroup-class="col-md-3" type="text"
+                                        value="{{ old('rate[0]') }}" required label="Rate" />
+                                    <x-adminlte-input name="verification[0]" placeholder="Verification" fgroup-class="col-md-3"
+                                        type="text" value="{{ old('verification[0]') }}" required label="Verification" />
+                                        <x-adminlte-input name="two_way_qc_t[0]"
+                                        placeholder="Two Way QC T" fgroup-class="col-md-3" type="text"
+                                        value="{{ old('two_way_qc_t[0]')}}" required
+                                        label="Two Way QC T" />
+                                        <x-adminlte-input name="layout_charges[0]" placeholder="Layout Charges"
+                                        fgroup-class="col-md-3" type="text" value="{{ old('layout_charges[0]') }}"
+                                        required label="Layout Charges" />
+                                        <x-adminlte-input name="back_translation[0]" placeholder="Back Translation"
+                                        fgroup-class="col-md-3" type="text" value="{{ old('back_translation[0]') }}"
+                                        required label="Back Translation" />
+                                        <x-adminlte-input name="verification_2[0]" placeholder="Back Translation Verification" fgroup-class="col-md-3"
+                                        type="text" value="{{ old('verification_2[0]') }}" required label="Back Translation Verification" />
+                                        <x-adminlte-input name="two_way_qc_bt[0]"
+                                        placeholder="Two Way QC BT" fgroup-class="col-md-3" type="text"
+                                        value="{{ old('two_way_qc_bt[0]')}}" required
+                                        label="Two Way QC BT" />
+                                    <x-adminlte-input name="layout_charges_second[0]" placeholder="BT Layout Charges"
+                                        fgroup-class="col-md-3" type="text" value="{{ old('layout_charges_second[0]') }}"
+                                        required label="BT Layout Charges" />
+                                        <x-adminlte-select name="lang_0[]"
+                                        fgroup-class="col-md-3" required  
+                                        label="Language" multiple>
+                                        <option value="">Select Language</option>
+                                        @foreach ($languages as $language)
+                                            <option value="{{ $language->id }}"
+                                              >
+                                                {{ $language->name }}</option>
+                                        @endforeach
+                                    </x-adminlte-select>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-danger remove-item mt-3 mb-3"
+                                        style="float:right;width: 100px">Remove</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,18 +155,26 @@
         let itemIndex = 1;
 
         $('#add-item').click(function() {
-            console.log(itemIndex);
+            
+            
             let newItem = $('.repeater-item.mt-3:first').clone();
             newItem.find('input, select').each(function() {
+                
                 $(this).val('');
                 let name = $(this).attr('name');
                 if(name=='verification_2[0]'){
                     name = 'verification_2['+itemIndex+']';
                 }else{
-                    name = name.replace(/\d+/, itemIndex);
+                    if(name=="lang_0"){
+                            name = 'lang_' + itemIndex+"[]";
+                        }else{
+                        name = name.replace(/\d+/, itemIndex);
+                        }
                 }
                 $(this).attr('name', name);
             });
+            newItem.find('.card-title').html('Document ' + (itemIndex+1));
+            
             newItem.appendTo('#repeater');
             itemIndex++;
         });
@@ -177,7 +197,11 @@
                     if(name=='verification_2[0]'){
                     name = 'verification_2['+itemIndex+']';
                 }else{
+                    if(name=="lang_0"){
+                            name = 'lang_' + itemIndex;
+                        }else{
                     name = name.replace(/\d+/, itemIndex);
+                        }
                 }
                     $(this).attr('name', name);
                 });

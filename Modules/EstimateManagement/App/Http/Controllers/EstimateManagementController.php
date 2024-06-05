@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\ClientManagement\App\Models\Client;
 use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
@@ -58,13 +59,11 @@ class EstimateManagementController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'estimate_no' => 'required|unique:estimates,estimate_no',
-            'metrix' => 'required',
             'client_id' => 'required',
             'client_contact_person_id' => 'required',
             'headline' => 'nullable',
-            'amount' => 'required',
             'currency' => 'required',
+            'date'=> 'required',
             'discount' => 'required',
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
@@ -75,16 +74,18 @@ class EstimateManagementController extends Controller
             'back_translation.*' => 'required|string',
             'layout_charges.*' => 'required|string',
             'layout_charges_second.*' => 'required|string',
-            'lang.*' => 'required|string',
+            'lang_*' => 'required|string',
+            'two_way_qc_t.*'=>'string',
+            'two_way_qc_bt.*'=>'string',
         ]);
-
         $estimate = new Estimates();
-        $estimate->estimate_no = $request->estimate_no;
-        $estimate->metrix = $request->metrix;
+        $estimate->estimate_no = generateEstimateNumber($request->client_id);
+        $estimate->metrix = Client::where('id', $request->client_id)->first()->metrix;
         $estimate->client_id = $request->client_id;
         $estimate->client_contact_person_id = $request->client_contact_person_id;
         $estimate->headline = $request->headline;
-        $estimate->amount = $request->amount;
+        $estimate->type = $request->type;
+        $estimate->date = $request->date;
         $estimate->currency = $request->currency;
         $estimate->status = $request->status;
         $estimate->discount = $request->discount ?? 0;
@@ -96,7 +97,7 @@ class EstimateManagementController extends Controller
                 EstimatesDetails::create([
                     'estimate_id' => $estimate->id,
                     'document_name' => $document_name,
-                    'type' => $request['type'][$index],
+                    'type' => $request->type,
                     'unit' => $request['unit'][$index],
                     'rate' => $request['rate'][$index],
                     'verification' => $request['verification'][$index],
@@ -104,7 +105,9 @@ class EstimateManagementController extends Controller
                     'back_translation' => $request['back_translation'][$index],
                     'layout_charges' => $request['layout_charges'][$index],
                     'layout_charges_2' => $request['layout_charges_second'][$index],
-                    'lang' => $request['lang'][$index]
+                    'lang' => implode(',', $request['lang_' . $index]),
+                    'two_way_qc_t' => $request['two_way_qc_t'][$index],
+                    'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
                 ]);
             }
         }
@@ -117,9 +120,8 @@ class EstimateManagementController extends Controller
      */
     public function show($id)
     {
-        $estimate = Estimates::where('id', $id)->with('client', 'client_person')->first();
-        $estimate_details = EstimatesDetails::where('estimate_id', $id)->get();
-        return view('estimatemanagement::show', compact('estimate', 'estimate_details'));
+        $estimate = Estimates::where('id', $id)->first();
+        return view('estimatemanagement::pdf.estimate', ['estimate' => $estimate]);
     }
 
     /**
@@ -139,33 +141,33 @@ class EstimateManagementController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         $request->validate([
-            'estimate_no' => 'required|unique:estimates,estimate_no,' . $id . ',id',
-            'metrix' => 'required',
             'client_id' => 'required',
             'client_contact_person_id' => 'required',
             'headline' => 'nullable',
-            'amount' => 'required',
+            'date'=>'required',
             'discount' => 'required',
             'currency' => 'required',
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
-            'type.*' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
             'verification.*' => 'required|string',
             'back_translation.*' => 'required|string',
             'layout_charges.*' => 'required|string',
             'layout_charges_second.*' => 'required|string',
-            'lang.*' => 'required|string',
+            'lang_*' => 'required|string',
+            'two_way_qc_t.*'=>'string',
+            'two_way_qc_bt.*'=>'string',
         ]);
 
         $estimate = Estimates::find($id);
-        $estimate->estimate_no = $request->estimate_no;
-        $estimate->metrix = $request->metrix;
+        $estimate->metrix = Client::where('id', $request->client_id)->first()->metrix;
         $estimate->client_id = $request->client_id;
         $estimate->client_contact_person_id = $request->client_contact_person_id;
         $estimate->headline = $request->headline;
-        $estimate->amount = $request->amount;
+        $estimate->type = $request->type;
+        $estimate->date = $request->date;
         $estimate->discount = $request->discount ?? 0;
         $estimate->currency = $request->currency;
         $estimate->status = $request->status;
@@ -177,7 +179,7 @@ class EstimateManagementController extends Controller
             ], [
                 'estimate_id' => $estimate->id,
                 'document_name' => $document_name,
-                'type' => $request['type'][$index],
+                'type' => $request->type,
                 'unit' => $request['unit'][$index],
                 'rate' => $request['rate'][$index],
                 'verification' => $request['verification'][$index],
@@ -185,7 +187,9 @@ class EstimateManagementController extends Controller
                 'back_translation' => $request['back_translation'][$index],
                 'layout_charges' => $request['layout_charges'][$index],
                 'layout_charges_2' => $request['layout_charges_second'][$index],
-                'lang' => $request['lang'][$index]
+                'lang' => implode(',', $request['lang_' . $index]),
+                    'two_way_qc_t' => $request['two_way_qc_t'][$index],
+                    'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
             ]);
         
     }

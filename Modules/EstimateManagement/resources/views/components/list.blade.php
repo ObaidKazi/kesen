@@ -106,7 +106,7 @@
                         <td>{{ $row->estimate_no }}</td>
                         <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
                         <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>
-                        <td>{{ $row->metrix }}</td>
+                        <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->name }}</td>
                         <td>{{ $row->headline }}</td>
                         <td>{{ $row->amount }}</td>
                         <td>{{ $row->currency }}</td>

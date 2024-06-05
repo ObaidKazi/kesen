@@ -14,7 +14,7 @@ class EmployeeManagementController extends Controller
      */
     public function index()
     {
-        $employee=User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->get();
+        $employee=User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->orderBy('created_at', 'desc')->get();
         return view('employeemanagement::index')->with('employee',$employee);
     }
 
@@ -40,10 +40,11 @@ class EmployeeManagementController extends Controller
             'landline' => 'nullable|numeric|unique:users',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password|min:8',
-            'password' => 'required',
             'role' => 'required',
             'language' => 'required',
         ]);
+
+        
 
         $user = new User();
         $user->name = $request->name;

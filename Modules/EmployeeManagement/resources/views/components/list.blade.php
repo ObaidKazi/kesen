@@ -4,13 +4,13 @@
 @php
     $heads = [
         [
-            'label' => 'ID',
+            'label' => '#',
         ],
         [
-            'label' => 'Client Name',
+            'label' => 'Employee Name',
         ],
         [
-            'label' => 'Client Email',
+            'label' => 'Employee Email',
         ],
         [
             'label' => 'Contact No',
@@ -39,7 +39,7 @@
     
 
     $config = [
-        'order' => [[1, 'asc']],
+        // 'order' => [[2,'desc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];

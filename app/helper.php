@@ -1,5 +1,8 @@
 <?php
 
+use Modules\ClientManagement\App\Models\Client;
+use Modules\EstimateManagement\App\Models\Estimates;
+
 if (!function_exists('checkRequestUrl')) {
     function checkRequestUrl($patterns,$currentUrl)
     {
@@ -192,4 +195,19 @@ if(!function_exists('getCurrencyDropDown')){
       HTML;
     }
 }
-?>
+
+if(!function_exists('generateEstimateNumber')){
+
+    function generateEstimateNumber($client_id) {
+        $currentYear = date('Y');
+        $nextYear = $currentYear + 1;
+    
+        $count = Estimates::count() + 1;
+        $estimate_metric=Client::where('id',$client_id)->with('client_metric')->first();
+        $estimate_metric_code=$estimate_metric->client_metric->code;
+        $formattedID = str_pad($count, 4, '0', STR_PAD_LEFT) . '-'.$estimate_metric_code.'/' . $currentYear . '-' . $nextYear;
+    
+        return $formattedID;
+    }
+    
+}

@@ -56,7 +56,7 @@
 @php $sub_total=0; @endphp
 <body>
     <header>
-        <div class="header-title">{{$estimate->metrix}}</div>
+        <div class="header-title">{{$estimate->metrics->name}}</div>
         <div class="sub-title">PROFORMA</div>
     </header>
 
@@ -66,10 +66,25 @@
         <div class="right-align">Date: {{$estimate->created_at->format('d/m/Y')}}</div>
 
         <p><strong>Client Contact Person:</strong> {{$estimate->client_person->name}}</p>
-        <p><strong>Address:</strong> {{$estimate->address}}</p>
-        <p><strong>Ref:</strong> Quotation for Translation & Back Translation – Description</p>
-        <p><strong>Mail Received on:</strong> {{$estimate->mail_received_on}}</p>
-        <p><strong>Languages Required:</strong></p>
+        <p><strong>Address:</strong> {{$estimate->client->address}}</p>
+        <p><strong>Ref:</strong> Quotation for {{$estimate->headline}}</p>
+        <p><strong>Mail Received on:</strong> {{$estimate->date}}</p>
+        <p><strong>Languages Required:</strong>
+        @php $languages=[];@endphp
+        @foreach ($estimate->details as $detail)
+          @foreach ($detail->lang as $index=>$language)
+            @if(!in_array($language,$languages))
+                @if($index==0)
+                    {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+                    @php $languages[] = $language; @endphp
+                @else
+                    , {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+                    @php $languages[] = $language; @endphp
+                @endif
+            @endif 
+          @endforeach
+        @endforeach
+        </p>
 
         <table border="1">
             <thead>
@@ -99,9 +114,9 @@
                     <td>{{$detail->back_translation}}</td>
                     <td>{{$detail->verification_2}}</td>
                     <td>{{$detail->layout_charges_2}}</td>
-                    <td>{{$detail->lang}}</td>
-                    <td colspan="3">{{(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))}}</td>
-                    @php $sub_total=$sub_total+(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))@endphp
+                    <td>{{count($detail->lang)}}</td>
+                    <td colspan="3">{{(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))*count($detail->lang)}}</td>
+                    @php $sub_total=$sub_total+(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->verification_2)+($detail->layout_charges_2))*count($detail->lang)@endphp
                 </tr>    
                 @endforeach
                 
@@ -139,7 +154,7 @@
         <p style="font-size: 12px">Assuring you of our best services at all times.</p>
         <div style="display: block">
             <p style="display: inline">For </p>
-            (<p style="font-weight: bold;display: inline">{{$estimate->metrix}}</p>)
+            (<p style="font-weight: bold;display: inline">{{$estimate->metrics->name}}</p>)
         </div>
         <div style="margin-top:35px; ">
             _________________________

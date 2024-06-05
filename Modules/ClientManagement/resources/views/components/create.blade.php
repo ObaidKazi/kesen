@@ -1,6 +1,8 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
+
+@php $metrics=\
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -46,8 +48,8 @@
                     </x-adminlte-select>
                     <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required value="{{ old('metrix') }}" label="Metrix">
                         <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                        @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}">{{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-textarea name="address"  placeholder="Address"

@@ -2,6 +2,7 @@
 
 namespace Modules\EstimateManagement\App\Models;
 
+use App\Models\Metrix;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,9 @@ class Estimates extends Model
 
    public function details(){
       return $this->hasMany(EstimatesDetails::class,'estimate_id');
+   }
+   public function metrics(){   
+      return $this->belongsTo(Metrix::class,'metrix','id');
    }
    
 

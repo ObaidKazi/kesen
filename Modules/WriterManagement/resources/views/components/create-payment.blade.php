@@ -1,6 +1,6 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
-@php $metrics=config('services.metrix'); @endphp
+@php $metrics=App\Models\Metrix::get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -35,8 +35,8 @@
                     <x-adminlte-input name="payment_method" placeholder="Payment Method" fgroup-class="col-md-6" required value="{{ old('payment_method') }}"/>
                     <x-adminlte-select name="metrix"  fgroup-class="col-md-6"  required value="{{ old('metrix') }}">
                         <option value="">Select Metrix</option>
-                        @foreach ($metrics as $key => $value)
-                            <option value="{{ $key }}">{{ $value }}</option>
+                        @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}">{{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
     

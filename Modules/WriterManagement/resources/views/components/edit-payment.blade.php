@@ -35,9 +35,10 @@
                     <x-adminlte-input name="payment_method" placeholder="Payment Method" fgroup-class="col-md-6" required value="{{ old('payment_method', $payment->payment_method) }}" label="Payment Method" />
                         <x-adminlte-select name="metrix" fgroup-class="col-md-6"  required label="Metrix" >
                             <option value="">Select Metrix</option>
-                            @foreach ($metrics as $key => $value)
-                                <option value="{{ $key }}" @if ($estimate->metrix == $key) selected @endif>{{ $value }}</option>
-                            @endforeach
+                            @foreach ($metrics as $metric)
+                            <option value="{{ $metric->id }}" @if ($estimate->metrix == $metric->id) selected @endif>
+                                {{ $metric->name }}</option>
+                        @endforeach
                         </x-adminlte-select>
                     <x-adminlte-select name="apply_gst" placeholder="Apply GST" fgroup-class="col-md-6" required label="Apply GST">
                         <option value="0" {{ old('apply_gst', $payment->apply_gst) == 0 ? 'selected' : '' }}>No</option>

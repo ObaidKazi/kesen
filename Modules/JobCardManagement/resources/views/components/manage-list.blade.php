@@ -62,8 +62,7 @@
         </style>
     <div class="content">
         @include('components.notification')
-        <a href="{{ route('jobcardmanagement.create') }}"><button class="btn btn-md btn-success "
-                style="float:right;margin:10px">Add Job Card</button></a>
+       
         <br>
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
@@ -74,10 +73,24 @@
 
                         <td>{{ $index+1 }}</td>
                         <td>{{$row->document_name}}</td>
-                        <td>{{ $job_register->sr_no}}</td>
-                        <td>{{  $row->lang}}</td>
+                        <td>{{ $row->jobRegister->sr_no}}</td>
                         <td>
-                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $job_register->id, 'estimate_detail_id' => $row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                     
+          @foreach ($row->lang as $index=>$language)
+            
+                @if($index==0)
+                    {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+                
+                @else
+                    , {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
+                
+                @endif
+            
+          
+        @endforeach
+                       </td>
+                        <td>
+                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $row->jobRegister->id, 'estimate_detail_id' => $row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                               Edit
                             </button></a>
 
