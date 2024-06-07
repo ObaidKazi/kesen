@@ -22,9 +22,9 @@
             'label' => 'Phone',
         ],
 
-        [
-            'label' => 'Landline',
-        ],
+        // [
+        //     'label' => 'Landline',
+        // ],
 
         [
             'label' => 'Address',
@@ -92,7 +92,7 @@
                         <td>{{ $row->code }}</td>
                         
                         <td>{{ $row->phone_no }}</td>
-                        <td>{{ $row->landline }}</td>
+                        {{-- <td>{{ $row->landline }}</td> --}}
                         <td>{{ $row->address }}</td>
                         <td>{{ $row->created_by }}</td>
                         <td>

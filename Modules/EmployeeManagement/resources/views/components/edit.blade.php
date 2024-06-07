@@ -38,8 +38,8 @@
                     fgroup-class="col-md-3" required value="{{ $user->name }}" label="Employee Name"/>
                 <x-adminlte-input name="phone_no"  placeholder="Employee Number"
                     fgroup-class="col-md-3" value="{{ $user->phone }}"  label="Employee Number"/>
-                    <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-3" value="{{ $user->landline }}" label="Landline Number"/>
+                    {{-- <x-adminlte-input name="landline"  placeholder="Landline Number"
+                    fgroup-class="col-md-3" value="{{ $user->landline }}" label="Landline Number"/> --}}
                     <x-adminlte-input name="email"  placeholder="Email"
                     fgroup-class="col-md-3" type='email' value="{{ $user->email }}" required label="Email" />
 

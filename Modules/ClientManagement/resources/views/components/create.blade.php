@@ -2,7 +2,6 @@
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $metrics=App\Models\Metrix::get(); @endphp
 
-@php $metrics=\
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -37,8 +36,8 @@
                     fgroup-class="col-md-3" required value="{{ old('name') }}" label="Client Name"/>
                 <x-adminlte-input name="phone_no"  placeholder="Client Number"
                     fgroup-class="col-md-3" value="{{ old('phone_no') }}" label="Client Number" required/>
-                    <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-3" value="{{ old('landline') }}" label="Landline Number" required/>
+                    {{-- <x-adminlte-input name="landline"  placeholder="Landline Number"
+                    fgroup-class="col-md-3" value="{{ old('landline') }}" label="Landline Number" required/> --}}
                     <x-adminlte-input name="email"  placeholder="Email"
                     fgroup-class="col-md-3" type='email' value="{{ old('email') }}" label="Email" required/>
                     <x-adminlte-select name="type" fgroup-class="col-md-3" id="type" required value="{{ old('type') }}" label="Client Type">

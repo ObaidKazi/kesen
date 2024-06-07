@@ -40,8 +40,8 @@
                             value="{{ $writer->email }}" label="Email" disabled/>
                         <x-adminlte-input name="phone_no" placeholder="Phone Number" fgroup-class="col-md-3" required
                             value="{{ $writer->phone_no }}" label="Phone Number" disabled/>
-                        <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-3" required
-                            value="{{ $writer->landline }}" label="Landline" disabled/>
+                        {{-- <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-3" required
+                            value="{{ $writer->landline }}" label="Landline" disabled/> --}}
                         <x-adminlte-input name="code" placeholder="Writer Code" fgroup-class="col-md-3"
                             value="{{ $writer->code }}" label="Writer Code" disabled/>
                         <x-adminlte-textarea name="address" placeholder="Address"

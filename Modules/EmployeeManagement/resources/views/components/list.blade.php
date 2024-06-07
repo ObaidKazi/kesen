@@ -15,9 +15,9 @@
         [
             'label' => 'Contact No',
         ],
-        [
-            'label' => 'Landline',
-        ],
+        // [
+        //     'label' => 'Landline',
+        // ],
 
         [
             'label' => 'Address',
@@ -91,7 +91,7 @@
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->email }}</td>
                         <td>{{ $row->phone }}</td>
-                        <td>{{ $row->landline }}</td>
+                        {{-- <td>{{ $row->landline }}</td> --}}
                         <td>{{ $row->address }}</td>
                         <td>{{ $row->created_by }}</td>
                         <td>{{ $row->updated_by }}</td>

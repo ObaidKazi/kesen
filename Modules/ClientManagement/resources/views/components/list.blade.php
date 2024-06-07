@@ -18,9 +18,9 @@
         [
             'label' => 'Contact No',
         ],
-        [
-            'label' => 'Landline',
-        ],
+        // [
+        //     'label' => 'Landline',
+        // ],
 
         [
             'label' => 'Address',
@@ -86,7 +86,7 @@
                         <td>{{ $row->type == '1' ? 'Protocol' : 'Non Protocol (' . $row->protocol_data . ' )' }}</td>
                         <td>{{ $row->email }}</td>
                         <td>{{ $row->phone_no }}</td>
-                        <td>{{ $row->landline }}</td>
+                        {{-- <td>{{ $row->landline }}</td> --}}
                         <td>{{ $row->address }}</td>
                         <td width="200px">
                             <a href="{{route('clientmanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

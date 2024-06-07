@@ -15,9 +15,7 @@
         [
             'label' => 'Contact No',
         ],
-        [
-            'label' => 'Landline',
-        ],
+        
 
         [
             'label' => 'Designation',
@@ -67,8 +65,8 @@
                         value="{{ $client->name }}" label="Client Name" />
                     <x-adminlte-input name="phone_no" required placeholder="Client Number" fgroup-class="col-md-3"
                         value="{{ $client->phone_no }}" label="Client Number" />
-                    <x-adminlte-input name="landline" required placeholder="Landline Number" fgroup-class="col-md-3"
-                        value="{{ $client->landline }}" label="Landline Number" />
+                    {{-- <x-adminlte-input name="landline" required placeholder="Landline Number" fgroup-class="col-md-3"
+                        value="{{ $client->landline }}" label="Landline Number" /> --}}
                     <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-3" type='email'
                         value="{{ $client->email }}" label="Email" />
                     <x-adminlte-select name="type" fgroup-class="col-md-3" id="type" required
@@ -121,7 +119,7 @@
                             <td>{{ $row->name }}</td>
                             <td>{{ $row->email }}</td>
                             <td>{{ $row->phone_no }}</td>
-                            <td>{{ $row->landline }}</td>
+                            {{-- <td>{{ $row->landline }}</td> --}}
                             <td>{{ $row->designation }}</td>
                             <td>
                                 <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}"><button

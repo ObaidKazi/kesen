@@ -36,8 +36,8 @@
                     fgroup-class="col-md-3" required value="{{ $client->name }}" label="Client Name"  disabled/>
                 <x-adminlte-input name="phone_no"  placeholder="Client Number"
                     fgroup-class="col-md-3" value="{{ $client->phone_no}}" label="Client Number" disabled/>
-                    <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-3" value="{{ $client->landline}}" label="Landline Number" disabled/>
+                    {{-- <x-adminlte-input name="landline"  placeholder="Landline Number"
+                    fgroup-class="col-md-3" value="{{ $client->landline}}" label="Landline Number" disabled/> --}}
                     <x-adminlte-input name="email"  placeholder="Email"
                     fgroup-class="col-md-3" type='email' value="{{ $client->email}}" label="Email" disabled/>
                     <x-adminlte-select name="type" fgroup-class="col-md-3" id="type" required  label="Client Type" disabled>

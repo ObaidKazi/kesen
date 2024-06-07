@@ -86,10 +86,10 @@
                                         fgroup-class="col-md-3" type="text" value="{{ old('document_name[0]') }}" required
                                         label="Document Name" />
                                     
-                                    <x-adminlte-input name="unit[0]" placeholder="Unit" fgroup-class="col-md-3" type="text"
-                                        value="{{ old('unit[0]') }}" required label="Unit/Words" onkeyup="calculateAmount(this)" />
-                                    <x-adminlte-input name="rate[0]" placeholder="Translation Rate" fgroup-class="col-md-3" type="text"
-                                        value="{{ old('rate[0]') }}" required label="Translation Rate" onkeyup="calculateAmount(this)"/>
+                                    <x-adminlte-input name="unit[0]" placeholder="Unit" fgroup-class="col-md-3" type="number"
+                                        value="{{ old('unit[0]') }}" required label="Unit/Words" onkeyup="calculateAmount(this)" min="1" value="1"/>
+                                    <x-adminlte-input name="rate[0]" placeholder="Translation Rate" fgroup-class="col-md-3" type="number"
+                                        value="{{ old('rate[0]') }}" required label="Translation Rate" onkeyup="calculateAmount(this)" />
                                         <x-adminlte-input name="amount[0]" placeholder="Amount" fgroup-class="col-md-3" type="text"
                                         value="{{ old('amount[0]') }}"  label="Amount"  readonly/>
                                     <x-adminlte-input name="verification[0]" placeholder="Verification" fgroup-class="col-md-3"

@@ -39,8 +39,8 @@
                     fgroup-class="col-md-3" required value="{{ old('email') }}" label="Email"/>
                     <x-adminlte-input name="phone"  placeholder="Phone Number"
                     fgroup-class="col-md-3" required value="{{ old('phone') }}" label="Phone Number"/>
-                    <x-adminlte-input name="landline"  placeholder="Landline"
-                    fgroup-class="col-md-3" required value="{{ old('landline') }}" label="Landline"/>
+                    {{-- <x-adminlte-input name="landline"  placeholder="Landline"
+                    fgroup-class="col-md-3" required value="{{ old('landline') }}" label="Landline"/> --}}
                 <x-adminlte-input name="code"  placeholder="Writer Code"
                     fgroup-class="col-md-3" value="{{ old('code') }}" label="Writer Code"/>
                     <x-adminlte-textarea name="address"  placeholder="Address"

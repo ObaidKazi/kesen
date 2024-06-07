@@ -412,7 +412,7 @@
                                             <x-adminlte-input name="unit[{{ $index }}]" placeholder="Unit"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('unit.' . $index, $detail->unit) }}" required
-                                                label="Unit" onkeyup="calculateAmount(this)"/>
+                                                label="Unit" onkeyup="calculateAmount(this)" min="1"/>
                                             <x-adminlte-input name="rate[{{ $index }}]" placeholder="Rate"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('rate.' . $index, $detail->rate) }}" required

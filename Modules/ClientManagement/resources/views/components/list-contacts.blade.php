@@ -16,9 +16,9 @@
         [
             'label' => 'Contact No',
         ],
-        [
-            'label' => 'Landline',
-        ],
+        // [
+        //     'label' => 'Landline',
+        // ],
 
         [
             'label' => 'Designation',
@@ -83,7 +83,7 @@
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->email }}</td>
                         <td>{{ $row->phone_no }}</td>
-                        <td>{{ $row->landline }}</td>
+                        {{-- <td>{{ $row->landline }}</td> --}}
                         <td>{{ $row->designation }}</td>
                         <td>
                             <a href="{{route('clientmanagement.editContactForm',[$id,$row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
