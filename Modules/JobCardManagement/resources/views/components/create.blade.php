@@ -213,9 +213,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <x-adminlte-input name="job_no[0]" type="hidden" fgroup-class="col-md-6"
+                            <x-adminlte-input name="job_no[0]" type="hidden" fgroup-class="col-md-3"
                                 value="{{ $job_register->sr_no }}" />
-                            <x-adminlte-input name="estimate_detail_id[0]" type="hidden" fgroup-class="col-md-6"
+                            <x-adminlte-input name="estimate_detail_id[0]" type="hidden" fgroup-class="col-md-3"
                                 value="{{ $estimate_detail->id }}" />
 
                         </div>

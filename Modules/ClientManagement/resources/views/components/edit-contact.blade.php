@@ -34,17 +34,17 @@
             <div class="row pt-2">
                 
                 <x-adminlte-input name="name"  placeholder="Contact Person Name"
-                    fgroup-class="col-md-6" required value="{{ $contact_person->name }}" label="Contact Person Name"/>
+                    fgroup-class="col-md-3" required value="{{ $contact_person->name }}" label="Contact Person Name"/>
                 <x-adminlte-input name="phone_no" required placeholder="Contact Person Number"
-                    fgroup-class="col-md-6" value="{{ $contact_person->phone_no}}" label="Contact Person Number"/>
+                    fgroup-class="col-md-3" value="{{ $contact_person->phone_no}}" label="Contact Person Number"/>
                     <x-adminlte-input name="landline" required placeholder="Landline Number"
-                    fgroup-class="col-md-6" value="{{ $contact_person->landline}}" label="Landline Number"/>
+                    fgroup-class="col-md-3" value="{{ $contact_person->landline}}" label="Landline Number"/>
                     <x-adminlte-input name="email" required placeholder="Email"
-                    fgroup-class="col-md-6" type='email' value="{{ $contact_person->email}}" label="Email"/>
+                    fgroup-class="col-md-3" type='email' value="{{ $contact_person->email}}" label="Email"/>
                     <x-adminlte-input name="designation" required placeholder="Designation"
-                    fgroup-class="col-md-6" value="{{ $contact_person->designation}}" label="Designation"/>
+                    fgroup-class="col-md-3" value="{{ $contact_person->designation}}" label="Designation"/>
                     <x-adminlte-input name="id" required placeholder="Contact Person Name"
-                    fgroup-class="col-md-6" type="hidden"  value="{{ $contact_person->id }}" />
+                    fgroup-class="col-md-3" type="hidden"  value="{{ $contact_person->id }}" />
             </div>
             
             <x-adminlte-button label="Submit" type="submit" class="mt-3"/>

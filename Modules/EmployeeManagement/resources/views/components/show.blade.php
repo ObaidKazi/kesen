@@ -35,30 +35,30 @@
             @csrf
             <div class="row pt-2">
                 <x-adminlte-input name="name"  placeholder="Employee Name"
-                    fgroup-class="col-md-6" required value="{{ $user->name }}" label="Employee Name" disabled/>
+                    fgroup-class="col-md-3" required value="{{ $user->name }}" label="Employee Name" disabled/>
                 <x-adminlte-input name="phone_no"  placeholder="Employee Number"
-                    fgroup-class="col-md-6" value="{{ $user->phone }}"  label="Employee Number" disabled/>
+                    fgroup-class="col-md-3" value="{{ $user->phone }}"  label="Employee Number" disabled/>
                     <x-adminlte-input name="landline"  placeholder="Landline Number"
-                    fgroup-class="col-md-6" value="{{ $user->landline }}" label="Landline Number" disabled/>
+                    fgroup-class="col-md-3" value="{{ $user->landline }}" label="Landline Number" disabled/>
                     <x-adminlte-input name="email"  placeholder="Email"
-                    fgroup-class="col-md-6" type='email' value="{{ $user->email }}" required label="Email"  disabled/>
+                    fgroup-class="col-md-3" type='email' value="{{ $user->email }}" required label="Email"  disabled/>
 
                     <x-adminlte-input name="code"  placeholder="Employee Code"
-                    fgroup-class="col-md-6" type='text' value="{{ $user->code }}" required label="Employee Code"  disabled/>
+                    fgroup-class="col-md-3" type='text' value="{{ $user->code }}" required label="Employee Code"  disabled/>
                     
                     <x-adminlte-input name="password"  placeholder="Password"
-                    fgroup-class="col-md-6" type='password' value="{{ $user->plain_password }}" required label="Password"  disabled/> 
+                    fgroup-class="col-md-3" type='password' value="{{ $user->plain_password }}" required label="Password"  disabled/> 
                     <x-adminlte-textarea name="address"  placeholder="Address"
-                    fgroup-class="col-md-6" label="Address" disabled>{{ $user->address }}</x-adminlte-textarea>
+                    fgroup-class="col-md-3" label="Address" disabled>{{ $user->address }}</x-adminlte-textarea>
 
-                    <x-adminlte-select name="language" fgroup-class="col-md-6"  required label="Language" disabled>
+                    <x-adminlte-select name="language" fgroup-class="col-md-3"  required label="Language" disabled>
                         <option value="">Select Language</option>
                         @foreach ($languages as $language)
                             <option value="{{ $language->id }}" @if ($user->language_id == $language->name) selected @endif>{{ $language->name }}</option>
                         @endforeach
                     </x-adminlte-select>
 
-                    <x-adminlte-select name="role" fgroup-class="col-md-6"  required value="{{ old('role') }}" label="Role" disabled>
+                    <x-adminlte-select name="role" fgroup-class="col-md-3"  required value="{{ old('role') }}" label="Role" disabled>
                         <option value="">Select Role</option>
                         @foreach ($roles as $role)
                             <option value="{{ $role->name }}" @if ($user->hasRole($role->name)) selected @endif>{{ $role->name }}</option>

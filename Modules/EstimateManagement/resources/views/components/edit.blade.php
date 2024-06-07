@@ -32,7 +32,7 @@
                 @method('PUT')
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" required label="Client">
+                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}"
@@ -40,7 +40,7 @@
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id"
-                        fgroup-class="col-md-6" required label="Contact Person">
+                        fgroup-class="col-md-3" required label="Contact Person">
                         <option value="">Select Contact Person</option>
                         @foreach ($contact_persons as $contactPerson)
                             <option value="{{ $contactPerson->id }}"
@@ -48,13 +48,13 @@
                                 {{ $contactPerson->name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-input name="headline" placeholder="Headline" fgroup-class="col-md-6" type="text"
+                    <x-adminlte-input name="headline" placeholder="Headline" fgroup-class="col-md-3" type="text"
                         value="{{ $estimate->headline }}" required label="Headline" />
 
-                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-6" type='date'
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                         value="{{ old('date', $estimate->date) }}" required label="Mail Received on"
                         min="{{ getCurrentDate() }}" />
-                    <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-6" required
+                    <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-3" required
                         value="{{ old('currency', $estimate->currency) }}" label="Currency">
                         <option value="">Select Currency</option>
                         <option value="AFN" @if ($estimate->currency == 'AFN') selected @endif label="Afghan afghani">
@@ -374,13 +374,13 @@
                         <option value="ZWB" @if ($estimate->currency == 'ZWB') selected @endif
                             label="Zimbabwean bonds">ZWB</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="status" fgroup-class="col-md-6" required label="Status">
+                    <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" @if ($estimate->status == '0') selected @endif>Pending</option>
                         <option value="1" @if ($estimate->status == '1') selected @endif>Approve</option>
                         <option value="2" @if ($estimate->status == '2') selected @endif>Reject</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="type" fgroup-class="col-md-6" required label="Type">
+                    <x-adminlte-select name="type" fgroup-class="col-md-3" required label="Type">
                         <option value="">Select Type</option>
                         <option value="word" {{ old('type.', $estimate->type) == 'word' ? 'selected' : '' }}>Word
                         </option>
@@ -390,17 +390,17 @@
                             Minimum</option>
                     </x-adminlte-select>
 
-                    <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-6" type="text"
+                    <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
                         value="{{ old('discount', $estimate->discount) }}" required label="Discount" />
 
                     <div id="repeater">
                         @foreach ($estimate->details as $index => $detail)
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">Documents {{ $index + 1 }}</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="repeater-item mt-3">
+                            <div class="repeater-item mt-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Documents {{ $index + 1 }}</h3>
+                                    </div>
+                                    <div class="card-body">
                                         <div class="row">
 
                                             <x-adminlte-input name="document_name[{{ $index }}]"
@@ -412,11 +412,13 @@
                                             <x-adminlte-input name="unit[{{ $index }}]" placeholder="Unit"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('unit.' . $index, $detail->unit) }}" required
-                                                label="Unit" />
+                                                label="Unit" onkeyup="calculateAmount(this)"/>
                                             <x-adminlte-input name="rate[{{ $index }}]" placeholder="Rate"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('rate.' . $index, $detail->rate) }}" required
-                                                label="Rate" />
+                                                label="Translation Rate" onkeyup="calculateAmount(this)"/>
+                                                <x-adminlte-input name="amount[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
+                                                value="{{$detail->unit*$detail->rate }}"  label="Amount"  readonly/>
                                             <x-adminlte-input name="verification[{{ $index }}]"
                                                 placeholder="Verification" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
@@ -432,7 +434,9 @@
                                             <x-adminlte-input name="back_translation[{{ $index }}]"
                                                 placeholder="Back Translation" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('back_translation.' . $index, $detail->back_translation) }}"
-                                                required label="Back Translation" />
+                                                required label="Back Translation Rate" onkeyup="calculateAmount_2(this)"/>
+                                                <x-adminlte-input name="amount_bt[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
+                                                value="{{$detail->unit*$detail->back_translation }}"  label="Amount"  readonly/>
                                             <x-adminlte-input name="verification_2[{{ $index }}]"
                                                 placeholder="Back Translation Verification" fgroup-class="col-md-3"
                                                 type="text"
@@ -448,8 +452,7 @@
                                                 value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}"
                                                 required label="BT Layout Charges" />
                                             <x-adminlte-select name="lang_{{ $index }}[]"
-                                                fgroup-class="col-md-3" required  
-                                                label="Language" multiple>
+                                                fgroup-class="col-md-3" required label="Language" multiple>
                                                 <option value="">Select Language</option>
                                                 @foreach ($languages as $language)
                                                     <option value="{{ $language->id }}"
@@ -457,7 +460,7 @@
                                                         {{ $language->name }}</option>
                                                 @endforeach
                                             </x-adminlte-select>
-                                            
+
                                             <x-adminlte-input name="id[{{ $index }}]" placeholder="ID"
                                                 fgroup-class="col-md-3" type="hidden"
                                                 value="{{ old('id.' . $index, $detail->id) }}" required />
@@ -483,6 +486,27 @@
     </div>
 </div>
 <script type="text/javascript">
+function calculateAmount(input) {
+        const name = input.name;
+        const match = name.match(/\[(\d+)\]/);
+        const index = match ? match[1] : 0;
+
+        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+        const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
+        const amount = unit * rate;
+        document.querySelector(`input[name="amount[${index}]"]`).value = amount.toFixed(2);
+    }
+   
+    function calculateAmount_2(input) {
+        const name = input.name;
+        const match = name.match(/\[(\d+)\]/);
+        const index = match ? match[1] : 0;
+
+        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+        const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
+        const amount = unit * rate;
+        document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount.toFixed(2);
+    }
     document.getElementById('client_id').addEventListener('change', function() {
         let client_id = this.value;
         console.log(client_id);
@@ -511,9 +535,9 @@
                     if (name == 'verification_2[0]') {
                         name = 'verification_2[' + itemIndex + ']';
                     } else {
-                        if(name=="lang_0"){
-                            name = 'lang_' + itemIndex+"[]";;
-                        }else{
+                        if (name == "lang_0") {
+                            name = 'lang_' + itemIndex + "[]";;
+                        } else {
                             name = name.replace(/\d+/, itemIndex);
 
                             if (name == 'document_name[' + itemIndex + ']') {
@@ -525,7 +549,7 @@
                             }
 
                         }
-                       
+
                     }
                 }
                 $(this).attr('name', name);

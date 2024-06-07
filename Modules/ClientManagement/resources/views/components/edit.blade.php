@@ -63,15 +63,15 @@
                 @method('PUT')
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-input name="name" placeholder="Client Name" fgroup-class="col-md-6" required
+                    <x-adminlte-input name="name" placeholder="Client Name" fgroup-class="col-md-3" required
                         value="{{ $client->name }}" label="Client Name" />
-                    <x-adminlte-input name="phone_no" required placeholder="Client Number" fgroup-class="col-md-6"
+                    <x-adminlte-input name="phone_no" required placeholder="Client Number" fgroup-class="col-md-3"
                         value="{{ $client->phone_no }}" label="Client Number" />
-                    <x-adminlte-input name="landline" required placeholder="Landline Number" fgroup-class="col-md-6"
+                    <x-adminlte-input name="landline" required placeholder="Landline Number" fgroup-class="col-md-3"
                         value="{{ $client->landline }}" label="Landline Number" />
-                    <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-6" type='email'
+                    <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-3" type='email'
                         value="{{ $client->email }}" label="Email" />
-                    <x-adminlte-select name="type" fgroup-class="col-md-6" id="type" required
+                    <x-adminlte-select name="type" fgroup-class="col-md-3" id="type" required
                         label="Client Type">
                         <option value="">Client Type</option>
                         <option value="1" @if ($client->type == '1') selected @else '' @endif>Protocol
@@ -79,17 +79,17 @@
                         <option value="2" @if ($client->type == '2') selected @else '' @endif>Non Protocol
                         </option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-6" required label="Metrix">
+                    <x-adminlte-select name="metrix" fgroup-class="col-md-3" required label="Metrix">
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $metric)
                             <option value="{{ $metric->id }}" @if ($client->metrix == $metric->id) selected @endif>
                                 {{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-6"
+                    <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-3"
                         label="Address">{{ $client->address }}</x-adminlte-textarea>
-                    <span id="protocol" class="col-md-6">
-                        <span id="protocol" class="col-md-6">
+                    <span id="protocol" class="col-md-3">
+                        <span id="protocol" class="col-md-3">
                             @if ($client->type == '2')
                                 <div class="form-group col-md-12" style="padding: 0px;margin:0px">
                                     <div class="input-group">

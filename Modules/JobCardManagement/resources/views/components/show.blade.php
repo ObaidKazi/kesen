@@ -41,39 +41,39 @@
     
         <form>
             <div class="row pt-2">
-                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-6" disabled label="Client">
+                <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" disabled label="Client">
                     <option value="">Select Client</option>
                     @foreach ($clients as $client)
                        <option value="{{ $client->id }}" {{ $client->id == $jobCard->client_id ? 'selected' : '' }}>{{ $client->name }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-select name="estimate_id" id="estimate_id_span" fgroup-class="col-md-6" disabled label="Estimate Number">
+                <x-adminlte-select name="estimate_id" id="estimate_id_span" fgroup-class="col-md-3" disabled label="Estimate Number">
                     <option value="">Select Estimate Number</option>
                     @foreach ($estimates as $estimate)
                        <option value="{{ $estimate->id }}" {{ $estimate->id == $jobCard->estimate_id ? 'selected' : '' }}>{{ $estimate->estimate_no }}</option>
                     @endforeach
                 </x-adminlte-select>
 
-                <x-adminlte-select name="handled_by" fgroup-class="col-md-6" disabled value="{{ old('handled_by') }}" label="Handle By">
+                <x-adminlte-select name="handled_by" fgroup-class="col-md-3" disabled value="{{ old('handled_by') }}" label="Handle By">
                     <option value="">Select Handled By</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}" {{ $user->id == $jobCard->handled_by ? 'selected' : '' }}>{{ $user->name }}</option>
                     @endforeach
                 </x-adminlte-select>
-                <x-adminlte-select name="informed_to" fgroup-class="col-md-6" disabled value="{{ old('informed_to') }}" label="Infomed To">
+                <x-adminlte-select name="informed_to" fgroup-class="col-md-3" disabled value="{{ old('informed_to') }}" label="Infomed To">
                     <option value="">Select Informed To</option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}" {{ $user->id == $jobCard->informed_to ? 'selected' : '' }}>{{ $user->name }}</option>
                     @endforeach
                 </x-adminlte-select>
            
-                <x-adminlte-textarea name="description" placeholder="Description" fgroup-class="col-md-6" disabled label="Description">{{$jobCard->description}}</x-adminlte-textarea>
+                <x-adminlte-textarea name="description" placeholder="Description" fgroup-class="col-md-3" disabled label="Description">{{$jobCard->description}}</x-adminlte-textarea>
                 
-                <x-adminlte-input name="pd" placeholder="PD" fgroup-class="col-md-6" value="{{ old('pd', $jobCard->pd) }}" disabled label="PD"/>
-                <x-adminlte-input name="cr" placeholder="CR" fgroup-class="col-md-6" value="{{ old('cr', $jobCard->cr) }}" disabled label="CR"/>
-                <x-adminlte-input name="cn" placeholder="CN" fgroup-class="col-md-6" value="{{ old('cn', $jobCard->cn) }}" disabled label="CN"/>
-                <x-adminlte-input name="dv" placeholder="DV" fgroup-class="col-md-6" value="{{ old('dv', $jobCard->dv) }}" disabled label="DV"/>
-                <x-adminlte-input name="qc" placeholder="QC" fgroup-class="col-md-6" value="{{ old('qc', $jobCard->qc) }}" disabled label="QC"/>
+                <x-adminlte-input name="pd" placeholder="PD" fgroup-class="col-md-3" value="{{ old('pd', $jobCard->pd) }}" disabled label="PD"/>
+                <x-adminlte-input name="cr" placeholder="CR" fgroup-class="col-md-3" value="{{ old('cr', $jobCard->cr) }}" disabled label="CR"/>
+                <x-adminlte-input name="cn" placeholder="CN" fgroup-class="col-md-3" value="{{ old('cn', $jobCard->cn) }}" disabled label="CN"/>
+                <x-adminlte-input name="dv" placeholder="DV" fgroup-class="col-md-3" value="{{ old('dv', $jobCard->dv) }}" disabled label="DV"/>
+                <x-adminlte-input name="qc" placeholder="QC" fgroup-class="col-md-3" value="{{ old('qc', $jobCard->qc) }}" disabled label="QC"/>
                     
             </div>
             

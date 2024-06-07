@@ -26,7 +26,8 @@ class EstimateManagementController extends Controller
     {
         $estimate = Estimates::where('id', $id)->first();
         $pdf = FacadePdf::loadView('estimatemanagement::pdf.estimate', ['estimate' => $estimate]);
-        return $pdf->download('ESTIMATE-' . strtoupper(str_replace(' ', '-', $estimate->client->name)) . '.pdf');
+        return $pdf->stream();
+        #return $pdf->download('ESTIMATE-' . strtoupper(str_replace(' ', '-', $estimate->client->name)) . '.pdf');
     }
 
     public function getContactPerson($id)

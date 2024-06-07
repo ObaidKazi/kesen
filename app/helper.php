@@ -98,7 +98,7 @@ if(!function_exists('getCurrencyDropDown')){
         <option value="HKD" label="Hong Kong dollar">HKD</option>
         <option value="HUF" label="Hungarian forint">HUF</option>
         <option value="ISK" label="Icelandic króna">ISK</option>
-        <option value="INR" label="Indian rupee">INR</option>
+        <option value="INR" label="Indian rupee" selected>INR</option>
         <option value="IDR" label="Indonesian rupiah">IDR</option>
         <option value="IRR" label="Iranian rial">IRR</option>
         <option value="IQD" label="Iraqi dinar">IQD</option>

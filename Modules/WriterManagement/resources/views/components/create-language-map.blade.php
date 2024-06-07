@@ -31,22 +31,22 @@
                 @method('POST')
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-select name="language" fgroup-class="col-md-6" required  label="Language">
+                    <x-adminlte-select name="language" fgroup-class="col-md-3" required  label="Language">
                         <option value="">Language</option>
                         @foreach($languages as $language)
                             <option value="{{ $language->id }}">{{ $language->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-input name="per_unit_charges"  placeholder="Per Unit Charges"
-                        fgroup-class="col-md-6" value="{{ old('per_unit_charges') }}"  label="Per Unit Charges"/>
+                        fgroup-class="col-md-3" value="{{ old('per_unit_charges') }}"  label="Per Unit Charges"/>
                         <x-adminlte-input name="checking_charges"  placeholder="Checking Charges"
-                        fgroup-class="col-md-6" value="{{ old('checking_charges') }}" label="Checking Charges"/>
+                        fgroup-class="col-md-3" value="{{ old('checking_charges') }}" label="Checking Charges"/>
                         <x-adminlte-input name="bt_charges"  placeholder="BT Charges"
-                        fgroup-class="col-md-6" type='text' value="{{ old('bt_charges') }}" label="BT Charges"/>
+                        fgroup-class="col-md-3" type='text' value="{{ old('bt_charges') }}" label="BT Charges"/>
                         <x-adminlte-input name="bt_checking_charges"  placeholder="BT Checking Charges"
-                        fgroup-class="col-md-6" value="{{ old('bt_checking_charges') }}" label="BT Checking Charges"/>
+                        fgroup-class="col-md-3" value="{{ old('bt_checking_charges') }}" label="BT Checking Charges"/>
                         <x-adminlte-input name="advertising_charges"  placeholder="Advertising Charges"
-                        fgroup-class="col-md-6" value="{{ old('advertising_charges') }}" label="Advertising Charges"/>
+                        fgroup-class="col-md-3" value="{{ old('advertising_charges') }}" label="Advertising Charges"/>
                         
                 </div>
                 

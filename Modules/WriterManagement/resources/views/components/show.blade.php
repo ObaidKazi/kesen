@@ -34,18 +34,18 @@
                     @method('PUT')
                     @csrf
                     <div class="row pt-2">
-                        <x-adminlte-input name="writer_name" placeholder="Writer Name" fgroup-class="col-md-6" required
+                        <x-adminlte-input name="writer_name" placeholder="Writer Name" fgroup-class="col-md-3" required
                             value="{{ $writer->writer_name }}" label="Writer Name" disabled/>
-                        <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-6" required
+                        <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-3" required
                             value="{{ $writer->email }}" label="Email" disabled/>
-                        <x-adminlte-input name="phone_no" placeholder="Phone Number" fgroup-class="col-md-6" required
+                        <x-adminlte-input name="phone_no" placeholder="Phone Number" fgroup-class="col-md-3" required
                             value="{{ $writer->phone_no }}" label="Phone Number" disabled/>
-                        <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-6" required
+                        <x-adminlte-input name="landline" placeholder="Landline" fgroup-class="col-md-3" required
                             value="{{ $writer->landline }}" label="Landline" disabled/>
-                        <x-adminlte-input name="code" placeholder="Writer Code" fgroup-class="col-md-6"
+                        <x-adminlte-input name="code" placeholder="Writer Code" fgroup-class="col-md-3"
                             value="{{ $writer->code }}" label="Writer Code" disabled/>
                         <x-adminlte-textarea name="address" placeholder="Address"
-                            fgroup-class="col-md-6" label="Address" disabled>{{ $writer->address }}</x-adminlte-textarea>
+                            fgroup-class="col-md-3" label="Address" disabled>{{ $writer->address }}</x-adminlte-textarea>
 
 
 
