@@ -19,7 +19,9 @@ class EstimateManagementController extends Controller
     public function index()
     {
         $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();
-        return view('estimatemanagement::index')->with('estimates', $estimates);
+        $estimates_approved_count=$estimates->where('status',1)->count();
+        $estimates_rejected_count=$estimates->where('status',0)->count();
+        return view('estimatemanagement::index')->with('estimates', $estimates)->with('estimates_approved_count', $estimates_approved_count)->with('estimates_rejected_count', $estimates_rejected_count);
     }
 
     public function viewPdf($id)
@@ -28,6 +30,16 @@ class EstimateManagementController extends Controller
         $pdf = FacadePdf::loadView('estimatemanagement::pdf.estimate', ['estimate' => $estimate]);
         return $pdf->stream();
         #return $pdf->download('ESTIMATE-' . strtoupper(str_replace(' ', '-', $estimate->client->name)) . '.pdf');
+    }
+
+    public function exportEstimate()
+    {
+        $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();
+        $estimates_approved_count=$estimates->where('status',1)->count();
+        $estimates_rejected_count=$estimates->where('status',0)->count();
+        $pdf =FacadePdf::loadView('estimatemanagement::pdf.export-table-list', ['estimates'=> $estimates,'estimates_approved_count'=> $estimates_approved_count,'estimates_rejected_count'=> $estimates_rejected_count]);
+        return $pdf->stream();
+        
     }
 
     public function getContactPerson($id)
@@ -65,16 +77,16 @@ class EstimateManagementController extends Controller
             'headline' => 'nullable',
             'currency' => 'required',
             'date'=> 'required',
-            'discount' => 'required',
+            'discount' => 'nullable',
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
             'type.*' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'required|string',
-            'back_translation.*' => 'required|string',
-            'layout_charges.*' => 'required|string',
-            'layout_charges_second.*' => 'required|string',
+            'verification.*' => 'string',
+            'back_translation.*' => 'string',
+            'layout_charges.*' => 'string',
+            'layout_charges_second.*' => 'string',
             'lang_*' => 'required|string',
             'two_way_qc_t.*'=>'string',
             'two_way_qc_bt.*'=>'string',
@@ -125,6 +137,14 @@ class EstimateManagementController extends Controller
         return view('estimatemanagement::pdf.estimate', ['estimate' => $estimate]);
     }
 
+    public function changeStatus($id,$status){
+        if(in_array($status,[0,1,2])){
+            $estimate = Estimates::where('id', $id)->first();
+            $estimate->status = $status;
+            $estimate->save();
+            return redirect('/estimate-management');    
+        }   
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -146,17 +166,17 @@ class EstimateManagementController extends Controller
             'client_contact_person_id' => 'required',
             'headline' => 'nullable',
             'date'=>'required',
-            'discount' => 'required',
+            'discount' => 'nullable',
             'currency' => 'required',
             'status' => 'required|in:1,0,2',
             'document_name.*' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'required|string',
-            'back_translation.*' => 'required|string',
-            'layout_charges.*' => 'required|string',
-            'layout_charges_second.*' => 'required|string',
+            'verification.*' => 'string',
+            'back_translation.*' => 'string',
+            'layout_charges.*' => 'string',
+            'layout_charges_second.*' => 'string',
             'lang_*' => 'required|string',
             'two_way_qc_t.*'=>'string',
             'two_way_qc_bt.*'=>'string',

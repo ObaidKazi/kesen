@@ -200,13 +200,13 @@ if(!function_exists('generateEstimateNumber')){
 
     function generateEstimateNumber($client_id) {
         $currentYear = date('Y');
-        $nextYear = $currentYear + 1;
+        $nextYear = substr($currentYear + 1, 2);
     
         $count = Estimates::count() + 1;
         $estimate_metric=Client::where('id',$client_id)->with('client_metric')->first();
         $estimate_metric_code=$estimate_metric->client_metric->code;
-        $formattedID = str_pad($count, 4, '0', STR_PAD_LEFT) . '-'.$estimate_metric_code.'/' . $currentYear . '-' . $nextYear;
-    
+        $formattedID = str_pad($count, 4, '0', STR_PAD_LEFT) . '-'.$estimate_metric_code.'/' . $currentYear . '-' .$nextYear;
+        
         return $formattedID;
     }
     

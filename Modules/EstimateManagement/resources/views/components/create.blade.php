@@ -54,7 +54,7 @@
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                     value="{{ old('date', date('Y-m-d')) }}" required label="Mail Received on" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
-                        value="{{ old('discount') }}" required label="Discount" />
+                        value="{{ old('discount') }}"  label="Discount" />
                         <x-adminlte-select name="type" fgroup-class="col-md-3" required
                                         value="{{ old('type') }}" label="Type">
                                         <option value="">Select Type</option>
@@ -93,28 +93,28 @@
                                         <x-adminlte-input name="amount[0]" placeholder="Amount" fgroup-class="col-md-3" type="text"
                                         value="{{ old('amount[0]') }}"  label="Amount"  readonly/>
                                     <x-adminlte-input name="verification[0]" placeholder="Verification" fgroup-class="col-md-3"
-                                        type="text" value="{{ old('verification[0]') }}" required label="Verification" />
+                                        type="text" value="{{ old('verification[0]') }}"  label="Verification" />
                                         <x-adminlte-input name="two_way_qc_t[0]"
                                         placeholder="Two Way QC T" fgroup-class="col-md-3" type="text"
-                                        value="{{ old('two_way_qc_t[0]')}}" required
+                                        value="{{ old('two_way_qc_t[0]')}}" 
                                         label="Two Way QC T" />
                                         <x-adminlte-input name="layout_charges[0]" placeholder="Layout Charges"
                                         fgroup-class="col-md-3" type="text" value="{{ old('layout_charges[0]') }}"
-                                        required label="Layout Charges" />
+                                         label="Layout Charges" />
                                         <x-adminlte-input name="back_translation[0]" placeholder="Back Translation Rate"
                                         fgroup-class="col-md-3" type="text" value="{{ old('back_translation[0]') }}"
-                                        required label="Back Translation Rate" onkeyup="calculateAmount_2(this)" />
+                                         label="Back Translation Rate" onkeyup="calculateAmount_2(this)" />
                                         <x-adminlte-input name="amount_bt[0]" placeholder="Amount" fgroup-class="col-md-3" type="text"
-                                        value="{{ old('amount_bt[0]') }}" required label="Amount"  readonly/>
+                                        value="{{ old('amount_bt[0]') }}"  label="Amount"  readonly/>
                                         <x-adminlte-input name="verification_2[0]" placeholder="Back Translation Verification" fgroup-class="col-md-3"
-                                        type="text" value="{{ old('verification_2[0]') }}" required label="Back Translation Verification" />
+                                        type="text" value="{{ old('verification_2[0]') }}"  label="Back Translation Verification" />
                                         <x-adminlte-input name="two_way_qc_bt[0]"
                                         placeholder="Two Way QC BT" fgroup-class="col-md-3" type="text"
-                                        value="{{ old('two_way_qc_bt[0]')}}" required
+                                        value="{{ old('two_way_qc_bt[0]')}}" 
                                         label="Two Way QC BT" />
                                     <x-adminlte-input name="layout_charges_second[0]" placeholder="BT Layout Charges"
                                         fgroup-class="col-md-3" type="text" value="{{ old('layout_charges_second[0]') }}"
-                                        required label="BT Layout Charges" />
+                                         label="BT Layout Charges" />
                                         <x-adminlte-select name="lang_0[]"
                                         fgroup-class="col-md-3" required  
                                         label="Language" multiple>

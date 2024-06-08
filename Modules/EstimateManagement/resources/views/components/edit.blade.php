@@ -391,7 +391,7 @@
                     </x-adminlte-select>
 
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
-                        value="{{ old('discount', $estimate->discount) }}" required label="Discount" />
+                        value="{{ old('discount', $estimate->discount) }}"  label="Discount" />
 
                     <div id="repeater">
                         @foreach ($estimate->details as $index => $detail)

@@ -10,21 +10,22 @@
             'label' => 'Estimate No',
         ],
         [
+            'label' => 'Metrix',
+        ],
+        [
             'label' => 'Client Name',
         ],
         [
             'label' => 'Contact Person Name',
         ],
-        [
-            'label' => 'Metrix',
-        ],
+        
 
         [
             'label' => 'Headline',
         ],
-        [
-            'label' => 'Amount',
-        ],
+        // [
+        //     'label' => 'Amount',
+        // ],
 
         [
             'label' => 'Currency',
@@ -33,9 +34,8 @@
             'label' => 'Status',
         ],
         [
-            'label' => 'Created At',
+            'label' => 'Created By',
         ],
-
         [
             'label' => 'Action',
         ],
@@ -45,7 +45,7 @@
     
 
     $config = [
-        'order' => [[1, 'desc']],
+        'order' => [[1, 'asc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];
@@ -96,33 +96,68 @@
                     <td><input type="date" id="max" name="max"></td>
                 </tr>
             </tbody></table>
+            <span class="right badge badge-primary p-2 fs-6 mt-2 mb-2" >Total Estimate: {{ $estimates->count() }}</span>
+            <span class="right badge badge-success p-2 fs-6" >Total Approved: {{ $estimates_approved_count }}</span>
+            <span class="right badge badge-danger p-2 fs-6" >Total Rejected: {{ $estimates_rejected_count }}</span>
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
-                with-buttons>
+                >
                 @foreach ($estimates as $index=>$row)
                 
                     <tr>
 
                         <td>{{ $index+1 }}</td>
                         <td>{{ $row->estimate_no }}</td>
+                        <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->code }}</td>
+                        
                         <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
                         <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>
-                        <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->name }}</td>
                         <td>{{ $row->headline }}</td>
-                        <td>{{ $row->amount }}</td>
+                        {{-- <td>{{ $row->amount }}</td> --}}
                         <td>{{ $row->currency }}</td>
-                        <td>{{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected');}}</td>
-                        <td>{{ $row->created_at }}</td>
+                        <td  class={{ $row->status == 0 ? '' : ($row->status == 1 ?'bg-success' : 'bg-danger');}}>{{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected');}}</td>
+                        <td>{{ App\Models\User::where('id',$row->created_by)->first()->name }}</td>
                         <td>
+                            
+                           
                             <a href="{{route('estimatemanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                Edit
                             </button></a>
                             
-                            <a href="{{route('estimatemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
+                            {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
                                 View
+                            </button></a> --}}
+                            <a href="{{route('estimatemanagement.viewPdf', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
+                                Preview
                             </button></a>
-                            <a href="{{route('estimatemanagement.viewPdf', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
-                                Export
+                            @if($row->status == 0)
+                             
+                            <a href="{{route('estimatemanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Approve
                             </button></a>
+
+                            <a href="{{route('estimatemanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Reject
+                            </button></a>
+                        @elseif($row->status == 1)
+
+                            <a href="{{route('estimatemanagement.status', [$row->id,0])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Pending
+                            </button></a>
+
+                            <a href="{{route('estimatemanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Reject
+                            </button></a>
+                        @else
+
+                            <a href="{{route('estimatemanagement.status', [$row->id,0])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Pending
+                            </button></a>
+
+                            <a href="{{route('estimatemanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Approve
+                            </button></a>
+                        @endif
+                        
                             
                       
                         </td>
