@@ -143,7 +143,7 @@
                                     @php $temp_index+=1;@endphp
                             @endif
                         
-                            <td rowspan="2">PC {{ $temp_index}}</td>
+                            <td rowspan="2" style="font-size: 8pt">PC {{ $temp_index}}</td>
 
 
                             <td style="font-size: 8pt">T</td>
