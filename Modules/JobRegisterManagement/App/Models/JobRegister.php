@@ -38,7 +38,7 @@ class JobRegister extends Model
 
     public function jobCard()
     {
-        return $this->hasOneThrough(JobCard::class, EstimatesDetails::class, 'document_name', 'estimate_detail_id', 'estimate_document_id', 'id');
+        return $this->hasMany(JobCard::class, 'job_no','sr_no');
     }
 
     public function client(){
@@ -47,6 +47,10 @@ class JobRegister extends Model
 
     public function handle_by(){
         return $this->belongsTo(User::class,'handled_by_id');
+    }
+
+    public function accountant(){
+        return $this->belongsTo(User::class,'client_accountant_person_id');
     }
 
     public function setLanguageIdAttribute($value){

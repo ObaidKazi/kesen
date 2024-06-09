@@ -11,9 +11,9 @@
             padding: 0;
         }
         .container {
-            width: 80%;
+            width: 100%;
             margin: 20px auto;
-            border: 1px solid #000;
+            box-sizing: border-box;
         }
         .header, .footer {
             text-align: center;
@@ -26,39 +26,30 @@
             margin: 0;
             font-size: 24px;
         }
-        .job-details {
+        .job-details, .client-info, .additional-info {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
-        .job-details td, .job-details th {
+        .job-details td, .job-details th, .client-info td, .client-info th, .additional-info td, .additional-info th {
             border: 1px solid #000;
             padding: 8px;
             text-align: center;
+            word-wrap: break-word;
         }
-        .job-details th {
-            background-color: #f2f2f2;
-        }
-        .client-info, .job-info, .additional-info {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-        .client-info td, .client-info th, .job-info td, .job-info th, .additional-info td, .additional-info th {
-            border: 1px solid #000;
-            padding: 8px;
-        }
-        .client-info th, .job-info th, .additional-info th {
+        .job-details th, .client-info th, .additional-info th {
             background-color: #f2f2f2;
         }
         .client-info td, .job-info td, .additional-info td {
             text-align: left;
         }
+        
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="{{asset(config('adminlte.logo_img'))}}" alt="Kesen Language Bureau Logo">
+            <img src="{{ public_path(config('adminlte.logo_img'))}}" alt="Kesen Language Bureau Logo" style="margin-bottom:10px">
             <h1>Kesen Language Bureau</h1>
             <h2>JOB CARD</h2>
         </div>
@@ -78,21 +69,17 @@
             <tr>
                 <th>Protocol No.</th>
                 <td>{{$job->protocol_no??''}}</td>
-                <th>P.O. No.</th>
-                <td></td>
-            </tr>
-            <tr>
                 <th>Estimate No.</th>
                 <td>{{$job->estimate->estimate_no??''}}</td>
-                <th>Client Contact Person Name</th>
-                <td>{{$job->client_person->name??''}}</td>
             </tr>
             <tr>
-                <th></th>
-                <td></td>
+                
+                <th>Client Contact Person Name</th>
+                <td>{{$job->client_person->name??''}}</td>
                 <th>Client Contact Person Number</th>
                 <td>{{$job->client_person->phone_no??''}}</td>
             </tr>
+            
             <tr>
                 <th></th>
                 <td></td>
@@ -103,157 +90,93 @@
         <table class="job-details">
             <thead>
                 <tr>
-                    <th colspan="2">Langs.</th>
-                    
-                    <th>Unit</th>
-                    <th>Writer Code</th>
-                    <th>Employee Code</th>
-                    <th>PD</th>
-                    <th>CR</th>
-                    <th>C/NC</th>
-                    <th>DV</th>
-                    <th>F/QC</th>
-                    <th>Sent Date</th>
+                    <th colspan="2" style="font-size: 8pt">Langs.</th>
+                    <th style="font-size: 8pt">Unit</th>
+                    <th style="font-size: 8pt">Writer Code</th>
+                    <th style="font-size: 8pt">Verified By</th>
+                    <th style="font-size: 8pt">Two Way Verified By</th>
+                    <th style="font-size: 8pt">PD</th>
+                    <th style="font-size: 8pt">CR</th>
+                    <th style="font-size: 8pt">C/NC</th>
+                    <th style="font-size: 8pt">DV</th>
+                    <th style="font-size: 8pt">F/QC</th>
+                    <th style="font-size: 8pt">Sent Date</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Bengali -->
+                @php $estimate_details_list=[];@endphp
+                
+                @foreach ($job->jobCard as $card)
+                
                 <tr>
-                    <td rowspan="4">Bengali</td>
-                    <td>T</td>
-                    <td>11</td>
-                    <td>SAU</td>
-                    <td>RIB</td>
-                    <td>23 Jan 2024</td>
-                    <td>24 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
+                    @if(!in_array($card->estimate_detail_id, $estimate_details_list))
+                        @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
+                        <td rowspan={{$job->jobCard->where('sync_no',$card->sync_no)->count()*2}} style="font-size: 8pt">{{$card->estimateDetail->language->name}}</td>
+                    @endif
+
+                   
+                    <td style="font-size: 8pt">T</td>
+                    <td style="font-size: 8pt">{{$card->t_unit}}</td>
+                    <td style="font-size: 8pt">{{Modules\WriterManagement\App\Models\Writer::where('id',$card->t_writer_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{App\Models\User::where('id',$card->t_emp_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{App\Models\User::where('id',$card->t_two_way_emp_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{$card->t_pd?\Carbon\Carbon::parse($card->t_pd)->format('j M Y'):''}}</td>
+                    <td style="font-size: 8pt">{{$card->t_cr?\Carbon\Carbon::parse($card->t_cr)->format('j M Y'):''}}</td>
+                    <td style="font-size: 8pt">{{$card->t_cnc}}</td>
+                    <td style="font-size: 8pt">{{$card->t_dv}}</td>
+                    <td style="font-size: 8pt">{{$card->t_fqc}}</td>
+                    <td style="font-size: 8pt">{{$card->t_sentdate?\Carbon\Carbon::parse($card->t_sentdate)->format('j M Y'):''}}</td>
                 </tr>
                 <tr>
-                    <td>BT</td>
-                    <td></td>
-                    <td>CED</td>
-                    <td></td>
-                    <td>24 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
+                    <td style="font-size: 8pt">BT</td>
+                    <td style="font-size: 8pt">{{$card->t_unit}}</td>
+                    <td style="font-size: 8pt">{{Modules\WriterManagement\App\Models\Writer::where('id',$card->bt_writer_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{App\Models\User::where('id',$card->bt_emp_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{App\Models\User::where('id',$card->bt_two_way_emp_code)->first()->code}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_pd?\Carbon\Carbon::parse($card->bt_pd)->format('j M Y'):''}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_cr?\Carbon\Carbon::parse($card->bt_cr)->format('j M Y'):''}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_cnc}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_dv}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_fqc}}</td>
+                    <td style="font-size: 8pt">{{$card->bt_sentdate?\Carbon\Carbon::parse($card->bt_sentdate)->format('j M Y'):''}}</td>
                 </tr>
-                <tr>
-                    <td>V</td>
-                    <td></td>
-                    <td>CED</td>
-                    <td></td>
-                    <td>24 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                </tr>
-                <tr>
-                    <td>BTV</td>
-                    <td></td>
-                    <td>CED</td>
-                    <td></td>
-                    <td>24 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                </tr>
-                <!-- Gujarati -->
-                <tr>
-                    <td rowspan="4">Gujarati</td>
-                    <td>T</td>
-                    <td>2</td>
-                    <td>VIM</td>
-                    <td>SHM</td>
-                    <td>23 Jan 2024</td>
-                    <td>24 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                </tr>
-                <tr>
-                    <td>BT</td>
-                    <td></td>
-                    <td></td>
-                    <td>RAL</td>
-                    <td></td>
-                    <td>23 Jan 2024</td>
-                    <td>24 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                </tr>
-                <tr>
-                    <td>V</td>
-                    <td></td>
-                    <td>CED</td>
-                    <td></td>
-                    <td>24 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                </tr>
-                <tr>
-                    <td>BTV</td>
-                    <td></td>
-                    <td>CED</td>
-                    <td></td>
-                    <td>24 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                    <td>C</td>
-                    <td>PANDU</td>
-                    <td>27 Jan 2024</td>
-                    <td>27 Jan 2024</td>
-                </tr>
+                @endforeach
+               
+                
             </tbody>
         </table>
         <table class="additional-info">
             <tr>
                 <td>Delivery Date</td>
-                <td style="border-left-style: hidden;"><strong>27 Jan 2024</strong></td>
+                <td style="border-left-style: hidden;"><strong>{{$job->delivery_date?\Carbon\Carbon::parse($job->delivery_date)->format('j M Y'):''}}</strong></td>
                 <td>Bill No</td>
-                <td style="border-left-style: hidden;">0931</td>
+                <td style="border-left-style: hidden;">{{$job->bill_no??''}}</td>
             </tr>
             <tr> 
                 <td>Words / Units</td>
                 <td style="border-left-style: hidden;">As per proforma</td>
                 <td>Bill Date</td>
-                <td style="border-left-style: hidden;">13 Mar 2024</td>
+                <td style="border-left-style: hidden;">{{$job->bill_date?\Carbon\Carbon::parse($job->bill_date)->format('j M Y'):''}}</td>
             </tr>
             <tr>
                 <td>Old Job No</td>
-                <td style="border-left-style: hidden;"></td>
+                <td style="border-left-style: hidden;">{{$job->old_job_no??''}}</td>
                 <td>Bill sent on</td>
-                <td style="border-left-style: hidden;">13 Mar 2024</td>
+                <td style="border-left-style: hidden;">{{$job->sent_date?\Carbon\Carbon::parse($job->sent_date)->format('j M Y'):''}}</td>
             </tr>
             <tr>
                 <td>Checked with Operator</td>
                 <td style="border-left-style: hidden;"></td>
                 <td>Informed To</td>
-                <td style="border-left-style: hidden;">PRASAD BANGARI</td>
+                <td style="border-left-style: hidden;">{{$job->client_person->name??''}}</td>
             </tr>
             <tr>
-                <td>Remarks: Quot No. 5312</td>
-                <td style="border-left-style: hidden;"></td>
+                <td >Remarks: Quot No. </td>
+                <td style="border-left-style: hidden;">{{$job->estimate->estimate_no??''}}</td>
                 <td></td>
                 <td style="border-left-style: hidden;"></td>
             </tr>
         </table>
-        <div class="footer">
-            <p>Handled By: Milind Chaubal</p>
-        </div>
     </div>
 </body>
 </html>

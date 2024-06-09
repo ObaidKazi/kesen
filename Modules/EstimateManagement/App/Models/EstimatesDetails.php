@@ -19,11 +19,6 @@ class EstimatesDetails extends Model
    protected $table="estimate_details";
 
    protected $guarded=['id'];
-   protected $appends=['language'];
-   public function getLangAttribute(){
-       return explode(",",$this->attributes['lang']);
-   }
-
 
    public function jobRegister()
     {
@@ -35,13 +30,10 @@ class EstimatesDetails extends Model
         return $this->hasOne(JobCard::class, 'estimate_detail_id', 'id');
     }
 
-    public function getLanguageAttribute()
+    public function language()
     {
-        $languages = [];
-        foreach ($this->getLangAttribute() as $language) {
-            $languages[]= Language::where('id', $language)->first()->code;
-        }
-        return implode("/", $languages);
+        return $this->belongsTo(Language::class, 'lang', 'id');
     }
+
 
 }

@@ -91,14 +91,27 @@
             <table border="0" cellspacing="5" cellpadding="5">
                 <tbody><tr>
                     <td>From Date:</td>
-                    <td><input type="date" id="min" name="min" ></td>
-                    <td>To Date:</td>
-                    <td><input type="date" id="max" name="max"></td>
+                    <form action="estimate-management">
+                        <td><input type="date" id="min" name="min"  ></td>
+                        <td>To Date:</td>
+                        <td><input type="date" id="max" name="max"></td>
+                        <td><input type="submit" value="Filter"></td>
+                    </form>
+                   
                 </tr>
             </tbody></table>
             <span class="right badge badge-primary p-2 fs-6 mt-2 mb-2" >Total Estimate: {{ $estimates->count() }}</span>
             <span class="right badge badge-success p-2 fs-6" >Total Approved: {{ $estimates_approved_count }}</span>
             <span class="right badge badge-danger p-2 fs-6" >Total Rejected: {{ $estimates_rejected_count }}</span>
+            @if(request()->input('min') || request()->input('max'))
+                <a href="{{route('estimatemanagement.exporteestimate')}}?min={{request()->input('min')}}&max={{request()->input('max')}}"><button class="btn btn-sm btn-default text-dark mx-2 shadow" title="Edit">
+                    Export
+                </button></a>
+            @else
+            <a href="{{route('estimatemanagement.exporteestimate')}}"><button class="btn btn-sm btn-default text-dark mx-2 shadow" title="Edit">
+                Export
+            </button></a>
+            @endif
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 >
                 @foreach ($estimates as $index=>$row)

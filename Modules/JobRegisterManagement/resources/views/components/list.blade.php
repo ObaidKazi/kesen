@@ -16,7 +16,7 @@
             'label' => 'Date',
         ],
         [
-            'label' => 'Handled By',
+            'label' => 'Manager',
         ],
         [
             'label' => 'Client Name',
@@ -88,10 +88,14 @@
                             <a href="{{route('jobregistermanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
                             </button></a>
+                            <a href="{{route('jobregistermanagement.pdf', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                Preview
+                            </button></a>
                             
+{{--                             
                             <a href="{{route('jobregistermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
-                            </button></a>
+                            </button></a> --}}
                             
                         </td>
 

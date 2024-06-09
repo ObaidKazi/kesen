@@ -4,10 +4,8 @@ namespace Modules\JobCardManagement\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use Illuminate\Contracts\Queue\Job;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobCardManagement\App\Models\JobCard;
@@ -17,8 +15,8 @@ class JobCardManagementController extends Controller
 {
 
     public function index(){ 
-        $estimate_details=EstimatesDetails::whereHas('jobRegister')->get();
-        return view('jobcardmanagement::manage',compact('estimate_details'));
+        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+        return view('jobcardmanagement::manage',compact('job_register'));
         
     }
 
@@ -36,12 +34,12 @@ class JobCardManagementController extends Controller
     }
 
     public function viewPdf($job_id){
-        $job_register = JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])
+        $job = JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])
         ->where('id', $job_id)
         ->first();
-    
+        $pdf = FacadePdf::loadView('jobcardmanagement::pdf', compact('job'));
 
-       return view('jobcardmanagement::pdf')->with('job',$job_register);
+       return  $pdf->stream();
     }
 
     public function store(Request $request)
@@ -49,36 +47,24 @@ class JobCardManagementController extends Controller
         $request->validate([
             't_writer.*' => 'required|string|max:255',
             't_emp_code.*' => 'required|string|max:255',
+            't_two_way_emp_code.*' => 'required|string|max:255',
+            't_unit.*'=> 'required|string|max:255',
             't_pd.*' => 'required|string|max:255',
             't_cr.*' => 'required|string|max:255',
             't_cnc.*' => 'required|string|max:255',
             't_dv.*' => 'required|string|max:255',
             't_fqc.*' => 'required|string|max:255',
             't_sentdate.*' => 'required|string|max:255',
-            'v_writer.*' => 'nullable|string|max:255',
-            'v_emp_code.*' => 'nullable|string|max:255',
-            'v_pd.*' => 'nullable|string|max:255',
-            'v_cr.*' => 'nullable|string|max:255',
-            'v_cnc.*' => 'nullable|string|max:255',
-            'v_dv.*' => 'nullable|string|max:255',
-            'v_fqc.*' => 'nullable|string|max:255',
-            'v_sentdate.*' => 'nullable|string|max:255',
             'bt_writer.*' => 'nullable|string|max:255',
             'bt_emp_code.*' => 'nullable|string|max:255',
+            'bt_two_way_emp_code.*' => 'nullable|string|max:255',
+            'bt_unit.*'=> 'nullable|string|max:255',
             'bt_pd.*' => 'nullable|string|max:255',
             'bt_cr.*' => 'nullable|string|max:255',
             'bt_cnc.*' => 'nullable|string|max:255',
             'bt_dv.*' => 'nullable|string|max:255',
             'bt_fqc.*' => 'nullable|string|max:255',
             'bt_sentdate.*' => 'nullable|string|max:255',
-            'btv_writer.*' => 'nullable|string|max:255',
-            'btv_emp_code.*' => 'nullable|string|max:255',
-            'btv_pd.*' => 'nullable|string|max:255',
-            'btv_cr.*' => 'nullable|string|max:255',
-            'btv_cnc.*' => 'nullable|string|max:255',
-            'btv_dv.*' => 'nullable|string|max:255',
-            'btv_fqc.*' => 'nullable|string|max:255',
-            'btv_sentdate.*' => 'nullable|string|max:255',
         ]);
 
         
@@ -90,36 +76,24 @@ class JobCardManagementController extends Controller
 
             $jobCard->t_writer_code = $t_writer;
             $jobCard->t_emp_code = $request['t_emp_code'][$index];
+            $jobCard->t_two_way_emp_code = $request['t_two_way_emp_code'][$index];
+            $jobCard->t_unit = $request['t_unit'][$index];
             $jobCard->t_pd = $request['t_pd'][$index];
             $jobCard->t_cr = $request['t_cr'][$index];
             $jobCard->t_cnc = $request['t_cnc'][$index];
             $jobCard->t_dv = $request['t_dv'][$index];
             $jobCard->t_fqc = $request['t_fqc'][$index];
             $jobCard->t_sentdate = $request['t_sentdate'][$index];
-            $jobCard->v_writer_code = $request['v_writer'][$index] ?? null;
-            $jobCard->v_emp_code = $request['v_emp_code'][$index] ?? null;
-            $jobCard->v_pd = $request['v_pd'][$index] ?? null;
-            $jobCard->v_cr = $request['v_cr'][$index] ?? null;
-            $jobCard->v_cnc = $request['v_cnc'][$index] ?? null;
-            $jobCard->v_dv = $request['v_dv'][$index] ?? null;
-            $jobCard->v_fqc = $request['v_fqc'][$index] ?? null;
-            $jobCard->v_sentdate = $request['v_sentdate'][$index] ?? null;
             $jobCard->bt_writer_code = $request['bt_writer'][$index] ?? null;
             $jobCard->bt_emp_code = $request['bt_emp_code'][$index] ?? null;
+            $jobCard->bt_two_way_emp_code = $request['bt_two_way_emp_code'][$index] ?? null;
+            $jobCard->bt_unit = $request['bt_unit'][$index] ?? null;
             $jobCard->bt_pd = $request['bt_pd'][$index] ?? null;
             $jobCard->bt_cr = $request['bt_cr'][$index] ?? null;
             $jobCard->bt_cnc = $request['bt_cnc'][$index] ?? null;
             $jobCard->bt_dv = $request['bt_dv'][$index] ?? null;
             $jobCard->bt_fqc = $request['bt_fqc'][$index] ?? null;
             $jobCard->bt_sentdate = $request['bt_sentdate'][$index] ?? null;
-            $jobCard->btv_writer_code = $request['btv_writer'][$index] ?? null;
-            $jobCard->btv_emp_code = $request['btv_emp_code'][$index] ?? null;
-            $jobCard->btv_pd = $request['btv_pd'][$index] ?? null;
-            $jobCard->btv_cr = $request['btv_cr'][$index] ?? null;
-            $jobCard->btv_cnc = $request['btv_cnc'][$index] ?? null;
-            $jobCard->btv_dv = $request['btv_dv'][$index] ?? null;
-            $jobCard->btv_fqc = $request['btv_fqc'][$index] ?? null;
-            $jobCard->btv_sentdate = $request['btv_sentdate'][$index] ?? null;
             $jobCard->job_no = $request['job_no'][0];
             $jobCard->estimate_detail_id = $request['estimate_detail_id'][0];
             $jobCard->sync_no = $carbon;
@@ -146,36 +120,24 @@ class JobCardManagementController extends Controller
         $request->validate([
             't_writer.*' => 'required|string|max:255',
             't_emp_code.*' => 'required|string|max:255',
+            't_two_way_emp_code.*' => 'required|string|max:255',
+            't_unit.*'=> 'required|string|max:255',
             't_pd.*' => 'required|string|max:255',
             't_cr.*' => 'required|string|max:255',
             't_cnc.*' => 'required|string|max:255',
             't_dv.*' => 'required|string|max:255',
             't_fqc.*' => 'required|string|max:255',
             't_sentdate.*' => 'required|string|max:255',
-            'v_writer.*' => 'nullable|string|max:255',
-            'v_emp_code.*' => 'nullable|string|max:255',
-            'v_pd.*' => 'nullable|string|max:255',
-            'v_cr.*' => 'nullable|string|max:255',
-            'v_cnc.*' => 'nullable|string|max:255',
-            'v_dv.*' => 'nullable|string|max:255',
-            'v_fqc.*' => 'nullable|string|max:255',
-            'v_sentdate.*' => 'nullable|string|max:255',
             'bt_writer.*' => 'nullable|string|max:255',
             'bt_emp_code.*' => 'nullable|string|max:255',
+            'bt_two_way_emp_code.*' => 'nullable|string|max:255',
+            'bt_unit.*'=> 'nullable|string|max:255',
             'bt_pd.*' => 'nullable|string|max:255',
             'bt_cr.*' => 'nullable|string|max:255',
             'bt_cnc.*' => 'nullable|string|max:255',
             'bt_dv.*' => 'nullable|string|max:255',
             'bt_fqc.*' => 'nullable|string|max:255',
             'bt_sentdate.*' => 'nullable|string|max:255',
-            'btv_writer.*' => 'nullable|string|max:255',
-            'btv_emp_code.*' => 'nullable|string|max:255',
-            'btv_pd.*' => 'nullable|string|max:255',
-            'btv_cr.*' => 'nullable|string|max:255',
-            'btv_cnc.*' => 'nullable|string|max:255',
-            'btv_dv.*' => 'nullable|string|max:255',
-            'btv_fqc.*' => 'nullable|string|max:255',
-            'btv_sentdate.*' => 'nullable|string|max:255',
         ]);
 
         $carbon=Carbon::now()->getTimestampMs();
@@ -186,21 +148,17 @@ class JobCardManagementController extends Controller
             ],[
             't_writer_code' => $t_writer,
             't_emp_code' => $request['t_emp_code'][$index],
+            't_two_way_emp_code' => $request['t_two_way_emp_code'][$index],
             't_pd' => $request['t_pd'][$index],
             't_cr' => $request['t_cr'][$index],
             't_cnc' => $request['t_cnc'][$index],
             't_dv' => $request['t_dv'][$index],
             't_fqc' => $request['t_fqc'][$index],
             't_sentdate' => $request['t_sentdate'][$index],
-            'v_writer_code' => $request['v_writer'][$index] ?? null,
-            'v_emp_code' => $request['v_emp_code'][$index] ?? null,
-            'v_pd' => $request['v_pd'][$index] ?? null,
-            'v_cr' => $request['v_cr'][$index] ?? null,
-            'v_cnc' => $request['v_cnc'][$index] ?? null,
-            'v_dv' => $request['v_dv'][$index] ?? null,
-            'v_fqc' => $request['v_fqc'][$index] ?? null,
-            'v_sentdate' => $request['v_sentdate'][$index] ?? null,
+            't_unit' => $request['t_unit'][$index],
+            'bt_unit' => $request['bt_unit'][$index] ?? null,
             'bt_writer_code' => $request['bt_writer'][$index] ?? null,
+            'bt_two_way_emp_code' => $request['bt_two_way_emp_code'][$index] ?? null,
             'bt_emp_code' => $request['bt_emp_code'][$index] ?? null,
             'bt_pd' => $request['bt_pd'][$index] ?? null,
             'bt_cr' => $request['bt_cr'][$index] ?? null,
@@ -208,14 +166,6 @@ class JobCardManagementController extends Controller
             'bt_dv' => $request['bt_dv'][$index] ?? null,
             'bt_fqc' => $request['bt_fqc'][$index] ?? null,
             'bt_sentdate' => $request['bt_sentdate'][$index] ?? null,
-            'btv_writer_code' => $request['btv_writer'][$index] ?? null,
-            'btv_emp_code' => $request['btv_emp_code'][$index] ?? null,
-            'btv_pd' => $request['btv_pd'][$index] ?? null,
-            'btv_cr' => $request['btv_cr'][$index] ?? null,
-            'btv_cnc' => $request['btv_cnc'][$index] ?? null,
-            'btv_dv' => $request['btv_dv'][$index] ?? null,
-            'btv_fqc' => $request['btv_fqc'][$index] ?? null,
-            'btv_sentdate' => $request['btv_sentdate'][$index] ?? null,
             'job_no' => $request['job_no'][0],
             'estimate_detail_id' => $request['estimate_detail_id'][0],
             'sync_no' => $carbon,
@@ -272,5 +222,51 @@ class JobCardManagementController extends Controller
         }else{
             return abort(403, 'Job Card not found');
         }
+    }
+
+    public function listEstimateDetailsLanguage($job_id,$estimate_detail_id){
+        $estimate_detail=EstimatesDetails::where('document_name',$estimate_detail_id)->get();
+        $list_estimate_language=true;
+        if($estimate_detail!=null){
+            return view('jobcardmanagement::manage',compact('job_id','estimate_detail','list_estimate_language'));
+        }
+    }
+
+    public function billForm($job_id){
+        $job=JobRegister::where('id',$job_id)->first();
+        if($job->bill_date!=null){
+            return view('jobcardmanagement::bill')->with('bill_data',$job);
+        }
+        return view('jobcardmanagement::bill')->with('job_id',$job_id);
+    }
+
+    public function addBill(Request $request,$job_id){
+        $job=JobRegister::where('id',$job_id)->first();
+        $job->bill_date=$request->bill_date;
+        $job->bill_no=$request->bill_no;
+        $job->invoice_date=$request->invoice_date;
+        $job->sent_date=$request->sent_date;
+        $job->old_job_no=$request->old_job_no;
+        $job->po_number=$request->po_number;
+        $job->delivery_date=$request->delivery_date;
+        $job->payment_status=$request->payment_status;
+        $job->payment_date=$request->payment_date;
+        $job->save();
+        return redirect(route('jobcardmanagement.index'))->with('message', 'Bill Date added successfully.');
+    }
+
+    public function updateBill(Request $request,$job_id){
+        $job=JobRegister::where('id',$job_id)->first();
+        $job->bill_date=$request->bill_date;
+        $job->bill_no=$request->bill_no;
+        $job->invoice_date=$request->invoice_date;
+        $job->sent_date=$request->sent_date;
+        $job->old_job_no=$request->old_job_no;
+        $job->po_number=$request->po_number;
+        $job->delivery_date=$request->delivery_date;
+        $job->payment_status=$request->payment_status;
+        $job->payment_date=$request->payment_date;
+        $job->save();
+        return redirect(route('jobcardmanagement.index'))->with('message', 'Bill Date updated successfully.');
     }
 }

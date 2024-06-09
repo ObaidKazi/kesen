@@ -32,7 +32,7 @@
             border: 1px solid black;
             padding: 8px;
             font-size: 8px;
-            text-align: left;
+            text-align: center;
             word-break: break-word;
             /* Prevents text from overflowing */
         }
@@ -41,7 +41,7 @@
             border: 1px solid black;
             padding: 8px;
             font-size: 8px;
-            text-align: left;
+            text-align: center;
             font-size: 8px;
             background-color: #f2f2f2;
         }
@@ -113,20 +113,11 @@
         <p><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</p>
         <p><strong>Mail Received on:</strong> {{ $estimate->date }}</p>
         <p><strong>Languages Required:</strong>
-            @php $languages=[];@endphp
-            @foreach ($estimate->details as $detail)
-                @foreach ($detail->lang as $index => $language)
-                    @if (!in_array($language, $languages))
-                        @if ($index == 0)
-                            {{ Modules\LanguageManagement\App\Models\Language::find($language)->name }}
-                            @php $languages[] = $language; @endphp
-                        @else
-                            , {{ Modules\LanguageManagement\App\Models\Language::find($language)->name }}
-                            @php $languages[] = $language; @endphp
-                        @endif
-                    @endif
-                @endforeach
+            @php $languages_list=[] @endphp
+            @foreach ($estimate->details()->distinct('lang')->get() as $index=>$details )    
+                @php $languages_list[]=Modules\LanguageManagement\App\Models\Language::where('id',$details->lang)->first()->name @endphp
             @endforeach
+            {{ implode(',',array_unique($languages_list)) }}
         </p>
         @php $counter=6; @endphp
         <table>
@@ -168,8 +159,20 @@
                     <th style="width: 20%">Amount (Rs.)</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($estimate->details as $detail)
+            <tbody>@php
+                $uniqueDetails = collect();
+            @endphp
+            
+            @foreach ($estimate->details as $detail)
+                @php
+                    $combination = $detail->document_name . '-' . $detail->unit;
+                @endphp
+            
+                @if (!$uniqueDetails->contains($combination))
+                    @php
+                        $uniqueDetails->push($combination);
+                    @endphp
+            
                     <tr>
                         <td>{{ $detail->document_name }}</td>
                         <td class="nowrap">{{ $detail->unit }}</td>
@@ -196,14 +199,20 @@
                         @if ($estimate->details[0]->layout_charges_2)
                             <td class="nowrap">{{ $detail->layout_charges_2 }}</td>
                         @endif
-                        <td>{{ $detail->language }}</td>
+                        @php 
+                            $languages_ids=Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->get('lang')->pluck('lang')
+                        @endphp
+                        <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
-                            {{ ($detail->unit * $detail->rate + $detail->layout_charges + $detail->back_translation + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * count($detail->lang) }}
+                            {{ ($detail->unit * $detail->rate + $detail->layout_charges + $detail->back_translation + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()) }}
                         </td>
-                        @php $sub_total=$sub_total+(($detail->unit*$detail->rate)+($detail->layout_charges)+($detail->back_translation)+($detail->verification)+($detail->two_way_qc_t)+($detail->two_way_qc_bt)+($detail->verification_2)+($detail->layout_charges_2))*count($detail->lang)@endphp
+                        @php
+                            $sub_total = $sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) + ($detail->back_translation) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count());
+                        @endphp
                     </tr>
-                @endforeach
-
+                @endif
+            @endforeach
+            
                 <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="{{ $counter - 1 }}" style="font-size: 12px;font-weight: bold">Sub Total</td>
                     <td colspan="1" style="font-size: 8px;font-weight: bold">{{ $sub_total }}</td>

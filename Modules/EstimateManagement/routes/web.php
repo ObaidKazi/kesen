@@ -21,6 +21,6 @@ Route::get('estimate-management/estimate/{id}', [EstimateManagementController::c
 Route::get('estimate-management/estimate-details/{id}', [EstimateManagementController::class, 'getEstimateDetails'])->name('estimatemanagement.estimatedetails');
 Route::get('estimate-management/client/view-pdf/{id}', [EstimateManagementController::class, 'viewPdf'])->name('estimatemanagement.viewPdf');
 Route::get('estimate-management/export/pdf', [EstimateManagementController::class, 'exportEstimate'])->name('estimatemanagement.exporteestimate');
-Route::delete('estimate-management/detail/delete/{id}', [EstimateManagementController::class, 'deleteDetail'])->name('estimatemanagement.deleteDetail');
+Route::delete('estimate-management/detail/delete', [EstimateManagementController::class, 'deleteDetail'])->name('estimatemanagement.deleteDetail');
 });
 

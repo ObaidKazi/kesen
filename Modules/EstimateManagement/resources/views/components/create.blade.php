@@ -144,30 +144,56 @@
 </div>
 
 <script type="text/javascript">
-function calculateAmount(input) {
-        const name = input.name;
-        const match = name.match(/\[(\d+)\]/);
-        const index = match ? match[1] : 0;
+$(document).ready(function() {
+    let itemIndex = 1;
 
-        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
-        const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
-        const amount = unit * rate;
-        document.querySelector(`input[name="amount[${index}]"]`).value = amount.toFixed(2);
-    }
-   
-    function calculateAmount_2(input) {
-        const name = input.name;
-        const match = name.match(/\[(\d+)\]/);
-        const index = match ? match[1] : 0;
+    $('#add-item').click(function() {
+        let newItem = $('.repeater-item.mt-3:first').clone();
+        newItem.find('input, select').each(function() {
+            $(this).val('');
+            let name = $(this).attr('name');
+            if(name === 'verification_2[0]') {
+                name = 'verification_2[' + itemIndex + ']';
+            } else if(name === "lang_0") {
+                name = 'lang_' + itemIndex + "[]";
+            } else {
+                name = name.replace(/\d+/, itemIndex);
+            }
+            $(this).attr('name', name);
+        });
+        newItem.find('.card-title').html('Document ' + (itemIndex + 1));
+        newItem.appendTo('#repeater');
+        itemIndex++;
+    });
 
-        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
-        const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
-        const amount = unit * rate;
-        document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount.toFixed(2);
+    $(document).on('click', '.remove-item', function() {
+        if ($('.repeater-item').length > 1) {
+            $(this).closest('.repeater-item').remove();
+            updateIndices();
+        }
+    });
+
+    function updateIndices() {
+        itemIndex = 0;
+        $('.repeater-item').each(function() {
+            $(this).find('input, select').each(function() {
+                let name = $(this).attr('name');
+                if(name === 'verification_2[0]') {
+                    name = 'verification_2[' + itemIndex + ']';
+                } else if(name === "lang_0") {
+                    name = 'lang_' + itemIndex + "[]";
+                } else {
+                    name = name.replace(/\d+/, itemIndex);
+                }
+                $(this).attr('name', name);
+            });
+            $(this).find('.card-title').html('Document ' + (itemIndex + 1));
+            itemIndex++;
+        });
     }
-    document.getElementById('client_id').addEventListener('change', function() {
+
+    $('#client_id').change(function() {
         let client_id = this.value;
-        console.log(client_id);
         $.ajax({
             url: "/estimate-management/client/" + client_id,
             method: 'GET',
@@ -176,65 +202,33 @@ function calculateAmount(input) {
             }
         });
     });
-    $(document).ready(function() {
-        let itemIndex = 1;
 
-        $('#add-item').click(function() {
-            
-            
-            let newItem = $('.repeater-item.mt-3:first').clone();
-            newItem.find('input, select').each(function() {
-                
-                $(this).val('');
-                let name = $(this).attr('name');
-                if(name=='verification_2[0]'){
-                    name = 'verification_2['+itemIndex+']';
-                }else{
-                    if(name=="lang_0"){
-                            name = 'lang_' + itemIndex+"[]";
-                        }else{
-                        name = name.replace(/\d+/, itemIndex);
-                        }
-                }
-                $(this).attr('name', name);
-            });
-            newItem.find('.card-title').html('Document ' + (itemIndex+1));
-            
-            newItem.appendTo('#repeater');
-            itemIndex++;
-        });
-
-        $(document).on('click', '.remove-item', function() {
-            if ($('.repeater-item').length > 1) {
-                itemIndex--;
-                $(this).closest('.repeater-item').remove();
-                updateIndices();
-            }
-        });
-
-        function updateIndices() {
-            itemIndex = 0;
-            $('.repeater-item').each(function() {
-                let newItem = $('.repeater-item.mt-3:first').clone();
-                newItem.find('input, select').each(function() {
-                    $(this).val('');
-                    let name = $(this).attr('name');
-                    if(name=='verification_2[0]'){
-                    name = 'verification_2['+itemIndex+']';
-                }else{
-                    if(name=="lang_0"){
-                            name = 'lang_' + itemIndex;
-                        }else{
-                    name = name.replace(/\d+/, itemIndex);
-                        }
-                }
-                    $(this).attr('name', name);
-                });
-
-
-
-                itemIndex++;
-            });
-        }
+    $('input[name^="unit"], input[name^="rate"], input[name^="back_translation"]').on('input', function() {
+        calculateAmount(this);
+        calculateAmount_2(this);
     });
+});
+
+function calculateAmount(input) {
+    const name = input.name;
+    const match = name.match(/\[(\d+)\]/);
+    const index = match ? match[1] : 0;
+
+    const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+    const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
+    const amount = unit * rate;
+    document.querySelector(`input[name="amount[${index}]"]`).value = amount.toFixed(2);
+}
+
+function calculateAmount_2(input) {
+    const name = input.name;
+    const match = name.match(/\[(\d+)\]/);
+    const index = match ? match[1] : 0;
+
+    const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+    const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
+    const amount = unit * rate;
+    document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount.toFixed(2);
+}
+
 </script>

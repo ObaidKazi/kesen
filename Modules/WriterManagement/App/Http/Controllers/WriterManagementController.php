@@ -41,15 +41,14 @@ class WriterManagementController extends Controller
         $request->validate([
             'writer_name' => 'required',
             'email' => 'required|email|unique:writers',
-            'phone' => 'required|numeric',
-            'landline' => 'nullable|numeric',
+            'phone_no' => 'required|numeric',
             'address' => 'nullable',
             'code'=>'required' 
         ]);
         $writer=new Writer();
         $writer->writer_name=$request->writer_name;
         $writer->email=$request->email;
-        $writer->phone_no=$request->phone;
+        $writer->phone_no=$request->phone_no;
         $writer->landline=$request->landline;
         $writer->address=$request->address;
         $writer->code=$request->code;
@@ -88,15 +87,14 @@ class WriterManagementController extends Controller
         $request->validate([
             'writer_name' => 'required',
             'email' => 'required|email|unique:writers,email,'.$id,
-            'phone' => 'required|numeric',
-            'landline' => 'nullable|numeric',
+            'phone_no' => 'required|numeric',
             'address' => 'nullable',
             'code'=>'required' 
         ]);
         $writer=Writer::find($id);
         $writer->writer_name=$request->writer_name;
         $writer->email=$request->email;
-        $writer->phone_no=$request->phone;
+        $writer->phone_no=$request->phone_no;
         $writer->landline=$request->landline;
         $writer->address=$request->address;
         $writer->code=$request->code;

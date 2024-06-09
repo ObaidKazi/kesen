@@ -16,7 +16,7 @@ class ClientManagementController extends Controller
      */
     public function index()
     {
-        $client=Client::all();
+        $client=Client::get();
         return view('clientmanagement::index')->with('client',$client->values());
     }
 
@@ -39,6 +39,7 @@ class ClientManagementController extends Controller
             'phone_no'=>'required|numeric|unique:clients,phone_no',
             'landline'=>'nullable|numeric|unique:clients,landline',
             'type'=>'required|in:1,2',
+            'client_accountant_person_id'=>'required',
             'metrix'=>'required',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',
@@ -49,6 +50,7 @@ class ClientManagementController extends Controller
         $client->phone_no=$request->phone_no;
         $client->landline=$request->landline;
         $client->type=$request->type;
+        $client->client_accountant_person_id=$request->client_accountant_person_id;
         $client->metrix=$request->metrix;
         $client->protocol_data=$request->protocol_data;
         $client->address=$request->address;
@@ -87,6 +89,7 @@ class ClientManagementController extends Controller
             'phone_no'=>'required|numeric|unique:clients,phone_no,' . $id . ',id',
             'landline'=>'nullable|numeric|unique:clients,landline,' . $id . ',id',
             'type'=>'required|in:1,2',
+            'client_accountant_person_id'=>'required',
             'metrix'=>'required',
             'protocol_data'=>'required_if:type,2',
             'address'=>'nullable',
@@ -97,6 +100,7 @@ class ClientManagementController extends Controller
         $client->phone_no=$request->phone_no;
         $client->landline=$request->landline;
         $client->metrix=$request->metrix;
+        $client->client_accountant_person_id=$request->client_accountant_person_id;
         $client->type=$request->type;
         $client->protocol_data=$request->protocol_data;
         $client->address=$request->address;

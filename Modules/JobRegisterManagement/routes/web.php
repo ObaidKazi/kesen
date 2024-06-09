@@ -16,4 +16,6 @@ use Modules\JobRegisterManagement\App\Http\Controllers\JobRegisterManagementCont
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('job-register-management', JobRegisterManagementController::class)->names('jobregistermanagement');
+    Route::get('job-register-management/pdf/{id}', [JobRegisterManagementController::class, 'viewPdf'])->name('jobregistermanagement.pdf');
+    Route::get('job-register-management/excell/{id}', [JobRegisterManagementController::class, 'generateExcel'])->name('jobregistermanagement.excell');
 });

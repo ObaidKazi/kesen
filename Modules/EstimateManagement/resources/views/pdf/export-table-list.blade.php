@@ -32,9 +32,9 @@
         [
             'label' => 'Status',
         ],
-        [
-            'label' => 'Created By',
-        ],
+        // [
+        //     'label' => 'Created By',
+        // ],
         // [
         //     'label' => 'Action',
         // ],
@@ -81,7 +81,7 @@
             background-color: #dc3545;
         }
         .status-pending {
-            background-color: #ffc107;
+            background-color: white;
         }
         .status-approved {
             background-color: #28a745;
@@ -128,7 +128,6 @@
             <td class="{{ $row->status == 0 ? 'status-pending' : ($row->status == 1 ? 'status-approved' : 'status-rejected') }}">
                 {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
             </td>
-            <td>{{ App\Models\User::where('id',$row->created_by)->first()->name }}</td>
         </tr>
         @endforeach
     </tbody>

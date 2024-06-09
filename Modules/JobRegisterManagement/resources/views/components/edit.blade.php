@@ -8,8 +8,9 @@
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 
 @php $contact_persons=Modules\ClientManagement\App\Models\ContactPerson::where('status',1)->get(); @endphp
-@php $users=App\Models\User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->whereDoesntHave('roles', function($query) {
-    $query->where('name','Accounts');
+@php $users=App\Models\User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->whereHas('roles', function ($query) {
+    $query->where('name', 'Project Manager');
+    $query->orWhere('name', 'Admin');
 })->get(); @endphp
 @php $accountants=App\Models\User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->whereHas('roles', function($query) {
     $query->where('name','Accounts');
@@ -59,15 +60,8 @@
                 @csrf
                 @method('PUT')
                 <div class="row pt-2">
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-3" required label="Metrix">
-                        <option value="">Select Metrix</option>
-                        @foreach ($metrics as $metric)
-                            <option value="{{ $metric->id }}" @if ($jobRegister->metrix == $metric->id) selected @endif>
-                                {{ $metric->name }}</option>
-                        @endforeach
-                    </x-adminlte-select>
 
-                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-3" required :config="$config" label="Estimate Number">
+                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-3" required :config="$config" label="Estimate Number" id="estimate_number">
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)
                             <option value="{{ $estimate->id }}" {{ $jobRegister->estimate_id == $estimate->id ? 'selected' : '' }}>{{ $estimate->estimate_no }}</option>
@@ -96,21 +90,21 @@
                     
                    
 
-                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-3" required label="Handled By">
-                        <option value="">Select Handled By</option>
+                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-3" required label="Manager">
+                        <option value="">Select Manager</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" {{ $jobRegister->handled_by_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                         @endforeach
                     </x-adminlte-select>
 
-                    <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-3" required label="Accountant">
-                        <option value="">Select Accountant</option>
-                        @foreach ($accountants as $user)
-                            <option value="{{ $user->id }}" {{ $jobRegister->client_accountant_person_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                    
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3" required :config="$config"
+                        label="Other Estimates" id="other_details" multiple>
+                        <option value="">Select Estimate</option>
+                        @foreach ($estimates as $estimate)
+                            <option value="{{ $estimate->id }}"  {{ in_array($estimate->id, explode(',',$jobRegister->other_details)) ? 'selected' : '' }}>{{ $estimate->estimate_no }}</option>
                         @endforeach
-                    </x-adminlte-select>
-
-                    <x-adminlte-textarea name="other_details" placeholder="Other Details" fgroup-class="col-md-3" label="Other Details">{{ $jobRegister->other_details }}</x-adminlte-textarea>
+                    </x-adminlte-select2>
 
                     <x-adminlte-select name="category" fgroup-class="col-md-3" id="category" required
                         value="{{ old('category') }}" label="Category">
@@ -136,27 +130,14 @@
                     
 
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3" value="{{ $jobRegister->protocol_no }}" label="Protocol Number"/>
-
-                        <x-adminlte-select name="informed_to" fgroup-class="col-md-3" required value="{{ old('informed_to') }} " label="Infomed To">
-                            <option value="">Select Informed To</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}" {{ $user->id == $jobRegister->informed_to ? 'selected' : '' }}>{{ $user->name }}</option>
-                            @endforeach
-                        </x-adminlte-select>
                    
                         <x-adminlte-select name="site_specific" fgroup-class="col-md-3" id="site_specific" required value="{{ old('site_specific', $jobRegister->site_specific) }}" label="Site Specific">
                             <option value="">Select Site Specific</option>
                             <option value="1" {{ $jobRegister->site_specific == '1' ? 'selected' : '' }}>Yes</option>
                             <option value="0" {{ $jobRegister->site_specific == '0' ? 'selected' : '' }}>No</option>
                         </x-adminlte-select>
-                        <x-adminlte-input name="bill_no" placeholder="Bill Number" fgroup-class="col-md-3" value="{{ old('bill_no', $jobRegister->bill_no) }}" label="Bill Number" />
                         <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date' value="{{ old('date', $jobRegister->date) }}" required label="Date"/>
-                        <x-adminlte-input name="invoice_date" placeholder="Invoice Date" fgroup-class="col-md-3" type='date' value="{{ old('invoice_date', $jobRegister->invoice_date) }}" label="Invoice Date"/>
-                        <x-adminlte-input name="bill_date" placeholder="Bill Date" fgroup-class="col-md-3" type='date' value="{{ old('bill_date', $jobRegister->bill_date) }}" label="Bill Date"/>
-                            <x-adminlte-input name="sent_date"  placeholder="Date"
-                            fgroup-class="col-md-3" type='date' value="{{ old('sent_date', $jobRegister->sent_date) }}" required label="Sent Date" />
-                    <x-adminlte-textarea name="description" placeholder="HEADING / DESCRIPTION" fgroup-class="col-md-3" label="HEADING / DESCRIPTION">{{ $jobRegister->description }}</x-adminlte-textarea>
-
+                        
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" {{ $jobRegister->status == 0 ? 'selected' : '' }}>Pending</option>
@@ -165,15 +146,7 @@
                     </x-adminlte-select>
                    
                     
-                    <span id="site_specific_path" class="col-md-3">
-                        @if($jobRegister->site_specific == '1')
-                            <div class="form-group col-md-12" style="padding: 0px;margin:0px">
-                                <div class="input-group">
-                                    <input type="file" id="site_specific_path" name="site_specific_path" class="form-control" />
-                                </div>
-                            </div>
-                        @endif
-                    </span>
+                    
                     <span id="cancel" class="col-md-3">
                         @if($jobRegister->status == 2)
                         <label for="language">
@@ -197,13 +170,28 @@
 </div>
 
 <script type="text/javascript">
- document.getElementById('site_specific').addEventListener('change', function() {
-    if(this.value == 1||this.value == '1'){
-        document.getElementById('site_specific_path').innerHTML = '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Site Specific File</label><br><div class="input-group" ><input type="file" id="site_specific_path" name="site_specific_path" class="form-control" /></div></div>';
-    }else{
-        document.getElementById('site_specific_path').innerHTML = '';
-    }
-});
+$(document).ready(function() {
+        $('#estimate_number').on('change', function() {
+            $.ajax({
+                url: "/estimate-management/estimate/" + $('#estimate_number').val(),
+                method: 'GET',
+                success: function(data) {
+                    if (data != false) {
+                        document.getElementById("client_contact_person_id").value = data
+                            .client_contact_person_id;
+                        document.getElementById("client_id").value = data.client_id;
+                    }
+                }
+            });
+            $.ajax({
+            url: "/estimate-management/estimate-details/"+ $('#estimate_number').val(),
+            method: 'GET',
+            success: function(data) {
+                $('#estimate_document_id').html(data.html);
+            }
+        });
+        });
+    });
 document.getElementById('category').dispatchEvent(new Event('change'));
      $(document).ready(function() {
         $('#estimate_number').on('change', function() {

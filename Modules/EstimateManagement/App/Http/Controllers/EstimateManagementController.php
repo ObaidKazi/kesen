@@ -18,9 +18,24 @@ class EstimateManagementController extends Controller
 {
     public function index()
     {
-        $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();
+        if(request()->get("min")&&request()->get("max")==null) {
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
+        }
+        elseif(request()->get("min")!=''&&request()->get("max")!='') {
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+        }
+        elseif(request()->get("min")==null&&request()->get("max")){
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+        }else{
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();    
+        }
+
+        
         $estimates_approved_count=$estimates->where('status',1)->count();
-        $estimates_rejected_count=$estimates->where('status',0)->count();
+        $estimates_rejected_count=$estimates->where('status',2)->count();
         return view('estimatemanagement::index')->with('estimates', $estimates)->with('estimates_approved_count', $estimates_approved_count)->with('estimates_rejected_count', $estimates_rejected_count);
     }
 
@@ -34,9 +49,22 @@ class EstimateManagementController extends Controller
 
     public function exportEstimate()
     {
-        $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();
+        if(request()->get("min")&&request()->get("max")==null) {
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
+        }
+        elseif(request()->get("min")!=''&&request()->get("max")!='') {
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+        }
+        elseif(request()->get("min")==null&&request()->get("max")){
+            
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+        }else{
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();    
+        }
         $estimates_approved_count=$estimates->where('status',1)->count();
-        $estimates_rejected_count=$estimates->where('status',0)->count();
+        $estimates_rejected_count=$estimates->where('status',2)->count();
         $pdf =FacadePdf::loadView('estimatemanagement::pdf.export-table-list', ['estimates'=> $estimates,'estimates_approved_count'=> $estimates_approved_count,'estimates_rejected_count'=> $estimates_rejected_count]);
         return $pdf->stream();
         
@@ -107,21 +135,25 @@ class EstimateManagementController extends Controller
         $estimate->save();
         if ($request['document_name'] != null) {
             foreach ($request['document_name'] as $index => $document_name) {
-                EstimatesDetails::create([
-                    'estimate_id' => $estimate->id,
-                    'document_name' => $document_name,
-                    'type' => $request->type,
-                    'unit' => $request['unit'][$index],
-                    'rate' => $request['rate'][$index],
-                    'verification' => $request['verification'][$index],
-                    'verification_2' => $request['verification_2'][$index],
-                    'back_translation' => $request['back_translation'][$index],
-                    'layout_charges' => $request['layout_charges'][$index],
-                    'layout_charges_2' => $request['layout_charges_second'][$index],
-                    'lang' => implode(',', $request['lang_' . $index]),
-                    'two_way_qc_t' => $request['two_way_qc_t'][$index],
-                    'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
-                ]);
+                $languages=$request['lang_' . $index];
+                for ($i = 0; $i < count($languages); $i++) {
+                    EstimatesDetails::create([
+                        'estimate_id' => $estimate->id,
+                        'document_name' => $document_name,
+                        'type' => $request->type,
+                        'unit' => $request['unit'][$index],
+                        'rate' => $request['rate'][$index],
+                        'verification' => $request['verification'][$index],
+                        'verification_2' => $request['verification_2'][$index],
+                        'back_translation' => $request['back_translation'][$index],
+                        'layout_charges' => $request['layout_charges'][$index],
+                        'layout_charges_2' => $request['layout_charges_second'][$index],
+                        'lang' => $languages[$i],
+                        'two_way_qc_t' => $request['two_way_qc_t'][$index],
+                        'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
+                    ]);
+                }
+                
             }
         }
         Session::flash('message', 'Estimate created successfully');
@@ -152,7 +184,23 @@ class EstimateManagementController extends Controller
     {
         $estimate = Estimates::find($id);
         $contact_persons = ContactPerson::where('client_id', $estimate->client_id)->get();
-        $estimate_details = EstimatesDetails::where('estimate_id', $id)->get();
+        $distinctDetails = $estimate->details()
+        ->select('document_name', 'unit')
+        ->distinct()
+        ->get();
+        $estimate_details = $distinctDetails->map(function ($detail) use ($estimate) {
+            $detail=$estimate->details()
+                ->where('document_name', $detail->document_name)
+                ->where('unit', $detail->unit)
+                ->first();
+                $languages=EstimatesDetails::where('document_name', $detail->document_name)
+                                                    ->where('unit', $detail->unit)
+                                                    ->get('lang')
+                                                    ->pluck('lang')->toArray();
+            $detail->languages=$languages;
+            return $detail;
+
+        });
         return view('estimatemanagement::edit', compact('estimate', 'contact_persons', 'estimate_details'));
     }
 
@@ -195,23 +243,34 @@ class EstimateManagementController extends Controller
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
         foreach ($request['document_name'] as $index => $document_name) {
-            EstimatesDetails::updateOrCreate([
-                'id' => isset($request['id'][$index]) ? $request['id'][$index] : null
-            ], [
-                'estimate_id' => $estimate->id,
-                'document_name' => $document_name,
-                'type' => $request->type,
-                'unit' => $request['unit'][$index],
-                'rate' => $request['rate'][$index],
-                'verification' => $request['verification'][$index],
-                'verification_2' => $request['verification_2'][$index],
-                'back_translation' => $request['back_translation'][$index],
-                'layout_charges' => $request['layout_charges'][$index],
-                'layout_charges_2' => $request['layout_charges_second'][$index],
-                'lang' => implode(',', $request['lang_' . $index]),
-                    'two_way_qc_t' => $request['two_way_qc_t'][$index],
-                    'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
-            ]);
+            $languages=$request['lang_' . $index];
+            $previous_lang=EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->get('lang')->pluck('lang')->toArray();
+            $deleted_lang=array_diff($previous_lang,$languages);
+            if(count($deleted_lang)>0){
+                EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->whereIn('lang', $deleted_lang)->delete();
+            }
+                for ($i = 0; $i < count($languages); $i++) {
+                    EstimatesDetails::updateOrCreate([
+                        'document_name' => $document_name,
+                        'unit' => $request['unit'][$index],
+                        'rate' => $request['rate'][$index],
+                        'lang' => $languages[$i],
+                    ], [
+                        'estimate_id' => $estimate->id,
+                        'document_name' => $document_name,
+                        'type' => $request->type,
+                        'unit' => $request['unit'][$index],
+                        'rate' => $request['rate'][$index],
+                        'verification' => $request['verification'][$index],
+                        'verification_2' => $request['verification_2'][$index],
+                        'back_translation' => $request['back_translation'][$index],
+                        'layout_charges' => $request['layout_charges'][$index],
+                        'layout_charges_2' => $request['layout_charges_second'][$index],
+                        'lang' => $languages[$i],
+                        'two_way_qc_t' => $request['two_way_qc_t'][$index],
+                        'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
+                    ]);
+        }
         
     }
         Session::flash('message', 'Estimate updated successfully');
@@ -227,13 +286,15 @@ class EstimateManagementController extends Controller
             return false;
         }
     }
-    public function deleteDetail($id)
+    public function deleteDetail(Request $request)
     {
-        $detail = EstimatesDetails::findOrFail($id);
-        if ($detail == null) {
+        $details = EstimatesDetails::where('document_name', $request->document_name)->where('unit', $request->unit)->where('estimate_id', $request->estimate_id)->where('rate', $request->rate)->get();
+        if (count($details) == 0) {
             return response()->json(['success' => 'Detail not found'], 403);
         }
-        $detail->delete();
+        foreach ($details as $detail) {
+            $detail->delete();
+        }
         return response()->json(['success' => 'Detail deleted successfully']);
     }
 

@@ -1,105 +1,150 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
-@inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
+@inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
 @section('plugins.Datatables', true)
 @php
     $heads = [
-        [
-            'label' => '#',
-        ],
-        [
-            'label' => 'Document Name',
-        ],
-        [
-            'label' => 'Job No',
-        ],
-        [
-            'label' => 'Language',
-        ],   
-
-        [
-            'label' => 'Action',
-        ],   
+        ['label' => '#'],
+        ['label' => 'Document Name'],
+        ['label' => 'Job No'],
+        ['label' => 'Action'],
     ];
 
-    
-
     $config = [
-        'order' => [[1, 'desc']],
+        'order' => [[1, 'asc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];
-@endphp
-@if ($layoutHelper->isLayoutTopnavEnabled())
-    @php($def_container_class = 'container')
-@else
-    @php($def_container_class = 'container-fluid')
-@endif
 
-{{-- Default Content Wrapper --}}
-<div class="{{ $layoutHelper->makeContentWrapperClasses() }}">
+    $heads_manage = [
+            ['label' => '#'],
+            ['label' => 'Document Name'],
+            ['label' => 'Job No'],
+            ['label' => 'Language'],
+            ['label' => 'Action'],
+        ];
 
-    {{-- Preloader Animation (cwrapper mode) --}}
-    @if ($preloaderHelper->isPreloaderEnabled('cwrapper'))
-        @include('partials.common.preloader')
+        $config_manage = [
+            'order' => [[1, 'asc']],
+        ];
+        $config_manage['paging'] = true;
+    @endphp
+
+@if (!isset($list_estimate_language))
+    
+    @if ($layoutHelper->isLayoutTopnavEnabled())
+        @php($def_container_class = 'container')
+    @else
+        @php($def_container_class = 'container-fluid')
     @endif
 
-    {{-- Content Header --}}
-    @hasSection('content_header')
-        <div class="content-header">
-            <div class="{{ config('adminlte.classes_content_header') ?: $def_container_class }}">
-                @yield('content_header')
+    {{-- Default Content Wrapper --}}
+    <div class="{{ $layoutHelper->makeContentWrapperClasses() }}">
+
+        {{-- Preloader Animation (cwrapper mode) --}}
+        @if ($preloaderHelper->isPreloaderEnabled('cwrapper'))
+            @include('partials.common.preloader')
+        @endif
+
+        {{-- Content Header --}}
+        @hasSection('content_header')
+            <div class="content-header">
+                <div class="{{ config('adminlte.classes_content_header') ?: $def_container_class }}">
+                    @yield('content_header')
+                </div>
             </div>
-        </div>
-    @endif
+        @endif
 
-    {{-- Main Content --}}
-    <style>
-
-        .page-item.active .page-link {
-                    background-color: #28a745!important; /* Change active page background color as needed */
-                    border-color: #28a745!important; /* Change active page border color as needed */
-                }
+        {{-- Main Content --}}
+        <style>
+            .page-item.active .page-link {
+                background-color: #28a745 !important;
+                border-color: #28a745 !important;
+            }
         </style>
-    <div class="content">
-        @include('components.notification')
-       
-        <br>
-        <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-            <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
-                with-buttons>
-                @foreach ($estimate_details as $index=>$row)
-                
-                    <tr>
+        <div class="content">
+            @include('components.notification')
 
-                        <td>{{ $index+1 }}</td>
-                        <td>{{$row->document_name}}</td>
-                        <td>{{ $row->jobRegister->sr_no}}</td>
-                        <td>
-                     
-          @foreach ($row->lang as $index=>$language)
-            
-                @if($index==0)
-                    {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
-                
-                @else
-                    , {{Modules\LanguageManagement\App\Models\Language::find($language)->name}}
-                
-                @endif
-            
-          
-        @endforeach
-                       </td>
-                        <td>
-                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $row->jobRegister->id, 'estimate_detail_id' => $row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                              Edit
-                            </button></a>
-
-                        </td>
-
-                    </tr>
-                @endforeach
-            </x-adminlte-datatable>
+            <br>
+            <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config" with-buttons>
+                    @foreach ($job_register as $index => $row)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $row->estimate_document_id }}</td>
+                            <td>{{ $row->sr_no }}</td>
+                            <td>
+                                <a href="{{ route('jobcardmanagement.manage.list', ['job_id' => $row->id, 'estimate_detail_id' => $row->estimate_document_id]) }}">
+                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Manage">Manage</button>
+                                </a>
+                                <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}">
+                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Preview</button>
+                                </a>
+                                <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
+                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Bill</button>
+                                </a>
+                                <a href="{{route('jobregistermanagement.excell', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                    Excell
+                                </button></a>
+                                
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-adminlte-datatable>
+            </div>
         </div>
     </div>
 
-</div>
+@else
+
+    @if ($layoutHelper->isLayoutTopnavEnabled())
+        @php($def_container_class = 'container')
+    @else
+        @php($def_container_class = 'container-fluid')
+    @endif
+
+    {{-- Default Content Wrapper --}}
+    <div class="{{ $layoutHelper->makeContentWrapperClasses() }}">
+
+        {{-- Preloader Animation (cwrapper mode) --}}
+        @if ($preloaderHelper->isPreloaderEnabled('cwrapper'))
+            @include('partials.common.preloader')
+        @endif
+
+        {{-- Content Header --}}
+        @hasSection('content_header')
+            <div class="content-header">
+                <div class="{{ config('adminlte.classes_content_header') ?: $def_container_class }}">
+                    @yield('content_header')
+                </div>
+            </div>
+        @endif
+
+        {{-- Main Content --}}
+        <style>
+            .page-item.active .page-link {
+                background-color: #28a745 !important;
+                border-color: #28a745 !important;
+            }
+        </style>
+        <div class="content">
+            @include('components.notification')
+
+            <br>
+            <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                <x-adminlte-datatable id="table8" :heads="$heads_manage" head-theme="dark" striped :config="$config_manage" with-buttons>
+                    @foreach ($estimate_detail as $index => $detail)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $detail->document_name }}</td>
+                            <td>{{ $detail->jobRegister->sr_no }}</td>
+                            <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
+                            <td>
+                                <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </x-adminlte-datatable>
+            </div>
+        </div>
+    </div>
+@endif

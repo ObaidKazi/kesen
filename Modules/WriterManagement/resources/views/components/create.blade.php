@@ -36,9 +36,9 @@
                 <x-adminlte-input name="writer_name"  placeholder="Writer Name"
                     fgroup-class="col-md-3" required value="{{ old('writer_name') }}" label="Writer Name"/>
                     <x-adminlte-input name="email"  placeholder="Email"
-                    fgroup-class="col-md-3" required value="{{ old('email') }}" label="Email"/>
-                    <x-adminlte-input name="phone"  placeholder="Phone Number"
-                    fgroup-class="col-md-3" required value="{{ old('phone') }}" label="Phone Number"/>
+                    fgroup-class="col-md-3" required value="{{ old('email') }}" label="Email" type="email"/>
+                    <x-adminlte-input name="phone_no"  placeholder="Phone Number"
+                    fgroup-class="col-md-3" required value="{{ old('phone_no') }}" label="Phone Number"/>
                     {{-- <x-adminlte-input name="landline"  placeholder="Landline"
                     fgroup-class="col-md-3" required value="{{ old('landline') }}" label="Landline"/> --}}
                 <x-adminlte-input name="code"  placeholder="Writer Code"

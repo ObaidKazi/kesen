@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobCardManagement\Database\factories\JobCardFactory;
+use Modules\WriterManagement\App\Models\Writer;
 
 class JobCard extends Model
 {

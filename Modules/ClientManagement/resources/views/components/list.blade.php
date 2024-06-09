@@ -18,9 +18,9 @@
         [
             'label' => 'Contact No',
         ],
-        // [
-        //     'label' => 'Landline',
-        // ],
+        [
+            'label' => 'Accountant Name',
+        ],
 
         [
             'label' => 'Address',
@@ -33,7 +33,7 @@
     
 
     $config = [
-        'order' => [[1, 'asc']],
+        'order' => [[0, 'asc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];
@@ -87,14 +87,15 @@
                         <td>{{ $row->email }}</td>
                         <td>{{ $row->phone_no }}</td>
                         {{-- <td>{{ $row->landline }}</td> --}}
+                        <td>{{ App\Models\User::where('id',$row->client_accountant_person_id)->first()->name??'' }}</td>
                         <td>{{ $row->address }}</td>
                         <td width="200px">
                             <a href="{{route('clientmanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
                             </button></a>
-                            <a href="{{route('clientmanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                            {{-- <a href="{{route('clientmanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
-                            </button></a>
+                            </button></a> --}}
                             <a href="{{route('clientmanagement.viewContacts', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Contacts">
                                 View Contacts
                             </button>
