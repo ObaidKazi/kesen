@@ -1,7 +1,7 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
-@php $roles=Spatie\Permission\Models\Role::all(); @endphp
+@php $roles=Spatie\Permission\Models\Role::where('name','!=','Developer')->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
