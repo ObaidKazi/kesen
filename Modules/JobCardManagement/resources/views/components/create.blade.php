@@ -120,7 +120,7 @@
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
-                                                <x-adminlte-select name="bt_two_way_emp_code[0]" fgroup-class="col-md-2" required
+                                                <x-adminlte-select name="bt_two_way_emp_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('bt_two_way_emp_code[0]') }}" label="BT Two Way Qc Verifier">
                                                     <option value="">Select Employee</option>
                                                     @foreach ($users as $user)
