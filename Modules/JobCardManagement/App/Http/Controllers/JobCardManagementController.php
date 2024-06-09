@@ -15,7 +15,7 @@ class JobCardManagementController extends Controller
 {
 
     public function index(){ 
-        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->where('status',1)->get();
         return view('jobcardmanagement::manage',compact('job_register'));
         
     }
