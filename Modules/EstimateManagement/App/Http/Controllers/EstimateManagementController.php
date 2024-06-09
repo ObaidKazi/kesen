@@ -22,18 +22,18 @@ class EstimateManagementController extends Controller
         if(!request()->get("reset")){
         if(request()->get("min")&&request()->get("max")==null) {
             
-            $estimates = Estimates::where('created_at', '>=', request()->get("min"))->get();    
+            $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->get();    
         }
         elseif(request()->get("min")!=''&&request()->get("max")!='') {
             
-            $estimates = Estimates::where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+            $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
         }
         elseif(request()->get("min")==null&&request()->get("max")){
             
-            $estimates = Estimates::where('created_at', '<=', request()->get("max"))->get();    
+            $estimates = Estimates::where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
         }else{
-            $min=Carbon::now()->startOfMonth()->format('Y-m-d');
-            $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+            $min=Carbon::now()->startOfMonth();
+            $max=Carbon::now()->endOfMonth();
             $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
     }else{
@@ -58,23 +58,23 @@ class EstimateManagementController extends Controller
         if(!request()->get("reset")){
             if(request()->get("min")&&request()->get("max")==null) {
             
-                $estimates = Estimates::where('created_at', '>=', request()->get("min"))->get();    
+                $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->get();    
             }
             elseif(request()->get("min")!=''&&request()->get("max")!='') {
                 
-                $estimates = Estimates::where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+                $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
             }
             elseif(request()->get("min")==null&&request()->get("max")){
                 
-                $estimates = Estimates::where('created_at', '<=', request()->get("max"))->get();    
+                $estimates = Estimates::where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
             }else{
-                $min=Carbon::now()->startOfMonth()->format('Y-m-d');
-                $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+                $min=Carbon::now()->startOfMonth();
+                $max=Carbon::now()->endOfMonth();
                 $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
             }
         }else{
-            $min=Carbon::now()->startOfMonth()->format('Y-m-d');
-            $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+            $min=Carbon::now()->startOfMonth();
+            $max=Carbon::now()->endOfMonth();
             $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
         $estimates_approved_count=$estimates->where('status',1)->count();

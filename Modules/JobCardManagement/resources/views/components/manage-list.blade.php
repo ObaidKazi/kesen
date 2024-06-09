@@ -72,10 +72,27 @@
         <div class="content">
             @include('components.notification')
 
-            <br><br>
             <div class="card" style="margin:10px">
+                <div class="card-header">
+                    <h3 class="card-title">Job Card List</h3>
+                </div>
                 <div class="card-body">
             <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                <table border="0" cellspacing="5" cellpadding="5">
+                    <tbody>
+                        <tr>
+                            <td>From Date:</td>
+                            <form action="job-card-management">
+                                <td><input type="date" id="min" name="min"></td>
+                                <td>To Date:</td>
+                                <td><input type="date" id="max" name="max"></td>
+                                <td><input type="submit" value="Filter"></td>
+                                <td><input type="submit" value="Reset" name="reset"></td>
+                            </form>
+
+                        </tr>
+                    </tbody>
+                </table>
                 <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config" with-buttons>
                     @foreach ($job_register as $index => $row)
                         <tr>

@@ -15,7 +15,28 @@ class JobCardManagementController extends Controller
 {
 
     public function index(){ 
-        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+      
+        if(!request()->get("reset")){
+            if(request()->get("min")&&request()->get("max")==null) {
+                $job_register=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+            }
+            elseif(request()->get("min")!=''&&request()->get("max")!='') {
+                
+                $job_register=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=',Carbon::parse(request()->get("max"))->endOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+                
+            }
+            elseif(request()->get("min")==null&&request()->get("max")){
+                $job_register=JobRegister::where('created_at', '<=',Carbon::parse(request()->get("max"))->endOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+            
+        }else{
+            $min=Carbon::now()->startOfMonth();
+            $max=Carbon::now()->endOfMonth();
+            $job_register=JobRegister::where('created_at', '>=', $min)->where('created_at', '<=', $max)->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
+        }
+    }else{
+       return redirect('/job-card-management');
+    }
+        
         return view('jobcardmanagement::manage',compact('job_register'));
         
     }

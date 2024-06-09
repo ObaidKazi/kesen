@@ -115,7 +115,7 @@
         <table class="job-details">
             <thead>
                 <tr>
-                    <th colspan="2" style="font-size: 8pt">Langs.</th>
+                    <th colspan="3" style="font-size: 8pt">Langs.</th>
                     <th style="font-size: 8pt">Unit</th>
                     <th style="font-size: 8pt">Writer Code</th>
                     <th style="font-size: 8pt">Verified By</th>
@@ -130,14 +130,20 @@
             </thead>
             <tbody>
                 @php $estimate_details_list=[];@endphp
+                @php $temp_index=1;@endphp
                 @if(count($job->jobCard)!=0)
                     @foreach ($job->jobCard as $card)
                         <tr>
                             @if (!in_array($card->estimate_detail_id, $estimate_details_list))
+                                @php $temp_index=1;@endphp
                                 @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
                                 <td rowspan={{ $job->jobCard->where('sync_no', $card->sync_no)->count() * 2 }}
                                     style="font-size: 8pt">{{ $card->estimateDetail->language->name }}</td>
+                            @else
+                                    @php $temp_index+=1;@endphp
                             @endif
+                        
+                            <td rowspan="2">PC {{ $temp_index}}</td>
 
 
                             <td style="font-size: 8pt">T</td>
