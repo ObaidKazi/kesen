@@ -165,7 +165,7 @@
             
             @foreach ($estimate->details as $detail)
                 @php
-                    $combination = $detail->document_name . '-' . $detail->unit;
+                    $combination = $detail->document_name . '-' . $detail->unit.'-'.$detail->rate;
                 @endphp
             
                 @if (!$uniqueDetails->contains($combination))

@@ -125,13 +125,13 @@ class EstimateManagementController extends Controller
             'type.*' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'string',
-            'back_translation.*' => 'string',
-            'layout_charges.*' => 'string',
-            'layout_charges_second.*' => 'string',
+            'verification.*' => 'nullable|numeric',
+            'back_translation.*' => 'nullable|numeric',
+            'layout_charges.*' => 'nullable|numeric',
+            'layout_charges_second.*' => 'nullable|numeric',
             'lang_*' => 'required|string',
-            'two_way_qc_t.*'=>'string',
-            'two_way_qc_bt.*'=>'string',
+            'two_way_qc_t.*'=>'numeric',
+            'two_way_qc_bt.*'=>'numeric',
         ]);
         $estimate = new Estimates();
         $estimate->estimate_no = generateEstimateNumber($request->client_id);
@@ -235,13 +235,13 @@ class EstimateManagementController extends Controller
             'type' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'string',
-            'back_translation.*' => 'string',
-            'layout_charges.*' => 'string',
-            'layout_charges_second.*' => 'string',
+            'verification.*' => 'numeric',
+            'back_translation.*' => 'numeric',
+            'layout_charges.*' => 'numeric',
+            'layout_charges_second.*' => 'numeric',
             'lang_*' => 'required|string',
-            'two_way_qc_t.*'=>'string',
-            'two_way_qc_bt.*'=>'string',
+            'two_way_qc_t.*'=>'numeric',
+            'two_way_qc_bt.*'=>'numeric',
         ]);
 
         $estimate = Estimates::find($id);
