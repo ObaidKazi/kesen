@@ -246,7 +246,7 @@ class JobCardManagementController extends Controller
         $job->bill_no=$request->bill_no;
         $job->invoice_date=$request->invoice_date;
         $job->sent_date=$request->sent_date;
-        $job->old_job_no=$request->old_job_no;
+
         $job->po_number=$request->po_number;
         $job->delivery_date=$request->delivery_date;
         $job->payment_status=$request->payment_status;
@@ -261,7 +261,6 @@ class JobCardManagementController extends Controller
         $job->bill_no=$request->bill_no;
         $job->invoice_date=$request->invoice_date;
         $job->sent_date=$request->sent_date;
-        $job->old_job_no=$request->old_job_no;
         $job->po_number=$request->po_number;
         $job->delivery_date=$request->delivery_date;
         $job->payment_status=$request->payment_status;

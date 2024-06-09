@@ -88,7 +88,7 @@
                             <td>{{ $row->handle_by->name }}</td>
                             <td>{{ $row->bill_no }}</td>
                             <td>{{ $row->bill_date? \Carbon\Carbon::parse($row->bill_date)->format('j M Y'):'' }}</td>
-                            <td>{{ $row->informedTo->name }}</td>
+                            <td>{{ $row->estimate->client_person->name??'' }}</td>
                             <td>{{ $row->sent_date?\Carbon\Carbon::parse($row->sent_date)->format('j M Y'):'' }}</td>
                             
                             <td style="width: 300px">

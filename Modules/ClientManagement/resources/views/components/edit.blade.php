@@ -1,9 +1,12 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $metrics=App\Models\Metrix::get(); @endphp
-@php $accountants=App\Models\User::where('email','!=','developer@kesen.com')->where('id','!=',Auth()->user()->id)->whereHas('roles', function($query) {
-    $query->where('name','Accounts');
-})->get(); @endphp
+@php$accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
+        ->where('id', '!=', Auth()->user()->id)
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'Accounts');
+        })
+    ->get(); @endphp
 @php
     $heads = [
         [
@@ -18,7 +21,6 @@
         [
             'label' => 'Contact No',
         ],
-        
 
         [
             'label' => 'Designation',
@@ -87,10 +89,13 @@
                                 {{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-3" required label="Accountant">
+                    <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-3" required
+                        label="Accountant">
                         <option value="">Select Accountant</option>
                         @foreach ($accountants as $user)
-                            <option value="{{ $user->id }}" {{ $client->client_accountant_person_id == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                            <option value="{{ $user->id }}"
+                                {{ $client->client_accountant_person_id == $user->id ? 'selected' : '' }}>
+                                {{ $user->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-3"

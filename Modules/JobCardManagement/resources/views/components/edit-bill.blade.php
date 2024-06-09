@@ -38,8 +38,7 @@
                     fgroup-class="col-md-3" required value="{{$bill_data->bill_date}}" type='date' label="Bill Date" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-input name="bill_no"  placeholder="Bill No"
                     fgroup-class="col-md-3" required value="{{$bill_data->bill_no}}" type='text' label="Bill No" />
-                    <x-adminlte-input name="old_job_no"  placeholder="Old Job No"
-                    fgroup-class="col-md-3" required value="{{$bill_data->old_job_no}}" type='text' label="Old Job No" />
+                    
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
                     fgroup-class="col-md-3" required  type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
                     <x-adminlte-input name="invoice_date"  placeholder="Invoice Date"

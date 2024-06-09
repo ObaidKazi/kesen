@@ -26,13 +26,11 @@
         [
             'label' => 'Advertising Charges',
         ],
-        
+
         [
             'label' => 'Action',
         ],
     ];
-
-    
 
     $config = [
         'order' => [[1, 'asc']],
@@ -56,7 +54,7 @@
 
     {{-- Content Header --}}
     @hasSection('content_header')
-        <div class="content-header" >
+        <div class="content-header">
             <div class="{{ config('adminlte.classes_content_header') ?: $def_container_class }}">
                 @yield('content_header')
             </div>
@@ -65,66 +63,68 @@
 
     {{-- Main Content --}}
     <style>
-
         .page-item.active .page-link {
-                    background-color: #28a745!important; /* Change active page background color as needed */
-                    border-color: #28a745!important; /* Change active page border color as needed */
-                }
-        </style>
+            background-color: #28a745 !important;
+            /* Change active page background color as needed */
+            border-color: #28a745 !important;
+            /* Change active page border color as needed */
+        }
+    </style>
     <div class="content">
         <div class="content" style="padding-top: 20px;margin-left: 10px">
-        @include('components.notification')
-        <a href="{{ route('writermanagement.addLanguageMapView',$id) }}"><button class="btn btn-md btn-success "
-                style="float:right;margin:10px">Add Language Map</button></a>
-                <br><br>
-                <div class="card" style="margin:10px">
-                    <div class="card-body">
-        <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-            <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
-                with-buttons>
-                @foreach ($language_map as $index=>$row)
-                
-                    <tr>
+            @include('components.notification')
+            <a href="{{ route('writermanagement.addLanguageMapView', $id) }}"><button class="btn btn-md btn-success "
+                    style="float:right;margin:10px">Add Language Map</button></a>
+            <br><br>
+            <div class="card" style="margin:10px">
+                <div class="card-body">
+                    <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                        <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped
+                            :config="$config" with-buttons>
+                            @foreach ($language_map as $index => $row)
+                                <tr>
 
-                        <td>{{ $index+1 }}</td>
-                        <td>{{ $row->language_id }}</td>
-                        <td>{{ $row->per_unit_charges }}</td>
-                        <td>{{ $row->checking_charges }}</td>
-                        <td>{{ $row->bt_charges }}</td>
-                        <td>{{ $row->bt_checking_charges }}</td>
-                        <td>{{ $row->advertising_charges }}</td>
-                        <td>
-                            <a href="{{route('writermanagement.editLanguageMap',[$id,$row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </button></a>
-                            <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" onclick="deleteLanguageMap('{{route('writermanagement.deleteLanguageMap',[$id,$row->id])}}')">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>
-                        </td>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $row->language_id }}</td>
+                                    <td>{{ $row->per_unit_charges }}</td>
+                                    <td>{{ $row->checking_charges }}</td>
+                                    <td>{{ $row->bt_charges }}</td>
+                                    <td>{{ $row->bt_checking_charges }}</td>
+                                    <td>{{ $row->advertising_charges }}</td>
+                                    <td>
+                                        <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}"><button
+                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                                            </button></a>
+                                        <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
+                                            onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$id, $row->id]) }}')">
+                                            <i class="fa fa-lg fa-fw fa-trash"></i>
+                                        </button>
+                                    </td>
 
-                    </tr>
-                @endforeach
-            </x-adminlte-datatable>
+                                </tr>
+                            @endforeach
+                        </x-adminlte-datatable>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
+
     </div>
 
-</div>
+    <script>
+        function deleteLanguageMap(url) {
+            Swal.fire({
+                title: "Are you sure?",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+            }).then((result) => {
 
-<script>
-    function deleteLanguageMap(url){
-        Swal.fire({
-        title: "Are you sure?",
-        showCancelButton: true,
-        confirmButtonText: "Yes",
-        }).then((result) => {
-        
-        if (result.value) {
-            window.open(url,"_self")
-        } else if (result.isDenied) {
-            return false;
+                if (result.value) {
+                    window.open(url, "_self")
+                } else if (result.isDenied) {
+                    return false;
+                }
+            });
         }
-    });
-    }
-</script>
+    </script>

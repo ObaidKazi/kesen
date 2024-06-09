@@ -60,24 +60,11 @@
                             <option value="{{ $estimate->id }}">{{ $estimate->estimate_no }}</option>
                         @endforeach
                     </x-adminlte-select2>
-                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
-                        <option value="">Select Client</option>
-                        @foreach ($clients as $client)
-                            <option value="{{ $client->id }}">{{ $client->name }}</option>
-                        @endforeach
-                    </x-adminlte-select>
-                    
-                    <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id"
-                        fgroup-class="col-md-3" required label="Contact Person">
-                        <option value="">Select Contact Person</option>
-                        @foreach ($contact_persons as $contact)
-                            <option value="{{ $contact->id }}">{{ $contact->name }}</option>
-                        @endforeach
-                    </x-adminlte-select>
-                    <x-adminlte-select name="estimate_document_id" id="estimate_document_id" fgroup-class="col-md-3"  required label="Estimate Document">
+                    <x-adminlte-select name="estimate_document_id" id="estimate_document_id" fgroup-class="col-md-3"
+                        required label="Estimate Document">
                         <option value="">Select Estimate Document</option>
                     </x-adminlte-select>
-                    
+
 
                     <x-adminlte-select name="handled_by_id" fgroup-class="col-md-3" required
                         value="{{ old('handled_by_id') }}" label="Manager">
@@ -87,14 +74,7 @@
                         @endforeach
                     </x-adminlte-select>
 
-                    
-                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3" required :config="$config"
-                        label="Other Estimates" id="other_details" multiple>
-                        <option value="">Select Estimate</option>
-                        @foreach ($estimates as $estimate)
-                            <option value="{{ $estimate->id }}">{{ $estimate->estimate_no }}</option>
-                        @endforeach
-                    </x-adminlte-select2>
+
                     <x-adminlte-select name="category" fgroup-class="col-md-3" id="category" required
                         value="{{ old('category') }}" label="Category">
                         <option value="">Category</option>
@@ -104,13 +84,16 @@
                     <span id="type" class="col-md-3" style="display: none;">
 
                     </span>
-                    
+
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3"
                         value="{{ old('protocol_no') }}" label="Protocol Number" />
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
-                        value="{{ old('date', date('Y-m-d')) }}" required label="Date" min="{{ getCurrentDate() }}"/>
-                    
-                    
+                        value="{{ old('date', date('Y-m-d')) }}" required label="Date"
+                        min="{{ getCurrentDate() }}" />
+
+                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3" required
+                        type='text' label="Old Job No" />
+
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required value="{{ old('status') }}"
                         label="Status">
                         <option value="">Select Status</option>
@@ -118,10 +101,17 @@
                         <option value="1">Completed</option>
                         <option value="2">Cancelled</option>
                     </x-adminlte-select>
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3" required :config="$config"
+                        label="Other Estimates" id="other_details" multiple>
+                        <option value="">Select Estimate</option>
+                        @foreach ($estimates as $estimate)
+                            <option value="{{ $estimate->id }}">{{ $estimate->estimate_no }}</option>
+                        @endforeach
+                    </x-adminlte-select2>
                     <span id="site_specific_path" class="col-md-3">
 
                     </span>
-                    
+
 
                     <span id="cancel" class="col-md-3">
 
@@ -136,8 +126,6 @@
 
 </div>
 <script type="text/javascript">
-    
-
     $(document).ready(function() {
         $('#estimate_number').on('change', function() {
             $.ajax({
@@ -152,23 +140,23 @@
                 }
             });
             $.ajax({
-            url: "/estimate-management/estimate-details/"+ $('#estimate_number').val(),
-            method: 'GET',
-            success: function(data) {
-                $('#estimate_document_id').html(data.html);
-            }
-        });
+                url: "/estimate-management/estimate-details/" + $('#estimate_number').val(),
+                method: 'GET',
+                success: function(data) {
+                    $('#estimate_document_id').html(data.html);
+                }
+            });
         });
         $('#category').on('change', function() {
-            
+
             if ($('#category').val() == 1 || $('#category').val() == '1') {
-                
-            $('#type').css("display", "block");
+
+                $('#type').css("display", "block");
                 document.getElementById('type').innerHTML =
                     '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Job Type</label><br><div class="input-group"><select class="form-control"><option value="">Job Type</option><option value="new">New</option><option value="amendment">Amendment</option><option value="site-specific">Site Specific</option></select></div></div>';
             } else {
                 $('#type').css("display", "none");
-                
+
             }
         });
 

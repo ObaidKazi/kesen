@@ -39,15 +39,17 @@
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-input name="per_unit_charges" placeholder="Per Unit Charges" fgroup-class="col-md-3"
-                        value="{{ $language_map->per_unit_charges }}" label="Per Unit Charges"/>
+                        value="{{ $language_map->per_unit_charges }}" label="Per Unit Charges" />
                     <x-adminlte-input name="checking_charges" placeholder="Checking Charges" fgroup-class="col-md-3"
                         value="{{ $language_map->checking_charges }}" label="Checking Charges" />
                     <x-adminlte-input name="bt_charges" placeholder="BT Charges" fgroup-class="col-md-3" type='text'
                         value="{{ $language_map->bt_charges }}" label="BT Charges" />
                     <x-adminlte-input name="bt_checking_charges" placeholder="BT Checking Charges"
-                        fgroup-class="col-md-3" value="{{ $language_map->bt_checking_charges }}" label="BT Checking Charges" />
+                        fgroup-class="col-md-3" value="{{ $language_map->bt_checking_charges }}"
+                        label="BT Checking Charges" />
                     <x-adminlte-input name="advertising_charges" placeholder="Advertising Charges"
-                        fgroup-class="col-md-3" value="{{ $language_map->advertising_charges }}" label="Advertising Charges" />
+                        fgroup-class="col-md-3" value="{{ $language_map->advertising_charges }}"
+                        label="Advertising Charges" />
 
                 </div>
 

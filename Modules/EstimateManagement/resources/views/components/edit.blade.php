@@ -52,8 +52,7 @@
                         value="{{ $estimate->headline }}" required label="Headline" />
 
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
-                        value="{{ old('date', $estimate->date) }}" required label="Mail Received on"
-                         />
+                        value="{{ old('date', $estimate->date) }}" required label="Mail Received on" />
                     <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-3" required
                         value="{{ old('currency', $estimate->currency) }}" label="Currency">
                         <option value="">Select Currency</option>
@@ -391,7 +390,7 @@
                     </x-adminlte-select>
 
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
-                        value="{{ old('discount', $estimate->discount) }}"  label="Discount" />
+                        value="{{ old('discount', $estimate->discount) }}" label="Discount" />
 
                     <div id="repeater">
                         @foreach ($estimate_details as $index => $detail)
@@ -412,50 +411,54 @@
                                             <x-adminlte-input name="unit[{{ $index }}]" placeholder="Unit"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('unit.' . $index, $detail->unit) }}" required
-                                                label="Unit" onkeyup="calculateAmount(this)" min="1"/>
+                                                label="Unit" onkeyup="calculateAmount(this)" min="1" />
                                             <x-adminlte-input name="rate[{{ $index }}]" placeholder="Rate"
                                                 fgroup-class="col-md-3" type="text"
                                                 value="{{ old('rate.' . $index, $detail->rate) }}" required
-                                                label="Translation Rate" onkeyup="calculateAmount(this)"/>
-                                                <x-adminlte-input name="amount[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
-                                                value="{{ceil($detail->unit*$detail->rate) }}"  label="Amount"  readonly/>
+                                                label="Translation Rate" onkeyup="calculateAmount(this)" />
+                                            <x-adminlte-input name="amount[{{ $index }}]" placeholder="Amount"
+                                                fgroup-class="col-md-3" type="text"
+                                                value="{{ ceil($detail->unit * $detail->rate) }}" label="Amount"
+                                                readonly />
                                             <x-adminlte-input name="verification[{{ $index }}]"
                                                 placeholder="Verification" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
-                                                 label="Verification" />
+                                                label="Verification" />
                                             <x-adminlte-input name="two_way_qc_t[{{ $index }}]"
                                                 placeholder="Two Way QC T" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_t.' . $index, $detail->two_way_qc_t) }}"
-                                                 label="Two Way QC T" />
+                                                label="Two Way QC T" />
                                             <x-adminlte-input name="layout_charges[{{ $index }}]"
                                                 placeholder="Layout Charges" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('layout_charges.' . $index, $detail->layout_charges) }}"
-                                                 label="Layout Charges" />
+                                                label="Layout Charges" />
                                             <x-adminlte-input name="back_translation[{{ $index }}]"
                                                 placeholder="Back Translation" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('back_translation.' . $index, $detail->back_translation) }}"
-                                                 label="Back Translation Rate" onkeyup="calculateAmount_2(this)"/>
-                                                <x-adminlte-input name="amount_bt[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
-                                                value="{{$detail->unit*$detail->back_translation }}"  label="Amount"  readonly/>
+                                                label="Back Translation Rate" onkeyup="calculateAmount_2(this)" />
+                                            <x-adminlte-input name="amount_bt[{{ $index }}]"
+                                                placeholder="Amount" fgroup-class="col-md-3" type="text"
+                                                value="{{ $detail->unit * $detail->back_translation }}" label="Amount"
+                                                readonly />
                                             <x-adminlte-input name="verification_2[{{ $index }}]"
                                                 placeholder="Back Translation Verification" fgroup-class="col-md-3"
                                                 type="text"
                                                 value="{{ old('verification_2.' . $index, $detail->verification_2) }}"
-                                                 label="Back Translation Verification" />
+                                                label="Back Translation Verification" />
                                             <x-adminlte-input name="two_way_qc_bt[{{ $index }}]"
                                                 placeholder="Two Way QC BT" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_bt.' . $index, $detail->two_way_qc_bt) }}"
-                                                 label="Two Way QC BT" />
+                                                label="Two Way QC BT" />
                                             <x-adminlte-input name="layout_charges_second[{{ $index }}]"
                                                 placeholder="BT Layout Charges" fgroup-class="col-md-3"
                                                 type="text"
                                                 value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}"
-                                                 label="BT Layout Charges" />
-                                                
-                                                
-                                            
+                                                label="BT Layout Charges" />
+
+
+
                                             <x-adminlte-select name="lang_{{ $index }}[]"
-                                                fgroup-class="col-md-3"  label="Language" multiple>
+                                                fgroup-class="col-md-3" label="Language" multiple>
                                                 <option value="">Select Language</option>
                                                 @foreach ($languages as $language)
                                                     <option value="{{ $language->id }}"
@@ -467,8 +470,11 @@
                                         <div class="row">
                                             <input type="button" name="button"
                                                 class="btn btn-danger remove-item mt-3 mb-3"
-                                                style="float:right;width: 100px" data-detail-name="{{ $detail->document_name }}"
-                                                data-detail-unit="{{ $detail->unit }}" data-detail-rate="{{ $detail->rate }}" data-detail-estimateid="{{ $detail->estimate_id }}"
+                                                style="float:right;width: 100px"
+                                                data-detail-name="{{ $detail->document_name }}"
+                                                data-detail-unit="{{ $detail->unit }}"
+                                                data-detail-rate="{{ $detail->rate }}"
+                                                data-detail-estimateid="{{ $detail->estimate_id }}"
                                                 value="Remove"></button>
                                         </div>
                                     </div>
@@ -486,116 +492,115 @@
     </div>
 </div>
 <script type="text/javascript">
-      $(document).ready(function() {
-    let tempIndex = {{ count($estimate_details) }};
-    let itemIndex = {{ count($estimate_details) }};
-    
-    $('#add-item').click(function() {
-        let newItem = $('.repeater-item.mt-3:first').clone();
-        newItem.find('.card-title').html('Document ' + (itemIndex + 1));
-        newItem.find('input, select').each(function() {
-            $(this).val('');
-            let name = $(this).attr('name');
-            if (name == "button") {
-                $(this).attr('value', 'Remove');
-                $(this).attr('data-detail-id', '');
-            } else {
-                name = name.replace(/\d+/, itemIndex);
-                $(this).attr('name', name);
-                if (name == 'document_name[' + itemIndex + ']') {
-                    $(this).removeAttr('readonly');
-                }
-            }
-        });
-        newItem.appendTo('#repeater');
-        itemIndex++;
-    });
+    $(document).ready(function() {
+        let tempIndex = {{ count($estimate_details) }};
+        let itemIndex = {{ count($estimate_details) }};
 
-    $(document).on('click', '.remove-item', function() {
-        if ($('.repeater-item').length > 1) {
-            let detailName = $(this).data('detail-name');
-            let detailUnit = $(this).data('detail-unit');
-            let detailRate = $(this).data('detail-rate');
-            let detailEstimateId = $(this).data('detail-estimateid');
-            
-            if (detailName && detailUnit && detailRate && detailEstimateId) {
-                $.ajax({
-                    url: "{{ url('/estimate-management/detail/delete') }}",
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        document_name: detailName,
-                        unit: detailUnit,
-                        rate: detailRate,
-                        estimate_id: detailEstimateId
-                    },
-                    success: function(response) {
-                        tempIndex--;
-                        console.log(response.success);
-                    }
-                });
-            }
-            $(this).closest('.repeater-item').remove();
-            updateIndices();
-        }
-    });
-
-    function updateIndices() {
-        itemIndex = 0;
-        $('.repeater-item').each(function() {
-            let newItem = $(this);
+        $('#add-item').click(function() {
+            let newItem = $('.repeater-item.mt-3:first').clone();
+            newItem.find('.card-title').html('Document ' + (itemIndex + 1));
             newItem.find('input, select').each(function() {
+                $(this).val('');
                 let name = $(this).attr('name');
-                name = name.replace(/\d+/, itemIndex);
-                $(this).attr('name', name);
-                if (name == 'document_name[' + itemIndex + ']') {
-                    $(this).removeAttr('readonly');
+                if (name == "button") {
+                    $(this).attr('value', 'Remove');
+                    $(this).attr('data-detail-id', '');
+                } else {
+                    name = name.replace(/\d+/, itemIndex);
+                    $(this).attr('name', name);
+                    if (name == 'document_name[' + itemIndex + ']') {
+                        $(this).removeAttr('readonly');
+                    }
                 }
             });
-            newItem.find('.card-title').html('Document ' + (itemIndex + 1));
+            newItem.appendTo('#repeater');
             itemIndex++;
         });
-    }
-    
-    // Additional script for client_id change event
-    $('#client_id').change(function() {
-        let client_id = this.value;
-        $.ajax({
-            url: "/estimate-management/client/" + client_id,
-            method: 'GET',
-            success: function(data) {
-                $('#client_contact_person_id').html(data.html);
+
+        $(document).on('click', '.remove-item', function() {
+            if ($('.repeater-item').length > 1) {
+                let detailName = $(this).data('detail-name');
+                let detailUnit = $(this).data('detail-unit');
+                let detailRate = $(this).data('detail-rate');
+                let detailEstimateId = $(this).data('detail-estimateid');
+
+                if (detailName && detailUnit && detailRate && detailEstimateId) {
+                    $.ajax({
+                        url: "{{ url('/estimate-management/detail/delete') }}",
+                        type: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            document_name: detailName,
+                            unit: detailUnit,
+                            rate: detailRate,
+                            estimate_id: detailEstimateId
+                        },
+                        success: function(response) {
+                            tempIndex--;
+                            console.log(response.success);
+                        }
+                    });
+                }
+                $(this).closest('.repeater-item').remove();
+                updateIndices();
             }
+        });
+
+        function updateIndices() {
+            itemIndex = 0;
+            $('.repeater-item').each(function() {
+                let newItem = $(this);
+                newItem.find('input, select').each(function() {
+                    let name = $(this).attr('name');
+                    name = name.replace(/\d+/, itemIndex);
+                    $(this).attr('name', name);
+                    if (name == 'document_name[' + itemIndex + ']') {
+                        $(this).removeAttr('readonly');
+                    }
+                });
+                newItem.find('.card-title').html('Document ' + (itemIndex + 1));
+                itemIndex++;
+            });
+        }
+
+        // Additional script for client_id change event
+        $('#client_id').change(function() {
+            let client_id = this.value;
+            $.ajax({
+                url: "/estimate-management/client/" + client_id,
+                method: 'GET',
+                success: function(data) {
+                    $('#client_contact_person_id').html(data.html);
+                }
+            });
+        });
+
+        // Initial script for amount calculation
+        $('input[name^="unit"], input[name^="rate"], input[name^="back_translation"]').on('input', function() {
+            calculateAmount(this);
+            calculateAmount_2(this);
         });
     });
 
-    // Initial script for amount calculation
-    $('input[name^="unit"], input[name^="rate"], input[name^="back_translation"]').on('input', function() {
-        calculateAmount(this);
-        calculateAmount_2(this);
-    });
-});
+    function calculateAmount(input) {
+        const name = input.name;
+        const match = name.match(/\[(\d+)\]/);
+        const index = match ? match[1] : 0;
 
-function calculateAmount(input) {
-    const name = input.name;
-    const match = name.match(/\[(\d+)\]/);
-    const index = match ? match[1] : 0;
+        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+        const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
+        const amount = Math.round(unit * rate);
+        document.querySelector(`input[name="amount[${index}]"]`).value = amount;
+    }
 
-    const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
-    const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
-    const amount = Math.round(unit * rate);
-    document.querySelector(`input[name="amount[${index}]"]`).value = amount;
-}
+    function calculateAmount_2(input) {
+        const name = input.name;
+        const match = name.match(/\[(\d+)\]/);
+        const index = match ? match[1] : 0;
 
-function calculateAmount_2(input) {
-    const name = input.name;
-    const match = name.match(/\[(\d+)\]/);
-    const index = match ? match[1] : 0;
-
-    const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
-    const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
-    const amount = Math.round(unit * rate);
-    document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount;
-}
-
+        const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
+        const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
+        const amount = Math.round(unit * rate);
+        document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount;
+    }
 </script>

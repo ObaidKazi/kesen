@@ -41,8 +41,6 @@ class JobRegisterManagementController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'client_id' => 'required|string',
-            'client_contact_person_id' => 'required|string',
             'estimate_id' => 'required|string',
             'handled_by_id' => 'required|string',
             'other_details' => 'nullable|array',
@@ -75,6 +73,7 @@ class JobRegisterManagementController extends Controller
         $job_register->category = $request->category;
         $job_register->estimate_document_id = $request->estimate_document_id;
         $job_register->type = $request->type;
+        $job_register->old_job_no=$request->old_job_no;
         $job_register->client_accountant_person_id = Client::where('id',Estimates::where('id',$request->estimate_id)->first()->client_id)->first()->client_accountant_person_id;
         $job_register->date = $request->date;
         $job_register->description = $request->estimate_document_id;
@@ -117,14 +116,9 @@ class JobRegisterManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $validator = Validator::make($request->all(), [
-            'client_id' => 'required|string',
-            'client_contact_person_id' => 'required|string',
-            'estimate_id' => 'required|string',
             'handled_by_id' => 'required|string',
-            'other_details' => 'required|array',
-            'estimate_document_id' => 'required|string|unique:job_register,estimate_document_id,' . $id . ',id',
+            'other_details' => 'nullable|array',
             'category' => 'required|integer',
             'type' => 'string',
             'date' => 'required|date',
@@ -143,23 +137,18 @@ class JobRegisterManagementController extends Controller
         }
         $jobRegister = JobRegister::where('id', $id)->first();
 
-        $jobRegister->client_id = Estimates::where('id',$request->estimate_id)->first()->client_id;
-        $jobRegister->client_contact_person_id = Estimates::where('id',$request->estimate_id)->first()->client_contact_person_id;
-        $jobRegister->estimate_id = $request->estimate_id;
-        $jobRegister->client_accountant_person_id=Client::where('id',Estimates::where('id',$request->estimate_id)->first()->client_id)->first()->client_accountant_person_id;
         $jobRegister->handled_by_id = $request->handled_by_id;
         $jobRegister->other_details = implode(',',$request->other_details);
         $jobRegister->type = $request->type;
-        $jobRegister->estimate_document_id = $request->estimate_document_id;
         $jobRegister->category = $request->category;
         $jobRegister->date = $request->date;
+        $jobRegister->old_job_no=$request->old_job_no;
         $jobRegister->description = $request->estimate_document_id;
         $jobRegister->protocol_no = $request->protocol_no;
         $jobRegister->status = $request->status;
         $jobRegister->cancel_reason = $request->cancel_reason;
         $jobRegister->bill_no = $request->bill_no;
         $jobRegister->bill_date = $request->bill_date;
-        $jobRegister->informed_to = $request->client_contact_person_id;
         $jobRegister->invoice_date = $request->invoice_date;
         $jobRegister->sent_date = $request->sent_date;
            # 'site_specific' => $request->site_specific,

@@ -28,8 +28,6 @@
         ],
     ];
 
-    
-
     $config = [
         'order' => [[1, 'asc']],
     ];
@@ -61,73 +59,79 @@
 
     {{-- Main Content --}}
     <style>
-
         .page-item.active .page-link {
-                    background-color: #28a745!important; /* Change active page background color as needed */
-                    border-color: #28a745!important; /* Change active page border color as needed */
-                }
-        </style>
+            background-color: #28a745 !important;
+            /* Change active page background color as needed */
+            border-color: #28a745 !important;
+            /* Change active page border color as needed */
+        }
+    </style>
     <div class="content">
         @include('components.notification')
-        <a href="{{ route('clientmanagement.addContact',$id) }}"><button class="btn btn-md btn-success "
+        <a href="{{ route('clientmanagement.addContact', $id) }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Contact</button></a>
-                <br><br>
-                <div class="card" style="margin:10px">
-                    <div class="card-body">
-        <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-            <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
-                with-buttons>
-                @foreach ($contact_persons as $index=>$row)
-                
-                    <tr>
+        <br><br>
+        <div class="card" style="margin:10px">
+            <div class="card-body">
+                <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                    <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
+                        with-buttons>
+                        @foreach ($contact_persons as $index => $row)
+                            <tr>
 
-                        <td>{{ $index+1 }}</td>
-                        <td>{{ $row->name }}</td>
-                        <td>{{ $row->email }}</td>
-                        <td>{{ $row->phone_no }}</td>
-                        {{-- <td>{{ $row->landline }}</td> --}}
-                        <td>{{ $row->designation }}</td>
-                        <td>
-                            <a href="{{route('clientmanagement.editContactForm',[$id,$row->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </button></a>
-                            @if($row->status==1)
-                            <a href="{{route('clientmanagement.disableEnableContact',[$id,$row->id])}}"><button class="btn btn-xs btn-danger  mx-1 shadow" title="Disable">
-                                Disable
-                            </button></a>
-                            @else
-                            <a href="{{route('clientmanagement.disableEnableContact',[$id,$row->id])}}"><button class="btn btn-xs btn-success  mx-1 shadow" title="Enable">
-                                Enable
-                            </button></a>
-                            @endif
-                            <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete" onclick="disableEnable('{{route('clientmanagement.deleteContact',[$id,$row->id])}}')">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                      </button>
-                        </td>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $row->name }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{ $row->phone_no }}</td>
+                                {{-- <td>{{ $row->landline }}</td> --}}
+                                <td>{{ $row->designation }}</td>
+                                <td>
+                                    <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}"><button
+                                            class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                                        </button></a>
+                                    @if ($row->status == 1)
+                                        <a
+                                            href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}"><button
+                                                class="btn btn-xs btn-danger  mx-1 shadow" title="Disable">
+                                                Disable
+                                            </button></a>
+                                    @else
+                                        <a
+                                            href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}"><button
+                                                class="btn btn-xs btn-success  mx-1 shadow" title="Enable">
+                                                Enable
+                                            </button></a>
+                                    @endif
+                                    <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
+                                        onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$id, $row->id]) }}')">
+                                        <i class="fa fa-lg fa-fw fa-trash"></i>
+                                    </button>
+                                </td>
 
-                    </tr>
-                @endforeach
-            </x-adminlte-datatable>
-        </div>
-    </div>
+                            </tr>
+                        @endforeach
+                    </x-adminlte-datatable>
                 </div>
+            </div>
+        </div>
     </div>
 
 </div>
 
 <script>
-    function disableEnable(url){
+    function disableEnable(url) {
         Swal.fire({
-        title: "Are you sure?",
-        showCancelButton: true,
-        confirmButtonText: "Yes",
+            title: "Are you sure?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
         }).then((result) => {
-        
-        if (result.value) {
-            window.open(url,"_self")
-        } else if (result.isDenied) {
-            return false;
-        }
-    });
+
+            if (result.value) {
+                window.open(url, "_self")
+            } else if (result.isDenied) {
+                return false;
+            }
+        });
     }
 </script>
