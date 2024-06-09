@@ -204,10 +204,10 @@
                         @endphp
                         <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
-                            {{ ($detail->unit * $detail->rate + $detail->layout_charges + $detail->back_translation + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()) }}
+                            {{ number_format(($detail->unit * $detail->rate + $detail->layout_charges + $detail->back_translation + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()),2) }}
                         </td>
                         @php
-                            $sub_total = $sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) + ($detail->back_translation) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count());
+                            $sub_total = ($sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) + ($detail->back_translation) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()));
                         @endphp
                     </tr>
                 @endif
@@ -215,26 +215,26 @@
             
                 <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="{{ $counter - 1 }}" style="font-size: 12px;font-weight: bold">Sub Total</td>
-                    <td colspan="1" style="font-size: 8px;font-weight: bold">{{ $sub_total }}</td>
+                    <td colspan="1" style="font-size: 8px;font-weight: bold">{{ number_format($sub_total,2) }}</td>
                 </tr>
                 @if ($estimate->discount)
                     <tr class="financials">
                         <td colspan="{{ $counter - 1 }}">Discount</td>
-                        <td colspan="1" style="font-size: 6px;">{{ $estimate->discount ?? 0 }}</td>
+                        <td colspan="1" style="font-size: 6px;">{{ number_format($estimate->discount,2) ?? 0 }}</td>
                     </tr>
                     <tr class="financials" style="background-color: #f0f0f0">
                         <td colspan="{{ $counter - 1 }}">Net Total</td>
-                        <td colspan="1" style="font-size: 6px;">{{ $sub_total - $estimate->discount }}</td>
+                        <td colspan="1" style="font-size: 6px;">{{  number_format(($sub_total - $estimate->discount),2) }}</td>
                     </tr>
                 @endif
-                @php $net_total=$sub_total-($estimate->discount) @endphp
+                @php $net_total=($sub_total-($estimate->discount)) @endphp
                 <tr class="financials">
                     <td colspan="{{ $counter - 1 }}">GST (18%)</td>
-                    <td colspan="1" style="font-size: 6px;">{{ ($net_total / 100) * 18 }}</td>
+                    <td colspan="1" style="font-size: 6px;">{{ number_format((($net_total / 100) * 18),2) }}</td>
                 </tr>
                 <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="{{ $counter - 1 }}" style="font-size: 14px;font-weight: bold">Total</td>
-                    <td colspan="1" style="font-size: 6px;font-weight: bold">{{ $net_total + ($net_total / 100) * 18 }}
+                    <td colspan="1" style="font-size: 6px;font-weight: bold">{{ number_format(($net_total + ($net_total / 100) * 18),2) }}
                     </td>
                 </tr>
             </tbody>
