@@ -19,15 +19,22 @@
         ],
         
 
-        [
-            'label' => 'Headline',
-        ],
+        // [
+        //     'label' => 'Headline',
+        // ],
         // [
         //     'label' => 'Amount',
         // ],
 
+        // [
+        //     'label' => 'Currency',
+        // ],
+
         [
-            'label' => 'Currency',
+            'label' => 'Protocol No',
+        ],
+        [
+            'label' => 'Created By',
         ],
         [
             'label' => 'Status',
@@ -123,8 +130,8 @@
             <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->code }}</td>
             <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
             <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>
-            <td>{{ $row->headline }}</td>
-            <td>{{ $row->currency }}</td>
+            <td>{{implode(',', Modules\JobRegisterManagement\App\Models\JobRegister::where('estimate_id',$row->id)->get('protocol_no')->pluck('protocol_no')->toArray())??'';}}</td>
+            <td>{{ \App\Models\User::where('id',$row->created_by)->first()->name }}</td>
             <td class="{{ $row->status == 0 ? 'status-pending' : ($row->status == 1 ? 'status-approved' : 'status-rejected') }}">
                 {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
             </td>
