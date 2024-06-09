@@ -487,8 +487,8 @@
 </div>
 <script type="text/javascript">
       $(document).ready(function() {
-    let tempIndex = {{ count($estimate->details) }};
-    let itemIndex = {{ count($estimate->details) }};
+    let tempIndex = {{ count($estimate_details) }};
+    let itemIndex = {{ count($estimate_details) }};
     
     $('#add-item').click(function() {
         let newItem = $('.repeater-item.mt-3:first').clone();
