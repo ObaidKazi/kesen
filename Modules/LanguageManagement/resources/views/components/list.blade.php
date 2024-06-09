@@ -60,7 +60,9 @@
         @include('components.notification')
         <a href="{{ route('language-management.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Language</button></a>
-        <br>
+                <br><br>
+                <div class="card" style="margin:10px">
+                    <div class="card-body">
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
@@ -76,9 +78,9 @@
                             <a href="{{route('language-management.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                Edit
                             </button></a>
-                            <a href="{{route('language-management.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                            {{-- <a href="{{route('language-management.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
-                             </button></a>
+                             </button></a> --}}
                             @if($row->status == 1)
                                 <a href="{{route('language-management.disableEnableClient', $row->id)}}"><button class="btn btn-xs btn-danger mx-1 shadow" title="Disable">
                                     Disable</button></a>
@@ -92,6 +94,8 @@
                 @endforeach
             </x-adminlte-datatable>
         </div>
+                    </div>
+                </div>
     </div>
 
 </div>

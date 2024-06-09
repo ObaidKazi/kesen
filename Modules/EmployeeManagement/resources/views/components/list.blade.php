@@ -79,7 +79,9 @@
         @include('components.notification')
         <a href="{{ route('employeemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Employee</button></a>
-        <br>
+                <br><br>
+                <div class="card" style="margin:10px">
+                    <div class="card-body">
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
@@ -99,9 +101,9 @@
                             <a href="{{route('employeemanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
                             </button></a>
-                            <a href="{{route('employeemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                            {{-- <a href="{{route('employeemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
-                            </button></a>
+                            </button></a> --}}
                             </button>
                             @if($row->status == 1)
                                 <a href="{{route('employeemanagement.disableEnableClient', $row->id)}}"><button class="btn btn-xs btn-danger mx-1 shadow" title="Disable">
@@ -117,5 +119,7 @@
             </x-adminlte-datatable>
         </div>
     </div>
+</div>
+</div>
 
 </div>

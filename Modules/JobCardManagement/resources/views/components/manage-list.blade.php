@@ -64,7 +64,9 @@
         <div class="content">
             @include('components.notification')
 
-            <br>
+            <br><br>
+            <div class="card" style="margin:10px">
+                <div class="card-body">
             <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                 <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config" with-buttons>
                     @foreach ($job_register as $index => $row)
@@ -90,6 +92,8 @@
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
+            </div>
+        </div>
             </div>
         </div>
     </div>
@@ -129,7 +133,9 @@
         <div class="content">
             @include('components.notification')
 
-            <br>
+            <br><br>
+            <div class="card" style="margin:10px">
+                <div class="card-body">
             <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                 <x-adminlte-datatable id="table8" :heads="$heads_manage" head-theme="dark" striped :config="$config_manage" with-buttons>
                     @foreach ($estimate_detail as $index => $detail)
@@ -144,6 +150,8 @@
                         </tr>
                     @endforeach
                 </x-adminlte-datatable>
+            </div>
+        </div>
             </div>
         </div>
     </div>

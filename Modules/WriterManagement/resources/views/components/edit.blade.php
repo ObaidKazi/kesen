@@ -119,9 +119,9 @@
                             <a href="{{ route('writermanagement.editPaymentView', [$writer->id, $payment->id]) }}">
                                 <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button>
                             </a>
-                            <a href="{{ route('writermanagement.showPayment', [$writer->id, $payment->id]) }}">
+                            {{-- <a href="{{ route('writermanagement.showPayment', [$writer->id, $payment->id]) }}">
                                 <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">View</button>
-                            </a>
+                            </a> --}}
                         </td>
                     </tr>
                 @endforeach

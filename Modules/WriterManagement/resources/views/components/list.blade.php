@@ -79,7 +79,9 @@
         @include('components.notification')
         <a href="{{ route('writermanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Writer</button></a>
-        <br>
+                <br><br>
+                <div class="card" style="margin:10px">
+                    <div class="card-body">
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
@@ -100,9 +102,9 @@
                                 @if ($row->status == 1)class="btn btn-xs btn-default text-dark mx-1 shadow" @else class="btn btn-xs btn-default text-dart mx-1 shadow" disabled @endif  title="Edit">
                                     Edit
                                 </button></a>
-                                <a href="{{route('writermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Language">
+                                {{-- <a href="{{route('writermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Language">
                                     View 
-                                </button>
+                                </button> --}}
                                 <a href="{{route('writermanagement.viewLanguageMaps', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Language">
                                     View Language
                                 </button>
@@ -124,6 +126,8 @@
                 @endforeach
             </x-adminlte-datatable>
         </div>
+    </div>
+    </div>
     </div>
 
 </div>

@@ -71,7 +71,9 @@
         @include('components.notification')
         <a href="{{ route('clientmanagement.addContact',$id) }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Contact</button></a>
-        <br>
+                <br><br>
+                <div class="card" style="margin:10px">
+                    <div class="card-body">
         <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
             <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                 with-buttons>
@@ -107,6 +109,8 @@
                 @endforeach
             </x-adminlte-datatable>
         </div>
+    </div>
+                </div>
     </div>
 
 </div>
