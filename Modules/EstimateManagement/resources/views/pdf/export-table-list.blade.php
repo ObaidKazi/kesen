@@ -137,7 +137,7 @@
             <td>{{ $row->estimate_no }}</td>
             <td>{{calculateTotals($row->details,$row->discount??0)}}</td>
             
-            <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->code }}</td>
+            <td>{{ App\Models\Metrix::where('id',$row->client->metrix)->first()->code }}</td>
             <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
             <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>
             <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->phone_no??'';}}</td>

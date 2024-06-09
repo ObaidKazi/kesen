@@ -81,11 +81,11 @@
 
 <body>
     <header>
-        @if ($estimate->metrics->code == 'KCP')
+        @if ($estimate->client->client_metric->code == 'KCP')
             <img src="{{ public_path('img/kesen-communication.jpeg') }}" alt="Iceberg Image" width="100%">
-        @elseif ($estimate->metrics->code == 'KLB')
+        @elseif ($estimate->client->client_metric->code == 'KLB')
             <img src="{{ public_path('img/kesen-language-buea.jpeg') }}" alt="Iceberg Image" width="100%">
-        @elseif ($estimate->metrics->code == 'LGS')
+        @elseif ($estimate->client->client_metric->code == 'LGS')
             <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Iceberg Image" width="100%">
         @else
             <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Iceberg Image" width="100%">
@@ -111,7 +111,7 @@
         <p> {{ $estimate->client->name }}</p>
         <p>{{ $estimate->client->address }}</p>
         <p><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</p>
-        <p><strong>Mail Received on:</strong> {{ $estimate->date }}</p>
+        <p><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</p>
         <p><strong>Languages Required:</strong>
             @php $languages_list=[] @endphp
             @foreach ($estimate->details()->distinct('lang')->get() as $index=>$details )    
@@ -200,7 +200,7 @@
                             <td class="nowrap">{{ $detail->layout_charges_2 }}</td>
                         @endif
                         @php 
-                            $languages_ids=Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->get('lang')->pluck('lang')
+                            $languages_ids=Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->get('lang')->pluck('lang')
                         @endphp
                         <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
@@ -224,13 +224,13 @@
                     </tr>
                     <tr class="financials" style="background-color: #f0f0f0">
                         <td colspan="{{ $counter - 1 }}">Net Total</td>
-                        <td colspan="3" style="font-size: 6px;">{{ $sub_total - $estimate->discount }}</td>
+                        <td colspan="1" style="font-size: 6px;">{{ $sub_total - $estimate->discount }}</td>
                     </tr>
                 @endif
                 @php $net_total=$sub_total-($estimate->discount) @endphp
                 <tr class="financials">
                     <td colspan="{{ $counter - 1 }}">GST (18%)</td>
-                    <td colspan="3" style="font-size: 6px;">{{ ($net_total / 100) * 18 }}</td>
+                    <td colspan="1" style="font-size: 6px;">{{ ($net_total / 100) * 18 }}</td>
                 </tr>
                 <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="{{ $counter - 1 }}" style="font-size: 14px;font-weight: bold">Total</td>
@@ -252,7 +252,7 @@
         <div>
             <div style="display: block">
                 <p style="display: inline">For </p>
-                (<p style="font-weight: bold;display: inline">{{ $estimate->metrics->name }}</p>)
+                (<p style="font-weight: bold;display: inline">{{ $estimate->client->client_metric->name }}</p>)
             </div>
             <div style="margin-top:35px;">
                 _________________________

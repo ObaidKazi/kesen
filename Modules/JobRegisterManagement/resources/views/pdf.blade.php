@@ -26,6 +26,7 @@
         .subtitle {
             text-align: center;
             font-size: 18px;
+            margin-top:10px;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -66,8 +67,17 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">Kesen Language Bureau</div>
-        <div class="subtitle">JOB REGISTER <span class="job-register">37418</span></div>
+        @if ($jobRegister->estimate->client->client_metric->code == 'KCP')
+            <img src="{{ public_path('img/kesen-communication.jpeg') }}" alt="Iceberg Image" width="100%">
+        @elseif ($jobRegister->estimate->client->client_metric->code == 'KLB')
+            <img src="{{ public_path('img/kesen-language-buea.jpeg') }}" alt="Iceberg Image" width="100%">
+        @elseif ($jobRegister->estimate->client->client_metric->code == 'LGS')
+            <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Iceberg Image" width="100%">
+        @else
+            <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Iceberg Image" width="100%">
+        @endif
+        
+        <div class="subtitle">JOB REGISTER <span class="job-register">{{$jobRegister->sr_no}}</span></div>
         
         <table class="header-table">
             <tr>
@@ -104,28 +114,35 @@
             
 
             <tr>
-                <th colspan="2" >Langs.</th>
+                <th colspan="3">Langs.</th>
                 <th>Unit</th>
                 <th>Writer Code</th>
             </tr>
             @php $estimate_details_list=[];@endphp
-            @foreach ($jobRegister->jobCard as $card)
+            @php $temp_index=1;@endphp
+            @foreach ($jobRegister->jobCard as $index=>$card)
                 
                 <tr>
                     @if(!in_array($card->estimate_detail_id, $estimate_details_list))
+                        @php $temp_index=1;@endphp
                         @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
                         <td rowspan={{$jobRegister->jobCard->where('sync_no',$card->sync_no)->count()*2}} style="font-size: 8pt">{{$card->estimateDetail->language->name}}</td>
+                    @else
+                        @php $temp_index+=1;@endphp
                     @endif
             
-                <td >T</td>
-                <td>{{$card->t_unit}}</td>
-                <td>{{Modules\WriterManagement\App\Models\Writer::where('id',$card->t_writer_code)->first()->code}}</td>
-            </tr>
-            <tr>
-                <td>BT</td>
-                <td>{{$card->bt_unit}}</td>
-                <td></td>
-            </tr>
+                    <td rowspan="2">PC {{ $temp_index}}</td>
+                    <td >T</td>
+                    <td>{{$card->t_unit}}</td>
+                    <td>{{Modules\WriterManagement\App\Models\Writer::where('id',$card->t_writer_code)->first()->code}}</td>
+                </tr>
+                <tr>
+                    
+                    <td>BT</td>
+                    
+                    <td>{{$card->bt_unit}}</td>
+                    <td></td>
+                </tr>
             @endforeach
             
         </table>

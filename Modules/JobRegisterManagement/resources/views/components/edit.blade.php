@@ -112,11 +112,11 @@
                         <option value="1"  {{ $jobRegister->category == 1 ? 'selected' : '' }}>Protocol</option>
                         <option value="2"  {{ $jobRegister->category == 2 ? 'selected' : '' }}>Non-Protocol / Advertising - Consolidate CON</option>
                     </x-adminlte-select>
-                    <span id="type" class="col-md-3" style="display: none;">
+                    <span id="type" class="col-md-3" @if ($jobRegister->category == '1' ) style="display: block;" @else style="display: none;"@endif>
                         <div class="form-group col-md-12" style="padding: 0px;margin:0px">
                             <label for="language">Job Type</label><br>
                             <div class="input-group">
-                                <select class="form-control">
+                                <select class="form-control" name="type">
                                     <option value="">Job Type</option>
                                     <option value="new" {{ $jobRegister->type == 'new' ? 'selected' : '' }}>New</option>
                                     <option value="amendment" {{ $jobRegister->type == 'amendment' ? 'selected' : '' }}>Amendment</option>
@@ -131,11 +131,7 @@
 
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3" value="{{ $jobRegister->protocol_no }}" label="Protocol Number"/>
                    
-                        <x-adminlte-select name="site_specific" fgroup-class="col-md-3" id="site_specific" required value="{{ old('site_specific', $jobRegister->site_specific) }}" label="Site Specific">
-                            <option value="">Select Site Specific</option>
-                            <option value="1" {{ $jobRegister->site_specific == '1' ? 'selected' : '' }}>Yes</option>
-                            <option value="0" {{ $jobRegister->site_specific == '0' ? 'selected' : '' }}>No</option>
-                        </x-adminlte-select>
+                        
                         <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date' value="{{ old('date', $jobRegister->date) }}" required label="Date"/>
                         
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
@@ -208,7 +204,7 @@ document.getElementById('category').dispatchEvent(new Event('change'));
             });
         });
         $('#category').on('change', function() {            
-            if ($('#category').val() == 2 || $('#category').val() == '2') {
+            if ($('#category').val() == 1 || $('#category').val() == '1') {
                 $('#type').css("display", "block");
             } else {
                 $('#type').css("display", "none");

@@ -111,11 +111,6 @@
                         value="{{ old('date', date('Y-m-d')) }}" required label="Date" min="{{ getCurrentDate() }}"/>
                     
                     
-                    <x-adminlte-select name="site_specific" fgroup-class="col-md-3" id="site_specific" required value="{{ old('site_specific') }}" label="Site Specific">
-                        <option value="">Select Site Specific</option>
-                        <option value="1">Yes</option>
-                        <option value="0">No</option>
-                    </x-adminlte-select>
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required value="{{ old('status') }}"
                         label="Status">
                         <option value="">Select Status</option>
@@ -166,7 +161,7 @@
         });
         $('#category').on('change', function() {
             
-            if ($('#category').val() == 2 || $('#category').val() == '2') {
+            if ($('#category').val() == 1 || $('#category').val() == '1') {
                 
             $('#type').css("display", "block");
                 document.getElementById('type').innerHTML =

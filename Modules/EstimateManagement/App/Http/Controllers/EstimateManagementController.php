@@ -22,19 +22,19 @@ class EstimateManagementController extends Controller
         if(!request()->get("reset")){
         if(request()->get("min")&&request()->get("max")==null) {
             
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
+            $estimates = Estimates::where('created_at', '>=', request()->get("min"))->get();    
         }
         elseif(request()->get("min")!=''&&request()->get("max")!='') {
             
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+            $estimates = Estimates::where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
         }
         elseif(request()->get("min")==null&&request()->get("max")){
             
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+            $estimates = Estimates::where('created_at', '<=', request()->get("max"))->get();    
         }else{
             $min=Carbon::now()->startOfMonth()->format('Y-m-d');
             $max=Carbon::now()->endOfMonth()->format('Y-m-d');
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+            $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
     }else{
        return redirect('/estimate-management');
@@ -58,24 +58,24 @@ class EstimateManagementController extends Controller
         if(!request()->get("reset")){
             if(request()->get("min")&&request()->get("max")==null) {
             
-                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
+                $estimates = Estimates::where('created_at', '>=', request()->get("min"))->get();    
             }
             elseif(request()->get("min")!=''&&request()->get("max")!='') {
                 
-                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+                $estimates = Estimates::where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
             }
             elseif(request()->get("min")==null&&request()->get("max")){
                 
-                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+                $estimates = Estimates::where('created_at', '<=', request()->get("max"))->get();    
             }else{
                 $min=Carbon::now()->startOfMonth()->format('Y-m-d');
                 $max=Carbon::now()->endOfMonth()->format('Y-m-d');
-                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+                $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
             }
         }else{
             $min=Carbon::now()->startOfMonth()->format('Y-m-d');
             $max=Carbon::now()->endOfMonth()->format('Y-m-d');
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+            $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
         $estimates_approved_count=$estimates->where('status',1)->count();
         $estimates_rejected_count=$estimates->where('status',2)->count();
@@ -130,12 +130,11 @@ class EstimateManagementController extends Controller
             'layout_charges.*' => 'nullable|numeric',
             'layout_charges_second.*' => 'nullable|numeric',
             'lang_*' => 'required|string',
-            'two_way_qc_t.*'=>'numeric',
-            'two_way_qc_bt.*'=>'numeric',
+            'two_way_qc_t.*'=>'nullable|numeric',
+            'two_way_qc_bt.*'=>'nullable|numeric',
         ]);
         $estimate = new Estimates();
         $estimate->estimate_no = generateEstimateNumber($request->client_id);
-        $estimate->metrix = Client::where('id', $request->client_id)->first()->metrix;
         $estimate->client_id = $request->client_id;
         $estimate->client_contact_person_id = $request->client_contact_person_id;
         $estimate->headline = $request->headline;
@@ -199,16 +198,18 @@ class EstimateManagementController extends Controller
         $estimate = Estimates::find($id);
         $contact_persons = ContactPerson::where('client_id', $estimate->client_id)->get();
         $distinctDetails = $estimate->details()
-        ->select('document_name', 'unit')
+        ->select('document_name', 'unit', 'rate')
         ->distinct()
         ->get();
         $estimate_details = $distinctDetails->map(function ($detail) use ($estimate) {
             $detail=$estimate->details()
                 ->where('document_name', $detail->document_name)
                 ->where('unit', $detail->unit)
+                ->where('rate', $detail->rate)
                 ->first();
                 $languages=EstimatesDetails::where('document_name', $detail->document_name)
                                                     ->where('unit', $detail->unit)
+                                                    ->where('rate', $detail->rate)
                                                     ->get('lang')
                                                     ->pluck('lang')->toArray();
             $detail->languages=$languages;
@@ -235,13 +236,13 @@ class EstimateManagementController extends Controller
             'type' => 'required|string|max:255',
             'unit.*' => 'required|numeric',
             'rate.*' => 'required|numeric',
-            'verification.*' => 'numeric',
-            'back_translation.*' => 'numeric',
-            'layout_charges.*' => 'numeric',
-            'layout_charges_second.*' => 'numeric',
+            'verification.*' => 'nullable|numeric',
+            'back_translation.*' => 'nullable|numeric',
+            'layout_charges.*' => 'nullable|numeric',
+            'layout_charges_second.*' => 'nullable|numeric',
             'lang_*' => 'required|string',
-            'two_way_qc_t.*'=>'numeric',
-            'two_way_qc_bt.*'=>'numeric',
+            'two_way_qc_t.*'=>'nullable|numeric',
+            'two_way_qc_bt.*'=>'nullable|numeric',
         ]);
 
         $estimate = Estimates::find($id);

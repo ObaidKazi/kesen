@@ -78,15 +78,17 @@
                                 <a href="{{ route('jobcardmanagement.manage.list', ['job_id' => $row->id, 'estimate_detail_id' => $row->estimate_document_id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Manage">Manage</button>
                                 </a>
-                                <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}">
+                                <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}"  target="_blank">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Preview</button>
                                 </a>
                                 <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Bill</button>
                                 </a>
-                                <a href="{{route('jobregistermanagement.excell', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                    Excell
-                                </button></a>
+                                @if($row->type=='site-specific')
+                                    <a href="{{route('jobregistermanagement.excell', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                        Download Excel
+                                    </button></a>
+                                @endif
                                 
                             </td>
                         </tr>

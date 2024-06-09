@@ -35,7 +35,7 @@
                     <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
-                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                            <option value="{{ $client->id }}" @if(old('client_id') == $client->id) selected @endif>{{ $client->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id"
@@ -52,7 +52,7 @@
                         {!! getCurrencyDropDown() !!}
                     </x-adminlte-select>
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
-                    value="{{ old('date', date('Y-m-d')) }}" required label="Mail Received on" min="{{ getCurrentDate() }}"/>
+                    value="{{ old('date', date('Y-m-d')) }}" required label="Mail Received on" />
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
                         value="{{ old('discount') }}"  label="Discount" />
                         <x-adminlte-select name="type" fgroup-class="col-md-3" required

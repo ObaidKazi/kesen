@@ -90,7 +90,7 @@
                             <a href="{{route('jobregistermanagement.edit', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Edit
                             </button></a>
-                            <a href="{{route('jobregistermanagement.pdf', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                            <a href="{{route('jobregistermanagement.pdf', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 Preview
                             </button></a>
                             
