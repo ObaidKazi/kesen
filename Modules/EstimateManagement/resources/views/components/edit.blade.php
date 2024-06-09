@@ -422,40 +422,40 @@
                                             <x-adminlte-input name="verification[{{ $index }}]"
                                                 placeholder="Verification" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
-                                                required label="Verification" />
+                                                 label="Verification" />
                                             <x-adminlte-input name="two_way_qc_t[{{ $index }}]"
                                                 placeholder="Two Way QC T" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_t.' . $index, $detail->two_way_qc_t) }}"
-                                                required label="Two Way QC T" />
+                                                 label="Two Way QC T" />
                                             <x-adminlte-input name="layout_charges[{{ $index }}]"
                                                 placeholder="Layout Charges" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('layout_charges.' . $index, $detail->layout_charges) }}"
-                                                required label="Layout Charges" />
+                                                 label="Layout Charges" />
                                             <x-adminlte-input name="back_translation[{{ $index }}]"
                                                 placeholder="Back Translation" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('back_translation.' . $index, $detail->back_translation) }}"
-                                                required label="Back Translation Rate" onkeyup="calculateAmount_2(this)"/>
+                                                 label="Back Translation Rate" onkeyup="calculateAmount_2(this)"/>
                                                 <x-adminlte-input name="amount_bt[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
                                                 value="{{$detail->unit*$detail->back_translation }}"  label="Amount"  readonly/>
                                             <x-adminlte-input name="verification_2[{{ $index }}]"
                                                 placeholder="Back Translation Verification" fgroup-class="col-md-3"
                                                 type="text"
                                                 value="{{ old('verification_2.' . $index, $detail->verification_2) }}"
-                                                required label="Back Translation Verification" />
+                                                 label="Back Translation Verification" />
                                             <x-adminlte-input name="two_way_qc_bt[{{ $index }}]"
                                                 placeholder="Two Way QC BT" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_bt.' . $index, $detail->two_way_qc_bt) }}"
-                                                required label="Two Way QC BT" />
+                                                 label="Two Way QC BT" />
                                             <x-adminlte-input name="layout_charges_second[{{ $index }}]"
                                                 placeholder="BT Layout Charges" fgroup-class="col-md-3"
                                                 type="text"
                                                 value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}"
-                                                required label="BT Layout Charges" />
+                                                 label="BT Layout Charges" />
                                                 
                                                 
                                             
                                             <x-adminlte-select name="lang_{{ $index }}[]"
-                                                fgroup-class="col-md-3" required label="Language" multiple>
+                                                fgroup-class="col-md-3"  label="Language" multiple>
                                                 <option value="">Select Language</option>
                                                 @foreach ($languages as $language)
                                                     <option value="{{ $language->id }}"
