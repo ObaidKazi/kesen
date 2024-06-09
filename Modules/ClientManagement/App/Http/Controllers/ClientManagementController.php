@@ -74,7 +74,7 @@ class ClientManagementController extends Controller
     public function edit($id)
     {
         $client=Client::find($id);
-        $contact_persons=ContactPerson::where('client_id',$id)->get();
+        $contact_persons=ContactPerson::where('client_id',$id)->orderBy('created_at','desc')->get();
         return view('clientmanagement::edit',compact('client','contact_persons'));
     }
 
@@ -128,7 +128,7 @@ class ClientManagementController extends Controller
     }
 
     public function viewContacts($id){
-        $contact_persons=ContactPerson::where('client_id',$id)->get();
+        $contact_persons=ContactPerson::where('client_id',$id)->orderBy('created_at','desc')->get();
         return view('clientmanagement::list_contacts')->with('id',$id)->with('contact_persons',$contact_persons);
     }
 

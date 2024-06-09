@@ -1,7 +1,7 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
 @php $metrics=App\Models\Metrix::get(); @endphp
-@php$accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
+@php $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
         ->where('id', '!=', Auth()->user()->id)
         ->whereHas('roles', function ($query) {
             $query->where('name', 'Accounts');
@@ -123,8 +123,18 @@
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
 
             </form>
+            <br>
             @if (count($contact_persons) > 0)
-                <x-adminlte-datatable id="table8" class="mt-3" :heads="$heads" head-theme="dark" striped
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title" style="margin-top: 10px">Contact Person</h3>
+                        <a href="{{ route('clientmanagement.addContact', $client->id) }}"><button class="btn btn-md btn-success "
+                            style="float:right;">Add Contact</button></a>
+                    </div>
+                    <div class="card-body">
+                        
+                    
+                        <x-adminlte-datatable id="table8" class="mt-3" :heads="$heads" head-theme="dark" striped
                     :config="$config" with-buttons>
                     @foreach ($contact_persons as $index => $row)
                         <tr>
@@ -163,6 +173,8 @@
                     @endforeach
                 </x-adminlte-datatable>
 
+                    </div>
+                </div>
             @endif
         </x-adminlte-card>
     </div>

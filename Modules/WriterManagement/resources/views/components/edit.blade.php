@@ -84,8 +84,15 @@
 
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
             </form>
-
-            <x-adminlte-datatable id="table8" class="mt-3" :heads="$language_heads" head-theme="dark" striped
+            <br>
+           <div class="card">
+               <div class="card-header">
+                   <h3 class="card-title" style="margin-top: 10px">Language Map</h3>
+                   <a href="{{ route('writermanagement.addLanguageMapView', $writer->id) }}"><button class="btn btn-md btn-success "
+                    style="float:right;">Add Language Map</button></a>
+               </div>
+               <div class="card-body">
+                <x-adminlte-datatable id="table8" class="mt-3" :heads="$language_heads" head-theme="dark" striped
                 :config="$language_config" with-buttons>
                 @foreach ($language_map as $index => $row)
                     <tr>
@@ -103,14 +110,23 @@
                             </a>
                             <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
                                 onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$writer->id, $row->id]) }}')">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
+                                Delete
                             </button>
                         </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
+               </div>
+           </div>
 
-            <x-adminlte-datatable id="table9" class="mt-3" :heads="$payment_heads" head-theme="dark" striped
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title" style="margin-top:10px">Payment Details</h3>
+                    <a href="{{ route('writermanagement.addPaymentView', $writer->id) }}"><button class="btn btn-md btn-success"
+                        style="float:right">Add Payment</button></a>
+                </div>
+                <div class="card-body">
+                    <x-adminlte-datatable id="table9" class="mt-3" :heads="$payment_heads" head-theme="dark" striped
                 :config="$payment_config" with-buttons>
                 @foreach ($payments as $index => $payment)
                     <tr>
@@ -136,6 +152,8 @@
                     </tr>
                 @endforeach
             </x-adminlte-datatable>
+                </div>
+            </div>
         </x-adminlte-card>
     </div>
 </div>

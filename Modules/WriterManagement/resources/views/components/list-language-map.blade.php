@@ -94,11 +94,11 @@
                                     <td>
                                         <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}"><button
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                                                Edit
                                             </button></a>
                                         <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
                                             onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$id, $row->id]) }}')">
-                                            <i class="fa fa-lg fa-fw fa-trash"></i>
+                                            Delete
                                         </button>
                                     </td>
 
