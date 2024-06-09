@@ -57,8 +57,21 @@ trait AuthenticatesUsersCustom
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
-
-            return $this->sendLoginResponse($request);
+            if(request()->wantsJson()){
+                return new JsonResponse([], 204);
+            }else{
+                
+                
+                if (auth()->user()->hasRole('Admin')||auth()->user()->hasRole('CEO')||auth()->user()->hasRole('Developer')||auth()->user()->code=='Dev') {
+                    $redirect_path='/estimate-management';
+                }elseif(auth()->user()->hasRole('Project Manager')){
+                    $redirect_path='/job-card-management';
+                }elseif(auth()->user()->hasRole('Accounts')){
+                    $redirect_path='/job-card-management';
+                }
+                return redirect($redirect_path);
+            }
+            #return $this->sendLoginResponse($request);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

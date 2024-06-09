@@ -16,7 +16,7 @@ class ClientManagementController extends Controller
      */
     public function index()
     {
-        $client=Client::get();
+        $client=Client::orderBy('created_at','desc')->get();
         return view('clientmanagement::index')->with('client',$client->values());
     }
 

@@ -96,6 +96,7 @@
                         <td>To Date:</td>
                         <td><input type="date" id="max" name="max"></td>
                         <td><input type="submit" value="Filter"></td>
+                        <td><input type="submit" value="Reset" name="reset"></td>
                     </form>
                    
                 </tr>
@@ -104,11 +105,11 @@
             <span class="right badge badge-success p-2 fs-6" >Total Approved: {{ $estimates_approved_count }}</span>
             <span class="right badge badge-danger p-2 fs-6" >Total Rejected: {{ $estimates_rejected_count }}</span>
             @if(request()->input('min') || request()->input('max'))
-                <a href="{{route('estimatemanagement.exporteestimate')}}?min={{request()->input('min')}}&max={{request()->input('max')}}"><button class="btn btn-sm btn-default text-dark mx-2 shadow" title="Edit">
+                <a href="{{route('estimatemanagement.exporteestimate')}}?min={{request()->input('min')}}&max={{request()->input('max')}}"><button class="btn btn-sm btn-default text-dark" title="Edit" style="width:132px;margin-left:5px;height:33px">
                     Export
                 </button></a>
             @else
-            <a href="{{route('estimatemanagement.exporteestimate')}}"><button class="btn btn-sm btn-default text-dark mx-2 shadow" title="Edit">
+            <a href="{{route('estimatemanagement.exporteestimate')}}"><button class="btn btn-sm btn-default text-dark " title="Edit" style="width:132px;margin-left:5px;height:33px">
                 Export
             </button></a>
             @endif

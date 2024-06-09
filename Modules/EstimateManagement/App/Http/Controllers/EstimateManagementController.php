@@ -4,6 +4,7 @@ namespace Modules\EstimateManagement\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class EstimateManagementController extends Controller
 {
     public function index()
     {
+        if(!request()->get("reset")){
         if(request()->get("min")&&request()->get("max")==null) {
             
             $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
@@ -30,8 +32,13 @@ class EstimateManagementController extends Controller
             
             $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
         }else{
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();    
+            $min=Carbon::now()->startOfMonth()->format('Y-m-d');
+            $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
+    }else{
+       return redirect('/estimate-management');
+    }
 
         
         $estimates_approved_count=$estimates->where('status',1)->count();
@@ -44,24 +51,31 @@ class EstimateManagementController extends Controller
         $estimate = Estimates::where('id', $id)->first();
         $pdf = FacadePdf::loadView('estimatemanagement::pdf.estimate', ['estimate' => $estimate]);
         return $pdf->stream();
-        #return $pdf->download('ESTIMATE-' . strtoupper(str_replace(' ', '-', $estimate->client->name)) . '.pdf');
     }
 
     public function exportEstimate()
     {
-        if(request()->get("min")&&request()->get("max")==null) {
+        if(!request()->get("reset")){
+            if(request()->get("min")&&request()->get("max")==null) {
             
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
-        }
-        elseif(request()->get("min")!=''&&request()->get("max")!='') {
-            
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
-        }
-        elseif(request()->get("min")==null&&request()->get("max")){
-            
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->get();    
+            }
+            elseif(request()->get("min")!=''&&request()->get("max")!='') {
+                
+                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', request()->get("min"))->where('created_at', '<=', request()->get("max"))->get();    
+            }
+            elseif(request()->get("min")==null&&request()->get("max")){
+                
+                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '<=', request()->get("max"))->get();    
+            }else{
+                $min=Carbon::now()->startOfMonth()->format('Y-m-d');
+                $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+                $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+            }
         }else{
-            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->get();    
+            $min=Carbon::now()->startOfMonth()->format('Y-m-d');
+            $max=Carbon::now()->endOfMonth()->format('Y-m-d');
+            $estimates = Estimates::where('created_by', '=', Auth()->user()->id)->where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
         }
         $estimates_approved_count=$estimates->where('status',1)->count();
         $estimates_rejected_count=$estimates->where('status',2)->count();

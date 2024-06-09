@@ -382,7 +382,7 @@
                     </x-adminlte-select>
                     <x-adminlte-select name="type" fgroup-class="col-md-3" required label="Type">
                         <option value="">Select Type</option>
-                        <option value="word" {{ old('type.', $estimate->type) == 'word' ? 'selected' : '' }}>Word
+                        <option value="words" {{ old('type.', $estimate->type) == 'words' ? 'selected' : '' }}>Words
                         </option>
                         <option value="unit" {{ old('type', $estimate->type) == 'unit' ? 'selected' : '' }}>Unit
                         </option>
@@ -418,7 +418,7 @@
                                                 value="{{ old('rate.' . $index, $detail->rate) }}" required
                                                 label="Translation Rate" onkeyup="calculateAmount(this)"/>
                                                 <x-adminlte-input name="amount[{{ $index }}]" placeholder="Amount" fgroup-class="col-md-3" type="text"
-                                                value="{{$detail->unit*$detail->rate }}"  label="Amount"  readonly/>
+                                                value="{{ceil($detail->unit*$detail->rate) }}"  label="Amount"  readonly/>
                                             <x-adminlte-input name="verification[{{ $index }}]"
                                                 placeholder="Verification" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
@@ -478,7 +478,7 @@
                     </div>
                 </div>
                 <br>
-                <button type="button" class="btn btn-primary mt-5" id="add-item">Add Item</button>
+                <button type="button" class="btn btn-primary mt-5" id="add-item">Add Document</button>
                 <br>
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
             </form>
@@ -583,8 +583,8 @@ function calculateAmount(input) {
 
     const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
     const rate = parseFloat(document.querySelector(`input[name="rate[${index}]"]`).value) || 0;
-    const amount = unit * rate;
-    document.querySelector(`input[name="amount[${index}]"]`).value = amount.toFixed(2);
+    const amount = Math.round(unit * rate);
+    document.querySelector(`input[name="amount[${index}]"]`).value = amount;
 }
 
 function calculateAmount_2(input) {
@@ -594,8 +594,8 @@ function calculateAmount_2(input) {
 
     const unit = parseFloat(document.querySelector(`input[name="unit[${index}]"]`).value) || 0;
     const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
-    const amount = unit * rate;
-    document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount.toFixed(2);
+    const amount = Math.round(unit * rate);
+    document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount;
 }
 
 </script>
