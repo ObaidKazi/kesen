@@ -156,14 +156,14 @@ class EstimateManagementController extends Controller
                         'type' => $request->type,
                         'unit' => $request['unit'][$index],
                         'rate' => $request['rate'][$index],
-                        'verification' => $request['verification'][$index],
-                        'verification_2' => $request['verification_2'][$index],
-                        'back_translation' => $request['back_translation'][$index],
-                        'layout_charges' => $request['layout_charges'][$index],
-                        'layout_charges_2' => $request['layout_charges_second'][$index],
+                        'verification' => $request['verification'][$index]??null,
+                        'verification_2' => $request['verification_2'][$index]??null,
+                        'back_translation' => $request['back_translation'][$index]??null,
+                        'layout_charges' => $request['layout_charges'][$index]??null,
+                        'layout_charges_2' => $request['layout_charges_second'][$index]??null,
                         'lang' => $languages[$i],
-                        'two_way_qc_t' => $request['two_way_qc_t'][$index],
-                        'two_way_qc_bt' => $request['two_way_qc_bt'][$index],
+                        'two_way_qc_t' => $request['two_way_qc_t'][$index]??null,
+                        'two_way_qc_bt' => $request['two_way_qc_bt'][$index]??null,
                     ]);
                 }
                 
