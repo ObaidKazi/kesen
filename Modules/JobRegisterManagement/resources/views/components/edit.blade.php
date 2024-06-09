@@ -136,9 +136,9 @@
                         
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
                         <option value="">Select Status</option>
-                        <option value="0" {{ $jobRegister->status == 0 ? 'selected' : '' }}>Pending</option>
-                        <option value="1" {{ $jobRegister->status == 1 ? 'selected' : '' }}>Approve</option>
-                        <option value="2" {{ $jobRegister->status == 2 ? 'selected' : '' }}>Cancel</option>
+                        <option value="0" {{ $jobRegister->status == 0 ? 'selected' : '' }}>In Progress</option>
+                        <option value="1" {{ $jobRegister->status == 1 ? 'selected' : '' }}>Completed</option>
+                        <option value="2" {{ $jobRegister->status == 2 ? 'selected' : '' }}>Cancelled</option>
                     </x-adminlte-select>
                    
                     

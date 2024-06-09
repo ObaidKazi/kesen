@@ -15,7 +15,7 @@ class JobCardManagementController extends Controller
 {
 
     public function index(){ 
-        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->where('status',1)->get();
+        $job_register=JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
         return view('jobcardmanagement::manage',compact('job_register'));
         
     }
@@ -268,5 +268,15 @@ class JobCardManagementController extends Controller
         $job->payment_date=$request->payment_date;
         $job->save();
         return redirect(route('jobcardmanagement.index'))->with('message', 'Bill Date updated successfully.');
+    }
+
+
+    public function changeStatus($id,$status){
+        if(in_array($status,[0,1,2])){
+            $estimate = JobRegister::where('id', $id)->first();
+            $estimate->status = $status;
+            $estimate->save();
+            return redirect('/job-card-management');    
+        }   
     }
 }

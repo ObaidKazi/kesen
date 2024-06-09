@@ -65,4 +65,8 @@ class JobRegister extends Model
     public function client_person(){
         return $this->belongsTo(ContactPerson::class,'client_contact_person_id');
      }
+
+    public function informedTo(){
+        return $this->belongsTo(ContactPerson::class,'informed_to');
+    }
 }

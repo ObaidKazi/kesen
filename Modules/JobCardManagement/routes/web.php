@@ -25,3 +25,4 @@ Route::get('job-card-management/client/{client_id}', [JobCardManagementControlle
 Route::get('job-card-management/bill/{job_id}', [JobCardManagementController::class, 'billForm'])->name('jobcardmanagement.bill');
 Route::post('job-card-management/bill/{job_id}', [JobCardManagementController::class, 'addBill'])->name('jobcardmanagement.bill.store');
 Route::put('job-card-management/bill/{job_id}', [JobCardManagementController::class, 'updateBill'])->name('jobcardmanagement.bill.update');
+Route::get('job-card-management/status/{id}/{status}', [JobCardManagementController::class, 'changeStatus'])->name('jobcardmanagement.status');

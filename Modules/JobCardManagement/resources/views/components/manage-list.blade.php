@@ -4,8 +4,16 @@
 @php
     $heads = [
         ['label' => '#'],
-        ['label' => 'Document Name'],
         ['label' => 'Job No'],
+        ['label' => 'Date'],
+        ['label' => 'Protocol No'],
+        ['label' => 'Client Name'],
+        ['label' => 'Description'],
+        ['label' => 'Handled By'],
+        ['label' => 'Bill No'],
+        ['label' => 'Bill Date'],
+        ['label' => 'Informed To'],
+        ['label' => 'Sent Date'],
         ['label' => 'Action'],
     ];
 
@@ -72,23 +80,62 @@
                     @foreach ($job_register as $index => $row)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $row->estimate_document_id }}</td>
                             <td>{{ $row->sr_no }}</td>
-                            <td>
+                            <td>{{ $row->date?\Carbon\Carbon::parse($row->date)->format('j M Y'):'' }}</td>
+                            <td>{{ $row->protocol_no }}</td>
+                            <td>{{ $row->estimate->client->name }}</td>
+                            <td>{{ $row->estimate_document_id }}</td>
+                            <td>{{ $row->handle_by->name }}</td>
+                            <td>{{ $row->bill_no }}</td>
+                            <td>{{ $row->bill_date? \Carbon\Carbon::parse($row->bill_date)->format('j M Y'):'' }}</td>
+                            <td>{{ $row->informedTo->name }}</td>
+                            <td>{{ $row->sent_date?\Carbon\Carbon::parse($row->sent_date)->format('j M Y'):'' }}</td>
+                            
+                            <td style="width: 300px">
+                                
                                 <a href="{{ route('jobcardmanagement.manage.list', ['job_id' => $row->id, 'estimate_detail_id' => $row->estimate_document_id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Manage">Manage</button>
                                 </a>
                                 <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}"  target="_blank">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Preview</button>
                                 </a>
-                                <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
-                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Bill</button>
-                                </a>
+                                @if($row->status == 0)
+                                 
+                                        <a href="{{route('jobcardmanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                            Completed
+                                        </button></a>
+            
+                                        <a href="{{route('jobcardmanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                            Cancelled
+                                        </button></a>
+                                @elseif($row->status == 1)
+    
+                                    <a href="{{route('jobcardmanagement.status', [$row->id,0])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                        In Progress
+                                    </button></a>
+        
+                                    <a href="{{route('jobcardmanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                        Cancelled
+                                    </button></a>
+                                 @else
+    
+                                    <a href="{{route('jobcardmanagement.status', [$row->id,0])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                        In Progress
+                                    </button></a>
+        
+                                    <a href="{{route('jobcardmanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                        Completed
+                                    </button></a>
+                                @endif
+                                
                                 @if($row->type=='site-specific')
                                     <a href="{{route('jobregistermanagement.excell', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                         Download Excel
                                     </button></a>
                                 @endif
+                                <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
+                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Billing</button>
+                                </a>
                                 
                             </td>
                         </tr>

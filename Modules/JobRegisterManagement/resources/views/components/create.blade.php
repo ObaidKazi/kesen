@@ -114,9 +114,9 @@
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required value="{{ old('status') }}"
                         label="Status">
                         <option value="">Select Status</option>
-                        <option value="0" selected>Pending</option>
-                        <option value="1">Approve</option>
-                        <option value="2">Cancel</option>
+                        <option value="0" selected>In Progress</option>
+                        <option value="1">Completed</option>
+                        <option value="2">Cancelled</option>
                     </x-adminlte-select>
                     <span id="site_specific_path" class="col-md-3">
 
