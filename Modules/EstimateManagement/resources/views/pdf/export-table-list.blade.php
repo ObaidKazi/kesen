@@ -9,6 +9,10 @@
             'label' => 'Estimate No',
         ],
         [
+            'label' => 'Amount',
+        ],
+
+        [
             'label' => 'Metrix',
         ],
         [
@@ -25,10 +29,7 @@
         // [
         //     'label' => 'Headline',
         // ],
-        // [
-        //     'label' => 'Amount',
-        // ],
-
+       
         // [
         //     'label' => 'Currency',
         // ],
@@ -66,7 +67,11 @@
         }
         table, th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 5px;
+            text-align: left;
+            word-break: break-word;
+            table-layout: fixed;
+            font-size: 8pt;
         }
         th {
             background-color: #333;
@@ -130,6 +135,8 @@
         <tr>
             <td>{{ $index+1 }}</td>
             <td>{{ $row->estimate_no }}</td>
+            <td>{{calculateTotals($row->details,$row->discount??0)}}</td>
+            
             <td>{{ App\Models\Metrix::where('id',$row->metrix)->first()->code }}</td>
             <td>{{ Modules\ClientManagement\App\Models\Client::where('id',$row->client_id)->first()->name??'';}}</td>
             <td>{{  Modules\ClientManagement\App\Models\ContactPerson::where('id',$row->client_contact_person_id)->first()->name??'';}}</td>

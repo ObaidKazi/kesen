@@ -31,6 +31,37 @@ if(!function_exists('getCurrentDate')){
     }
 }
 
+if(!function_exists('calculateTotals')){
+    function calculateTotals($details, $discount=0) {
+        $sub_total = 0;
+        $uniqueDetails = collect();
+        foreach ($details as $detail) {
+            $combination = $detail->document_name . '-' . $detail->unit;
+            if (!$uniqueDetails->contains($combination)){
+                    $uniqueDetails->push($combination);
+            $unit = $detail->unit;
+            $rate = $detail->rate;
+            $layout_charges = $detail->layout_charges ?? 0;
+            $back_translation = $detail->back_translation ?? 0;
+            $verification = $detail->verification ?? 0;
+            $two_way_qc_t = $detail->two_way_qc_t ?? 0;
+            $two_way_qc_bt = $detail->two_way_qc_bt ?? 0;
+            $verification_2 = $detail->verification_2 ?? 0;
+            $layout_charges_2 = $detail->layout_charges_2 ?? 0;
+    
+            $sub_total += (($unit * $rate) + $layout_charges + $back_translation + $verification + $two_way_qc_t + $two_way_qc_bt + $verification_2 + $layout_charges_2)*((Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()));
+            }
+        }
+    
+        $net_total = $sub_total - $discount;
+        $gst = ($net_total / 100) * 18;
+        $total = $net_total + $gst;
+    
+       return $total;
+    }
+    
+}
+
 if(!function_exists('getCurrencyDropDown')){
     function getCurrencyDropDown(){
         return <<<HTML
