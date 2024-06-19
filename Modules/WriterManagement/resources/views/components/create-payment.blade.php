@@ -32,9 +32,17 @@
                 @csrf
                 <div class="row pt-2">
 
-                    <x-adminlte-input name="payment_method" placeholder="Payment Method" fgroup-class="col-md-3"
-                        required value="{{ old('payment_method') }}" />
-                    <x-adminlte-select name="metrix" fgroup-class="col-md-3" required value="{{ old('metrix') }}">
+                    
+                        <x-adminlte-select name="payment_method" placeholder="Payment Method" fgroup-class="col-md-3" required
+                        label="Payment Method">
+                        <option value="NEFT" {{ old('payment_method') == 'NEFT' ? 'selected' : 'selected' }}>NEFT
+                        </option>
+                        <option value="Cheque" {{ old('payment_method') == 'Cheque' ? 'selected' : '' }}>Cheque
+                        </option>
+                        <option value="Cash" {{ old('payment_method') == 'Cash' ? 'selected' : '' }}>Cash
+                        </option>
+                    </x-adminlte-select>
+                    <x-adminlte-select name="metrix" fgroup-class="col-md-3" required value="{{ old('metrix') }}" label="Metrix">
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $metric)
                             <option value="{{ $metric->id }}">{{ $metric->name }}</option>

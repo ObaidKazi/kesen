@@ -1,6 +1,6 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
-
+@php $metrics=App\Models\Metrix::get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
     @php($def_container_class = 'container')
 @else
@@ -26,18 +26,28 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
+        @include('components.notification')
         <x-adminlte-card title="Edit Payment" theme="success">
             <form action="{{ route('writermanagement.editPayment', [$id, $payment->id]) }}" method="POST">
 
                 @csrf
                 @method('PUT')
                 <div class="row pt-2">
-                    <x-adminlte-input name="payment_method" placeholder="Payment Method" fgroup-class="col-md-3"
-                        required value="{{ old('payment_method', $payment->payment_method) }}" label="Payment Method" />
+                        <x-adminlte-select name="payment_method" placeholder="Payment Method" fgroup-class="col-md-3" required
+                        label="Payment Method">
+                        <option value="NEFT" {{ old('payment_method', $payment->payment_method) == 'NEFT' ? 'selected' : '' }}>NEFT
+                        </option>
+                        <option value="Cheque" {{ old('payment_method', $payment->payment_method) == 'Cheque' ? 'selected' : '' }}>Cheque
+                        </option>
+                        <option value="Cash" {{ old('payment_method', $payment->payment_method) == 'Cash' ? 'selected' : '' }}>Cash
+                        </option>
+                        
+                        
+                    </x-adminlte-select>
                     <x-adminlte-select name="metrix" fgroup-class="col-md-3" required label="Metrix">
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $metric)
-                            <option value="{{ $metric->id }}" @if ($estimate->metrix == $metric->id) selected @endif>
+                            <option value="{{ $metric->id }}" @if ($payment->metrix == $metric->id) selected @endif>
                                 {{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>

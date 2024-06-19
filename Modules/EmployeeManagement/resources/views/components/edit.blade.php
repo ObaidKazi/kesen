@@ -43,7 +43,7 @@
                         value="{{ $user->email }}" required label="Email" />
 
                     <x-adminlte-input name="code" placeholder="Employee Code" fgroup-class="col-md-3" type='text'
-                        value="{{ $user->code }}" required label="Employee Code" />
+                        value="{{ $user->code }}" required label="Employee Code" readonly/>
 
                     <x-adminlte-input name="password" placeholder="Password" fgroup-class="col-md-3" type='password'
                         value="{{ $user->plain_password }}" required label="Password" />

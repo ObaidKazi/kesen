@@ -248,13 +248,14 @@ class WriterManagementController extends Controller
         ]);
 
         if ($validator->fails()) {
+            
             return redirect()->back()->withErrors($validator)->withInput();
         }
         
         $payment = WriterPayment::where('id',$id)->first();
         $payment->update($request->all());
         
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Payment updated successfully.');;
     }
 
     public function showPayment($writer_id,$id)
