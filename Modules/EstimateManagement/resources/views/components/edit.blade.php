@@ -425,9 +425,9 @@
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
                                                 label="Verification" />
                                             <x-adminlte-input name="two_way_qc_t[{{ $index }}]"
-                                                placeholder="Two Way QC T" fgroup-class="col-md-3" type="text"
+                                                placeholder="Verification 2" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_t.' . $index, $detail->two_way_qc_t) }}"
-                                                label="Two Way QC T" />
+                                                label="Verification 2" />
                                             <x-adminlte-input name="layout_charges[{{ $index }}]"
                                                 placeholder="Layout Charges" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('layout_charges.' . $index, $detail->layout_charges) }}"
@@ -445,10 +445,10 @@
                                                 type="text"
                                                 value="{{ old('verification_2.' . $index, $detail->verification_2) }}"
                                                 label="Back Translation Verification" />
-                                            <x-adminlte-input name="two_way_qc_bt[{{ $index }}]"
+                                            {{-- <x-adminlte-input name="two_way_qc_bt[{{ $index }}]"
                                                 placeholder="Two Way QC BT" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_bt.' . $index, $detail->two_way_qc_bt) }}"
-                                                label="Two Way QC BT" />
+                                                label="Two Way QC BT" /> --}}
                                             <x-adminlte-input name="layout_charges_second[{{ $index }}]"
                                                 placeholder="BT Layout Charges" fgroup-class="col-md-3"
                                                 type="text"

@@ -1,8 +1,8 @@
-<li @isset($item['id']) id="{{ $item['id'] }}" @endisset class="nav-item has-treeview @isset($item['submenu_class']) {{ $item['submenu_class'] }} @endisset">
+<li @isset($item['id']) id="{{ $item['id'] }}" @endisset class="nav-item has-treeview @isset($item['submenu_class']) {{ $item['submenu_class'] }} @endisset @if(checkRequestUrl($item['active']??[],request()->path())) menu-is-opening menu-open @endif">
 
     {{-- Menu toggler --}}
     <a class="nav-link @isset($item['class']) {{ $item['class'] }}  @endisset @isset($item['shift']) {{ $item['shift'] }} @endisset"
-       href="" {!! $item['data-compiled'] ?? '' !!}>
+       href="" {!! $item['data-compiled'] ?? '' !!} >
 
         <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{
             isset($item['icon_color']) ? 'text-'.$item['icon_color'] : ''
@@ -20,7 +20,6 @@
         </p>
 
     </a>
-
     {{-- Menu items --}}
     <ul class="nav nav-treeview">
         @each('partials.sidebar.menu-item', $item['submenu'], 'item')

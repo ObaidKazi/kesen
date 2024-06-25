@@ -121,18 +121,10 @@
                                         <a href="{{route('jobcardmanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                             Completed
                                         </button></a>
-            
-                                        <a href="{{route('jobcardmanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                            Cancelled
-                                        </button></a>
                                 @elseif($row->status == 1)
     
                                     <a href="{{route('jobcardmanagement.status', [$row->id,0])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                         In Progress
-                                    </button></a>
-        
-                                    <a href="{{route('jobcardmanagement.status', [$row->id,2])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                        Cancelled
                                     </button></a>
                                  @else
     

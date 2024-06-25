@@ -138,6 +138,7 @@ class WriterManagementController extends Controller
             'bt_charges'=>'required|numeric',
             'bt_checking_charges'=>'required|numeric',
             'advertising_charges'=>'required|numeric',
+            'verification_2'=> 'required|numeric',
         ]);
         $language_map=WriterLanguageMap::find($id);
         $language_map->language_id=$request->language;
@@ -145,6 +146,7 @@ class WriterManagementController extends Controller
         $language_map->checking_charges=$request->checking_charges;
         $language_map->bt_charges=$request->bt_charges;
         $language_map->bt_checking_charges=$request->bt_checking_charges;
+        $language_map->verification_2= $request->verification_2;
         $language_map->advertising_charges=$request->advertising_charges;
         $language_map->save();
         Session::flash('message', 'Language Map Updated Successfully');
@@ -164,7 +166,7 @@ class WriterManagementController extends Controller
             'bt_charges'=>'required|numeric',
             'bt_checking_charges'=>'required|numeric',
             'advertising_charges'=>'required|numeric',
-
+            'verification_2'=> 'required|numeric',
         ]);
         $language_map=new WriterLanguageMap();
         $language_map->writer_id=$writer_id;
@@ -173,6 +175,7 @@ class WriterManagementController extends Controller
         $language_map->checking_charges=$request->checking_charges;
         $language_map->bt_charges=$request->bt_charges;
         $language_map->bt_checking_charges=$request->bt_checking_charges;
+        $language_map->verification_2= $request->verification_2;
         $language_map->advertising_charges=$request->advertising_charges;
         $language_map->save();
         Session::flash('message', 'Language Map Added Successfully');

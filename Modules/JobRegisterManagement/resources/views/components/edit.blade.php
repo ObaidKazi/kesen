@@ -7,19 +7,22 @@
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 
 @php $contact_persons=Modules\ClientManagement\App\Models\ContactPerson::where('status',1)->get(); @endphp
-@php$users = App\Models\User::where('email', '!=', 'developer@kesen.com')
+@php
+$users = App\Models\User::where('email', '!=', 'developer@kesen.com')
         ->where('id', '!=', Auth()->user()->id)
         ->whereHas('roles', function ($query) {
             $query->where('name', 'Project Manager');
             $query->orWhere('name', 'Admin');
         })
     ->get(); @endphp
-@php$accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
+@php 
+$accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
         ->where('id', '!=', Auth()->user()->id)
         ->whereHas('roles', function ($query) {
             $query->where('name', 'Accounts');
         })
-    ->get(); @endphp
+    ->get(); 
+@endphp
 @php $metrics=App\Models\Metrix::get(); @endphp
 @php
     $config = [

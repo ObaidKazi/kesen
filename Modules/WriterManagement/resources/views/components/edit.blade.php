@@ -5,10 +5,11 @@
     $language_heads = [
         ['label' => 'Sr. No.'],
         ['label' => 'Language Name'],
-        ['label' => 'Per Unit Charges'],
-        ['label' => 'Checking Charges'],
+        ['label' => 'Translation Charges'],
+        ['label' => 'Verification'],
         ['label' => 'Bt Charges'],
-        ['label' => 'Bt Checking Charges'],
+        ['label' => 'BT Verification Charges'],
+        ['label' => 'Verification 2'],
         ['label' => 'Advertising Charges'],
         ['label' => 'Action'],
     ];
@@ -102,6 +103,7 @@
                         <td>{{ $row->checking_charges }}</td>
                         <td>{{ $row->bt_charges }}</td>
                         <td>{{ $row->bt_checking_charges }}</td>
+                        <td>{{ $row->verification_2 }}</td>
                         <td>{{ $row->advertising_charges }}</td>
                         <td>
                             <a href="{{ route('writermanagement.editLanguageMap', [$writer->id, $row->id]) }}">

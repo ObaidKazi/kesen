@@ -98,9 +98,9 @@
                                     <x-adminlte-input name="verification[0]" placeholder="Verification"
                                         fgroup-class="col-md-3" type="text" value="{{ old('verification[0]') }}"
                                         label="Verification" />
-                                    <x-adminlte-input name="two_way_qc_t[0]" placeholder="Two Way QC T"
+                                    <x-adminlte-input name="two_way_qc_t[0]" placeholder="Verification 2"
                                         fgroup-class="col-md-3" type="text" value="{{ old('two_way_qc_t[0]') }}"
-                                        label="Two Way QC T" />
+                                        label="Verification 2" />
                                     <x-adminlte-input name="layout_charges[0]" placeholder="Layout Charges"
                                         fgroup-class="col-md-3" type="text"
                                         value="{{ old('layout_charges[0]') }}" label="Layout Charges" />
@@ -115,9 +115,9 @@
                                         placeholder="Back Translation Verification" fgroup-class="col-md-3"
                                         type="text" value="{{ old('verification_2[0]') }}"
                                         label="Back Translation Verification" />
-                                    <x-adminlte-input name="two_way_qc_bt[0]" placeholder="Two Way QC BT"
+                                    {{-- <x-adminlte-input name="two_way_qc_bt[0]" placeholder="Two Way QC BT"
                                         fgroup-class="col-md-3" type="text" value="{{ old('two_way_qc_bt[0]') }}"
-                                        label="Two Way QC BT" />
+                                        label="Two Way QC BT" /> --}}
                                     <x-adminlte-input name="layout_charges_second[0]" placeholder="BT Layout Charges"
                                         fgroup-class="col-md-3" type="text"
                                         value="{{ old('layout_charges_second[0]') }}" label="BT Layout Charges" />
