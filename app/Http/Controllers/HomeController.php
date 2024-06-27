@@ -62,7 +62,7 @@ class HomeController extends Controller
         ->where('created_at', '<=', Carbon::parse($request->get('to_date'))->endOfDay())
         ->get();
         
-        $pdf = FacadePdf::loadView('reports.pdf.payment-report',compact('job_card','max','min'));
+        $pdf = FacadePdf::loadView('reports.pdf.pdf-payment',compact('job_card','max','min'));
         return $pdf->stream();
         
     }

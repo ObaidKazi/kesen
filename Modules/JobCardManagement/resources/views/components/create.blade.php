@@ -96,6 +96,32 @@
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate[0]', getCurrentDate()) }}"
                                                     label="T Sent Date" min="{{ getCurrentDate() }}" />
+                                                    <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
+                                                    value="{{ old('v_unit[0]') }}" label="V Unit" />
+                                                <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" required
+                                                    value="{{ old('v_employee_code[0]') }}" label="V Employee">
+                                                    <option value="">Select Employee</option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                </x-adminlte-select>
+                                                <x-adminlte-input name="v_pd[0]" placeholder="V PD" fgroup-class="col-md-2"
+                                                    value="{{ old('v_pd[0]') }}" label="V PD" type='date' />
+                                                <x-adminlte-input name="v_cr[0]" placeholder="V CR" fgroup-class="col-md-2"
+                                                    value="{{ old('v_cr[0]') }}" label="V CR" type='date' />
+                                                    <x-adminlte-input name="v2_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
+                                                    value="{{ old('v2_unit[0]') }}" label="V Unit" />
+                                                    <x-adminlte-select name="v2_employee_code[0]" fgroup-class="col-md-2" required
+                                                    value="{{ old('v2_employee_code[0]') }}" label="V2 Employee">
+                                                    <option value="">Select Employee</option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                </x-adminlte-select>
+                                                <x-adminlte-input name="v2_pd[0]" placeholder="V2 PD" fgroup-class="col-md-2"
+                                                    value="{{ old('v2_pd[0]') }}" label="V2 PD" type='date' />
+                                                <x-adminlte-input name="v2_cr[0]" placeholder="V2 CR" fgroup-class="col-md-2"
+                                                    value="{{ old('v2_cr[0]') }}" label="V2 CR" type='date' />
                                             </div>
                                         </div>
                                     </div>
@@ -143,6 +169,19 @@
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('bt_sentdate[0]', getCurrentDate()) }}"
                                                     label="BT Sent Date" min="{{ getCurrentDate() }}" />
+                                                    <x-adminlte-input name="btv_unit[0]" placeholder="BTV Unit" fgroup-class="col-md-2"
+                                                    value="{{ old('btv_unit[0]') }}" label="BTV Unit" />
+                                                <x-adminlte-select name="btv_employee_code[0]" fgroup-class="col-md-2" 
+                                                    value="{{ old('btv_employee_code[0]') }}" label="BTV Employee">
+                                                    <option value="">Select Employee</option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                </x-adminlte-select>
+                                                <x-adminlte-input name="btv_pd[0]" placeholder="BTV PD" fgroup-class="col-md-2"
+                                                    value="{{ old('btv_pd[0]') }}" label="BTV PD" type='date' />
+                                                <x-adminlte-input name="btv_cr[0]" placeholder="BTV CR" fgroup-class="col-md-2"
+                                                    value="{{ old('btv_cr[0]') }}" label="BTV CR" type='date' />
                                             </div>
                                         </div>
                                     </div>
