@@ -110,15 +110,15 @@
                         {{ $estimates_rejected_count }}</span>
                     @if (request()->input('min') || request()->input('max'))
                         <a
-                            href="{{ route('estimatemanagement.exporteestimate') }}?min={{ request()->input('min') }}&max={{ request()->input('max') }}"><button
+                            href="{{ route('estimatemanagement.exporteestimate') }}?min={{ request()->input('min') }}&max={{ request()->input('max') }}" target="_blank"><button
                                 class="btn btn-sm btn-default text-dark" title="Edit"
-                                style="width:132px;margin-left:5px;height:33px">
+                                style="width:132px;margin-left:5px;height:33px" > 
                                 Export
                             </button></a>
                     @else
-                        <a href="{{ route('estimatemanagement.exporteestimate') }}"><button
+                        <a href="{{ route('estimatemanagement.exporteestimate') }}" target="_blank"><button
                                 class="btn btn-sm btn-default text-dark " title="Edit"
-                                style="width:132px;margin-left:5px;height:33px">
+                                style="width:132px;margin-left:5px;height:33px" >
                                 Export
                             </button></a>
                     @endif
