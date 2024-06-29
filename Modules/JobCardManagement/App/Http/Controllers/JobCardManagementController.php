@@ -10,7 +10,8 @@ use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobCardManagement\App\Models\JobCard;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
-
+use App\Mail\JobCompleted;
+use Illuminate\Support\Facades\Mail;
 class JobCardManagementController extends Controller
 {
 
@@ -309,6 +310,14 @@ class JobCardManagementController extends Controller
             $estimate = JobRegister::where('id', $id)->first();
             $estimate->status = $status;
             $estimate->save();
+           if($status==1){
+            $recipients=[
+                'obaidkazi03@gmail.com',
+            ];
+            foreach ($recipients as $recipient) {
+                Mail::to($recipient)->send(new JobCompleted());
+            }
+           }
             return redirect('/job-card-management');    
         }   
     }
