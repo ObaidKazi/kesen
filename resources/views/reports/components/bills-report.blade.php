@@ -26,7 +26,7 @@
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         <x-adminlte-card title="Bill Export" theme="success" icon="fas fa-lg fa-person">
-            <form action="{{ route('report.bills') }}" method="POST">
+            <form action="{{ route('report.bills') }}" method="POST" target="_blank">
                 @csrf
                 <div class="row pt-2">
                     

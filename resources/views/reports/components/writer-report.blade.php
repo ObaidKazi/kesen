@@ -27,7 +27,7 @@
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         <x-adminlte-card title="Writer Work Done" theme="success" icon="fas fa-lg fa-person">
-            <form action="{{ route('report.writers') }}" method="POST">
+            <form action="{{ route('report.writers') }}" method="POST" target="_blank">
                 @csrf
                 <div class="row pt-2">
                     

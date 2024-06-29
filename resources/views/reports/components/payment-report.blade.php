@@ -30,7 +30,7 @@
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         @include('components.notification')
         <x-adminlte-card title="Payment Report" theme="success" icon="fas fa-lg fa-person">
-            <form action="{{ route('report.payments') }}" method="POST">
+            <form action="{{ route('report.payments') }}" method="POST" target="_blank">
                 @csrf
                 <div class="row pt-2">
                     <x-adminlte-select name="writer" fgroup-class="col-md-4" required value="{{ old('writer') }}"
