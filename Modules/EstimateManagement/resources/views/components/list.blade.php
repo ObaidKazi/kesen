@@ -81,7 +81,7 @@
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item ">Estimate Management</li>     
+                <li class="breadcrumb-item ">Estimate </li>     
             </ol>
         </nav>
         @include('components.notification')

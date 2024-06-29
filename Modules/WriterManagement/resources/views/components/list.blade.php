@@ -77,7 +77,7 @@
         <div class="content" style="padding-top: 20px;margin-left: 10px">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Writer Management</li>
+                    <li class="breadcrumb-item active" aria-current="page">Writer </li>
                 </ol>
             </nav>
             @include('components.notification')
