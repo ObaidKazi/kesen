@@ -27,6 +27,13 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/estimate-management">Estimate Management</a></li>
+                <li class="breadcrumb-item "><a href="#">{{$estimate->estimate_no}}</a></li>
+                
+            </ol>
+        </nav>
         <x-adminlte-card title="Edit Estimate" theme="success" icon="fas fa-lg fa-person">
             <form action="{{ route('estimatemanagement.update', $estimate->id) }}" method="POST">
                 @method('PUT')

@@ -270,7 +270,7 @@ class JobCardManagementController extends Controller
         if($job->bill_date!=null){
             return view('jobcardmanagement::bill')->with('bill_data',$job);
         }
-        return view('jobcardmanagement::bill')->with('job_id',$job_id);
+        return view('jobcardmanagement::bill')->with('job_id',$job_id)->with('job_no',$job->sr_no);
     }
 
     public function addBill(Request $request,$job_id){

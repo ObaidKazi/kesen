@@ -68,7 +68,12 @@
             /* Change active page border color as needed */
         }
     </style>
-    <div class="content">
+    <div class="content" style="padding-top: 20px;margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="#">Client Management</a></li>          
+            </ol>
+        </nav>
         @include('components.notification')
         <a href="{{ route('clientmanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Client</button></a>

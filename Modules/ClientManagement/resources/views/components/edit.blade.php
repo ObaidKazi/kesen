@@ -61,6 +61,12 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
+                <li class="breadcrumb-item "><a href="#">{{$client->name}}</a></li>     
+            </ol>
+        </nav>
         <x-adminlte-card title="Edit Client" theme="success" icon="fas fa-lg fa-person">
             <form action="{{ route('clientmanagement.update', $client->id) }}" method="POST">
                 @method('PUT')
@@ -148,7 +154,7 @@
                             <td>
                                 <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}"><button
                                         class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                        <i class="fa fa-lg fa-fw fa-pen"></i>
+                                        Edit
                                     </button></a>
                                 @if ($row->status == 1)
                                     <a

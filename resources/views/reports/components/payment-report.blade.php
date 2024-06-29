@@ -28,7 +28,14 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
+        
         @include('components.notification')
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">Payment Report</a></li>
+                
+            </ol>
+        </nav>
         <x-adminlte-card title="Payment Report" theme="success" icon="fas fa-lg fa-person">
             <form action="{{ route('report.payments') }}" method="POST" target="_blank">
                 @csrf

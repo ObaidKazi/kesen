@@ -66,7 +66,14 @@
             /* Change active page border color as needed */
         }
     </style>
-    <div class="content">
+    <div class="content" style="padding-top: 20px;margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
+                <li class="breadcrumb-item "><a href="/client-management/{{$id}}/edit">{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}</a></li>
+                <li class="breadcrumb-item "><a href="#">View Contacts</a></li> 
+            </ol>
+        </nav>
         @include('components.notification')
         <a href="{{ route('clientmanagement.addContact', $id) }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Contact</button></a>
@@ -88,7 +95,7 @@
                                 <td>
                                     <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                            <i class="fa fa-lg fa-fw fa-pen"></i>
+                                            Edit
                                         </button></a>
                                     @if ($row->status == 1)
                                         <a

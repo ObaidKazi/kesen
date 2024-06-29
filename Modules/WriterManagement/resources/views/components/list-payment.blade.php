@@ -55,6 +55,13 @@
     </style>
     <div class="content">
         <div class="content" style="padding-top: 20px;margin-left: 10px">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item " aria-current="page"><a href="/writer-management">Writer Management</a></li>
+                    <li class="breadcrumb-item active" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">View Payment</a></li>
+                </ol>
+            </nav>
             @include('components.notification')
             <a href="{{ route('writermanagement.addPaymentView', $id) }}"><button class="btn btn-md btn-success"
                     style="float:right;margin:10px">Add Payment</button></a>

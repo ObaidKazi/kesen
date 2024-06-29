@@ -25,6 +25,12 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">Bill Report</a></li>
+                
+            </ol>
+        </nav>
         <x-adminlte-card title="Bill Export" theme="success" icon="fas fa-lg fa-person">
             <form action="{{ route('report.bills') }}" method="POST" target="_blank">
                 @csrf

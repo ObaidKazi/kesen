@@ -75,6 +75,15 @@
     </style>
     <div class="content">
         <div class="content" style="padding-top: 20px;margin-left: 10px">
+            
+           
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item "><a href="/writer-management">Writer Management</a></li>
+                    <li class="breadcrumb-item active" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="#">Language Map</a></li>
+                </ol>
+            </nav>
             @include('components.notification')
             <a href="{{ route('writermanagement.addLanguageMapView', $id) }}"><button class="btn btn-md btn-success "
                     style="float:right;margin:10px">Add Language Map</button></a>

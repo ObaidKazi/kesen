@@ -26,8 +26,14 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
-        <x-adminlte-card title="Bill Details" theme="success"  icon="fas fa-lg fa-language"
-    >
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/job-card-management">Job Card Management</a></li>
+                <li class="breadcrumb-item "><a href="#">Job {{$job_no}}</a></li>
+                <li class="breadcrumb-item "><a href="#">Add Bill</a></li>
+            </ol>
+        </nav>
+        <x-adminlte-card title="Bill Details" theme="success"  icon="fas fa-lg fa-language">
     
 
         <form action="{{ route('jobcardmanagement.bill.store',$job_id) }}" method="POST" >

@@ -26,7 +26,16 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px;margin-left: 10px">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item "><a href="/writer-management">Writer Management</a></li>
+                <li class="breadcrumb-item" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
+                <li class="breadcrumb-item" ><a href="/writer-management/{{$id}}/view-language-maps">View Language Map</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="#">Add Language</a></li>
+            </ol>
+        </nav>
         <x-adminlte-card title="New Language Map" theme="success">
+            
             <form action="{{ route('writermanagement.addLanguageMap', $id) }}" method="POST">
                 @method('POST')
                 @csrf
