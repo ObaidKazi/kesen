@@ -28,7 +28,7 @@
     <div class="content" style="padding-top: 20px;margin-left: 10px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a href="/job-card-management">Job Card Management</a></li>
+                <li class="breadcrumb-item "><a href="/job-card-management">Job Card </a></li>
                 <li class="breadcrumb-item ">Job {{$bill_data->sr_no}}</li>
                 <li class="breadcrumb-item ">Edit Bill</li>
             </ol>

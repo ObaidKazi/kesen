@@ -65,7 +65,7 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
     <div class="content" style="padding-top: 20px;margin-left: 10px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a href="/job-register-management">Job Register Management</a></li>
+                <li class="breadcrumb-item "><a href="/job-register-management">Job Register </a></li>
                 <li class="breadcrumb-item active">{{ $jobRegister->sr_no}}</li>
             </ol>
         </nav>

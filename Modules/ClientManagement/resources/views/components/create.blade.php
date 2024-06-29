@@ -36,7 +36,7 @@
     <div class="content" style="padding-top: 20px;margin-left: 10px">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
+                    <li class="breadcrumb-item "><a href="/client-management">Client </a></li>     
                     <li class="breadcrumb-item ">Add Client</li>     
                 </ol>
             </nav>

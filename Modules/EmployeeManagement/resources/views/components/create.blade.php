@@ -29,7 +29,7 @@
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a href="/employee-management">Employee Management</a></li>     
+                <li class="breadcrumb-item "><a href="/employee-management">Employee </a></li>     
                 <li class="breadcrumb-item ">Add Employee</li>     
             </ol>
         </nav>
