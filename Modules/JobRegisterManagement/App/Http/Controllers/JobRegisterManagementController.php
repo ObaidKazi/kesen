@@ -172,7 +172,7 @@ class JobRegisterManagementController extends Controller
     public function generateExcel($id)
     {
         $jobRegister = JobRegister::findOrFail($id);
-        return Excel::download(new KesenExport($jobRegister), $jobRegister->description.'.xlsx');
+        return Excel::download(new KesenExport($jobRegister), $jobRegister->sr_no.'.xlsx');
         
     }
 

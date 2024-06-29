@@ -201,7 +201,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item "><a href="/job-card-management">Job Card </a></li>
-                    <li class="breadcrumb-item ">Manage List</li>
+                    <li class="breadcrumb-item ">Job No {{$job_register->sr_no}}</li>
                 </ol>
             </nav>
             @include('components.notification')

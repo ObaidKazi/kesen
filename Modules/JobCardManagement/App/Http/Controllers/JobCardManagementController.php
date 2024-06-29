@@ -258,10 +258,11 @@ class JobCardManagementController extends Controller
     }
 
     public function listEstimateDetailsLanguage($job_id,$estimate_detail_id){
+        $job_register = JobRegister::where('id',$job_id)->first();
         $estimate_detail=EstimatesDetails::where('document_name',$estimate_detail_id)->get();
         $list_estimate_language=true;
         if($estimate_detail!=null){
-            return view('jobcardmanagement::manage',compact('job_id','estimate_detail','list_estimate_language'));
+            return view('jobcardmanagement::manage',compact('job_id','estimate_detail','list_estimate_language','job_register'));
         }
     }
 
