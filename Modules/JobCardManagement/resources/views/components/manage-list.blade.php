@@ -116,6 +116,7 @@
                                 <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}"  target="_blank">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Preview</button>
                                 </a>
+                                @if(!Auth::user()->hasRole('Accounts'))
                                 @if($row->status == 0)
                                  
                                         <a href="{{route('jobcardmanagement.status', [$row->id,1])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
@@ -136,12 +137,15 @@
                                         Completed
                                     </button></a>
                                 @endif
+
+                                @endif
                                 
                                 @if($row->type=='site-specific')
                                     <a href="{{route('jobregistermanagement.excell', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                         Download Excel
                                     </button></a>
                                 @endif
+                            
                                 <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Billing</button>
                                 </a>
@@ -202,8 +206,13 @@
                             <td>{{ $detail->document_name }}</td>
                             <td>{{ $detail->jobRegister->sr_no }}</td>
                             <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
+                            
                             <td>
-                                <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
+                                @if(!Auth::user()->hasRole('Accounts'))
+                                    <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
+                                @else
+                                <a href="#"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
