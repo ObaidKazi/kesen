@@ -307,15 +307,15 @@ class JobCardManagementController extends Controller
 
     public function changeStatus($id,$status){
         if(in_array($status,[0,1,2])){
-            $estimate = JobRegister::where('id', $id)->first();
-            $estimate->status = $status;
-            $estimate->save();
+            $job_register = JobRegister::where('id', $id)->first();
+            $job_register->status = $status;
+            $job_register->save();
             if($status==1){
                 $recipients=[
                     'obaidkazi03@gmail.com',
                 ];
                 foreach ($recipients as $recipient) {
-                    Mail::to($recipient)->send(new JobCompleted());
+                    Mail::to($recipient)->send(new JobCompleted($job_register));
                 }
             }
             return redirect('/job-card-management');    

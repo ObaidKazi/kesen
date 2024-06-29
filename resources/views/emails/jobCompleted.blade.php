@@ -65,8 +65,8 @@
             <h1>Job Completed Successfully</h1>
         </div>
         <div class="content">
-            <p>We are pleased to inform you that the job has been completed successfully.</p>
-            
+            <p>We are pleased to inform you that the job has been completed successfully for {{$jobDetails->estimateDetail->document_name}} of estimate no {{$jobDetails->estimate->estimate_no}}.</p>
+        
         </div>
         <div class="footer">
             <p>Thank you for using our service.</p>
