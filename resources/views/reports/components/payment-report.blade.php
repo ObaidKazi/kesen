@@ -47,7 +47,7 @@
                             <option value="{{ $writer->id }}">{{ $writer->writer_name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-select name="year" fgroup-class="col-md-4" label="Year">
+                    <x-adminlte-select name="year" fgroup-class="col-md-4" label="Year" required>
                         <option value="" >Select Year</option>
                         @for ($i=0;$i<100;$i++)
                             @if($i<10)
@@ -57,7 +57,7 @@
                             @endif
                         @endfor
                     </x-adminlte-select>
-                    <x-adminlte-select name="month" fgroup-class="col-md-4" label="Month">
+                    <x-adminlte-select name="month" fgroup-class="col-md-4" label="Month" required>
                         <option value="">Select Month</option>
                         <option value="January">January</option>
                         <option value="February">February</option>
