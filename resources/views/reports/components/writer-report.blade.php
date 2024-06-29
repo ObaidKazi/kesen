@@ -28,7 +28,7 @@
     <div class="content" style="padding-top: 20px; margin-left: 10px">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Writer Report</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Writer Report</li>
                 
             </ol>
         </nav>

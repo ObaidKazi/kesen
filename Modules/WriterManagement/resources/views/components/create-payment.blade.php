@@ -30,7 +30,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" ><a href="/writer-management">Writer Management</a></li>
                 <li class="breadcrumb-item active" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Add Payment</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Payment</li>
             </ol>
         </nav>
         <x-adminlte-card title="New Payment" theme="success">

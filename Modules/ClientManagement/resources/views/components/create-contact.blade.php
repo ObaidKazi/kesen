@@ -31,7 +31,7 @@
                 <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
                 <li class="breadcrumb-item "><a href="/client-management/{{$id}}/edit">{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}</a></li>    
                 <li class="breadcrumb-item "><a href="/client-management/{{$id}}/view-contacts">View Contacts</a></li>  
-                <li class="breadcrumb-item "><a href="#">Add Contact Person</a></li>  
+                <li class="breadcrumb-item ">Add Contact Person</li>  
             </ol>
         </nav>
         <x-adminlte-card title="New Contact" theme="success">

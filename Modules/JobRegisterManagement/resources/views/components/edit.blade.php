@@ -66,7 +66,7 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-register-management">Job Register Management</a></li>
-                <li class="breadcrumb-item "><a href="#">{{ $jobRegister->sr_no}}</a></li>
+                <li class="breadcrumb-item active">{{ $jobRegister->sr_no}}</li>
             </ol>
         </nav>
         <x-adminlte-card title="Edit Job Register {{ $jobRegister->estimate_document_id }}" theme="success"

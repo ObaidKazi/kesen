@@ -59,7 +59,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item " aria-current="page"><a href="/writer-management">Writer Management</a></li>
                     <li class="breadcrumb-item active" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="#">View Payment</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">View Payment</li>
                 </ol>
             </nav>
             @include('components.notification')

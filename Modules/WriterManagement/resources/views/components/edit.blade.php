@@ -67,7 +67,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/writer-management">Writer Management</a></li>
-                <li class="breadcrumb-item active" ><a href="#">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
+                <li class="breadcrumb-item active" >{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</li>
             </ol>
         </nav>
         <x-adminlte-card title="Edit Writer" theme="success" icon="fas fa-lg fa-language">

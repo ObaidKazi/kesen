@@ -30,7 +30,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/employee-management">Employee Management</a></li>     
-                <li class="breadcrumb-item "><a href="#">Add Employee </a></li>     
+                <li class="breadcrumb-item ">Add Employee</li>     
             </ol>
         </nav>
         <x-adminlte-card title="New Employee" theme="success" icon="fas fa-lg fa-person">

@@ -29,8 +29,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-card-management">Job Card Management</a></li>
-                <li class="breadcrumb-item "><a href="#">Job {{$job_no}}</a></li>
-                <li class="breadcrumb-item "><a href="#">Add Bill</a></li>
+                <li class="breadcrumb-item ">Job {{$job_no}}</li>
+                <li class="breadcrumb-item ">Add Bill</li>
             </ol>
         </nav>
         <x-adminlte-card title="Bill Details" theme="success"  icon="fas fa-lg fa-language">

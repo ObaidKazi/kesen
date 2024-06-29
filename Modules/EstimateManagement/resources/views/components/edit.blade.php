@@ -30,7 +30,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/estimate-management">Estimate Management</a></li>
-                <li class="breadcrumb-item "><a href="#">{{$estimate->estimate_no}}</a></li>
+                <li class="breadcrumb-item ">{{$estimate->estimate_no}}</li>
                 
             </ol>
         </nav>

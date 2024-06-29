@@ -48,7 +48,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-card-management">Job Card Management</a></li>
                 <li class="breadcrumb-item "><a href="/job-card-management/manage/list/{{$job_register->id}}/{{$job_register->estimate_document_id}}">Manage List</a></li>
-                <li class="breadcrumb-item "><a href="#">{{$estimate_detail->language->name}}</a></li>
+                <li class="breadcrumb-item ">{{$estimate_detail->language->name}}</li>
             </ol>
         </nav>
         <x-adminlte-card title="Edit Job Card" theme="success" icon="fas fa-lg fa-person">

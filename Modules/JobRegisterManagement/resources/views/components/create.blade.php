@@ -51,7 +51,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-register-management">Job Register Management</a></li>
-                <li class="breadcrumb-item "><a href="#">Add Job Register</a></li>
+                <li class="breadcrumb-item active">Add Job Register</li>
             </ol>
         </nav>
         <x-adminlte-card title="New Job Register" theme="success" icon="fas fa-lg fa-person">

@@ -32,7 +32,7 @@
         @include('components.notification')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Payment Report</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Payment Report</li>
                 
             </ol>
         </nav>

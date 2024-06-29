@@ -29,7 +29,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/writer-management">Writer Management</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">Add Writer</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Writer</li>
                 
             </ol>
         </nav>

@@ -64,7 +64,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
-                <li class="breadcrumb-item "><a href="#">{{$client->name}}</a></li>     
+                <li class="breadcrumb-item ">{{$client->name}}</li>     
             </ol>
         </nav>
         <x-adminlte-card title="Edit Client" theme="success" icon="fas fa-lg fa-person">

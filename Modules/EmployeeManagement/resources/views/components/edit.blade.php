@@ -30,7 +30,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/employee-management">Employee Management</a></li>     
-                <li class="breadcrumb-item "><a href="#">{{$user->name}}</a></li>     
+                <li class="breadcrumb-item ">{{$user->name}}</li>     
             </ol>
         </nav>
         <x-adminlte-card title="Edit Employee" theme="success" icon="fas fa-lg fa-person">

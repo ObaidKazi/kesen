@@ -31,7 +31,7 @@
                 <li class="breadcrumb-item" ><a href="/writer-management">Writer Management</a></li>
                 <li class="breadcrumb-item active" ><a href="/writer-management/{{$id}}/edit">{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</a></li>
                 <li class="breadcrumb-item " ><a href="/writer-management/{{$id}}/view-payments">View Payment</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#">{{$payment->created_at}}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{$payment->created_at}}</li>
             </ol>
         </nav>
         @include('components.notification')

@@ -71,7 +71,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/client-management">Client Management</a></li>     
                 <li class="breadcrumb-item "><a href="/client-management/{{$id}}/edit">{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}</a></li>
-                <li class="breadcrumb-item "><a href="#">View Contacts</a></li> 
+                <li class="breadcrumb-item ">View Contacts</li> 
             </ol>
         </nav>
         @include('components.notification')

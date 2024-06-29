@@ -29,7 +29,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/language-management">Language Management</a></li>
-                <li class="breadcrumb-item "><a href="#">{{ $language->name }}</a></li>
+                <li class="breadcrumb-item ">{{ $language->name }}</li>
             </ol>
         </nav>
         <x-adminlte-card title="Edit Language" theme="success" icon="fas fa-lg fa-language">
