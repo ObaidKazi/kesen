@@ -118,9 +118,9 @@
                                     {{-- <x-adminlte-input name="two_way_qc_bt[0]" placeholder="Two Way QC BT"
                                         fgroup-class="col-md-3" type="text" value="{{ old('two_way_qc_bt[0]') }}"
                                         label="Two Way QC BT" /> --}}
-                                    <x-adminlte-input name="layout_charges_second[0]" placeholder="BT Layout Charges"
+                                    <x-adminlte-input name="layout_charges_second[0]" placeholder="Back Translation Layout Charges"
                                         fgroup-class="col-md-3" type="text"
-                                        value="{{ old('layout_charges_second[0]') }}" label="BT Layout Charges" />
+                                        value="{{ old('layout_charges_second[0]') }}" label="Back Translation Layout Charges" />
                                     <x-adminlte-select name="lang_0[]" fgroup-class="col-md-3" required
                                         label="Language" multiple>
                                         <option value="">Select Language</option>

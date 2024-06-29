@@ -2,6 +2,7 @@
 
 use Modules\ClientManagement\App\Models\Client;
 use Modules\EstimateManagement\App\Models\Estimates;
+use NumberToWords\NumberToWords;
 
 if (!function_exists('checkRequestUrl')) {
     function checkRequestUrl($patterns,$currentUrl)
@@ -241,4 +242,16 @@ if(!function_exists('generateEstimateNumber')){
         return $formattedID;
     }
     
+    if (!function_exists('number_to_words')) {
+        function number_to_words($number)
+        {
+            $numberToWords = new NumberToWords();
+            $numberTransformer = $numberToWords->getNumberTransformer('en');
+    
+            $words = $numberTransformer->toWords($number);
+            $words = ucwords(str_replace('-', ' ', $words));
+    
+            return $words . " Only";
+        }
+    }
 }

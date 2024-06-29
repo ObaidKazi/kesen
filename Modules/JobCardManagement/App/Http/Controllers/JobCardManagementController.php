@@ -66,10 +66,8 @@ class JobCardManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            't_writer.*' => 'required|string|max:255',
-            't_emp_code.*' => 'required|string|max:255',
-            't_two_way_emp_code.*' => 'required|string|max:255',
             't_unit.*'=> 'required|string|max:255',
+            't_writer.*' => 'required|string|max:255',
             't_pd.*' => 'required|string|max:255',
             't_cr.*' => 'required|string|max:255',
             't_cnc.*' => 'required|string|max:255',
@@ -77,8 +75,6 @@ class JobCardManagementController extends Controller
             't_fqc.*' => 'required|string|max:255',
             't_sentdate.*' => 'required|string|max:255',
             'bt_writer.*' => 'nullable|string|max:255',
-            'bt_emp_code.*' => 'nullable|string|max:255',
-            'bt_two_way_emp_code.*' => 'nullable|string|max:255',
             'bt_unit.*'=> 'nullable|string|max:255',
             'bt_pd.*' => 'nullable|string|max:255',
             'bt_cr.*' => 'nullable|string|max:255',
@@ -94,11 +90,8 @@ class JobCardManagementController extends Controller
         foreach ($request['t_writer'] as $index => $t_writer) {
 
             $jobCard = new JobCard();
-
-            $jobCard->t_writer_code = $t_writer;
-            $jobCard->t_emp_code = $request['t_emp_code'][$index];
-            $jobCard->t_two_way_emp_code = $request['t_two_way_emp_code'][$index];
             $jobCard->t_unit = $request['t_unit'][$index];
+            $jobCard->t_writer_code = $t_writer;
             $jobCard->t_pd = $request['t_pd'][$index];
             $jobCard->t_cr = $request['t_cr'][$index];
 
@@ -122,8 +115,6 @@ class JobCardManagementController extends Controller
             $jobCard->t_fqc = $request['t_fqc'][$index];
             $jobCard->t_sentdate = $request['t_sentdate'][$index];
             $jobCard->bt_writer_code = $request['bt_writer'][$index] ?? null;
-            $jobCard->bt_emp_code = $request['bt_emp_code'][$index] ?? null;
-            $jobCard->bt_two_way_emp_code = $request['bt_two_way_emp_code'][$index] ?? null;
             $jobCard->bt_unit = $request['bt_unit'][$index] ?? null;
             $jobCard->bt_pd = $request['bt_pd'][$index] ?? null;
             $jobCard->bt_cr = $request['bt_cr'][$index] ?? null;
@@ -156,8 +147,6 @@ class JobCardManagementController extends Controller
     {
         $request->validate([
             't_writer.*' => 'required|string|max:255',
-            't_emp_code.*' => 'required|string|max:255',
-            't_two_way_emp_code.*' => 'required|string|max:255',
             't_unit.*'=> 'required|string|max:255',
             't_pd.*' => 'required|string|max:255',
             't_cr.*' => 'required|string|max:255',
@@ -167,7 +156,6 @@ class JobCardManagementController extends Controller
             't_sentdate.*' => 'required|string|max:255',
             'bt_writer.*' => 'nullable|string|max:255',
             'bt_emp_code.*' => 'nullable|string|max:255',
-            'bt_two_way_emp_code.*' => 'nullable|string|max:255',
             'bt_unit.*'=> 'nullable|string|max:255',
             'bt_pd.*' => 'nullable|string|max:255',
             'bt_cr.*' => 'nullable|string|max:255',
@@ -184,8 +172,6 @@ class JobCardManagementController extends Controller
                 'id' => $request['id'][$index],
             ],[
             't_writer_code' => $t_writer,
-            't_emp_code' => $request['t_emp_code'][$index],
-            't_two_way_emp_code' => $request['t_two_way_emp_code'][$index],
             't_pd' => $request['t_pd'][$index],
             't_cr' => $request['t_cr'][$index],
             'v_unit' => $request['v_unit'][$index],
@@ -203,8 +189,6 @@ class JobCardManagementController extends Controller
             't_unit' => $request['t_unit'][$index],
             'bt_unit' => $request['bt_unit'][$index] ?? null,
             'bt_writer_code' => $request['bt_writer'][$index] ?? null,
-            'bt_two_way_emp_code' => $request['bt_two_way_emp_code'][$index] ?? null,
-            'bt_emp_code' => $request['bt_emp_code'][$index] ?? null,
             'bt_pd' => $request['bt_pd'][$index] ?? null,
             'bt_cr' => $request['bt_cr'][$index] ?? null,
             'bt_cnc' => $request['bt_cnc'][$index] ?? null,

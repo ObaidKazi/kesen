@@ -63,10 +63,10 @@
                     </x-adminlte-select>
                     <x-adminlte-input name="period_from" placeholder="Period From" fgroup-class="col-md-3"
                         type="date" required value="{{ old('period_from', getCurrentDate()) }}" label="Period From"
-                        min="{{ getCurrentDate() }}" />
+                         />
                     <x-adminlte-input name="period_to" placeholder="Period To" fgroup-class="col-md-3" type="date"
                         required value="{{ old('period_to', getCurrentDate()) }}" label="Period To"
-                        min="{{ getCurrentDate() }}" />
+                         />
                     <x-adminlte-input name="online_ref_no" placeholder="Online REF no" fgroup-class="col-md-3"
                         value="{{ old('online_ref_no') }}" label="Online REF no" />
                     <x-adminlte-input name="cheque_no" placeholder="Cheque no" fgroup-class="col-md-3"

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\JobCardManagement\App\Models\JobCard;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Support\Facades\Session;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
 use Modules\WriterManagement\App\Models\WriterPayment;
 
@@ -52,17 +53,22 @@ class HomeController extends Controller
         
     }
     public function generatePaymentReport(Request $request){
-        $min = Carbon::parse(request()->get('from_date'))->startOfDay();
-        $max = Carbon::parse(request()->get('to_date'))->endOfDay();
+        $year = Carbon::parse(request()->get('year'))->startOfDay();
+        $month = Carbon::parse(request()->get('month'))->endOfDay();
+        $min = $this->getStartAndEndOfMonth($year, $month)['start_of_month'];
+        $max = $this->getStartAndEndOfMonth($year, $month)['end_of_month'];
+        $writer_payment=WriterPayment::whereBetween('created_at', [$min, $max])->first();
+        if($writer_payment==null){
+            return redirect('/payment-report')->with('alert', 'No writer payments found');
+        }
         $job_card = JobCard::where(function ($query) use ($request) {
             $query->where('t_writer_code', $request->writer)
                   ->orWhere('bt_writer_code', $request->writer);
         })
-        ->where('created_at', '>=', Carbon::parse($request->get('from_date'))->startOfDay())
-        ->where('created_at', '<=', Carbon::parse($request->get('to_date'))->endOfDay())
+        ->where('created_at', '>=', $writer_payment->period_from)
+        ->where('created_at', '<=', $writer_payment->period_to)
         ->get();
-        
-        $pdf = FacadePdf::loadView('reports.pdf.pdf-payment',compact('job_card','max','min'));
+        $pdf = FacadePdf::loadView('reports.pdf.pdf-payment',compact('job_card','max','min','writer_payment'));
         return $pdf->stream();
         
     }
@@ -78,4 +84,21 @@ class HomeController extends Controller
     return $pdf->stream();
         
     }
+
+    function getStartAndEndOfMonth($year, $month) {
+        // Parse the month name to get the month number
+        $monthNumber = Carbon::parse($month)->month;
+    
+        // Create a Carbon instance for the first day of the month
+        $startOfMonth = Carbon::create($year, $monthNumber)->startOfMonth();
+    
+        // Get the last day of the month by modifying the start of month
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+    
+        return [
+            'start_of_month' => $startOfMonth->toDateString(),
+            'end_of_month' => $endOfMonth->toDateString(),
+        ];
+    }
+    
 }

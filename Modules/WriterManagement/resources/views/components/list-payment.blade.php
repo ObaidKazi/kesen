@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $payment->payment_method }}</td>
-                                    <td>{{ $payment->metrix }}</td>
+                                    <td>{{ App\Models\Metrix::where('id',$payment->metrix)->first()->name }}</td>
                                     <td>{{ $payment->apply_gst ? 'Yes' : 'No' }}</td>
                                     <td>{{ $payment->apply_tds ? 'Yes' : 'No' }}</td>
                                     <td>{{ $payment->period_from }}</td>

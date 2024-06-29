@@ -67,10 +67,10 @@
                     </x-adminlte-select>
                     <x-adminlte-input name="period_from" label="Period From" fgroup-class="col-md-3" type="date"
                         required value="{{ old('period_from', $payment->period_from) }}" label="Period From"
-                        min="{{ getCurrentDate() }}" />
+                         />
                     <x-adminlte-input name="period_to" label="Period To" fgroup-class="col-md-3" type="date" required
                         value="{{ old('period_to', $payment->period_to) }}" label="Period To"
-                        min="{{ getCurrentDate() }}" />
+                         />
                     <x-adminlte-input name="online_ref_no" placeholder="Online REF no" fgroup-class="col-md-3"
                         value="{{ old('online_ref_no', $payment->online_ref_no) }}" label="Online REF no" />
                     <x-adminlte-input name="cheque_no" placeholder="Cheque no" fgroup-class="col-md-3"

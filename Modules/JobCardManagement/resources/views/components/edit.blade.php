@@ -68,7 +68,11 @@
                                         </div> --}}
                                         <div class="card-body">
                                             <div class="row pt-2">
-    
+                                                <x-adminlte-input name="t_unit[{{ $index }}]" placeholder="Unit"
+                                                fgroup-class="col-md-2" type='text'
+                                                value="{{ old('t_unit.' . $index, $job->t_unit) }}"
+                                                label="T Unit" />
+                                              
                                                 <x-adminlte-select name="t_writer[{{ $index }}]"
                                                     fgroup-class="col-md-2" required
                                                     value="{{ old('t_writer.' . $index, $job->t_writer_code) }}"
@@ -80,31 +84,7 @@
                                                             {{ $writer->writer_name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
-                                                <x-adminlte-input name="t_unit[{{ $index }}]" placeholder="Unit"
-                                                fgroup-class="col-md-2" type='text'
-                                                value="{{ old('t_unit.' . $index, $job->t_unit) }}"
-                                                label="T Unit" />
-                                                <x-adminlte-select name="t_emp_code[{{ $index }}]"
-                                                    fgroup-class="col-md-2" required
-                                                    value="{{ old('t_emp_code.' . $index, $job->t_emp_code) }}"
-                                                    label="T Employee">
-                                                    <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}"
-                                                            {{ $job->t_emp_code == $user->id ? 'selected' : '' }}>
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
-                                                </x-adminlte-select>
-                                                <x-adminlte-select name="t_two_way_emp_code[{{ $index }}]"
-                                                    fgroup-class="col-md-2" value="{{ old('t_two_way_emp_code.' . $index) }}"
-                                                    label="BT Employee">
-                                                    <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}"
-                                                            {{ $job->t_two_way_emp_code == $user->id ? 'selected' : '' }}>
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
-                                                </x-adminlte-select>
+                                               
                                                 <x-adminlte-input name="t_pd[{{ $index }}]" placeholder="T PD"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_pd.' . $index, $job->t_pd) }}" label="T PD" />
@@ -162,6 +142,10 @@
                                         </div> --}}
                                         <div class="card-body">
                                             <div class="row pt-2">
+                                                <x-adminlte-input name="bt_unit[{{ $index }}]" placeholder="Unit"
+                                                fgroup-class="col-md-2" type='text'
+                                                value="{{ old('bt_unit.' . $index, $job->bt_unit) }}"
+                                                label="BT Unit" />
                                                 <x-adminlte-select name="bt_writer[{{ $index }}]"
                                                     fgroup-class="col-md-2"
                                                     value="{{ old('bt_writer.' . $index, $job->bt_writer_code) }}"
@@ -173,30 +157,7 @@
                                                             {{ $writer->writer_name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
-                                                <x-adminlte-input name="bt_unit[{{ $index }}]" placeholder="Unit"
-                                                fgroup-class="col-md-2" type='text'
-                                                value="{{ old('bt_unit.' . $index, $job->bt_unit) }}"
-                                                label="BT Unit" />
-                                                <x-adminlte-select name="bt_emp_code[{{ $index }}]"
-                                                    fgroup-class="col-md-2" value="{{ old('bt_emp_code.' . $index) }}"
-                                                    label="BT Employee">
-                                                    <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}"
-                                                            {{ $job->bt_emp_code == $user->id ? 'selected' : '' }}>
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
-                                                </x-adminlte-select>
-                                                <x-adminlte-select name="bt_two_way_emp_code[{{ $index }}]"
-                                                    fgroup-class="col-md-2" value="{{ old('bt_two_way_emp_code.' . $index) }}"
-                                                    label="BT Employee">
-                                                    <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
-                                                        <option value="{{ $user->id }}"
-                                                            {{ $job->bt_two_way_emp_code == $user->id ? 'selected' : '' }}>
-                                                            {{ $user->name }}</option>
-                                                    @endforeach
-                                                </x-adminlte-select>
+
                                                 <x-adminlte-input name="bt_pd[{{ $index }}]" placeholder="PD"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('bt_pd.' . $index, $job->bt_pd) }}"

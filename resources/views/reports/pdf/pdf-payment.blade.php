@@ -59,20 +59,20 @@
         <h2>PAYMENT ADVICE</h2>
         <table class="info-table">
             <tr>
-                <td >Zahid Ansari</td>
-                <td style="width: 212px;">Payment Date : <b>29 May 2024</b></td>
+                <td >{{Modules\WriterManagement\App\Models\Writer::where('id',$writer_payment->writer_id)->first()->writer_name}}</td>
+                <td style="width: 212px;">Payment Date : <b>{{Carbon\Carbon::parse($writer_payment->created_at)->format('j M Y')}}</b></td>
             </tr>
             <tr>
                 <td >An Electronic payment has been done into your account being translation charges for the jobs listed below :</td>
-                <td >Payment Method : <b>NEFT/TPT</b></td>
+                <td >Payment Method : <b>{{$writer_payment->payment_method??''}}</b></td>
             </tr>
             <tr>
                 <td ></td>
-                <td >NEFT Reference : <b>NEFT</b></td>
+                <td >NEFT Reference : <b>{{$writer_payment->online_ref_no??''}}</b></td>
             </tr>
             <tr>
                 <td ></td>
-                <td >Amount : <b>INR 11407</b></td>
+                <td >Amount : <b>INR {{$writer_payment->performance_charge??''}}</b></td>
             </tr>
         </table>
         <table class="payment-table">
@@ -85,36 +85,65 @@
                 <th>Rate</th>
                 <th>Amount</th>
             </tr>
+            @php $total = 0; @endphp
             @foreach ($job_card as $job)
-                
+                @if($job->t_unit != '')
+                    <tr>
+                        <td>{{Carbon\Carbon::parse($job->created_at)->format('M Y')}}</td>
+                        <td>{{$job->job_no}}</td>
+                        <td>T</td>
+                        <td>{{$job->t_unit}}</td>
+                        <td>{{ $job->estimateDetail->language->name }}</td>
+                        <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges}}</td>
+                        <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges*$job->t_unit}}</td>
+                        @php $total+=Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges*$job->t_unit @endphp
+                    </tr>
+                    @endif
+                @if($job->v_unit != '')
+                <tr>
+                    <td>{{Carbon\Carbon::parse($job->created_at)->format('M Y')}}</td>
+                    <td>{{$job->job_no}}</td>
+                    <td>V</td>
+                    <td>{{$job->v_unit}}</td>
+                    <td>{{ $job->estimateDetail->language->name }}</td>
+                    <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges}}</td>
+                    <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->checking_charges*$job->v_unit}}</td>
+                    @php $total+=Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->checking_charges*$job->v_unit @endphp
+                </tr>
+                @endif
+                @if($job->bt_unit != '')
+                <tr>
+                    <td>{{Carbon\Carbon::parse($job->created_at)->format('M Y')}}</td>
+                    <td>{{$job->job_no}}</td>
+                    <td>BT</td>
+                    <td>{{$job->bt_unit}}</td>
+                    <td>{{ $job->estimateDetail->language->name }}</td>
+                    <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges}}</td>
+                    <td>{{Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->checking_charges*$job->bt_unit}}</td>
+                    @php $total+=Modules\WriterManagement\App\Models\WriterLanguageMap::where('writer_id',$writer_payment->writer_id)->where('language_id',$job->estimateDetail->language->id)->first()->bt_charges*$job->bt_unit @endphp
+                </tr>
+                @endif
             @endforeach
-            <tr>
-                <td>Mar 2024</td>
-                <td>37889</td>
-                <td>V</td>
-                <td>2</td>
-                <td>Urdu</td>
-                <td>20</td>
-                <td>40</td>
+            
             
             <tr class="total-row">
                 <td colspan="6">Total</td>
-                <td>12675</td>
+                <td>{{$total}}</td>
             </tr>
             <tr class="total-row">
                 <td colspan="6">TDS 10%</td>
-                <td>1268</td>
+                <td>{{$total*0.1}}</td>
             </tr>
             <tr class="total-row">
                 <td colspan="6">Total</td>
-                <td>11407</td>
+                <td>{{$total-($total*0.1)}}</td>
             </tr>
             <tr class="total-row">
                 <td colspan="6">Grand Total</td>
-                <td>11407</td>
+                <td>{{$total-($total*0.1)}}</td>
             </tr>
         </table>
-        <p class="amount-words">Rupees : Eleven Thousand, Four Hundred And Seven Only</p>
+        <p class="amount-words">Rupees : {{number_to_words($total-($total*0.1))}}</p>
     </div>
 </body>
 </html>

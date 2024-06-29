@@ -450,10 +450,10 @@
                                                 value="{{ old('two_way_qc_bt.' . $index, $detail->two_way_qc_bt) }}"
                                                 label="Two Way QC BT" /> --}}
                                             <x-adminlte-input name="layout_charges_second[{{ $index }}]"
-                                                placeholder="BT Layout Charges" fgroup-class="col-md-3"
+                                                placeholder="Back Translation Layout Charges" fgroup-class="col-md-3"
                                                 type="text"
                                                 value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}"
-                                                label="BT Layout Charges" />
+                                                label="Back Translation Layout Charges" />
 
 
 

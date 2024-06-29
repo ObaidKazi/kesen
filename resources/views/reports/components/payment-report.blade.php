@@ -28,6 +28,7 @@
 
     {{-- Main Content --}}
     <div class="content" style="padding-top: 20px; margin-left: 10px">
+        @include('components.notification')
         <x-adminlte-card title="Payment Report" theme="success" icon="fas fa-lg fa-person">
             <form action="{{ route('report.payments') }}" method="POST">
                 @csrf
@@ -39,11 +40,32 @@
                             <option value="{{ $writer->id }}">{{ $writer->writer_name }}</option>
                         @endforeach
                     </x-adminlte-select>
-                    <x-adminlte-input name="from_date" placeholder="Date" fgroup-class="col-md-4" type='date'
-                        value="{{ old('from_date', date('Y-m-d')) }}" required label="From Date" />
-
-                    <x-adminlte-input name="to_date" placeholder="Date" fgroup-class="col-md-4" type='date'
-                        value="{{ old('to_date', date('Y-m-d')) }}" required label="To Date" />
+                    <x-adminlte-select name="year" fgroup-class="col-md-4" label="Year">
+                        <option value="" >Select Year</option>
+                        @for ($i=0;$i<100;$i++)
+                            @if($i<10)
+                                <option value="200{{$i}}" >200{{$i}}</option>
+                            @else
+                                <option value="20{{$i}}" >20{{$i}}</option>
+                            @endif
+                        @endfor
+                    </x-adminlte-select>
+                    <x-adminlte-select name="month" fgroup-class="col-md-4" label="Month">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>    
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </x-adminlte-select>
+                    
                    
 
 

@@ -1,7 +1,6 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\PreloaderHelper')
 @php
-    $metrics = config('services.metrix');
     $language_heads = [
         ['label' => 'Sr. No.'],
         ['label' => 'Language Name'],

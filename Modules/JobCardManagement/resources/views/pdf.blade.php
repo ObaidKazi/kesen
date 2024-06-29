@@ -153,7 +153,7 @@
                     <th>Unit</th>
                     <th>Writer Code</th>
                     <th>Employee Code</th>
-                    <th>Two Way QC Verified By</th>
+                    {{-- <th>Two Way QC Verified By</th> --}}
                     <th>PD</th>
                     <th>CR</th>
                     <th>C/NC</th>
@@ -172,7 +172,7 @@
                                 @php $temp_index=1;@endphp
                                 @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
                                 <td rowspan={{ $job->jobCard->where('sync_no', $card->sync_no)->count() * 5 }}>
-                                    {{ $card->estimateDetail->language->name }}</td>
+                                    {{ $card->estimateDetail->language->name??'' }}</td>
                             @else
                                 @php $temp_index+=1;@endphp
                             @endif
@@ -181,8 +181,8 @@
                             <td>T</td>
                             <td>{{ $card->t_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->t_writer_code)->first()->code }}</td>
-                            <td>{{ App\Models\User::where('id', $card->t_emp_code)->first()->code }}</td>
-                            <td>{{ App\Models\User::where('id', $card->t_two_way_emp_code)->first()->code }}</td>
+                            <td></td>
+                            
                             <td>{{ $card->t_pd ? \Carbon\Carbon::parse($card->t_pd)->format('j M Y') : '' }}</td>
                             <td>{{ $card->t_cr ? \Carbon\Carbon::parse($card->t_cr)->format('j M Y') : '' }}</td>
                             <td>{{ $card->t_cnc }}</td>
@@ -191,24 +191,11 @@
                             <td>{{ $card->t_sentdate ? \Carbon\Carbon::parse($card->t_sentdate)->format('j M Y') : '' }}</td>
                         </tr>
                         <tr>
-                            <td>BT</td>
-                            <td>{{ $card->t_unit }}</td>
-                            <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->bt_writer_code)->first()->code ?? '' }}</td>
-                            <td>{{ App\Models\User::where('id', $card->bt_emp_code)->first()->code ?? '' }}</td>
-                            <td>{{ App\Models\User::where('id', $card->bt_two_way_emp_code)->first()->code ?? '' }}</td>
-                            <td>{{ $card->bt_pd ? \Carbon\Carbon::parse($card->bt_pd)->format('j M Y') : '' }}</td>
-                            <td>{{ $card->bt_cr ? \Carbon\Carbon::parse($card->bt_cr)->format('j M Y') : '' }}</td>
-                            <td>{{ $card->bt_cnc }}</td>
-                            <td>{{ $card->bt_dv }}</td>
-                            <td>{{ $card->bt_fqc }}</td>
-                            <td>{{ $card->bt_sentdate ? \Carbon\Carbon::parse($card->bt_sentdate)->format('j M Y') : '' }}</td>
-                        </tr>
-                        <tr>
                             <td>V</td>
                             <td>{{ $card->v_unit }}</td>
                             <td></td>
                             <td>{{ App\Models\User::where('id', $card->v_employee_code)->first()->code ?? '' }}</td>
-                            <td></td>
+                           
                             <td>{{ $card->v_pd ? \Carbon\Carbon::parse($card->v_pd)->format('j M Y') : '' }}</td>
                             <td>{{ $card->v_cr ? \Carbon\Carbon::parse($card->v_cr)->format('j M Y') : '' }}</td>
                             <td>{{ $card->v_cnc }}</td>
@@ -221,7 +208,7 @@
                             <td>{{ $card->v2_unit }}</td>
                             <td></td>
                             <td>{{ App\Models\User::where('id', $card->v2_employee_code)->first()->code ?? '' }}</td>
-                            <td></td>
+                           
                             <td>{{ $card->v2_pd ? \Carbon\Carbon::parse($card->v2_pd)->format('j M Y') : '' }}</td>
                             <td>{{ $card->v2_cr ? \Carbon\Carbon::parse($card->v2_cr)->format('j M Y') : '' }}</td>
                             <td></td>
@@ -230,11 +217,23 @@
                             <td> </td>
                         </tr>
                         <tr>
+                            <td>BT</td>
+                            <td>{{ $card->t_unit }}</td>
+                            <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->bt_writer_code)->first()->code ?? '' }}</td>
+                            <td></td>
+                            
+                            <td>{{ $card->bt_pd ? \Carbon\Carbon::parse($card->bt_pd)->format('j M Y') : '' }}</td>
+                            <td>{{ $card->bt_cr ? \Carbon\Carbon::parse($card->bt_cr)->format('j M Y') : '' }}</td>
+                            <td>{{ $card->bt_cnc }}</td>
+                            <td>{{ $card->bt_dv }}</td>
+                            <td>{{ $card->bt_fqc }}</td>
+                            <td>{{ $card->bt_sentdate ? \Carbon\Carbon::parse($card->bt_sentdate)->format('j M Y') : '' }}</td>
+                        </tr>
+                        <tr>
                             <td>BTV</td>
                             <td>{{ $card->btv_unit }}</td>
                             <td></td>
                             <td>{{ App\Models\User::where('id', $card->btv_emp_code)->first()->code ?? '' }}</td>
-                            <td></td>
                             <td>{{ $card->btv_pd ? \Carbon\Carbon::parse($card->btv_pd)->format('j M Y') : '' }}</td>
                             <td>{{ $card->btv_cr ? \Carbon\Carbon::parse($card->btv_cr)->format('j M Y') : '' }}</td>
                             <td></td>
@@ -264,43 +263,19 @@
                             </td>
                             <td style="font-size: 8pt">
                             </td>
-                            <td style="font-size: 8pt">
-                            </td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt">
                             </td>
                         </tr>
-                        <tr>
-                            <td style="font-size: 8pt">BT</td>
-                            
-                            <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-
-                            </td>
-                            <td style="font-size: 8pt">
-                            </td>
-                            <td style="font-size: 8pt">
-                            </td>
-                            <td style="font-size: 8pt">
-                            </td>
-                            <td style="font-size: 8pt">
-                            </td>
-                            <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
-                        </tr>
+                        
                         <tr>
                             <td style="font-size: 8pt">V</td>
                             
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt">
 
-                            </td>
-                            <td style="font-size: 8pt">
                             </td>
                             <td style="font-size: 8pt">
                             </td>
@@ -322,6 +297,23 @@
 
                             </td>
                             <td style="font-size: 8pt">
+                            </td>
+                            <td style="font-size: 8pt">
+                            </td>
+                            <td style="font-size: 8pt">
+                            </td>
+                            <td style="font-size: 8pt"></td>
+                            <td style="font-size: 8pt"></td>
+                            <td style="font-size: 8pt"></td>
+                            <td style="font-size: 8pt">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 8pt">BT</td>
+                            
+                            <td style="font-size: 8pt"></td>
+                            <td style="font-size: 8pt">
+
                             </td>
                             <td style="font-size: 8pt">
                             </td>
@@ -353,8 +345,6 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
                         </tr>
                     @endforeach
                 @endif
