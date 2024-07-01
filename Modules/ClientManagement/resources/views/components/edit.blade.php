@@ -191,7 +191,7 @@
     document.getElementById('type').addEventListener('change', function() {
         if (this.value == 2 || this.value == '2') {
             document.getElementById('protocol').innerHTML =
-                '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><div class="input-group" ><select name="protocol_data" class="form-control" required="required"><option value="">Non Protocol Type</option><option value="Advertisement ADV">Advertisement ADV</option><option value="Consolidated CON">Consolidated CON</option></select></div></div>';
+                '<label>Non Protocol Type</label><div class="form-group col-md-12" style="padding: 0px;margin:0px"><div class="input-group" ><select name="protocol_data" class="form-control" required="required"><option value="">Non Protocol Type</option><option value="Advertisement ADV">Advertisement ADV</option><option value="Consolidated CON">Consolidated CON</option></select></div></div>';
         } else {
             document.getElementById('protocol').innerHTML = '';
         }
