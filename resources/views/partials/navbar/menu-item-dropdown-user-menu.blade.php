@@ -15,6 +15,36 @@
 
 <li class="nav-item dropdown user-menu">
 
+
+    {{-- User menu dropdown --}}
+    @if(isset($job_registers_near_deadline)&&(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('Developer')))
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-danger navbar-badge">{{count($job_registers_near_deadline) }}</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">{{count($job_registers_near_deadline) }} Notifications</span>
+            <div class="dropdown-divider"></div>
+            @foreach($job_registers_near_deadline as $notification)
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i> Job No {{ $notification->sr_no }} {{ $notification->estimate_document_id }}
+                    <br>
+                    <span class="float-right text-muted text-sm mb-1">{{ $notification->created_at->diffForHumans() }}</span>
+                </a>
+            @endforeach
+            <div class="dropdown-divider"></div>
+            
+        </div>
+    </li>
+    @endif
+    
+
+</li>
+
+
+<li class="nav-item dropdown user-menu">
+
     {{-- User menu toggler --}}
     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         @if(config('adminlte.usermenu_image'))
@@ -84,3 +114,4 @@
     </ul>
 
 </li>
+

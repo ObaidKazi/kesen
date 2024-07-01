@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\JobCardManagement\App\Models\JobCard;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
 use Modules\WriterManagement\App\Models\WriterPayment;
-
+use Illuminate\Support\Facades\View;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         return view('page');
     }
 

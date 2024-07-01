@@ -107,8 +107,9 @@ class EmployeeManagementController extends Controller
         $user->code = $request->code;
         $user->landline = $request->landline;
         if(isset($request->password)){
-            $user->password = bcrypt($request->password);
             $user->plain_password = $request->password;
+            $user->password = bcrypt($request->password);
+         
         }
         $user->language_id = $request->language;
         $user->updated_by = Auth()->user()->id;
