@@ -34,7 +34,7 @@ class EstimateManagementController extends Controller
         }else{
             $min=Carbon::now()->startOfMonth();
             $max=Carbon::now()->endOfMonth();
-            $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+            $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->orderBy('created_at', 'desc')->get();    
         }
     }else{
        return redirect('/estimate-management');

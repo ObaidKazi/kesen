@@ -15,7 +15,7 @@ class LanguageManagementController extends Controller
      */
     public function index()
     {
-        $language=Language::all();
+        $language=Language::orderBy('created_at', 'desc')->get();
         return view('languagemanagement::index')->with('languages',$language);
     }
 

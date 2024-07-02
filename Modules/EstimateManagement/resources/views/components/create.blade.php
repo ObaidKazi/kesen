@@ -138,15 +138,15 @@
                                     </x-adminlte-select>
                                 </div>
                                 <div class="row">
-                                    <button type="button" class="btn btn-danger remove-item mt-3 mb-3"
+                                    <button type="button" class="btn btn-danger remove-item mt-3 mb-1"
                                         style="float:right;width: 100px">Remove</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <button type="button" class="btn btn-primary mt-5" id="add-item">Add Document</button>
+                
+                <button type="button" class="btn btn-primary mt-2" id="add-item">Add Document</button>
                 <br>
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
             </form>

@@ -10,7 +10,7 @@
             font-family: 'Arial', sans-serif;
             margin: 10px;
             padding: 10px;
-            line-height: 1;
+            line-height: 0.64;
             border: 2px solid #000;
         }
 
@@ -41,6 +41,7 @@
             border: 1px solid black;
             padding: 8px;
             font-size: 8px;
+            line-height: 1;
             text-align: center;
             font-size: 8px;
             background-color: #f2f2f2;
@@ -112,7 +113,7 @@
         <p>{{ $estimate->client->address }}</p>
         <p><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</p>
         <p><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</p>
-        <p><strong>Languages Required:</strong>
+        <p style="padding: 0;margin-bottom: 5px;"><strong>Languages Required:</strong>
             @php $languages_list=[] @endphp
             @foreach ($estimate->details()->distinct('lang')->get() as $index=>$details )    
                 @php $languages_list[]=Modules\LanguageManagement\App\Models\Language::where('id',$details->lang)->first()->name @endphp
@@ -188,7 +189,7 @@
                             <td class="nowrap">{{ $detail->layout_charges }}</td>
                         @endif
                         @if ($estimate->details[0]->back_translation)
-                            <td class="nowrap">{{ $detail->back_translation }}</td>
+                            <td class="nowrap">{{ $detail->back_translation*$detail->unit }}</td>
                         @endif
                         @if ($estimate->details[0]->verification_2)
                             <td class="nowrap">{{ $detail->verification_2 }}</td>
@@ -204,10 +205,10 @@
                         @endphp
                         <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
-                            {{ number_format(($detail->unit * $detail->rate + $detail->layout_charges + $detail->back_translation + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()),2) }}
+                            {{ number_format(($detail->unit * $detail->rate + $detail->layout_charges + ($detail->back_translation*$detail->unit) + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()),2) }}
                         </td>
                         @php
-                            $sub_total = ($sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) + ($detail->back_translation) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()));
+                            $sub_total = ($sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) +  ($detail->back_translation*$detail->unit) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()));
                         @endphp
                     </tr>
                 @endif
@@ -241,7 +242,7 @@
         </table>
     </section>
 
-    <footer style="text-align: left;float: left;margin-top: 10px">
+    <footer style="text-align: left;float: left;">
         <p style="font-weight: bold;font-size: 12px">SAC Code: 998395</p>
         <p style="font-weight: bold;font-size: 12px">PS: TAXES AS APPLICABLE FROM TIME TO TIME.</p>
         <p style="font-size: 12px">The Job will be completed as per TAT provided.</p>
@@ -257,6 +258,7 @@
             <div style="margin-top:35px;">
                 _________________________
             </div>
+            <br>
             <div >
                 <span style="display: inline;padding-left: 35px;">Authorized Signatory</span>
                 <span style="float: right;font-weight: bold;font-size: 12px;display: inline">Help us to Serve you Better

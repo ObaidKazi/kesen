@@ -41,7 +41,7 @@
     ];
 
     $config = [
-        'order' => [[1, 'asc']],
+        'order' => [[1, 'desc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];
@@ -179,10 +179,6 @@
                                                 Pending
                                             </button></a>
 
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 2]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Reject
-                                            </button></a>
                                     @else
                                         <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

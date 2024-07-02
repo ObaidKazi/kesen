@@ -18,7 +18,7 @@
     ];
 
     $config = [
-        'order' => [[1, 'asc']],
+        'order' => [[1, 'desc']],
         'paging' => true,
         'lengthMenu' => [10, 50, 100, 500],
     ];

@@ -23,7 +23,7 @@ class JobRegisterManagementController extends Controller
      */
     public function index()
     {
-        $job_registers=JobRegister::all();
+        $job_registers=JobRegister::orderBy('created_at', 'desc')->get();
         return view('jobregistermanagement::index')->with('job_registers',$job_registers);
     }
 

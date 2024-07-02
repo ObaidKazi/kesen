@@ -18,7 +18,7 @@
     ];
 
     $config = [
-        'order' => [[1, 'asc']],
+        'order' => [[1, 'desc']],
     ];
     $config['paging'] = true;
     $config['lengthMenu'] = [10, 50, 100, 500];
@@ -32,7 +32,7 @@
         ];
 
         $config_manage = [
-            'order' => [[1, 'asc']],
+            'order' => [[1, 'desc']],
         ];
         $config_manage['paging'] = true;
     @endphp

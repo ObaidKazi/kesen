@@ -21,7 +21,7 @@ class WriterManagementController extends Controller
      */
     public function index()
     {
-        $writers=Writer::all();
+        $writers=Writer::orderBy('created_at', 'desc')->get();
         return view('writermanagement::index')->with('writers',$writers);
     }
 
@@ -123,7 +123,7 @@ class WriterManagementController extends Controller
     }
 
     public function editLanguageMap($writer_id,$id){
-        $languages=Language::all();
+        $languages=Language::orderBy('created_at', 'desc')->get();
         $language_map=WriterLanguageMap::find($id);
         
         return view('writermanagement::edit-language')->with('language_map',$language_map)->with('id',$writer_id)->with('languages',$languages);
@@ -154,7 +154,7 @@ class WriterManagementController extends Controller
     }
 
     public function addLanguageMapView($writer_id){
-        $languages=Language::all();
+        $languages=Language::orderBy('created_at', 'desc')->get();
         return view('writermanagement::add-language')->with('id',$writer_id)->with('languages',$languages);
     }
 
