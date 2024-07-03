@@ -123,7 +123,7 @@
             </tr>
             <tr>
                 <th>Headline</th>
-                <td>{{ $job->description ?? '' }}</td>
+                <td>{{ $job->estimate->headline ?? '' }}</td>
                 <th>Date</th>
                 <td>{{ $job->date ? \Carbon\Carbon::parse($job->date)->format('j M Y') : '' }}</td>
             </tr>
@@ -131,13 +131,13 @@
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
                 <th>Client Contact Person Name</th>
-                <td>{{ $job->client_person->name ?? '' }}</td>
+                <td>{{ $job->estimate->client_person->name ?? '' }}</td>
             </tr>
             <tr>
                 <th>Estimate No.</th>
                 <td>{{ $job->estimate->estimate_no ?? '' }}</td>
                 <th>Client Contact Person Number</th>
-                <td>{{ $job->client_person->phone_no ?? '' }}</td>
+                <td>{{ $job->estimate->client_person->phone_no ?? '' }}</td>
             </tr>
             <tr>
                 <th>Remarks: Quot No.</th>
