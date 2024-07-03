@@ -110,7 +110,6 @@ class JobCardManagementController extends Controller
             $jobCard->btv_pd = $request['btv_pd'][$index]?? null;
             $jobCard->btv_cr = $request['btv_cr'][$index]?? null;
             $jobCard->btv_employee_code = $request['btv_employee_code'][$index]?? null;
-            
             $jobCard->t_cnc = $request['t_cnc'][$index]?? null;
             $jobCard->t_dv = $request['t_dv'][$index]?? null;
             $jobCard->t_fqc = $request['t_fqc'][$index];
@@ -197,10 +196,10 @@ class JobCardManagementController extends Controller
             'bt_fqc' => $request['bt_fqc'][$index] ?? null,
             'bt_sentdate' => $request['bt_sentdate'][$index] ?? null,
             'job_no' => $request['job_no'][0],
-            'btv_unit' => $request['btv_unit'][$index],
+            'btv_unit' => $request['btv_unit'][$index]??null,
             'btv_employee_code' => $request['btv_employee_code'][$index],
-            'btv_pd' => $request['btv_pd'][$index],
-            'btv_cr' => $request['v2_cr'][$index],
+            'btv_pd' => $request['btv_pd'][$index]??null,
+            'btv_cr' => $request['v2_cr'][$index]??null,
             'estimate_detail_id' => $request['estimate_detail_id'][0],
             'sync_no' => $carbon,
 
