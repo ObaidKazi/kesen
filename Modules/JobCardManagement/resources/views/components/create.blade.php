@@ -65,7 +65,7 @@
                                         <div class="card-body">
                                             <div class="row pt-2">
                                                 <x-adminlte-input name="t_unit[0]" placeholder="Unit" fgroup-class="col-md-2"
-                                                value="{{ old('t_unit[0]') }}" label="T Unit" />
+                                                value="{{ old('t_unit[0]') }}" label="T Unit" required />
                                                 <x-adminlte-select name="t_writer[0]" fgroup-class="col-md-2" required
                                                     value="{{ old('t_writer[0]') }}" label="T Writer">
                                                     <option value="">Select Writer</option>
@@ -94,7 +94,7 @@
                                                     label="T Sent Date" min="{{ getCurrentDate() }}" />
                                                     <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit[0]') }}" label="V Unit" />
-                                                <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" required
+                                                <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('v_employee_code[0]') }}" label="V Employee">
                                                     <option value="">Select Employee</option>
                                                     @foreach ($users as $user)
@@ -107,7 +107,7 @@
                                                     value="{{ old('v_cr[0]') }}" label="V CR" type='date' />
                                                     <x-adminlte-input name="v2_unit[0]" placeholder="V2 Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v2_unit[0]') }}" label="V2 Unit" />
-                                                    <x-adminlte-select name="v2_employee_code[0]" fgroup-class="col-md-2" required
+                                                    <x-adminlte-select name="v2_employee_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('v2_employee_code[0]') }}" label="V2 Employee">
                                                     <option value="">Select Employee</option>
                                                     @foreach ($users as $user)

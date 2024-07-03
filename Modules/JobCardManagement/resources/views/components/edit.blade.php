@@ -78,7 +78,7 @@
                                                 <x-adminlte-input name="t_unit[{{ $index }}]" placeholder="Unit"
                                                 fgroup-class="col-md-2" type='text'
                                                 value="{{ old('t_unit.' . $index, $job->t_unit) }}"
-                                                label="T Unit" />
+                                                label="T Unit" required/>
                                               
                                                 <x-adminlte-select name="t_writer[{{ $index }}]"
                                                     fgroup-class="col-md-2" required
