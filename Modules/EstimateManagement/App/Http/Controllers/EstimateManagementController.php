@@ -270,6 +270,8 @@ class EstimateManagementController extends Controller
                     EstimatesDetails::updateOrCreate([
                         'document_name' => $document_name,
                         'lang' => $languages[$i],
+                        'unit' => $request['unit'][$index],
+                        'rate' => $request['rate'][$index],
                     ], [
                         'estimate_id' => $estimate->id,
                         'document_name' => $document_name,
