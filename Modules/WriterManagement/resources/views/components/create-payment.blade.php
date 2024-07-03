@@ -69,10 +69,10 @@
                         <option value="1" {{ old('apply_tds', '') == 1 ? 'selected' : '' }}>Yes</option>
                     </x-adminlte-select>
                     <x-adminlte-input name="period_from" placeholder="Period From" fgroup-class="col-md-3"
-                        type="date" required value="{{ old('period_from', getCurrentDate()) }}" label="Period From"
+                        type="date" required value="{{ old('period_from') }}" label="Period From"
                          />
                     <x-adminlte-input name="period_to" placeholder="Period To" fgroup-class="col-md-3" type="date"
-                        required value="{{ old('period_to', getCurrentDate()) }}" label="Period To"
+                        required value="{{ old('period_to') }}" label="Period To"
                          />
                     <x-adminlte-input name="online_ref_no" placeholder="Online REF no" fgroup-class="col-md-3"
                         value="{{ old('online_ref_no') }}" label="Online REF no" />

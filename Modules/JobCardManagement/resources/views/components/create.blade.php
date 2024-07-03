@@ -74,10 +74,10 @@
                                                     @endforeach
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-2"
-                                                    type='date' value="{{ old('t_pd[0]', getCurrentDate()) }}"
+                                                    type='date' value="{{ old('t_pd[0]') }}"
                                                     label="T PD" min="{{ getCurrentDate() }}" />
                                                 <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
-                                                    type='date' value="{{ old('t_cr[0]', getCurrentDate()) }}"
+                                                    type='date' value="{{ old('t_cr[0]') }}"
                                                     label="T CR" min="{{ getCurrentDate() }}" />
                                                 <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2">
                                                         <option value="">Select C/CN</option>
