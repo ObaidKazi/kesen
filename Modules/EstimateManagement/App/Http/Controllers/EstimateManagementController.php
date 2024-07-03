@@ -256,18 +256,19 @@ class EstimateManagementController extends Controller
         $estimate->status = $request->status;
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
+        
         foreach ($request['document_name'] as $index => $document_name) {
             $languages=$request['lang_' . $index];
-            $previous_lang=EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->get('lang')->pluck('lang')->toArray();
+            $previous_lang=EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->where('rate', $request['rate'][$index])->where('estimate_id', $estimate->id)->get('lang')->pluck('lang')->toArray();
             $deleted_lang=array_diff($previous_lang,$languages);
+            
             if(count($deleted_lang)>0){
-                EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->whereIn('lang', $deleted_lang)->delete();
+                
+                EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->where('estimate_id', $estimate->id)->whereIn('lang', $deleted_lang)->delete();
             }
                 for ($i = 0; $i < count($languages); $i++) {
                     EstimatesDetails::updateOrCreate([
                         'document_name' => $document_name,
-                        'unit' => $request['unit'][$index],
-                        'rate' => $request['rate'][$index],
                         'lang' => $languages[$i],
                     ], [
                         'estimate_id' => $estimate->id,
