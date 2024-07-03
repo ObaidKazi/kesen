@@ -66,7 +66,7 @@
                                 <h3 class="card-title">Part Copy {{ $index + 1 }}</h3>
                                 
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="padding-bottom: 0;">
                                 <div class="row ">
 
                                     <div class="card">
@@ -143,7 +143,7 @@
                                     </div>
     
                                     
-                                    <div class="card">
+                                    <div class="card" >
                                         {{-- <div class="card-header">
                                             <b>Back Translation</b>
                                         </div> --}}
@@ -204,12 +204,11 @@
                                                     value="{{ old('btv_cr.' . $index, $job->btv_cr) }}" label="BTV CR" type='date' />
                                             </div>
                                         </div>
+                                       
                                     </div>
                                     
                                     
-                                    <input type="button" name="button" class="btn btn-danger remove-item mt-3 mb-3"
-                                            style="float:right;width: 100px"
-                                            data-detail-id="{{ $job->id }}" value="Remove"></button>
+                                    
                                     
                                     <x-adminlte-input name="job_no[{{ $index }}]" type="hidden"
                                          value="{{ $job_register->sr_no }}" />
@@ -218,6 +217,9 @@
                                     <x-adminlte-input name="id[{{ $index }}]" placeholder="ID"
                                          type="hidden"
                                         value="{{ old('id.' . $index, $job->id) }}" required />
+                                    <input type="button" name="button" class="btn btn-danger remove-item  mb-3"
+                                    style="float:right;width: 100px"
+                                    data-detail-id="{{ $job->id }}" value="Remove"></button>
                                 </div>
     
                             </div>

@@ -59,7 +59,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Part Copy 1</h3>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="padding-bottom: 0;">
                                 <div class="row pt-2">
                                     <div class="card">
                                         <div class="card-body">
@@ -179,15 +179,16 @@
         
                                 </div>
                             </div>
+                            
+                                <button type="button" class="btn btn-danger remove-item mb-2 ml-3 mt-4"
+                                    style="float:right;width: 100px">Remove</button>
+                            
                         </div>
-                        <div class="row">
-                            <button type="button" class="btn btn-danger remove-item mt-3 mb-3"
-                                style="float:right;width: 100px">Remove</button>
-                        </div>
+                        
                     </div>
                 </div>
-                <br>
-                <button type="button" class="btn btn-primary mt-5" id="add-item">Add Item</button>
+                
+                <button type="button" class="btn btn-primary mt-2" id="add-item">Add Partition</button>
                 <br>
                 <x-adminlte-button label="Submit" type="submit" class="mt-3" />
 
