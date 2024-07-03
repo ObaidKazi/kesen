@@ -324,7 +324,7 @@ class EstimateManagementController extends Controller
         if (count($estimate_details) > 0) {
             $html = '<option value="">Select Estimate Document</option>';
             foreach ($estimate_details as $document_name) {
-                $html .= '<option value=' . $document_name . '>' . $document_name . '</option>';
+                $html .= '<option value="'.  strval($document_name) . '">' . $document_name . '</option>';
             }
         }
         return response()->json(['html' => $html]);

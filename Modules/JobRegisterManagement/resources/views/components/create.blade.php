@@ -134,17 +134,17 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#estimate_number').on('change', function() {
-            $.ajax({
-                url: "/estimate-management/estimate/" + $('#estimate_number').val(),
-                method: 'GET',
-                success: function(data) {
-                    if (data != false) {
-                        document.getElementById("client_contact_person_id").value = data
-                            .client_contact_person_id;
-                        document.getElementById("client_id").value = data.client_id;
-                    }
-                }
-            });
+            // $.ajax({
+            //     url: "/estimate-management/estimate/" + $('#estimate_number').val(),
+            //     method: 'GET',
+            //     success: function(data) {
+            //         if (data != false) {
+            //             document.getElementById("client_contact_person_id").value = data
+            //                 .client_contact_person_id;
+            //             document.getElementById("client_id").value = data.client_id;
+            //         }
+            //     }
+            // });
             $.ajax({
                 url: "/estimate-management/estimate-details/" + $('#estimate_number').val(),
                 method: 'GET',
