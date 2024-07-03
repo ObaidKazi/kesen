@@ -134,7 +134,7 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
 
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                         value="{{ old('date', $jobRegister->date) }}" required label="Date" />
-                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3" required
+                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3" 
                         value="{{ $jobRegister->old_job_no }}" type='text' label="Old Job No" />
 
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">

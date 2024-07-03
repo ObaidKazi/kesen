@@ -28,6 +28,10 @@
         [
             'label' => 'Address',
         ],
+
+        [
+            'label' => 'Languages',
+        ],
         [
             'label' => 'Created By',
         ],
@@ -100,6 +104,8 @@
                                     <td>{{ $row->phone_no }}</td>
                                     {{-- <td>{{ $row->landline }}</td> --}}
                                     <td>{{ $row->address }}</td>
+                                    
+                                    <td>{{ $row->writer_language_map->pluck('language_id')->implode(', ') }}</td>
                                     <td>{{ $row->created_by }}</td>
                                     <td>
                                         <a

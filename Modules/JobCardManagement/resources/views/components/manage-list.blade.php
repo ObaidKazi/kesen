@@ -14,6 +14,7 @@
         ['label' => 'Bill Date'],
         ['label' => 'Informed To'],
         ['label' => 'Sent Date'],
+        ['label' => 'Status'],
         ['label' => 'Action'],
     ];
 
@@ -112,6 +113,10 @@
                             <td>{{ $row->bill_date? \Carbon\Carbon::parse($row->bill_date)->format('j M Y'):'' }}</td>
                             <td>{{ $row->estimate->client_person->name??'' }}</td>
                             <td>{{ $row->sent_date?\Carbon\Carbon::parse($row->sent_date)->format('j M Y'):'' }}</td>
+                            <td
+                                    class={{ $row->status == 0 ? '' : ($row->status == 1 ? 'bg-success' : 'bg-danger') }}>
+                                    {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
+                            </td>
                             
                             <td style="width: 300px">
                                 

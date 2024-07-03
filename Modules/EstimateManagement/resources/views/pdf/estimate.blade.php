@@ -32,6 +32,7 @@
             border: 1px solid black;
             padding: 8px;
             font-size: 8px;
+            line-height: 1;
             text-align: center;
             word-break: break-word;
             /* Prevents text from overflowing */

@@ -97,7 +97,7 @@
                         value="{{ old('date', date('Y-m-d')) }}" required label="Date"
                         min="{{ getCurrentDate() }}" />
 
-                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3" required
+                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3"
                         type='text' label="Old Job No" />
 
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required value="{{ old('status') }}"

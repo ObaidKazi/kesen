@@ -105,8 +105,8 @@
                                                     value="{{ old('v_pd[0]') }}" label="V PD" type='date' />
                                                 <x-adminlte-input name="v_cr[0]" placeholder="V CR" fgroup-class="col-md-2"
                                                     value="{{ old('v_cr[0]') }}" label="V CR" type='date' />
-                                                    <x-adminlte-input name="v2_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
-                                                    value="{{ old('v2_unit[0]') }}" label="V Unit" />
+                                                    <x-adminlte-input name="v2_unit[0]" placeholder="V2 Unit" fgroup-class="col-md-2"
+                                                    value="{{ old('v2_unit[0]') }}" label="V2 Unit" />
                                                     <x-adminlte-select name="v2_employee_code[0]" fgroup-class="col-md-2" required
                                                     value="{{ old('v2_employee_code[0]') }}" label="V2 Employee">
                                                     <option value="">Select Employee</option>
