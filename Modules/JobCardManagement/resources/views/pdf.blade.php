@@ -218,7 +218,7 @@
                         </tr>
                         <tr>
                             <td>BT</td>
-                            <td>{{ $card->t_unit }}</td>
+                            <td>{{ $card->bt_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->bt_writer_code)->first()->code ?? '' }}</td>
                             <td></td>
                             

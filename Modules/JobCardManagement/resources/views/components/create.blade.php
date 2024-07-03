@@ -90,7 +90,7 @@
                                                     value="{{ old('t_fqc[0]') }}" label="T F/QC" />
                                                 <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('t_sentdate[0]', getCurrentDate()) }}"
+                                                    value="{{ old('t_sentdate[0]') }}"
                                                     label="T Sent Date" min="{{ getCurrentDate() }}" />
                                                     <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit[0]') }}" label="V Unit" />
@@ -136,10 +136,10 @@
                                                     @endforeach
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="bt_pd[0]" placeholder="PD" fgroup-class="col-md-2"
-                                                    type='date' value="{{ old('bt_pd[0]', getCurrentDate()) }}"
+                                                    type='date' value="{{ old('bt_pd[0]') }}"
                                                     label="BT PD" min="{{ getCurrentDate() }}" />
                                                 <x-adminlte-input name="bt_cr[0]" placeholder="CR" fgroup-class="col-md-2"
-                                                    type='date' value="{{ old('bt_cr[0]', getCurrentDate()) }}"
+                                                    type='date' value="{{ old('bt_cr[0]') }}"
                                                     label="BT CR" min="{{ getCurrentDate() }}" />
                                                 
                                                 <x-adminlte-select name="bt_cnc[0]" label="BT C/CN" fgroup-class="col-md-2">
@@ -153,7 +153,7 @@
                                                     value="{{ old('bt_fqc[0]') }}" label="BT F/QC" />
                                                 <x-adminlte-input name="bt_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('bt_sentdate[0]', getCurrentDate()) }}"
+                                                    value="{{ old('bt_sentdate[0]') }}"
                                                     label="BT Sent Date" min="{{ getCurrentDate() }}" />
                                                     <x-adminlte-input name="btv_unit[0]" placeholder="BTV Unit" fgroup-class="col-md-2"
                                                     value="{{ old('btv_unit[0]') }}" label="BTV Unit" />
