@@ -101,8 +101,8 @@
                                                 
                                                 <x-adminlte-select name="t_cnc[{{ $index }}]" label="T C/CN" fgroup-class="col-md-2">
                                                         <option value="">Select C/CN</option>
-                                                        <option value="C" {{$job->bt_cnc == 'C' ? 'selected' : ''}}>C</option>
-                                                        <option value="CN" {{$job->bt_cnc == 'CN' ? 'selected' : ''}}>CN</option>
+                                                        <option value="C" {{$job->t_cnc == 'C' ? 'selected' : ''}}>C</option>
+                                                        <option value="CN" {{$job->t_cnc == 'CN' ? 'selected' : ''}}>CN</option>
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_dv[{{ $index }}]" placeholder="T DV"
                                                     fgroup-class="col-md-2" value="{{ old('t_dv.' . $index, $job->t_dv) }}"
