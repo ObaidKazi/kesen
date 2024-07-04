@@ -94,23 +94,26 @@
                                                
                                                 <x-adminlte-input name="t_pd[{{ $index }}]" placeholder="T PD"
                                                     fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('t_pd.' . $index, $job->t_pd) }}" label="T PD" />
+                                                    value="{{ old('t_pd.' . $index, $job->t_pd) }}" label="T PD"  required/>
                                                 <x-adminlte-input name="t_cr[{{ $index }}]" placeholder="T CR"
                                                     fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('t_cr.' . $index, $job->t_cr) }}" label="T CR" />
-                                                <x-adminlte-input name="t_cnc[{{ $index }}]" placeholder="T CN"
-                                                    fgroup-class="col-md-2" value="{{ old('t_cnc.' . $index, $job->t_cnc) }}"
-                                                    label="T C/CN" />
+                                                    value="{{ old('t_cr.' . $index, $job->t_cr) }}" label="T CR" required/>
+                                                
+                                                <x-adminlte-select name="t_cnc[{{ $index }}]" label="T C/CN" fgroup-class="col-md-2">
+                                                        <option value="">Select C/CN</option>
+                                                        <option value="C" {{$job->bt_cnc == 'C' ? 'selected' : ''}}>C</option>
+                                                        <option value="CN" {{$job->bt_cnc == 'CN' ? 'selected' : ''}}>CN</option>
+                                                </x-adminlte-select>
                                                 <x-adminlte-input name="t_dv[{{ $index }}]" placeholder="T DV"
                                                     fgroup-class="col-md-2" value="{{ old('t_dv.' . $index, $job->t_dv) }}"
                                                     label="T DV" />
                                                 <x-adminlte-input name="t_fqc[{{ $index }}]" placeholder="T QC"
                                                     fgroup-class="col-md-2" value="{{ old('t_fqc.' . $index, $job->t_fqc) }}"
-                                                    label="T F/QC" />
+                                                    label="T F/QC" required/>
                                                 <x-adminlte-input name="t_sentdate[{{ $index }}]"
                                                     placeholder="T Sent Date" fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate.' . $index, $job->t_sentdate) }}"
-                                                    label="T Sent Date" />
+                                                    label="T Sent Date" required/>
                                                     <x-adminlte-input name="v_unit[{{ $index }}]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit.' . $index, $job->v_unit) }}" label="V Unit" />
                                                 <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 
@@ -173,10 +176,11 @@
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('bt_cr.' . $index, $job->bt_cr) }}"
                                                     label="BT CR" />
-                                                <x-adminlte-input name="bt_cnc[{{ $index }}]" placeholder="CN"
-                                                    fgroup-class="col-md-2"
-                                                    value="{{ old('bt_cnc.' . $index, $job->bt_cnc) }}"
-                                                    label="BT C/CN" />
+                                                <x-adminlte-select name="bt_cnc[{{ $index }}]" label="BT C/CN" fgroup-class="col-md-2">
+                                                        <option value="">Select C/CN</option>
+                                                        <option value="C" {{$job->bt_cnc == 'C' ? 'selected' : ''}}>C</option>
+                                                        <option value="CN" {{$job->bt_cnc == 'CN' ? 'selected' : ''}}>CN</option>
+                                                </x-adminlte-select>
                                                 <x-adminlte-input name="bt_dv[{{ $index }}]" placeholder="DV"
                                                     fgroup-class="col-md-2"
                                                     value="{{ old('bt_dv.' . $index, $job->bt_dv) }}"

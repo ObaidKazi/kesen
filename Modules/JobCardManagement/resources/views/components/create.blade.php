@@ -75,11 +75,11 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_pd[0]') }}"
-                                                    label="T PD" min="{{ getCurrentDate() }}" />
+                                                    label="T PD" min="{{ getCurrentDate() }}" required/>
                                                 <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_cr[0]') }}"
-                                                    label="T CR" min="{{ getCurrentDate() }}" />
-                                                <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2">
+                                                    label="T CR" min="{{ getCurrentDate() }}" required/>
+                                                <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2" required>
                                                         <option value="">Select C/CN</option>
                                                         <option value="C">C</option>
                                                         <option value="CN">CN</option>
@@ -87,11 +87,11 @@
                                                 <x-adminlte-input name="t_dv[0]" placeholder="DV" fgroup-class="col-md-2"
                                                     value="{{ old('t_dv[0]') }}" label="T DV" />
                                                 <x-adminlte-input name="t_fqc[0]" placeholder="QC" fgroup-class="col-md-2"
-                                                    value="{{ old('t_fqc[0]') }}" label="T F/QC" />
+                                                    value="{{ old('t_fqc[0]') }}" label="T F/QC" required/>
                                                 <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate[0]') }}"
-                                                    label="T Sent Date" min="{{ getCurrentDate() }}" />
+                                                    label="T Sent Date" min="{{ getCurrentDate() }}" required/>
                                                     <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit[0]') }}" label="V Unit" />
                                                 <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 

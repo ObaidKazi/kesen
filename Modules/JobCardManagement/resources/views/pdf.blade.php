@@ -97,6 +97,9 @@
                 padding: 5px;
             }
         }
+        .page-break {
+            page-break-before: always;
+        }
     </style>
 </head>
 
@@ -112,7 +115,11 @@
             @else
                 <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Kesen Linguist System" width="100%">
             @endif
+            <br>
+            <br>
+            <br>
             <h2>JOB CARD</h2>
+            <br>
         </div>
         <table class="client-info">
             <tr>
@@ -146,6 +153,8 @@
                 <td>{{ $job->handle_by->name ?? '' }}</td>
             </tr>
         </table>
+        <br>
+        <br>
         <table class="job-details">
             <thead>
                 <tr>
@@ -165,15 +174,21 @@
             <tbody>
                 @php $estimate_details_list=[];@endphp
                 @php $temp_index=1;@endphp
+                @php $pageBreakIndex=0;@endphp
+                @php $lanIndex=0;@endphp
                 @if (count($job->jobCard) != 0)
                     @foreach ($job->jobCard as $card)
                         <tr>
                             @if (!in_array($card->estimate_detail_id, $estimate_details_list))
                                 @php $temp_index=1;@endphp
+                                @php $lanIndex = $lanIndex==0?1:0;@endphp
                                 @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
-                                <td rowspan={{ $job->jobCard->where('sync_no', $card->sync_no)->count() * 5 }}>
-                                    {{ $card->estimateDetail->language->name??'' }}</td>
+                                <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px":"background-color:lightgrey;width:50px"}}>
+                                <!-- {{ $job->jobCard->where('sync_no', $card->sync_no)->count() * 5 }} -->
+                                    {{ $card->estimateDetail->language->name??'' }}
+                                </td>
                             @else
+                                <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px;border-top-style:hidden;":"background-color:lightgrey;width:50px;border-top-style:hidden;"}}></td>
                                 @php $temp_index+=1;@endphp
                             @endif
 
@@ -189,6 +204,7 @@
                             <td>{{ $card->t_dv }}</td>
                             <td>{{ $card->t_fqc }}</td>
                             <td>{{ $card->t_sentdate ? \Carbon\Carbon::parse($card->t_sentdate)->format('j M Y') : '' }}</td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td>V</td>
@@ -202,6 +218,7 @@
                             <td>{{ $card->v_dv }}</td>
                             <td>{{ $card->v_fqc }}</td>
                             <td>{{ $card->v_sentdate ? \Carbon\Carbon::parse($card->v_sentdate)->format('j M Y') : '' }}</td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td>V2</td>
@@ -215,6 +232,7 @@
                             <td></td>
                             <td></td>
                             <td> </td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td>BT</td>
@@ -228,6 +246,7 @@
                             <td>{{ $card->bt_dv }}</td>
                             <td>{{ $card->bt_fqc }}</td>
                             <td>{{ $card->bt_sentdate ? \Carbon\Carbon::parse($card->bt_sentdate)->format('j M Y') : '' }}</td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td>BTV</td>
@@ -240,7 +259,75 @@
                             <td></td>
                             <td></td>
                             <td> </td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
+                        @if($pageBreakIndex % 15 == 0 && $pageBreakIndex == 15 ) <!-- Adjust this number based on your page size and row height -->
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex == 45 )
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex > 45 )
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @endif
                     @endforeach
                 @else
                     @foreach (\Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $job->estimate_id)->get() as $card)
@@ -266,10 +353,9 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
-                        </tr>
-                        
+                            <td style="font-size: 8pt"></td>
+                            @php $pageBreakIndex+=1;@endphp
+                        </tr>  
                         <tr>
                             <td style="font-size: 8pt">V</td>
                             
@@ -286,8 +372,8 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
+                            <td style="font-size: 8pt"></td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td style="font-size: 8pt">V2</td>
@@ -305,8 +391,8 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
+                            <td style="font-size: 8pt"></td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td style="font-size: 8pt">BT</td>
@@ -324,8 +410,8 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
-                            <td style="font-size: 8pt">
-                            </td>
+                            <td style="font-size: 8pt"></td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
                             <td style="font-size: 8pt">BTV</td>
@@ -345,7 +431,75 @@
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt"></td>
+                            @php $pageBreakIndex+=1;@endphp
                         </tr>
+                        @if($pageBreakIndex % 15 == 0 && $pageBreakIndex == 15 ) <!-- Adjust this number based on your page size and row height -->
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex == 45 )
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex > 45 )
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="page-break"></div>
+                            <table class="job-details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Langs.</th>
+                                        <th>Unit</th>
+                                        <th>Writer Code</th>
+                                        <th>Employee Code</th>
+                                        {{-- <th>Two Way QC Verified By</th> --}}
+                                        <th>PD</th>
+                                        <th>CR</th>
+                                        <th>C/NC</th>
+                                        <th>DV</th>
+                                        <th>F/QC</th>
+                                        <th>Sent Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        @endif
                     @endforeach
                 @endif
             </tbody>
