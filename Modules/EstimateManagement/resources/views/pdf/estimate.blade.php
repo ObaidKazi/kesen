@@ -10,12 +10,13 @@
             font-family: 'Arial', sans-serif;
             margin: 10px;
             padding: 10px;
-            line-height: 0.64;
+            line-height: 0.80;
             border: 2px solid #000;
         }
 
         header,
         footer {
+            margin-top: 5px;
             width: 100%;
             text-align: center;
             margin-bottom: 20px;
@@ -114,7 +115,7 @@
         <p>{{ $estimate->client->address }}</p>
         <p><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</p>
         <p><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</p>
-        <p style="padding: 0;margin-bottom: 5px;"><strong>Languages Required:</strong>
+        <p style="padding: 0;margin-bottom: 15px;"><strong>Languages Required:</strong>
             @php $languages_list=[] @endphp
             @foreach ($estimate->details()->distinct('lang')->get() as $index=>$details )    
                 @php $languages_list[]=Modules\LanguageManagement\App\Models\Language::where('id',$details->lang)->first()->name @endphp

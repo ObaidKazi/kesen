@@ -47,7 +47,7 @@
                     fgroup-class="col-md-3" required value="{{$bill_data->bill_no}}" type='text' label="Bill No" />
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
-                    fgroup-class="col-md-3" required  type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
+                    fgroup-class="col-md-3"   type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
                     <x-adminlte-input name="invoice_date"  placeholder="Invoice Date"
                     fgroup-class="col-md-3" required value="{{ $bill_data->invoice_date}}" type='date' label="Invoice Date" min="{{ getCurrentDate() }}"/>
                     <x-adminlte-input name="sent_date"  placeholder="Sent Date"

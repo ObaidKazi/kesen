@@ -6,15 +6,13 @@ use Modules\JobRegisterManagement\App\Sheet\KesenExport;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\ClientManagement\App\Models\Client;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
-use Modules\LanguageManagement\App\Models\Language;
 
 class JobRegisterManagementController extends Controller
 {
@@ -46,7 +44,7 @@ class JobRegisterManagementController extends Controller
             'other_details' => 'nullable|array',
             'estimate_document_id' => 'required|string|unique:job_register,estimate_document_id',
             'category' => 'required|integer',
-            'type' => 'string',
+            'type' => 'nullable|string',
             'date' => 'required|date',
             'description' => 'nullable|string',
             'protocol_no' => 'string',
@@ -120,7 +118,7 @@ class JobRegisterManagementController extends Controller
             'handled_by_id' => 'required|string',
             'other_details' => 'nullable|array',
             'category' => 'required|integer',
-            'type' => 'string',
+            'type' => 'nullable|string',
             'date' => 'required|date',
             'protocol_no' => 'required|string',
             'status' => 'required|integer',
@@ -174,6 +172,31 @@ class JobRegisterManagementController extends Controller
         $jobRegister = JobRegister::findOrFail($id);
         return Excel::download(new KesenExport($jobRegister), $jobRegister->sr_no.'.xlsx');
         
+    }
+
+    public function sendComplete($id){
+        $jobRegister = JobRegister::findOrFail($id);
+        $pdf = Pdf::loadView('jobregistermanagement::job-register-complete-pdf', ['jobRegister' => $jobRegister]);   
+        #$pdf = SnappyPdf::loadView('jobregistermanagement::job-register-complete-pdf', compact('jobRegister'));
+
+        if (!$pdf->output()) {
+          // Handle PDF generation error
+          return back()->withErrors('Failed to generate PDF');
+        }
+      
+        
+        Mail::send([], [], function ($message) use ($pdf, $jobRegister) {
+            $message->to($jobRegister->estimate->client_person->email)
+                    ->subject('Job Confirmation Letter')
+                    ->attachData($pdf->output(), 'confirmation_letter.pdf', [
+                        'mime' => 'application/pdf',
+                    ]);
+        });
+      
+        return redirect('/job-register-management')->with('message', 'Confirmation email sent successfully!');
+       
+       
+       
     }
 
 }

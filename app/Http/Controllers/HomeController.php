@@ -55,10 +55,11 @@ class HomeController extends Controller
         
     }
     public function generatePaymentReport(Request $request){
-        $year = Carbon::parse(request()->get('year'))->startOfDay();
-        $month = Carbon::parse(request()->get('month'))->endOfDay();
+        $year = request()->get('year');
+        $month = request()->get('month');
         $min = $this->getStartAndEndOfMonth($year, $month)['start_of_month'];
         $max = $this->getStartAndEndOfMonth($year, $month)['end_of_month'];
+       
         $writer_payment=WriterPayment::whereBetween('created_at', [$min, $max])->first();
         if($writer_payment==null){
             return redirect('/payment-report')->with('alert', 'No writer payments found');

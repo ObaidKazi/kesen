@@ -4,11 +4,13 @@ namespace Modules\WriterManagement\App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Modules\JobCardManagement\App\Models\JobCard;
 use Modules\LanguageManagement\App\Models\Language;
 use Modules\WriterManagement\App\Models\Writer;
 use Modules\WriterManagement\App\Models\WriterLanguageMap;
@@ -213,6 +215,7 @@ class WriterManagementController extends Controller
             'apply_gst' => 'required|boolean',
             'apply_tds' => 'required|boolean',
             'period_from' => 'required|date',
+            'total_amount' => 'required|numeric',
             'period_to' => 'required|date',
             'online_ref_no' => 'nullable|string',
             'cheque_no' => 'nullable|string',
@@ -244,6 +247,7 @@ class WriterManagementController extends Controller
             'apply_tds' => 'required|boolean',
             'period_from' => 'required|date',
             'period_to' => 'required|date',
+            'total_amount' => 'required|numeric',
             'online_ref_no' => 'nullable|string',
             'cheque_no' => 'nullable|string',
             'performance_charge' => 'required|numeric',
@@ -267,4 +271,35 @@ class WriterManagementController extends Controller
         return view('writermanagement::show-payments', compact('payment'));
     }
 
+    public function calculatePayment(Request $request){
+        $min = Carbon::parse($request->period_from)->startOfDay();
+        $max = Carbon::parse($request->period_to)->endOfDay();
+        $job_card = JobCard::where(function ($query) use ($request) {
+            $query->where('t_writer_code', $request->id)
+                  ->orWhere('bt_writer_code', $request->id);
+        })
+        ->where('created_at', '>=', $min)
+        ->where('created_at', '<=', $max)
+        ->get();
+
+        $total = 0;
+        foreach ($job_card as $job) {
+            if($job->t_unit != ''){
+                $total+=WriterLanguageMap::where('writer_id',$request->id)->where('language_id',$job->estimateDetail->language->id)->first()->per_unit_charges*$job->t_unit;
+            }
+            if($job->bt_unit != ''){
+                $total+=WriterLanguageMap::where('writer_id',$request->id)->where('language_id',$job->estimateDetail->language->id)->first()->bt_charges*$job->bt_unit;
+            }
+            if($job->v_unit != ''){
+                $total+=WriterLanguageMap::where('writer_id',$request->id)->where('language_id',$job->estimateDetail->language->id)->first()->checking_charges*$job->v_unit;
+            }
+        }
+        if($request->apply_gst){
+            $total+=$total*0.18;
+        }
+        if($request->apply_tds){
+            $total=$total-($total*0.1);
+        }
+        return $total;
+    }
 }

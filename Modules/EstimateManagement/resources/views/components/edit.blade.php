@@ -58,8 +58,7 @@
                     <x-adminlte-input name="headline" placeholder="Headline" fgroup-class="col-md-3" type="text"
                         value="{{ $estimate->headline }}" required label="Headline" />
 
-                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
-                        value="{{ old('date', $estimate->date) }}" required label="Mail Received on" />
+                    
                     <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-3" required
                         value="{{ old('currency', $estimate->currency) }}" label="Currency">
                         <option value="">Select Currency</option>
@@ -380,25 +379,28 @@
                         <option value="ZWB" @if ($estimate->currency == 'ZWB') selected @endif
                             label="Zimbabwean bonds">ZWB</option>
                     </x-adminlte-select>
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
+                        value="{{ old('date', $estimate->date) }}" required label="Mail Received on" />
+                    <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
+                        value="{{ old('discount', $estimate->discount) }}" label="Discount" />
+                    <x-adminlte-select name="type" fgroup-class="col-md-3" required label="Type">
+                            <option value="">Select Type</option>
+                            <option value="words" {{ old('type.', $estimate->type) == 'words' ? 'selected' : '' }}>Words
+                            </option>
+                            <option value="unit" {{ old('type', $estimate->type) == 'unit' ? 'selected' : '' }}>Unit
+                            </option>
+                            <option value="minimum" {{ old('type', $estimate->type) == 'minimum' ? 'selected' : '' }}>
+                                Minimum</option>
+                    </x-adminlte-select>
                     <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" @if ($estimate->status == '0') selected @endif>Pending</option>
                         <option value="1" @if ($estimate->status == '1') selected @endif>Approve</option>
                         <option value="2" @if ($estimate->status == '2') selected @endif>Reject</option>
                     </x-adminlte-select>
-                    <x-adminlte-select name="type" fgroup-class="col-md-3" required label="Type">
-                        <option value="">Select Type</option>
-                        <option value="words" {{ old('type.', $estimate->type) == 'words' ? 'selected' : '' }}>Words
-                        </option>
-                        <option value="unit" {{ old('type', $estimate->type) == 'unit' ? 'selected' : '' }}>Unit
-                        </option>
-                        <option value="minimum" {{ old('type', $estimate->type) == 'minimum' ? 'selected' : '' }}>
-                            Minimum</option>
-                    </x-adminlte-select>
+                    
 
-                    <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
-                        value="{{ old('discount', $estimate->discount) }}" label="Discount" />
-
+                   
                     <div id="repeater">
                         @foreach ($estimate_details as $index => $detail)
                             <div class="repeater-item mt-3">

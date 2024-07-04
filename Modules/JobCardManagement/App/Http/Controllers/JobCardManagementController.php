@@ -311,9 +311,7 @@ class JobCardManagementController extends Controller
             $job_register->status = $status;
             $job_register->save();
             if($status==1){
-                $recipients=[
-                    'obaidkazi03@gmail.com',
-                ];
+                $recipients=config('app.recipients');
                 foreach ($recipients as $recipient) {
                     Mail::to($recipient)->send(new JobCompleted($job_register));
                 }

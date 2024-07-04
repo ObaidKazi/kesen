@@ -29,7 +29,7 @@ class JobRegister extends Model
     }
 
     public function estimate_details(){
-        return $this->belongsTo(EstimatesDetails::class,'estimate_document_id');
+        return $this->hasMany(EstimatesDetails::class,'document_name', 'estimate_document_id');
     }
     public function estimateDetail()
     {

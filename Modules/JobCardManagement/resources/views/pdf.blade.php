@@ -193,7 +193,7 @@
                             @endif
 
                             <td rowspan="5">PC {{ $temp_index }}</td>
-                            <td>T</td>
+                            <td style="background-color:grey;">T</td>
                             <td>{{ $card->t_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->t_writer_code)->first()->code }}</td>
                             <td></td>
@@ -235,7 +235,7 @@
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
-                            <td>BT</td>
+                            <td style="background-color:grey;">BT</td>
                             <td>{{ $card->bt_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->bt_writer_code)->first()->code ?? '' }}</td>
                             <td></td>
@@ -338,7 +338,7 @@
                             @endif
 
                             <td rowspan="5">PC</td>
-                            <td style="font-size: 8pt">T</td>
+                            <td style="font-size: 8pt;background-color:grey;">T</td>
                             
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt">
@@ -395,7 +395,7 @@
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
-                            <td style="font-size: 8pt">BT</td>
+                            <td style="font-size: 8pt;background-color:grey;">BT</td>
                             
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt">
@@ -512,27 +512,27 @@
                     <strong>{{ $job->delivery_date ? \Carbon\Carbon::parse($job->delivery_date)->format('j M Y') : '' }}</strong>
                 </td>
                 <td>Bill No</td>
-                <td style="border-left-style: hidden;">{{ $job->bill_no ?? '' }}</td>
+                <td style="border-left-style: hidden;font-weight: bold;">{{ $job->bill_no ?? '' }}</td>
             </tr>
             <tr>
                 <td>Words / Units</td>
-                <td style="border-left-style: hidden;">As per proforma</td>
+                <td style="border-left-style: hidden;font-weight: bold;">As per proforma</td>
                 <td>Bill Date</td>
-                <td style="border-left-style: hidden;">
+                <td style="border-left-style: hidden;font-weight: bold;">
                     {{ $job->bill_date ? \Carbon\Carbon::parse($job->bill_date)->format('j M Y') : '' }}</td>
             </tr>
             <tr>
                 <td>Old Job No</td>
-                <td style="border-left-style: hidden;">{{ $job->old_job_no ?? '' }}</td>
+                <td style="border-left-style: hidden;font-weight: bold;">{{ $job->old_job_no ?? '' }}</td>
                 <td>Bill sent on</td>
-                <td style="border-left-style: hidden;">
+                <td style="border-left-style: hidden;font-weight: bold;">
                     {{ $job->sent_date ? \Carbon\Carbon::parse($job->sent_date)->format('j M Y') : '' }}</td>
             </tr>
             <tr>
                 <td>Checked with Operator</td>
                 <td style="border-left-style: hidden;"></td>
                 <td>Informed To</td>
-                <td style="border-left-style: hidden;">{{ $job->client_person->name ?? '' }}</td>
+                <td style="border-left-style: hidden;font-weight: bold;">{{ $job->client_person->name ?? '' }}</td>
             </tr>
 
            
