@@ -59,6 +59,7 @@ class JobCardManagementController extends Controller
         $job = JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])
         ->where('id', $job_id)
         ->first();
+        #return view('jobcardmanagement::pdf', compact('job'));
         $pdf = FacadePdf::loadView('jobcardmanagement::pdf', compact('job'));
 
        return  $pdf->stream();
@@ -112,8 +113,8 @@ class JobCardManagementController extends Controller
             $jobCard->btv_employee_code = $request['btv_employee_code'][$index]?? null;
             $jobCard->t_cnc = $request['t_cnc'][$index]?? null;
             $jobCard->t_dv = $request['t_dv'][$index]?? null;
-            $jobCard->t_fqc = $request['t_fqc'][$index];
-            $jobCard->t_sentdate = $request['t_sentdate'][$index];
+            $jobCard->t_fqc = $request['t_fqc'][$index]??null;
+            $jobCard->t_sentdate = $request['t_sentdate'][$index]??null;
             $jobCard->bt_writer_code = $request['bt_writer'][$index] ?? null;
             $jobCard->bt_unit = $request['bt_unit'][$index] ?? null;
             $jobCard->bt_pd = $request['bt_pd'][$index] ?? null;
@@ -197,7 +198,7 @@ class JobCardManagementController extends Controller
             'bt_sentdate' => $request['bt_sentdate'][$index] ?? null,
             'job_no' => $request['job_no'][0],
             'btv_unit' => $request['btv_unit'][$index]??null,
-            'btv_employee_code' => $request['btv_employee_code'][$index],
+            'btv_employee_code' => $request['btv_employee_code'][$index]??null,
             'btv_pd' => $request['btv_pd'][$index]??null,
             'btv_cr' => $request['v2_cr'][$index]??null,
             'estimate_detail_id' => $request['estimate_detail_id'][0],
