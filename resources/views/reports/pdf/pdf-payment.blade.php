@@ -133,32 +133,32 @@
             @if($writer_payment->apply_gst == 1)
                 <tr class="total-row">
                     <td colspan="6">GST 18%</td>
-                    <td>{{$total*0.18}}</td>
+                    <td>{{round($total*0.18)}}</td>
                 </tr>
                 @php $total+=$total*0.18 @endphp
             @endif
             @if($writer_payment->apply_tds == 1)
                 <tr class="total-row">
                     <td colspan="6">TDS 10%</td>
-                    <td>{{$total*0.1}}</td>
+                    <td>{{round($total*0.1)}}</td>
                 </tr>
                 
                 <tr class="total-row">
                     <td colspan="6">Total</td>
-                    <td>{{$total-($total*0.1)}}</td>
+                    <td>{{round($total-($total*0.1))}}</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="6">Grand Total</td>
-                    <td>{{$total-($total*0.1)}}</td>
+                    <td>{{round($total-($total*0.1))}}</td>
                 </tr>
             @else
                 <tr class="total-row">
                     <td colspan="6">Total</td>
-                    <td>{{$total}}</td>
+                    <td>{{round($number)}}</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="6">Grand Total</td>
-                    <td>{{$total}}</td>
+                    <td>{{round($number)}}</td>
                 </tr>
             @endif
             

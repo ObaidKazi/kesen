@@ -261,7 +261,7 @@ if(!function_exists('generateEstimateNumber')){
             $numberToWords = new NumberToWords();
             $numberTransformer = $numberToWords->getNumberTransformer('en');
     
-            $words = $numberTransformer->toWords($number);
+            $words = $numberTransformer->toWords(round($number));
             $words = ucwords(str_replace('-', ' ', $words));
     
             return $words . " Only";
