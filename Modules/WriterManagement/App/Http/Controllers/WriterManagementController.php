@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Modules\JobCardManagement\App\Models\JobCard;
@@ -234,8 +235,12 @@ class WriterManagementController extends Controller
     }
 
     public function editPaymentView($writer_id,$id){
-        $payment = WriterPayment::find($id);
-        return view('writermanagement::edit-payment')->with('payment',$payment)->with('id',$writer_id);
+        if(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO')){
+            $payment = WriterPayment::find($id);
+            return view('writermanagement::edit-payment')->with('payment',$payment)->with('id',$writer_id);
+        }else{
+            return redirect()->back();
+        }
     }
 
     public function editPayment(Request $request, $writer_id,$id)

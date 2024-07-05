@@ -85,11 +85,13 @@
                                     <td>{{ $payment->performance_charge }}</td>
                                     <td>{{ $payment->deductible }}</td>
                                     <td>
-                                        <a href="{{ route('writermanagement.editPaymentView', [$id, $payment->id]) }}">
-                                            <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Edit
-                                            </button>
-                                        </a>
+                                        @if(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))
+                                            <a href="{{ route('writermanagement.editPaymentView', [$id, $payment->id]) }}">
+                                                <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Edit
+                                                </button>
+                                            </a>
+                                        @endif
                                         {{-- <a href="{{ route('writermanagement.showPayment', [$id,$payment->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                        View
