@@ -42,8 +42,8 @@ class EmployeeManagementController extends Controller
             'address' => 'nullable',
             'code' => 'nullable|unique:users',
             'landline' => 'nullable|numeric|unique:users',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password|min:8',
+            'password' => 'required|min:4',
+            'confirm_password' => 'required|same:password|min:4',
             'role' => 'required',
             'language' => 'required',
         ]);
