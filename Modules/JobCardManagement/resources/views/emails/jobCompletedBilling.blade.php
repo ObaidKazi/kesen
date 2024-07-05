@@ -79,9 +79,6 @@
             <br>
             <p>Project Management Team</p>
         </div>
-        <div class="footer">
-            <p>Thank you for using our service.</p>
-        </div>
     </div>
 </body>
 </html>
