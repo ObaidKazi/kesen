@@ -162,39 +162,40 @@
                                     {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
                                     View
                                 </button></a> --}}
-                                @if(!Auth::user()->hasRole('Accounts'))
+                                
                                     <a href="{{ route('estimatemanagement.viewPdf', $row->id) }}"
                                         target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                             title="View">
                                             Preview
                                         </button></a>
-                                    @if ($row->status == 0)
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Approve
-                                            </button></a>
+                                    @if(!Auth::user()->hasRole('Accounts'))
+                                        @if ($row->status == 0)
+                                            <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
+                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Approve
+                                                </button></a>
 
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 2]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Reject
-                                            </button></a>
-                                    @elseif($row->status == 1)
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Pending
-                                            </button></a>
+                                            <a href="{{ route('estimatemanagement.status', [$row->id, 2]) }}"><button
+                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Reject
+                                                </button></a>
+                                         @elseif($row->status == 1)
+                                            <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
+                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Pending
+                                                </button></a>
 
-                                    @else
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Pending
-                                            </button></a>
+                                         @else
+                                            <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
+                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Pending
+                                                </button></a>
 
-                                        <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Approve
-                                            </button></a>
-                                    @endif
+                                            <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
+                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                    Approve
+                                                </button></a>
+                                        @endif
                                     @endif
 
 
