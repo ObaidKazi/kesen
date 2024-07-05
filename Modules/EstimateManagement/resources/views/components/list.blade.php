@@ -162,6 +162,7 @@
                                     {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
                                     View
                                 </button></a> --}}
+                                @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('estimatemanagement.viewPdf', $row->id) }}"
                                         target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                             title="View">
@@ -193,6 +194,7 @@
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                                 Approve
                                             </button></a>
+                                    @endif
                                     @endif
 
 
