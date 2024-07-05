@@ -40,9 +40,7 @@
                     @endif
                     </span>
                     
-                    <p style="float: right;margin-right: 10px">
-                    {{ $notification->created_at->diffForHumans() }}
-                    </p>
+                    
                 </p>
               
             @endforeach
@@ -55,6 +53,7 @@
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
+            
             @if(count($job_registers_near_deadline_for_accounts)>0)
                 <span class="badge badge-danger navbar-badge">{{count($job_registers_near_deadline_for_accounts)}}</span>
             @endif 
@@ -71,7 +70,7 @@
                     </span>
                     
                     <p style="float: right;margin-right: 10px">
-                    {{ $notification->created_at->diffForHumans() }}
+                    {{ $notification->updated_at->diffForHumans() }}
                     </p>
                 </p>
               
