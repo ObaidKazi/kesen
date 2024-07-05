@@ -84,14 +84,14 @@
                     <x-adminlte-input name="cheque_no" placeholder="Cheque no" fgroup-class="col-md-3"
                         value="{{ old('cheque_no', $payment->cheque_no) }}" label="Cheque no" />
                     <x-adminlte-input id="performance_charge" name="performance_charge" placeholder="Performance Charge" fgroup-class="col-md-3"
-                        type="number" step="1" required
+                        type="number" step="1" 
                         value="{{ old('performance_charge', $payment->performance_charge) }}"
                         label="Performance Charge" onkeyup="onDateChange()"/>
                     <x-adminlte-input id="deductible" name="deductible" placeholder="Deductible" fgroup-class="col-md-3" type="number"
-                        step="0.01" required value="{{ old('deductible', $payment->deductible) }}"
+                        step="0.01"  value="{{ old('deductible', $payment->deductible) }}"
                         label="Deductible" onkeyup="onDateChange()"/>
                     <x-adminlte-input id="amount" name="total_amount" placeholder="Amount" fgroup-class="col-md-3" type="number"
-                        value="{{ old('total_amount', $payment->total_amount) }}" label="Amount" min=0 required/>
+                        value="{{ old('total_amount', $payment->total_amount) }}" label="Amount" min=0 required readonly/>
                 </div>
                 <x-adminlte-button label="Update" type="submit" class="mt-3" />
             </form>

@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <td ></td>
-                <td >Amount : <b>INR {{$writer_payment->performance_charge??''}}</b></td>
+                <td >Amount : <b>INR {{$writer_payment->total_amount??''}}</b></td>
             </tr>
         </table>
         <table class="payment-table">
@@ -142,7 +142,19 @@
                     <td colspan="6">TDS 10%</td>
                     <td>{{round($total*0.1)}}</td>
                 </tr>
-                
+                @if($writer_payment->performance_charge)
+                <tr class="total-row">
+                    <td colspan="6">Performance</td>
+                    <td>{{($writer_payment->performance_charge)}}</td>
+                </tr>
+                @endif
+                @if($writer_payment->deductible)
+                <tr class="total-row">
+                    <td colspan="6">Deductible</td>
+                    <td>{{($writer_payment->deductible)}}</td>
+                </tr>
+                @endif
+            
                 <tr class="total-row">
                     <td colspan="6">Total</td>
                     <td>{{round($total-($total*0.1))}}</td>
@@ -152,6 +164,19 @@
                     <td>{{round($total-($total*0.1))}}</td>
                 </tr>
             @else
+            @if($writer_payment->performance_charge)
+                <tr class="total-row">
+                    <td colspan="6">Performance</td>
+                    <td>{{($writer_payment->performance_charge)}}</td>
+                </tr>
+            @endif
+            @if($writer_payment->deductible)
+                <tr class="total-row">
+                    <td colspan="6">Deductible</td>
+                    <td>{{($writer_payment->deductible)}}</td>
+                </tr>
+            @endif
+            
                 <tr class="total-row">
                     <td colspan="6">Total</td>
                     <td>{{round($number)}}</td>
@@ -161,6 +186,7 @@
                     <td>{{round($number)}}</td>
                 </tr>
             @endif
+
             
         </table>
         <p class="amount-words">Rupees : {{number_to_words($total-($total*0.1))}}</p>

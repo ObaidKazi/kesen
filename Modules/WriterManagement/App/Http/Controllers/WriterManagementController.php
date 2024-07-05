@@ -241,8 +241,8 @@ class WriterManagementController extends Controller
             'period_to' => 'required|date',
             'online_ref_no' => 'nullable|string',
             'cheque_no' => 'nullable|string',
-            'performance_charge' => 'required|numeric',
-            'deductible' => 'required|numeric',
+            'performance_charge' => 'nullable|numeric',
+            'deductible' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -275,8 +275,8 @@ class WriterManagementController extends Controller
             'total_amount' => 'required|numeric',
             'online_ref_no' => 'nullable|string',
             'cheque_no' => 'nullable|string',
-            'performance_charge' => 'required|numeric',
-            'deductible' => 'required|numeric',
+            'performance_charge' => 'nullable|numeric',
+            'deductible' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
