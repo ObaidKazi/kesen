@@ -75,8 +75,10 @@
             </ol>
         </nav>
         @include('components.notification')
-        <a href="{{ route('clientmanagement.addContact', $id) }}"><button class="btn btn-md btn-success "
+        @if(!Auth::user()->hasRole('Accounts'))
+                 <a href="{{ route('clientmanagement.addContact', $id) }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Contact</button></a>
+        @endif
         <br><br>
         <div class="card" style="margin:10px">
             <div class="card-body">
@@ -93,6 +95,7 @@
                                 {{-- <td>{{ $row->landline }}</td> --}}
                                 <td>{{ $row->designation }}</td>
                                 <td>
+                                    @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                             Edit
@@ -114,6 +117,7 @@
                                         onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$id, $row->id]) }}')">
                                         <i class="fa fa-lg fa-fw fa-trash"></i>
                                     </button>
+                                    @endif
                                 </td>
 
                             </tr>

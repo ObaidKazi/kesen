@@ -85,8 +85,10 @@
                 </ol>
             </nav>
             @include('components.notification')
+            @if(!Auth::user()->hasRole('Accounts'))
             <a href="{{ route('writermanagement.addLanguageMapView', $id) }}"><button class="btn btn-md btn-success "
                     style="float:right;margin:10px">Add Language Map</button></a>
+            @endif
             <br><br>
             <div class="card" style="margin:10px">
                 <div class="card-body">
@@ -105,6 +107,7 @@
                                     <td>{{ $row->verification_2 }}</td>
                                     <td>{{ $row->advertising_charges }}</td>
                                     <td>
+                                        @if(!Auth::user()->hasRole('Accounts'))
                                         <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}"><button
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                                 Edit
@@ -113,6 +116,7 @@
                                             onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$id, $row->id]) }}')">
                                             Delete
                                         </button>
+                                        @endif
                                     </td>
 
                                 </tr>

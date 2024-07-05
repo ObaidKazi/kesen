@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Modules\ClientManagement\App\Models\Client;
 use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\App\Models\Estimates;
@@ -105,6 +106,9 @@ class EstimateManagementController extends Controller
 
     public function create()
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         return view('estimatemanagement::create');
     }
 
@@ -183,6 +187,9 @@ class EstimateManagementController extends Controller
     }
 
     public function changeStatus($id,$status){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         if(in_array($status,[0,1,2])){
             $estimate = Estimates::where('id', $id)->first();
             $estimate->status = $status;
@@ -195,6 +202,9 @@ class EstimateManagementController extends Controller
      */
     public function edit($id)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $estimate = Estimates::find($id);
         $contact_persons = ContactPerson::where('client_id', $estimate->client_id)->get();
         $distinctDetails = $estimate->details()
@@ -296,6 +306,7 @@ class EstimateManagementController extends Controller
 
     public function getEstimateData($id)
     {
+        
         $estimate = Estimates::where('id', $id)->first();
         if ($estimate != null) {
             return $estimate;
@@ -305,6 +316,9 @@ class EstimateManagementController extends Controller
     }
     public function deleteDetail(Request $request)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $details = EstimatesDetails::where('document_name', $request->document_name)->where('unit', $request->unit)->where('estimate_id', $request->estimate_id)->where('rate', $request->rate)->get();
         if (count($details) == 0) {
             return response()->json(['success' => 'Detail not found'], 403);

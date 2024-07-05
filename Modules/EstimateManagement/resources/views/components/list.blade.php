@@ -85,9 +85,12 @@
             </ol>
         </nav>
         @include('components.notification')
+        @if(!Auth::user()->hasRole('Accounts'))
         <a href="{{ route('estimatemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Estimate</button></a>
+        @endif
         <br><br>
+
         <div class="card" style="margin:10px">
             <div class="card-body">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
@@ -149,11 +152,12 @@
                                 <td>{{ App\Models\User::where('id', $row->created_by)->first()->name }}</td>
                                 <td>
 
-
-                                    <a href="{{ route('estimatemanagement.edit', $row->id) }}"><button
-                                            class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                    @if(!Auth::user()->hasRole('Accounts'))
+                                        <a href="{{ route('estimatemanagement.edit', $row->id) }}"><button
+                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                             Edit
-                                        </button></a>
+                                            </button></a>
+                                        @endif
 
                                     {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
                                     View

@@ -80,8 +80,10 @@
             </ol>
         </nav>
         @include('components.notification')
-        <a href="{{ route('employeemanagement.create') }}"><button class="btn btn-md btn-success "
+        @if(!Auth::user()->hasRole('Accounts'))
+            <a href="{{ route('employeemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Employee</button></a>
+        @endif
         <br><br>
         <div class="card" style="margin:10px">
             <div class="card-body">
@@ -100,14 +102,17 @@
                                 <td>{{ $row->created_by }}</td>
                                 <td>{{ $row->updated_by }}</td>
                                 <td>
-                                    <a href="{{ route('employeemanagement.edit', $row->id) }}"><button
-                                            class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                            Edit
+                                    @if(!Auth::user()->hasRole('Accounts'))
+                                        <a href="{{ route('employeemanagement.edit', $row->id) }}"><button
+                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
+                                                Edit
                                         </button></a>
+                                    @endif
                                     {{-- <a href="{{route('employeemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
                             </button></a> --}}
                                     </button>
+                                    @if(!Auth::user()->hasRole('Accounts'))
                                     @if ($row->status == 1)
                                         <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}"><button
                                                 class="btn btn-xs btn-danger mx-1 shadow" title="Disable">
@@ -116,6 +121,7 @@
                                         <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}"><button
                                                 class="btn btn-xs btn-success  mx-1 shadow"
                                                 title="Enable">Enable</button>
+                                    @endif
                                     @endif
 
                                 </td>

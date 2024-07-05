@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeManagementController extends Controller
 {
@@ -23,6 +24,9 @@ class EmployeeManagementController extends Controller
      */
     public function create()
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         return view('employeemanagement::create');
     }
 
@@ -78,6 +82,9 @@ class EmployeeManagementController extends Controller
      */
     public function edit($id)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $user=User::find($id);
         return view('employeemanagement::edit')->with('user',$user);
     }
@@ -128,6 +135,9 @@ class EmployeeManagementController extends Controller
     }
 
     public function disableEnableClient($id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $client=User::find($id);
         if($client->status==1){
             $client->status=0;

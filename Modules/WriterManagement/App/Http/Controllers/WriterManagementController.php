@@ -33,6 +33,9 @@ class WriterManagementController extends Controller
      */
     public function create()
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         return view('writermanagement::create');
     }
 
@@ -76,6 +79,9 @@ class WriterManagementController extends Controller
      */
     public function edit($id)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $writer=Writer::find($id);
         $language_map=WriterLanguageMap::where('writer_id',$id)->get();
         $payments= WriterPayment::where('writer_id',$id)->get();
@@ -120,12 +126,18 @@ class WriterManagementController extends Controller
     }
 
     public  function deleteLanguageMap($writer_id,$id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $language_map=WriterLanguageMap::find($id);
         $language_map->delete();
         return redirect()->back();
     }
 
     public function editLanguageMap($writer_id,$id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $languages=Language::orderBy('created_at', 'desc')->get();
         $language_map=WriterLanguageMap::find($id);
         
@@ -157,6 +169,9 @@ class WriterManagementController extends Controller
     }
 
     public function addLanguageMapView($writer_id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $languages=Language::orderBy('created_at', 'desc')->get();
         return view('writermanagement::add-language')->with('id',$writer_id)->with('languages',$languages);
     }
@@ -187,6 +202,9 @@ class WriterManagementController extends Controller
     }
 
     public function disableEnableWriter($id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $writer=Writer::find($id);
         if($writer->status==1){
             $writer->status=0;
@@ -204,6 +222,9 @@ class WriterManagementController extends Controller
     }
 
     public function addPaymentView($writer_id){
+        if(!(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         return view('writermanagement::add-payment')->with('id',$writer_id);
     }
 
@@ -235,12 +256,11 @@ class WriterManagementController extends Controller
     }
 
     public function editPaymentView($writer_id,$id){
-        if(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO')){
-            $payment = WriterPayment::find($id);
-            return view('writermanagement::edit-payment')->with('payment',$payment)->with('id',$writer_id);
-        }else{
-            return redirect()->back();
+        if(!(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
         }
+        $payment = WriterPayment::find($id);
+        return view('writermanagement::edit-payment')->with('payment',$payment)->with('id',$writer_id);
     }
 
     public function editPayment(Request $request, $writer_id,$id)

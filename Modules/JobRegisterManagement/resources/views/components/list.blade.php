@@ -71,8 +71,10 @@
             </ol>
         </nav>
         @include('components.notification')
-        <a href="{{ route('jobregistermanagement.create') }}"><button class="btn btn-md btn-success "
+        @if(!Auth::user()->hasRole('Accounts'))
+            <a href="{{ route('jobregistermanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Job Register</button></a>
+        @endif
         <br><br>
         <div class="card" style="margin:10px">
             <div class="card-body">
@@ -89,10 +91,12 @@
                                 <td>{{ $row->handle_by->name }}</td>
                                 <td>{{ $row->client->name }}</td>
                                 <td>
+                                    @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('jobregistermanagement.edit', $row->id) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                             Edit
                                         </button></a>
+                                    @endif
                                     <a href="{{ route('jobregistermanagement.pdf', $row->id) }}"
                                         target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                             title="Edit">

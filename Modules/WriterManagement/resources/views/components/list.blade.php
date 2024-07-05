@@ -85,8 +85,10 @@
                 </ol>
             </nav>
             @include('components.notification')
+            @if(!Auth::user()->hasRole('Accounts'))
             <a href="{{ route('writermanagement.create') }}"><button class="btn btn-md btn-success "
                     style="float:right;margin:10px">Add Writer</button></a>
+            @endif
             <br><br>
             <div class="card" style="margin:10px">
                 <div class="card-body">
@@ -109,11 +111,13 @@
                                     <td>{{ $row->created_by }}</td>
                                     <td>
                                         <a
+                                        @if(!Auth::user()->hasRole('Accounts'))
                                             @if ($row->status == 1) href="{{ route('writermanagement.edit', $row->id) }}" @else href="javascript:function() { return false; }" @endif><button
                                                 @if ($row->status == 1) class="btn btn-xs btn-default text-dark mx-1 shadow" @else class="btn btn-xs btn-default text-dart mx-1 shadow" disabled @endif
                                                 title="Edit">
                                                 Edit
                                             </button></a>
+                                        @endif
                                         {{-- <a href="{{route('writermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-primary mx-1 shadow" title="View Language">
                                     View 
                                 </button> --}}
@@ -127,6 +131,7 @@
                                                     title="View Payment">
                                                     View Payment
                                                 </button>
+                                                @if(!Auth::user()->hasRole('Accounts'))
                                                 @if ($row->status == 1)
                                                     <a
                                                         href="{{ route('writermanagement.disableEnableWriter', $row->id) }}"><button
@@ -137,6 +142,7 @@
                                                         href="{{ route('writermanagement.disableEnableWriter', $row->id) }}"><button
                                                             class="btn btn-xs btn-success  mx-1 shadow"
                                                             title="Enable">Enable</button>
+                                                @endif
                                                 @endif
 
                                     </td>

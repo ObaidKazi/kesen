@@ -64,8 +64,10 @@
             </ol>
         </nav>
         @include('components.notification')
+        @if(!Auth::user()->hasRole('Accounts'))
         <a href="{{ route('language-management.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Language</button></a>
+        @endif
         <br><br>
         <div class="card" style="margin:10px">
             <div class="card-body">
@@ -80,6 +82,7 @@
                                 <td>{{ $row->code }}</td>
                                 <td>{{ $row->created_by }}</td>
                                 <td>
+                                    @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('language-management.edit', $row->id) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                             Edit
@@ -96,7 +99,7 @@
                                                 class="btn btn-xs btn-success  mx-1 shadow"
                                                 title="Enable">Enable</button>
                                     @endif
-
+                                    @endif
                                 </td>
 
                             </tr>

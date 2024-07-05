@@ -155,10 +155,11 @@
                                         Download Excel
                                     </button></a>
                                 @endif
-                            
+                                @if(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))
                                 <a href="{{ route('jobcardmanagement.bill', ['job_id' => $row->id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="pdf">Billing</button>
                                 </a>
+                                @endif
                                 
                             </td>
                         </tr>
@@ -226,8 +227,6 @@
                             <td>
                                 @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
-                                @else
-                                <a href="#"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
                                 @endif
                             </td>
                         </tr>

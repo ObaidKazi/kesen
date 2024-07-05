@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -30,6 +31,9 @@ class JobRegisterManagementController extends Controller
      */
     public function create()
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         return view('jobregistermanagement::create');
     }
 
@@ -104,6 +108,9 @@ class JobRegisterManagementController extends Controller
      */
     public function edit($id)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $jobRegister = JobRegister::findOrFail($id);
        
         return view('jobregistermanagement::edit', compact('jobRegister'));

@@ -12,6 +12,7 @@ use Modules\JobCardManagement\App\Models\JobCard;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
 use App\Mail\JobCompletedBilling;
 use App\Mail\JobCompleted;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 class JobCardManagementController extends Controller
 {
@@ -45,6 +46,9 @@ class JobCardManagementController extends Controller
 
     public function create($job_id,$estimate_detail_id){
         
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         $job_register = JobRegister::where('id',$job_id)->first();
        
         $estimate_detail=EstimatesDetails::where('id',$estimate_detail_id)->first();
@@ -68,6 +72,9 @@ class JobCardManagementController extends Controller
 
     public function store(Request $request)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         $request->validate([
             't_unit.*'=> 'required|string|max:255',
             't_writer.*' => 'required|string|max:255',
@@ -147,6 +154,9 @@ class JobCardManagementController extends Controller
 
     public function update(Request $request, $id)
     {
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         $request->validate([
             't_writer.*' => 'required|string|max:255',
             't_unit.*'=> 'required|string|max:255',
@@ -213,7 +223,9 @@ class JobCardManagementController extends Controller
     }
 
     public function edit($id){
-
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         $jobCard = JobCard::find($id);
         if(!$jobCard){
             return abort(403, 'Job Card not found');
@@ -238,6 +250,9 @@ class JobCardManagementController extends Controller
     }
 
     public function manage($job_id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         $job_register = JobRegister::where('id',$job_id)->first();
         if($job_register!=null){
             $estimate_details=EstimatesDetails::where('estimate_id',$job_register->estimate_id)->where('document_name',$job_register->estimate_document_id)->get();
@@ -250,6 +265,9 @@ class JobCardManagementController extends Controller
     }
 
     public function manageDelete($job_card_id){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return abort(403, 'Unauthorized action.');
+        }
         $job_card = JobCard::find($job_card_id);
         if($job_card!=null){
             $job_card->delete();
@@ -269,6 +287,9 @@ class JobCardManagementController extends Controller
     }
 
     public function billForm($job_id){
+        if(!(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $job=JobRegister::where('id',$job_id)->first();
         if($job->bill_date!=null){
             return view('jobcardmanagement::bill')->with('bill_data',$job);
@@ -277,6 +298,9 @@ class JobCardManagementController extends Controller
     }
 
     public function addBill(Request $request,$job_id){
+        if(!(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $job=JobRegister::where('id',$job_id)->first();
         $job->bill_date=$request->bill_date;
         $job->bill_no=$request->bill_no;
@@ -292,6 +316,9 @@ class JobCardManagementController extends Controller
     }
 
     public function updateBill(Request $request,$job_id){
+        if(!(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))){
+            return redirect()->back(); 
+        }
         $job=JobRegister::where('id',$job_id)->first();
         $job->bill_date=$request->bill_date;
         $job->bill_no=$request->bill_no;
@@ -307,6 +334,9 @@ class JobCardManagementController extends Controller
 
 
     public function changeStatus($id,$status){
+        if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
+            return redirect()->back(); 
+        }
         if(in_array($status,[0,1,2])){
             $job_register = JobRegister::where('id', $id)->first();
             $job_register->status = $status;
