@@ -310,6 +310,7 @@ class JobCardManagementController extends Controller
         if(in_array($status,[0,1,2])){
             $job_register = JobRegister::where('id', $id)->first();
             $job_register->status = $status;
+            $job_register->updated_at = Carbon::now();
             $job_register->save();
             if($status==1){
                 $recipients=config('app.recipients');

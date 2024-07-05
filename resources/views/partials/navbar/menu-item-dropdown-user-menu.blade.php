@@ -17,7 +17,7 @@
 
 
     {{-- User menu dropdown --}}
-    @if(isset($job_registers_near_deadline)&&(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('Developer')||Auth::user()->hasRole('Accounts')))
+    @if(isset($job_registers_near_deadline)&&(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('Developer')))
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
@@ -38,6 +38,36 @@
                     @if(Auth::user()->hasRole('Admin'))
                         Deadline for Job no {{ $notification->sr_no }} of {{ $notification->estimate->client->name }} is at {{ $notification->date }}
                     @endif
+                    </span>
+                    
+                    <p style="float: right;margin-right: 10px">
+                    {{ $notification->created_at->diffForHumans() }}
+                    </p>
+                </p>
+              
+            @endforeach
+            <div class="dropdown-divider"></div>
+            
+        </div>
+    </li>
+    @endif
+    @if(isset($job_registers_near_deadline_for_accounts)&&(Auth::user()->hasRole('Accounts')))
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            @if(count($job_registers_near_deadline_for_accounts)>0)
+                <span class="badge badge-danger navbar-badge">{{count($job_registers_near_deadline_for_accounts)}}</span>
+            @endif 
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">{{count($job_registers_near_deadline_for_accounts) }} Notifications</span>
+            <div class="dropdown-divider"></div>
+            @foreach($job_registers_near_deadline_for_accounts as $notification)
+                <p class="dropdown-item" style="display: flex; align-items: center;">
+                    <i class="fas fa-envelope mr-2" style="margin: 0; padding: 0;"></i>
+                    <span class="notification-text" style="margin: 0; padding: 0; margin-left: 8px; display: flex; flex-wrap: wrap;">
+                        Job no: {{ $notification->sr_no }} of {{ $notification->estimate->client->name }} is ready for billing
+                   
                     </span>
                     
                     <p style="float: right;margin-right: 10px">
