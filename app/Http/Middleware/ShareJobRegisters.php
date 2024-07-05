@@ -22,7 +22,7 @@ class ShareJobRegisters
         $current = Carbon::now('Asia/Kolkata');
         
         // Define the time ranges in IST
-        if(Auth::user()!=null||Auth::user()->hasRole('Accounts')){
+        if(Auth::user()!=null&&Auth::user()->hasRole('Accounts')){
             $start_time = Carbon::now('Asia/Kolkata')->subHours(1);
             $end_time = Carbon::now('Asia/Kolkata');
     
@@ -41,7 +41,7 @@ class ShareJobRegisters
                 View::share('job_registers_near_deadline', []);
                 return $next($request);
             }
-        }elseif(Auth::user()!=null||Auth::user()->hasRole('Admin')){
+        }elseif(Auth::user()!=null&&Auth::user()->hasRole('Admin')){
             $startMorning = Carbon::parse('10:00', 'Asia/Kolkata');
             $endMorning = Carbon::parse('11:00', 'Asia/Kolkata');
             $startAfternoon = Carbon::parse('16:00', 'Asia/Kolkata');
