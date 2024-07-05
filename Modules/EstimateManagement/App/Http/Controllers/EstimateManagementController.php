@@ -93,7 +93,7 @@ class EstimateManagementController extends Controller
         } else {
 
             $html = '<option value="">Select Contact Person</option>';
-            $contact_persons = ContactPerson::where('client_id', $id)->get();
+            $contact_persons = ContactPerson::where('client_id', $id)->where('status', 1)->get();
 
             foreach ($contact_persons as $contact) {
                 $html .= '<option value="' . $contact->id . '">' . $contact->name . '</option>';
