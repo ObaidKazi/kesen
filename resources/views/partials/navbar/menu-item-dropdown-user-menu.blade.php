@@ -17,11 +17,13 @@
 
 
     {{-- User menu dropdown --}}
-    @if(isset($job_registers_near_deadline)&&(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('Developer')))
+    @if(isset($job_registers_near_deadline)&&(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('Developer')||Auth::user()->hasRole('Accounts')))
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
-            <span class="badge badge-danger navbar-badge">{{count($job_registers_near_deadline) }}</span>
+            @if(count($job_registers_near_deadline)>0)
+                <span class="badge badge-danger navbar-badge">{{count($job_registers_near_deadline)}}</span>
+            @endif 
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <span class="dropdown-item dropdown-header">{{count($job_registers_near_deadline) }} Notifications</span>
@@ -30,7 +32,12 @@
                 <p class="dropdown-item" style="display: flex; align-items: center;">
                     <i class="fas fa-envelope mr-2" style="margin: 0; padding: 0;"></i>
                     <span class="notification-text" style="margin: 0; padding: 0; margin-left: 8px; display: flex; flex-wrap: wrap;">
-                    Deadline for Job no {{ $notification->sr_no }} {{ $notification->estimate->client->name }} is at {{ $notification->date }}
+                    @if(Auth::user()->hasRole('Accounts'))
+                        Job no: {{ $notification->sr_no }} of {{ $notification->estimate->client->name }} is ready for billing
+                    @endif    
+                    @if(Auth::user()->hasRole('Admin'))
+                        Deadline for Job no {{ $notification->sr_no }} of {{ $notification->estimate->client->name }} is at {{ $notification->date }}
+                    @endif
                     </span>
                     
                     <p style="float: right;margin-right: 10px">
