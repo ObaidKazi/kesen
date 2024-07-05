@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class JobCompleted extends Mailable
+class JobCompletedBilling extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -32,6 +32,6 @@ class JobCompleted extends Mailable
     public function build()
     {
         return $this->subject('Job Completed')
-                    ->view('jobcardmanagement::emails.jobCompleted')->with('jobDetails', $this->jobDetails);
+                    ->view('jobcardmanagement::emails.jobCompletedBilling')->with('jobDetails', $this->jobDetails);
     }
 }

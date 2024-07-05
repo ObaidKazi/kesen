@@ -124,7 +124,7 @@
         <table class="client-info">
             <tr>
                 <th>Client</th>
-                <td>{{ $job->client->name ?? '' }}</td>
+                <td>{{ $job->estimate->client->name ?? '' }}</td>
                 <th>Job No.</th>
                 <td>{{ $job->sr_no ?? '' }}</td>
             </tr>

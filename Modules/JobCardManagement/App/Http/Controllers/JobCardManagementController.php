@@ -10,6 +10,7 @@ use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobCardManagement\App\Models\JobCard;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
+use App\Mail\JobCompletedBilling;
 use App\Mail\JobCompleted;
 use Illuminate\Support\Facades\Mail;
 class JobCardManagementController extends Controller
@@ -313,10 +314,17 @@ class JobCardManagementController extends Controller
             if($status==1){
                 $recipients=config('app.recipients');
                 foreach ($recipients as $recipient) {
-                    Mail::to($recipient)->send(new JobCompleted($job_register));
+                    Mail::to($recipient)->send(new JobCompletedBilling($job_register));
                 }
+                
+                Mail::to($job_register->estimate->client_person->email)->send(new JobCompleted($job_register));
+                
             }
-            return redirect('/job-card-management');    
+            if($status==1){
+                return redirect('/job-card-management')->with('message', 'Job completed and email has been sent.');    
+            }else{
+                return redirect('/job-card-management')->with('message', 'Status changed successfully.');    
+            }
         }   
     }
 }

@@ -300,6 +300,12 @@ class WriterManagementController extends Controller
         if($request->apply_tds){
             $total=$total-($total*0.1);
         }
+        if($request->deductible){
+            $total-=intval($request->deductible);
+        }
+        if($request->performance_charge){
+            $total+=$request->performance_charge;
+        }
         return round($total);
     }
 }

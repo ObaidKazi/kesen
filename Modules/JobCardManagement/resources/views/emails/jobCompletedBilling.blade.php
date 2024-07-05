@@ -62,11 +62,22 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Job Completed Successfully</h1>
+            <h1> Email for billing</h1>
         </div>
         <div class="content">
-            <p>We are pleased to inform you that the job has been completed successfully for {{$jobDetails->estimateDetail->document_name}} of estimate no {{$jobDetails->estimate->estimate_no}}.</p>
-        
+            <p>“Dear Accounts Team, </p>
+            <br>
+            <p>
+                {{$jobDetails->handle_by->name ?? ''}} has completed the {{$jobDetails->estimate_document_id}} of {{$jobDetails->estimate->client->name}} having job no {{$jobDetails->sr_no}} and quotation no: {{$jobDetails->estimate->estimate_no}}
+            </p>
+            <br>
+            <p>
+            The job is now ready for billing.
+            </p>
+            <br>
+            <p>Thank you</p>
+            <br>
+            <p>Project Management Team</p>
         </div>
         <div class="footer">
             <p>Thank you for using our service.</p>

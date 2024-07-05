@@ -78,11 +78,11 @@
                         value="{{ old('online_ref_no') }}" label="Online REF no" />
                     <x-adminlte-input name="cheque_no" placeholder="Cheque no" fgroup-class="col-md-3"
                         value="{{ old('cheque_no') }}" label="Cheque no" />
-                    <x-adminlte-input name="performance_charge" placeholder="Performance Charge" fgroup-class="col-md-3"
+                    <x-adminlte-input id="performance_charge" name="performance_charge" placeholder="Performance Charge" fgroup-class="col-md-3"
                         type="number" step="0.01" required value="{{ old('performance_charge') }}"
-                        label="Performance Charge" />
-                    <x-adminlte-input name="deductible" placeholder="Deductible" fgroup-class="col-md-3" type="number"
-                        step="0.01" required value="{{ old('deductible') }}" label="Deductible" />
+                        label="Performance Charge" onkeyup="onDateChange()"/>
+                    <x-adminlte-input id="deductible" name="deductible" placeholder="Deductible" fgroup-class="col-md-3" type="number"
+                        step="0.01" required value="{{ old('deductible') }}" label="Deductible" onkeyup="onDateChange()"/>
                     <x-adminlte-input id="amount" name="total_amount" placeholder="Amount" fgroup-class="col-md-3" type="number"
                          value="{{ old('total_amount') }}" label="Amount" />
                     <x-adminlte-input name="writer_id" fgroup-class="col-md-3" required value="{{ $id }}"
@@ -109,6 +109,8 @@
                     id: "{{ $id }}",
                     apply_gst: $('#apply_gst').val(),
                     apply_tds: $('#apply_tds').val(),
+                    performance_charge: $('#performance_charge').val(),
+                    deductible: $('#deductible').val(),
                 },
                 success: function(data) {
                     $('#amount').val(data);
