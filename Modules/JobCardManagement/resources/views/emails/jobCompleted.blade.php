@@ -68,11 +68,11 @@
                 Job Code: {{$jobDetails->sr_no ?? ''  ?? ''}}</p>
             <p>Dear {{$jobDetails->estimate->client_person->name ?? ''}},</p>
             <p>With reference to the above document, kindly send us a mail, confirming that the task undertaken is complete and satisfactory.</p>
-            <p><strong>Thanking You in advance for your early reply.</strong></p>
+            <p><strong style="color:#4CAF50">Thanking You in advance for your early reply.</strong></p>
             <p>If we do not receive a communication from you within 7 working days, we will presume that the job is accepted.</p>
             <p>Kindly complete the feedback form to help us, to serve you better.</p>
             <p>Looking forward to work with you in the near future.</p>
-            <p>Warm Regards<br>Keith Myers</p>
+            <p>Warm Regards<br><b>Keith Myers</b></p>
         </div>
         <div class="footer">
             <p>©2024-25 Kesen. All rights reserved.<br>
