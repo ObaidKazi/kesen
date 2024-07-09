@@ -105,7 +105,7 @@
                                         <a href="{{ route('jobregistermanagement.complete', $row->id) }}"
                                             ><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                                 title="Mail">
-                                                Email Reply Letter
+                                                Job Completion Letter
                                             </button></a>
 
                                     {{--                             

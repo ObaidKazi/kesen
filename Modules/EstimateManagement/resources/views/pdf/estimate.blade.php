@@ -118,8 +118,9 @@
         <p style="padding: 0;margin-bottom: 15px;"><strong>Languages Required:</strong>
             @php $languages_list=[] @endphp
             @foreach ($estimate->details()->distinct('lang')->get() as $index=>$details )    
-                @php $languages_list[]=Modules\LanguageManagement\App\Models\Language::where('id',$details->lang)->first()->name @endphp
+                @php $languages_list[]=Modules\LanguageManagement\App\Models\Language::where('id',$details->lang)->first()->name??'' @endphp
             @endforeach
+            
             {{ implode(',',array_unique($languages_list)) }}
         </p>
         @php $counter=6; @endphp
@@ -180,7 +181,7 @@
                         <td>{{ $detail->document_name }}</td>
                         <td class="nowrap">{{ $detail->unit }}</td>
                         <td class="nowrap">{{ $detail->rate }}</td>
-                        <td class="nowrap">{{ $detail->unit * $detail->rate }}</td>
+                        <td class="nowrap">{{ round($detail->unit * $detail->rate) }}</td>
                         @if ($estimate->details[0]->verification)
                             <td class="nowrap">{{ $detail->verification }}</td>
                         @endif
@@ -207,10 +208,10 @@
                         @endphp
                         <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
-                            {{ number_format(($detail->unit * $detail->rate + $detail->layout_charges + ($detail->back_translation*$detail->unit) + $detail->verification+ $detail->two_way_qc_t+ $detail->two_way_qc_bt + $detail->verification_2 + $detail->layout_charges_2) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()),2) }}
+                            {{ number_format( (round(($detail->unit * $detail->rate)) + ($detail->layout_charges) + ($detail->back_translation*$detail->unit) + ($detail->verification??0) + ($detail->two_way_qc_t??0) + ($detail->two_way_qc_bt??0) + ($detail->verification_2??0) + ($detail->layout_charges_2??0) ) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()),2) }}
                         </td>
                         @php
-                            $sub_total = ($sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) +  ($detail->back_translation*$detail->unit) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->count()));
+                            $sub_total = ($sub_total + (round(($detail->unit * $detail->rate)) + ($detail->layout_charges) +  ($detail->back_translation*$detail->unit) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()));
                         @endphp
                     </tr>
                 @endif

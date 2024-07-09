@@ -154,6 +154,8 @@ class EstimateManagementController extends Controller
             foreach ($request['document_name'] as $index => $document_name) {
                 $languages=$request['lang_' . $index];
                 for ($i = 0; $i < count($languages); $i++) {
+                    if($languages[$i]!=null)
+                   {
                     EstimatesDetails::create([
                         'estimate_id' => $estimate->id,
                         'document_name' => $document_name,
@@ -169,6 +171,7 @@ class EstimateManagementController extends Controller
                         'two_way_qc_t' => $request['two_way_qc_t'][$index]??null,
                         'two_way_qc_bt' => $request['two_way_qc_bt'][$index]??null,
                     ]);
+                   }
                 }
                 
             }

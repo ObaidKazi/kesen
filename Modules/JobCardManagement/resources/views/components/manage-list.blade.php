@@ -8,7 +8,7 @@
         ['label' => 'Date'],
         ['label' => 'Protocol No'],
         ['label' => 'Client Name'],
-        ['label' => 'Description'],
+        ['label' => 'Document Name'],
         ['label' => 'Handled By'],
         ['label' => 'Bill No'],
         ['label' => 'Bill Date'],
