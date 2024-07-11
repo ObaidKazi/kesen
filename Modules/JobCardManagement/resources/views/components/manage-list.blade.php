@@ -115,10 +115,10 @@
                             <td>{{ $row->sent_date?\Carbon\Carbon::parse($row->sent_date)->format('j M Y'):'' }}</td>
                             <td
                                     class={{ $row->status == 0 ? '' : ($row->status == 1 ? 'bg-success' : 'bg-danger') }}>
-                                    {{ $row->status == 0 ? 'In Progress' : ($row->status == 1 ? 'Completed' : 'Rejected') }}
+                                    {{ $row->status == 0 ? 'In Progress' : ($row->status == 1 ? 'Completed' : 'Completed') }}
                             </td>
                             
-                            <td style="width: 300px">
+                            <td style="width:250px;">
                                 
                                 <a href="{{ route('jobcardmanagement.manage.list', ['job_id' => $row->id, 'estimate_detail_id' => $row->estimate_document_id]) }}">
                                     <button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Manage">Manage</button>
@@ -224,7 +224,7 @@
                             <td>{{ $detail->jobRegister->sr_no }}</td>
                             <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
                             
-                            <td>
+                            <td width="250px">
                                 @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">Edit</button></a>
                                 @endif

@@ -19,17 +19,16 @@ class ShareJobRegisters
      */
     public function handle($request, Closure $next)
     {
+        
         $current = Carbon::now('Asia/Kolkata');
 
         // Define the time ranges in IST
 
         $startMorning = Carbon::parse('10:00', 'Asia/Kolkata');
-        $endMorning = Carbon::parse('11:00', 'Asia/Kolkata');
-        $startAfternoon = Carbon::parse('16:00', 'Asia/Kolkata');
-        $endAfternoon = Carbon::parse('17:00', 'Asia/Kolkata');
+        $endAfternoon = Carbon::parse('19:00', 'Asia/Kolkata');
 
         // Check if the current time is within the specified ranges
-        if ($current->between($startMorning, $endMorning) || $current->between($startAfternoon, $endAfternoon)) {
+        if ($current->between($startMorning, $endAfternoon)) {
 
             $deadline_3_days_date_start = Carbon::now()->addDays(3)->startOfDay();
             $deadline_3_days_date_end = Carbon::now()->addDays(3)->endOfDay();

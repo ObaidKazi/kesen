@@ -151,7 +151,7 @@
                             <td>{{ $row->phone_no }}</td>
                             {{-- <td>{{ $row->landline }}</td> --}}
                             <td>{{ $row->designation }}</td>
-                            <td>
+                            <td width="250px">
                                 <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}"><button
                                         class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                         Edit
@@ -171,7 +171,7 @@
                                 @endif
                                 <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
                                     onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$client->id, $row->id]) }}')">
-                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                   Delete
                                 </button>
                             </td>
 

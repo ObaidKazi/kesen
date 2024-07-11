@@ -90,7 +90,7 @@
                                 <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d-m-Y') }}</td>
                                 <td>{{ $row->handle_by->name }}</td>
                                 <td>{{ $row->client->name }}</td>
-                                <td>
+                                <td width="250px">
                                     @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('jobregistermanagement.edit', $row->id) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

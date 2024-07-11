@@ -106,7 +106,7 @@
                                     <td>{{ $row->bt_checking_charges }}</td>
                                     <td>{{ $row->verification_2 }}</td>
                                     <td>{{ $row->advertising_charges }}</td>
-                                    <td>
+                                    <td width="250px">
                                         @if(!Auth::user()->hasRole('Accounts'))
                                         <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}"><button
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

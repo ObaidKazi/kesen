@@ -24,13 +24,13 @@ class ShareJobRegistersAccount
         // Define the time ranges in IST
 
         $start_time = Carbon::now('Asia/Kolkata')->subHours(1);
-        $end_time = Carbon::now('Asia/Kolkata')->addHours(1);
+        $end_time = Carbon::now('Asia/Kolkata');
 
         // Check if the current time is within the specified ranges
         if ($current->between($start_time, $end_time)) {
 
 
-            $job_registers_near_deadline_for_accounts = JobRegister::whereBetween('updated_at', [$start_time, $end_time])
+            $job_registers_near_deadline_for_accounts = JobRegister::where('status',1)->whereBetween('updated_at', [$start_time, $end_time])
                 ->get();
 
 

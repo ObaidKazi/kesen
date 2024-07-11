@@ -94,7 +94,7 @@
                                 <td>{{ $row->phone_no }}</td>
                                 {{-- <td>{{ $row->landline }}</td> --}}
                                 <td>{{ $row->designation }}</td>
-                                <td>
+                                <td width="250px">
                                     @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

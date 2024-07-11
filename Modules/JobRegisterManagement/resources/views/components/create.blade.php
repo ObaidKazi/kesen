@@ -95,7 +95,7 @@
                         value="{{ old('protocol_no') }}" label="Protocol Number" />
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                         value="{{ old('date', date('Y-m-d')) }}" required label="Date"
-                        min="{{ getCurrentDate() }}" />
+                         />
 
                     <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3"
                         type='text' label="Old Job No" />

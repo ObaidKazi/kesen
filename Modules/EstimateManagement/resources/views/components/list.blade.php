@@ -150,7 +150,7 @@
                                     {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
                                 </td>
                                 <td>{{ App\Models\User::where('id', $row->created_by)->first()->name }}</td>
-                                <td>
+                                <td width="250px">
 
                                     @if(!Auth::user()->hasRole('Accounts'))
                                         <a href="{{ route('estimatemanagement.edit', $row->id) }}"><button

@@ -52,7 +52,7 @@
                         value="{{ $user->code }}" required label="Employee Code" readonly/>
 
                     <x-adminlte-input name="password" placeholder="Password" fgroup-class="col-md-3" type='password'
-                        value="{{ $user->plain_password }}" required label="Password" />
+                        value="{{ $user->plain_password }}"  label="Password" />
                     <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-3"
                         label="Address">{{ $user->address }}</x-adminlte-textarea>
 

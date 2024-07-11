@@ -101,7 +101,7 @@ class EmployeeManagementController extends Controller
             'landline'=>'nullable|numeric|unique:users,landline,' . $id . ',id',
             'address' => 'nullable',
             'code' => 'nullable|unique:users,code,' . $id . ',id',
-            'password' => 'required|min:8',
+            'password' => 'nullable|min:4',
             'role' => 'required',
             'language' => 'required',
         ]);

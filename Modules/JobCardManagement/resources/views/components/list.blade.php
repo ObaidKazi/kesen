@@ -112,7 +112,7 @@
                         <td>{{ $row->bill_date }}</td>
                         <td>{{  App\Models\User::where('id',$row->informed_to)->first()->name??'';}}</td>
                         <td>{{ $row->invoice_date }}</td>
-                        <td>
+                        <td width="250px">
                             <a href="{{route('jobcardmanagement.manage', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                Manage
                             </button></a>

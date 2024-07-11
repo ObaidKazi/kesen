@@ -1,5 +1,25 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
+@section('plugins.Select2', true)
+@php
+    $config = [
+        'title' => 'Select Client',
+        'liveSearch' => true,
+        'placeholder' => 'Search Client...',
+        'showTick' => true,
+        'actionsBox' => true,
+    ];
+@endphp
+
+@php
+    $config2 = [
+        'title' => 'Select Language',
+        'liveSearch' => true,
+        'placeholder' => 'Search Language...',
+        'showTick' => true,
+        'actionsBox' => true,
+    ];
+@endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
@@ -39,7 +59,7 @@
                 @method('PUT')
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
+                    <x-adminlte-select2  :config="$config"  name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}"
@@ -430,9 +450,9 @@
                                                 value="{{ ceil($detail->unit * $detail->rate) }}" label="Amount"
                                                 readonly />
                                             <x-adminlte-input name="verification[{{ $index }}]"
-                                                placeholder="Verification" fgroup-class="col-md-3" type="text"
+                                                placeholder="Verification 1" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
-                                                label="Verification" />
+                                                label="Verification 1" />
                                             <x-adminlte-input name="two_way_qc_t[{{ $index }}]"
                                                 placeholder="Verification 2" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('two_way_qc_t.' . $index, $detail->two_way_qc_t) }}"
@@ -467,7 +487,7 @@
 
 
                                             <x-adminlte-select name="lang_{{ $index }}[]"
-                                                fgroup-class="col-md-3" label="Language" multiple>
+                                                fgroup-class="col-md-3" label="Language" multiple for="lang_{{ $index }}" >
                                                 <option value="">Select Language</option>
                                                 @foreach ($languages as $language)
                                                     <option value="{{ $language->id }}"
@@ -501,7 +521,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function() {        
         let tempIndex = {{ count($estimate_details) }};
         let itemIndex = {{ count($estimate_details) }};
 

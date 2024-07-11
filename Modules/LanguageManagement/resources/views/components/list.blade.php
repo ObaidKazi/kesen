@@ -81,7 +81,7 @@
                                 <td>{{ $row->name }}</td>
                                 <td>{{ $row->code }}</td>
                                 <td>{{ $row->created_by }}</td>
-                                <td>
+                                <td width="250px">
                                     @if(!Auth::user()->hasRole('Accounts'))
                                     <a href="{{ route('language-management.edit', $row->id) }}"><button
                                             class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

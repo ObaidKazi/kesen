@@ -109,7 +109,7 @@
                                     
                                     <td>{{ $row->writer_language_map->pluck('language_id')->implode(', ') }}</td>
                                     <td>{{ $row->created_by }}</td>
-                                    <td>
+                                    <td width="250px">
                                         <a
                                         @if(!Auth::user()->hasRole('Accounts'))
                                             @if ($row->status == 1) href="{{ route('writermanagement.edit', $row->id) }}" @else href="javascript:function() { return false; }" @endif><button

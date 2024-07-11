@@ -183,16 +183,16 @@
                                 @php $temp_index=1;@endphp
                                 @php $lanIndex = $lanIndex==0?1:0;@endphp
                                 @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
-                                <td rowspan="4" style={{$lanIndex == 0?"background-color:#fff;width:50px":"background-color:lightgrey;width:50px"}}>
-                                
+                                <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px":"background-color:lightgrey;width:50px"}}>
+                             
                                     {{ $card->estimateDetail->language->name??'' }}
                                 </td>
                             @else
-                                <td rowspan="4" style={{$lanIndex == 0?"background-color:#fff;width:50px;border-top-style:hidden;":"background-color:lightgrey;width:50px;border-top-style:hidden;"}}></td>
+                                <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px;border-top-style:hidden;":"background-color:lightgrey;width:50px;border-top-style:hidden;"}}></td>
                                 @php $temp_index+=1;@endphp
                             @endif
 
-                            <td rowspan="4">PC {{ $temp_index }}</td>
+                            <td rowspan="5">PC {{ $temp_index }}</td>
                             <td style="background-color:grey;">T</td>
                             <td>{{ $card->t_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->t_writer_code)->first()->code }}</td>
@@ -218,6 +218,20 @@
                             <td>{{ $card->v_dv }}</td>
                             <td>{{ $card->v_fqc }}</td>
                             <td>{{ $card->v_sentdate ? \Carbon\Carbon::parse($card->v_sentdate)->format('j M Y') : '' }}</td>
+                            @php $pageBreakIndex+=1;@endphp
+                        </tr>
+                        <tr>
+                            <td>V2</td>
+                            <td>{{ $card->v2_unit }}</td>
+                            <td></td>
+                            <td>{{ App\Models\User::where('id', $card->v2_employee_code)->first()->code ?? '' }}</td>
+                           
+                            <td>{{ $card->v2_pd ? \Carbon\Carbon::parse($card->v2_pd)->format('j M Y') : '' }}</td>
+                            <td>{{ $card->v2_cr ? \Carbon\Carbon::parse($card->v2_cr)->format('j M Y') : '' }}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td> </td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
@@ -320,7 +334,7 @@
                         <tr>
                             @if (!in_array($card->id, $estimate_details_list))
                                 @php $estimate_details_list[] = $card->id; @endphp
-                                <td rowspan="4" style="font-size: 8pt">{{ $card->language->name??'' }}</td>
+                                <td rowspan="4" style="font-size: 8pt">{{ $card->language->name }}</td>
                             @endif
 
                             <td rowspan="4">PC</td>
@@ -361,6 +375,7 @@
                             <td style="font-size: 8pt"></td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
+                        
                         <tr>
                             <td style="font-size: 8pt;background-color:grey;">BT</td>
                             

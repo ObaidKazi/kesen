@@ -75,10 +75,10 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_pd[0]') }}"
-                                                    label="T PD" min="{{ getCurrentDate() }}" required/>
+                                                    label="T PD"  required/>
                                                 <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_cr[0]') }}"
-                                                    label="T CR" min="{{ getCurrentDate() }}" required/>
+                                                    label="T CR"  required/>
                                                 <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2" required>
                                                         <option value="">Select C/CN</option>
                                                         <option value="C">C</option>
@@ -91,7 +91,7 @@
                                                 <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate[0]') }}"
-                                                    label="T Sent Date" min="{{ getCurrentDate() }}" required/>
+                                                    label="T Sent Date"  required/>
                                                     <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit[0]') }}" label="V Unit" />
                                                 <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 
@@ -137,10 +137,10 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="bt_pd[0]" placeholder="PD" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('bt_pd[0]') }}"
-                                                    label="BT PD" min="{{ getCurrentDate() }}" />
+                                                    label="BT PD"  />
                                                 <x-adminlte-input name="bt_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('bt_cr[0]') }}"
-                                                    label="BT CR" min="{{ getCurrentDate() }}" />
+                                                    label="BT CR"  />
                                                 
                                                 <x-adminlte-select name="bt_cnc[0]" label="BT C/CN" fgroup-class="col-md-2">
                                                     <option value="">Select C/CN</option>
@@ -154,7 +154,7 @@
                                                 <x-adminlte-input name="bt_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('bt_sentdate[0]') }}"
-                                                    label="BT Sent Date" min="{{ getCurrentDate() }}" />
+                                                    label="BT Sent Date"  />
                                                     <x-adminlte-input name="btv_unit[0]" placeholder="BTV Unit" fgroup-class="col-md-2"
                                                     value="{{ old('btv_unit[0]') }}" label="BTV Unit" />
                                                 <x-adminlte-select name="btv_employee_code[0]" fgroup-class="col-md-2" 

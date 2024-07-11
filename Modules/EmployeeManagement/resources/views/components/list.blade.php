@@ -101,7 +101,7 @@
                                 <td>{{ $row->address }}</td>
                                 <td>{{ $row->created_by }}</td>
                                 <td>{{ $row->updated_by }}</td>
-                                <td>
+                                <td width="250px">
                                     @if(!Auth::user()->hasRole('Accounts'))
                                         <a href="{{ route('employeemanagement.edit', $row->id) }}"><button
                                                 class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

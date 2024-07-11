@@ -1,5 +1,15 @@
 @inject('layoutHelper', 'JeroenNoten\LaravelAdminLte\Helpers\LayoutHelper')
 @inject('preloaderHelper', 'JeroenNoten\LaravelAdminLte\Helpers\preloaderHelper')
+@section('plugins.Select2', true)
+@php
+    $config = [
+        'title' => 'Select Client',
+        'liveSearch' => true,
+        'placeholder' => 'Search Client...',
+        'showTick' => true,
+        'actionsBox' => true,
+    ];
+@endphp
 @php $metrics=App\Models\Metrix::get(); @endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
@@ -39,13 +49,13 @@
             <form action="{{ route('estimatemanagement.store') }}" method="POST">
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-select name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
+                    <x-adminlte-select2  :config="$config"  name="client_id" id="client_id" fgroup-class="col-md-3" required label="Client">
                         <option value="">Select Client</option>
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}" @if (old('client_id') == $client->id) selected @endif>
                                 {{ $client->name }}</option>
                         @endforeach
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
                     <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id"
                         fgroup-class="col-md-3" required label="Contact Person">
                         <option value="">Select Contact Person</option>
@@ -102,9 +112,9 @@
                                         label="Translation Rate" onkeyup="calculateAmount(this)" />
                                     <x-adminlte-input name="amount[0]" placeholder="Amount" fgroup-class="col-md-3"
                                         type="text" value="{{ old('amount[0]') }}" label="Amount" readonly />
-                                    <x-adminlte-input name="verification[0]" placeholder="Verification"
+                                    <x-adminlte-input name="verification[0]" placeholder="Verification 1"
                                         fgroup-class="col-md-3" type="text" value="{{ old('verification[0]') }}"
-                                        label="Verification" />
+                                        label="Verification 1" />
                                     <x-adminlte-input name="two_way_qc_t[0]" placeholder="Verification 2"
                                         fgroup-class="col-md-3" type="text" value="{{ old('two_way_qc_t[0]') }}"
                                         label="Verification 2" />
@@ -128,8 +138,8 @@
                                     <x-adminlte-input name="layout_charges_second[0]" placeholder="Back Translation Layout Charges"
                                         fgroup-class="col-md-3" type="text"
                                         value="{{ old('layout_charges_second[0]') }}" label="Back Translation Layout Charges" />
-                                    <x-adminlte-select name="lang_0[]" fgroup-class="col-md-3" required
-                                        label="Language" multiple>
+                                    <x-adminlte-select  name="lang_0[]" fgroup-class="col-md-3" required
+                                        label="Language" multiple label="Language">
                                         <option value="">Select Language</option>
                                         @foreach ($languages as $language)
                                             <option value="{{ $language->id }}">
@@ -163,12 +173,15 @@
             newItem.find('input, select').each(function() {
                 $(this).val('');
                 let name = $(this).attr('name');
-                if (name === 'verification_2[0]') {
+                if (name == 'verification_2[0]') {
                     name = 'verification_2[' + itemIndex + ']';
-                } else if (name === "lang_0") {
-                    name = 'lang_' + itemIndex + "[]";
+                } else if (name == "lang_0[]") {
+                    name = 'lang_' + itemIndex + "[]";                   
+                    attribute = 'lang_' + itemIndex;
                 } else {
-                    name = name.replace(/\d+/, itemIndex);
+                    if(name!=undefined) {
+                        name = name.replace(/\d+/, itemIndex);
+                    }
                 }
                 $(this).attr('name', name);
             });
