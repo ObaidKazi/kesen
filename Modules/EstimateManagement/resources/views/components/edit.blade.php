@@ -11,15 +11,6 @@
     ];
 @endphp
 
-@php
-    $config2 = [
-        'title' => 'Select Language',
-        'liveSearch' => true,
-        'placeholder' => 'Search Language...',
-        'showTick' => true,
-        'actionsBox' => true,
-    ];
-@endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @php $languages=Modules\LanguageManagement\App\Models\Language::where('status',1)->get(); @endphp
 @if ($layoutHelper->isLayoutTopnavEnabled())
