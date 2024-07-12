@@ -89,9 +89,9 @@
         @elseif ($estimate->client->client_metric->code == 'KLB')
             <img src="{{ public_path('img/kesen-language-buea.jpeg') }}" alt="Iceberg Image" width="100%">
         @elseif ($estimate->client->client_metric->code == 'LGS')
-            <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Iceberg Image" width="100%">
-        @else
             <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Iceberg Image" width="100%">
+        @else
+            <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Iceberg Image" width="100%">
         @endif
 
        
