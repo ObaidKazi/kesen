@@ -3,7 +3,8 @@
 @section('plugins.Select2', true)
 @php
     $estimates = Modules\EstimateManagement\App\Models\Estimates::where('status', 1)->get();
-    $writers = Modules\WriterManagement\App\Models\Writer::where('status', 1)->get();
+    $writer_ids=Modules\WriterManagement\App\Models\WriterLanguageMap::where('language_id',$estimate_detail->language->id)->pluck('writer_id')->toArray();
+    $writers = Modules\WriterManagement\App\Models\Writer::where('status', 1)->whereIn('id', $writer_ids)->get();
 @endphp
 @php $clients=Modules\ClientManagement\App\Models\Client::where('status',1)->get(); @endphp
 @php

@@ -6,7 +6,8 @@
     $users = App\Models\User::where('email', '!=', 'developer@kesen.com')
         ->where('id', '!=', Auth()->user()->id)
         ->get();
-    $writers = Modules\WriterManagement\App\Models\Writer::where('status', 1)->get();
+    $writer_ids=Modules\WriterManagement\App\Models\WriterLanguageMap::where('language_id',$estimate_detail->language->id)->pluck('writer_id')->toArray();
+    $writers = Modules\WriterManagement\App\Models\Writer::where('status', 1)->whereIn('id', $writer_ids)->get();
 @endphp
 @php
     $qce_users = App\Models\User::where('email', '!=', 'developer@kesen.com')
