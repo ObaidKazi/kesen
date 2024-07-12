@@ -53,27 +53,27 @@
                     <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-3" type='email'
                         value="{{ old('email') }}" label="Email" required />
                     <x-adminlte-select name="type" fgroup-class="col-md-3" id="type" required
-                        value="{{ old('type') }}" label="Client Type">
+                         label="Client Type">
                         <option value="">Client Type</option>
-                        <option value="1">Protocol</option>
-                        <option value="2">Non Protocol</option>
+                        <option value="1" @if (old('type') == '1') selected @else '' @endif>Protocol</option>
+                        <option value="2" @if (old('type') == '2') selected @else '' @endif>Non Protocol</option>
                     </x-adminlte-select>
                     <x-adminlte-select name="metrix" fgroup-class="col-md-3" required value="{{ old('metrix') }}"
                         label="Metrix">
                         <option value="">Select Metrix</option>
                         @foreach ($metrics as $metric)
-                            <option value="{{ $metric->id }}">{{ $metric->name }}</option>
+                            <option value="{{ $metric->id }}" @if(old('metrix') == $metric->id) selected @else "" @endif>{{ $metric->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-select name="client_accountant_person_id" fgroup-class="col-md-3" required
                         value="{{ old('client_accountant_person_id') }}" label="Accountant">
                         <option value="">Select Accountant</option>
                         @foreach ($accountants as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}" @if(old('client_accountant_person_id') == $user->id) selected @else "" @endif>{{ $user->name }}</option>
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-textarea name="address" placeholder="Address" fgroup-class="col-md-3"
-                        value="{{ old('address') }}" label="Address" required />
+                         label="Address" required >{{ old('address') }}</x-adminlte-textarea>
                     <span id="protocol" class="col-md-3">
 
                     </span>
