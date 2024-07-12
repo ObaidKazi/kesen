@@ -117,7 +117,6 @@
             @endif
             <br>
             <br>
-            <br>
             <h2>JOB CARD</h2>
             <br>
         </div>
@@ -135,15 +134,21 @@
                 <td><b>{{ $job->date ? \Carbon\Carbon::parse($job->created_at)->format('j M Y') : '' }}</b></td>
             </tr>
             <tr>
+                <th>Verion Name.</th>
+                <td>{{ $job->version_name ?? '' }}</td>
+                <th>Verion no</th>
+                <td><b>{{ $job->version_no?? '' }}</b></td>
+            </tr>
+            <tr>
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
-                <th>Client Contact Person Name</th>
+                <th>Contact Name</th>
                 <td><b>{{ $job->estimate->client_person->name ?? '' }}</b></td>
             </tr>
             <tr>
                 <th>Estimate No.</th>
                 <td>{{ $job->estimate->estimate_no ?? '' }}</td>
-                <th>Client Contact Person Number</th>
+                <th>Contact Number</th>
                 <td><b>{{ $job->estimate->client_person->phone_no ?? '' }}</b></td>
             </tr>
             <tr>
@@ -176,7 +181,7 @@
                 @php $pageBreakIndex=0;@endphp
                 @php $lanIndex=0;@endphp
                 @if (count($job->jobCard) != 0)
-                    @foreach ($job->jobCard as $card)
+                    @foreach ($job->jobCard as $index=>$card)
                         <tr>
                             @if (!in_array($card->estimate_detail_id, $estimate_details_list))
                                 @php $temp_index=1;@endphp
@@ -264,7 +269,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($card->v_unit))
+                            @if(isset($job->jobCard[$index+1]->v_unit))
                                 <div class="page-break"></div>
                                 <table class="job-details">
                                     <thead>
@@ -288,7 +293,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($card->v_unit))
+                            @if(isset($job->jobCard[$index+1]->v_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>
@@ -312,7 +317,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($card->v_unit))
+                            @if(isset($job->jobCard[$index+1]->v_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>

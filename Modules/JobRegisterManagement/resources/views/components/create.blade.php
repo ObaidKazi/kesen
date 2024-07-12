@@ -93,6 +93,10 @@
 
                     <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3"
                         value="{{ old('protocol_no') }}" label="Protocol Number" />
+                    <x-adminlte-input name="version_name" placeholder="Version Name" fgroup-class="col-md-3"
+                        value="{{ old('version_name') }}" label="Version Name" />
+                    <x-adminlte-input name="version_no" placeholder="Version No" fgroup-class="col-md-3"
+                        value="{{ old('version_no') }}" label="Version No" />
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                         value="{{ old('date', date('Y-m-d')) }}" required label="Date"
                          />
