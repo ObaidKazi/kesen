@@ -107,7 +107,7 @@
                         <option value="1">Completed</option>
                         <option value="2">Cancelled</option>
                     </x-adminlte-select>
-                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3" required :config="$config"
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3"  :config="$config"
                         label="Other Estimates" id="other_details" multiple>
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)

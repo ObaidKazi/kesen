@@ -41,20 +41,18 @@
             @csrf
             @method('PUT')
             <div class="row pt-2">
+                <x-adminlte-input name="client_name"  placeholder="Client Name"
+                    fgroup-class="col-md-2" required value="{{$bill_data->estimate->client->name ?? '' }}" type='text' label="Client Name" disabled/>
                 <x-adminlte-input name="bill_date"  placeholder="Bill Date"
-                    fgroup-class="col-md-3" required value="{{$bill_data->bill_date}}" type='date' label="Bill Date" />
-                    <x-adminlte-input name="bill_no"  placeholder="Bill No"
-                    fgroup-class="col-md-3" required value="{{$bill_data->bill_no}}" type='text' label="Bill No" />
+                    fgroup-class="col-md-2" required value="{{$bill_data->bill_date}}" type='date' label="Bill Date" />
+                    <x-adminlte-input name="bill_no"  placeholder="Bill Status"
+                    fgroup-class="col-md-2" required value="{{$bill_data->bill_no}}" type='text' label="Bill Status" />
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
-                    fgroup-class="col-md-3"   type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
-                    <x-adminlte-input name="invoice_date"  placeholder="Invoice Date"
-                    fgroup-class="col-md-3" required value="{{ $bill_data->invoice_date}}" type='date' label="Invoice Date" />
+                    fgroup-class="col-md-2"   type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
                     <x-adminlte-input name="sent_date"  placeholder="Sent Date"
-                    fgroup-class="col-md-3" required value="{{ $bill_data->sent_date}}" type='date' label="Sent Date" />
+                    fgroup-class="col-md-2" required value="{{ $bill_data->sent_date}}" type='date' label="Sent Date" />
                     
-                <x-adminlte-input name="delivery_date"  placeholder="Delivery Date"
-                    fgroup-class="col-md-3" value="{{ $bill_data->delivery_date}}"  type='date' label="Delivery Date" />
                     
                     <x-adminlte-select name="payment_status" fgroup-class="col-md-2" required
                     value="{{ old('payment_status') }}" label="Payment Status" id="payment_status">
@@ -62,7 +60,7 @@
                         <option value="Paid" @if ($bill_data->payment_status == 'Paid') selected @endif>Paid</option>
                         <option value="Unpaid" @if ($bill_data->payment_status == 'Unpaid') selected @endif>Unpaid</option>
                     </x-adminlte-select>
-                    <span id="status" class="col-md-3">
+                    <span id="status" class="col-md-2">
                         @if ($bill_data->payment_status == 'Paid')
                         <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" value="{{ $bill_data->payment_date }}" ></div></div> 
                         @endif

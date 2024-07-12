@@ -109,7 +109,7 @@
                             <td>{{ $row->estimate->client->name }}</td>
                             <td>{{ $row->estimate_document_id }}</td>
                             <td>{{ $row->handle_by->name }}</td>
-                            <td>{{ $row->bill_no }}</td>
+                            <td>{{ $row->bill_no!=null || $row->bill_no!='' ? "billed-".$row->bill_no:"unbilled" }}</td>
                             <td>{{ $row->bill_date? \Carbon\Carbon::parse($row->bill_date)->format('j M Y'):'' }}</td>
                             <td>{{ $row->estimate->client_person->name??'' }}</td>
                             <td>{{ $row->sent_date?\Carbon\Carbon::parse($row->sent_date)->format('j M Y'):'' }}</td>

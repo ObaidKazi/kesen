@@ -143,7 +143,7 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
                         <option value="1" {{ $jobRegister->status == 1 ? 'selected' : '' }}>Completed</option>
                         <option value="2" {{ $jobRegister->status == 2 ? 'selected' : '' }}>Cancelled</option>
                     </x-adminlte-select>
-                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3" required :config="$config"
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3"  :config="$config"
                         label="Other Estimates" id="other_details" multiple>
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)

@@ -9,6 +9,14 @@
     $writers = Modules\WriterManagement\App\Models\Writer::where('status', 1)->get();
 @endphp
 @php
+    $qce_users = App\Models\User::where('email', '!=', 'developer@kesen.com')
+        ->where('id', '!=', Auth()->user()->id)
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'Quality Control Executive');
+        })
+        ->get();
+@endphp
+@php
     $config = [
         'title' => 'Select Estimate Number',
         'liveSearch' => true,
@@ -86,12 +94,7 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_dv[0]" placeholder="DV" fgroup-class="col-md-2"
                                                     value="{{ old('t_dv[0]') }}" label="T DV" />
-                                                <x-adminlte-input name="t_fqc[0]" placeholder="QC" fgroup-class="col-md-2"
-                                                    value="{{ old('t_fqc[0]') }}" label="T F/QC" required/>
-                                                <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
-                                                    fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('t_sentdate[0]') }}"
-                                                    label="T Sent Date"  required/>
+                                                
                                                     <x-adminlte-input name="v_unit[0]" placeholder="V Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v_unit[0]') }}" label="V Unit" />
                                                 <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 
@@ -118,6 +121,17 @@
                                                     value="{{ old('v2_pd[0]') }}" label="V2 PD" type='date' />
                                                 <x-adminlte-input name="v2_cr[0]" placeholder="V2 CR" fgroup-class="col-md-2"
                                                     value="{{ old('v2_cr[0]') }}" label="V2 CR" type='date' />
+                                                <x-adminlte-select name="t_fqc[0]" fgroup-class="col-md-2" 
+                                                    value="{{ old('t_fqc[0]') }}" label="T F/QC">
+                                                    <option value="">T F/QC</option>
+                                                    @foreach ($qce_users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                </x-adminlte-select>
+                                                <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
+                                                    fgroup-class="col-md-2" type='date'
+                                                    value="{{ old('t_sentdate[0]') }}"
+                                                    label="T Sent Date"  required/>
                                             </div>
                                         </div>
                                     </div>
@@ -149,12 +163,7 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="bt_dv[0]" placeholder="DV" fgroup-class="col-md-2"
                                                     value="{{ old('bt_dv[0]') }}" label="BT DV" />
-                                                <x-adminlte-input name="bt_fqc[0]" placeholder="QC" fgroup-class="col-md-2"
-                                                    value="{{ old('bt_fqc[0]') }}" label="BT F/QC" />
-                                                <x-adminlte-input name="bt_sentdate[0]" placeholder="Sent Date"
-                                                    fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('bt_sentdate[0]') }}"
-                                                    label="BT Sent Date"  />
+                                                
                                                     <x-adminlte-input name="btv_unit[0]" placeholder="BTV Unit" fgroup-class="col-md-2"
                                                     value="{{ old('btv_unit[0]') }}" label="BTV Unit" />
                                                 <x-adminlte-select name="btv_employee_code[0]" fgroup-class="col-md-2" 
@@ -168,6 +177,17 @@
                                                     value="{{ old('btv_pd[0]') }}" label="BTV PD" type='date' />
                                                 <x-adminlte-input name="btv_cr[0]" placeholder="BTV CR" fgroup-class="col-md-2"
                                                     value="{{ old('btv_cr[0]') }}" label="BTV CR" type='date' />
+                                                <x-adminlte-select name="bt_fqc[0]" fgroup-class="col-md-2" 
+                                                    value="{{ old('bt_fqc[0]') }}" label="BT F/QC">
+                                                    <option value="">BT F/QC</option>
+                                                    @foreach ($qce_users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    @endforeach
+                                                </x-adminlte-select>
+                                                <x-adminlte-input name="bt_sentdate[0]" placeholder="Sent Date"
+                                                    fgroup-class="col-md-2" type='date'
+                                                    value="{{ old('bt_sentdate[0]') }}"
+                                                    label="BT Sent Date"  />
                                             </div>
                                         </div>
                                     </div>

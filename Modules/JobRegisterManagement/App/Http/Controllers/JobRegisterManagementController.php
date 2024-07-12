@@ -51,7 +51,7 @@ class JobRegisterManagementController extends Controller
             'type' => 'nullable|string',
             'date' => 'required|date',
             'description' => 'nullable|string',
-            'protocol_no' => 'string',
+            'protocol_no' => 'nullable|string',
             'status' => 'required|integer',
             'cancel_reason' => 'nullable|string',
             'bill_no' => 'nullable|string|max:255',
@@ -71,11 +71,11 @@ class JobRegisterManagementController extends Controller
         $job_register->estimate_id = $request->estimate_id;
         $job_register->handled_by_id = $request->handled_by_id;
         $job_register->created_by_id = auth()->user()->id;
-        $job_register->other_details = implode(',',$request->other_details);
+        $job_register->other_details = $request->other_details!=null?implode(',',$request->other_details):null;
         $job_register->category = $request->category;
         $job_register->estimate_document_id = $request->estimate_document_id;
         $job_register->type = $request->type;
-        $job_register->old_job_no=$request->old_job_no;
+        $job_register->old_job_no=$request->old_job_no??'';
         $job_register->client_accountant_person_id = Client::where('id',Estimates::where('id',$request->estimate_id)->first()->client_id)->first()->client_accountant_person_id;
         $job_register->date = $request->date;
         $job_register->description = $request->estimate_document_id;
@@ -127,7 +127,7 @@ class JobRegisterManagementController extends Controller
             'category' => 'required|integer',
             'type' => 'nullable|string',
             'date' => 'required|date',
-            'protocol_no' => 'required|string',
+            'protocol_no' => 'nullable|string',
             'status' => 'required|integer',
             'cancel_reason' => 'nullable|string',
             'bill_no' => 'nullable|string|max:255',
@@ -143,11 +143,11 @@ class JobRegisterManagementController extends Controller
         $jobRegister = JobRegister::where('id', $id)->first();
 
         $jobRegister->handled_by_id = $request->handled_by_id;
-        $jobRegister->other_details = implode(',',$request->other_details);
+        $jobRegister->other_details = $request->other_details!=null?implode(',',$request->other_details):null;
         $jobRegister->type = $request->type;
         $jobRegister->category = $request->category;
         $jobRegister->date = $request->date;
-        $jobRegister->old_job_no=$request->old_job_no;
+        $jobRegister->old_job_no=$request->old_job_no??'';
         $jobRegister->description = $request->estimate_document_id;
         $jobRegister->protocol_no = $request->protocol_no;
         $jobRegister->status = $request->status;

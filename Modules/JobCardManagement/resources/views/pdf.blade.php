@@ -78,7 +78,7 @@
             body {
                 font-size: 10pt;
             }
-
+            
             .container {
                 margin: 0;
             }
@@ -124,33 +124,33 @@
         <table class="client-info">
             <tr>
                 <th>Client</th>
-                <td>{{ $job->estimate->client->name ?? '' }}</td>
+                <td><b>{{ $job->estimate->client->name ?? '' }}</b></td>
                 <th>Job No.</th>
-                <td>{{ $job->sr_no ?? '' }}</td>
+                <td><b>{{ $job->sr_no ?? '' }}</b></td>
             </tr>
             <tr>
-                <th>Headline</th>
-                <td>{{ $job->estimate->headline ?? '' }}</td>
+                <th>Document Name</th>
+                <td>{{ $job->estimate_document_id ?? '' }}</td>
                 <th>Date</th>
-                <td>{{ $job->date ? \Carbon\Carbon::parse($job->date)->format('j M Y') : '' }}</td>
+                <td><b>{{ $job->date ? \Carbon\Carbon::parse($job->created_at)->format('j M Y') : '' }}</b></td>
             </tr>
             <tr>
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
                 <th>Client Contact Person Name</th>
-                <td>{{ $job->estimate->client_person->name ?? '' }}</td>
+                <td><b>{{ $job->estimate->client_person->name ?? '' }}</b></td>
             </tr>
             <tr>
                 <th>Estimate No.</th>
                 <td>{{ $job->estimate->estimate_no ?? '' }}</td>
                 <th>Client Contact Person Number</th>
-                <td>{{ $job->estimate->client_person->phone_no ?? '' }}</td>
+                <td><b>{{ $job->estimate->client_person->phone_no ?? '' }}</b></td>
             </tr>
             <tr>
-                <th>Remarks: Quot No.</th>
-                <td>{{ \Modules\EstimateManagement\App\Models\Estimates::whereIn('id', explode(',', $job->other_details))->get()->pluck('estimate_no')->implode(', ') ?? '' }}</td>
-                <th>Handled By</th>
-                <td>{{ $job->handle_by->name ?? '' }}</td>
+                <th>Quot No.</th>
+                <td>{{ $job->other_details!=null?\Modules\EstimateManagement\App\Models\Estimates::whereIn('id', explode(',', $job->other_details))->get()->pluck('estimate_no')->implode(', ') ?? '':"" }}</td>
+                <th>Project Manager</th>
+                <td><b>{{ $job->handle_by->name ?? '' }}</b></td>
             </tr>
         </table>
         <br>
@@ -202,7 +202,7 @@
                             <td>{{ $card->t_cr ? \Carbon\Carbon::parse($card->t_cr)->format('j M Y') : '' }}</td>
                             <td>{{ $card->t_cnc }}</td>
                             <td>{{ $card->t_dv }}</td>
-                            <td>{{ $card->t_fqc }}</td>
+                            <td>{{ $card->t_fqc!=null? App\Models\User::where('id', $card->t_fqc)->first()->name??'':''  }}</td>
                             <td>{{ $card->t_sentdate ? \Carbon\Carbon::parse($card->t_sentdate)->format('j M Y') : '' }}</td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
@@ -216,7 +216,7 @@
                             <td>{{ $card->v_cr ? \Carbon\Carbon::parse($card->v_cr)->format('j M Y') : '' }}</td>
                             <td>{{ $card->v_cnc }}</td>
                             <td>{{ $card->v_dv }}</td>
-                            <td>{{ $card->v_fqc }}</td>
+                            <td>{{ $card->v_fqc!=null? App\Models\User::where('id', $card->v_fqc)->first()->name??'':'' }}</td>
                             <td>{{ $card->v_sentdate ? \Carbon\Carbon::parse($card->v_sentdate)->format('j M Y') : '' }}</td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
@@ -235,7 +235,7 @@
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
-                            <td style="background-color:grey;">BT</td>
+                            <td style={{$card->bt_unit?"background-color:grey;":""}}>BT</td>
                             <td>{{ $card->bt_unit }}</td>
                             <td>{{ Modules\WriterManagement\App\Models\Writer::where('id', $card->bt_writer_code)->first()->code ?? '' }}</td>
                             <td></td>
@@ -244,7 +244,7 @@
                             <td>{{ $card->bt_cr ? \Carbon\Carbon::parse($card->bt_cr)->format('j M Y') : '' }}</td>
                             <td>{{ $card->bt_cnc }}</td>
                             <td>{{ $card->bt_dv }}</td>
-                            <td>{{ $card->bt_fqc }}</td>
+                            <td>{{ $card->bt_fqc!=null? App\Models\User::where('id', $card->bt_fqc)->first()->name??'':''  }}</td>
                             <td>{{ $card->bt_sentdate ? \Carbon\Carbon::parse($card->bt_sentdate)->format('j M Y') : '' }}</td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
@@ -377,7 +377,7 @@
                         </tr>
                         
                         <tr>
-                            <td style="font-size: 8pt;background-color:grey;">BT</td>
+                            <td style="font-size: 8pt;">BT</td>
                             
                             <td style="font-size: 8pt"></td>
                             <td style="font-size: 8pt">
@@ -491,7 +491,7 @@
             <tr>
                 <td>Delivery Date</td>
                 <td style="border-left-style: hidden;">
-                    <strong>{{ $job->delivery_date ? \Carbon\Carbon::parse($job->delivery_date)->format('j M Y') : '' }}</strong>
+                    <strong>{{ $job->date ? \Carbon\Carbon::parse($job->date)->format('j M Y') : '' }}</strong>
                 </td>
                 <td>Bill No</td>
                 <td style="border-left-style: hidden;font-weight: bold;">{{ $job->bill_no ?? '' }}</td>

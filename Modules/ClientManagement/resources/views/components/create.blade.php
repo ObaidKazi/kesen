@@ -46,8 +46,8 @@
                 <div class="row pt-2">
                     <x-adminlte-input name="name" placeholder="Client Name" fgroup-class="col-md-3" required
                         value="{{ old('name') }}" label="Client Name" />
-                    <x-adminlte-input name="phone_no" placeholder="Client Number" fgroup-class="col-md-3"
-                        value="{{ old('phone_no') }}" label="Client Number" required />
+                    <x-adminlte-input name="phone_no" placeholder="Contact Number" fgroup-class="col-md-3"
+                        value="{{ old('phone_no') }}" label="Contact Number" required />
                     {{-- <x-adminlte-input name="landline"  placeholder="Landline Number"
                     fgroup-class="col-md-3" value="{{ old('landline') }}" label="Landline Number" required/> --}}
                     <x-adminlte-input name="email" placeholder="Email" fgroup-class="col-md-3" type='email'

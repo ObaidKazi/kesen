@@ -39,8 +39,8 @@ class ClientManagementController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email|unique:clients,email',
-            'phone_no'=>'required|numeric|unique:clients,phone_no',
+            'email'=>'nullable|email|unique:clients,email',
+            'phone_no'=>'nullable|numeric|unique:clients,phone_no',
             'landline'=>'nullable|numeric|unique:clients,landline',
             'type'=>'required|in:1,2',
             'client_accountant_person_id'=>'required',
@@ -95,8 +95,8 @@ class ClientManagementController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email|unique:clients,email,' . $id . ',id',
-            'phone_no'=>'required|numeric|unique:clients,phone_no,' . $id . ',id',
+            'email'=>'nullable|email|unique:clients,email,' . $id . ',id',
+            'phone_no'=>'nullable|numeric|unique:clients,phone_no,' . $id . ',id',
             'landline'=>'nullable|numeric|unique:clients,landline,' . $id . ',id',
             'type'=>'required|in:1,2',
             'client_accountant_person_id'=>'required',

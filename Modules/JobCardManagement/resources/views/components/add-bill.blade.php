@@ -39,21 +39,19 @@
         <form action="{{ route('jobcardmanagement.bill.store',$job_id) }}" method="POST" >
             @csrf
             <div class="row pt-2">
+                <x-adminlte-input name="client_name"  placeholder="Client Name"
+                    fgroup-class="col-md-2" required value="{{$job->estimate->client->name ?? '' }}" type='text' label="Client Name" disabled/>
                 <x-adminlte-input name="bill_date"  placeholder="Bill Date"
-                    fgroup-class="col-md-3" required value="{{ old('bill_date') }}" type='date' label="Bill Date" />
-                    <x-adminlte-input name="bill_no"  placeholder="Bill No"
-                    fgroup-class="col-md-3" required value="{{ old('bill_no') }}" type='text' label="Bill No" />
+                    fgroup-class="col-md-2" required value="{{ old('bill_date') }}" type='date' label="Bill Date" />
+                    <x-adminlte-input name="bill_no"  placeholder="Bill Status" 
+                    fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='text' label="Bill Status" />
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
-                    fgroup-class="col-md-3"   type='text' label="PO Number" />
+                    fgroup-class="col-md-2"   type='text' label="PO Number" />
                     
-                    <x-adminlte-input name="invoice_date"  placeholder="Invoice Date"
-                    fgroup-class="col-md-3" required value="{{ old('invoice_date') }}" type='date' label="Invoice Date" />
                     <x-adminlte-input name="sent_date"  placeholder="Sent Date"
-                    fgroup-class="col-md-3" required value="{{ old('sent_date') }}" type='date' label="Sent Date" />
+                    fgroup-class="col-md-2" required value="{{ old('sent_date') }}" type='date' label="Sent Date" />
                     
-                <x-adminlte-input name="delivery_date"  placeholder="Delivery Date"
-                    fgroup-class="col-md-3" value="{{ old('delivery_date') }}"  type='date' label="Delivery Date" />
                     
                     <x-adminlte-select name="payment_status" fgroup-class="col-md-2" required
                     value="{{ old('payment_status') }}" label="Payment Status" id="payment_status">
@@ -61,7 +59,7 @@
                         <option value="Paid">Paid</option>
                         <option value="Unpaid">Unpaid</option>
                     </x-adminlte-select>
-                    <span id="status" class="col-md-3">
+                    <span id="status" class="col-md-2">
 
                     </span>
                     

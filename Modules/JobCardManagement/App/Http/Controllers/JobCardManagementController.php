@@ -294,7 +294,7 @@ class JobCardManagementController extends Controller
         if($job->bill_date!=null){
             return view('jobcardmanagement::bill')->with('bill_data',$job);
         }
-        return view('jobcardmanagement::bill')->with('job_id',$job_id)->with('job_no',$job->sr_no);
+        return view('jobcardmanagement::bill')->with('job_id',$job_id)->with('job_no',$job->sr_no)->with('job',$job);
     }
 
     public function addBill(Request $request,$job_id){
@@ -304,11 +304,9 @@ class JobCardManagementController extends Controller
         $job=JobRegister::where('id',$job_id)->first();
         $job->bill_date=$request->bill_date;
         $job->bill_no=$request->bill_no;
-        $job->invoice_date=$request->invoice_date;
         $job->sent_date=$request->sent_date;
 
         $job->po_number=$request->po_number;
-        $job->delivery_date=$request->delivery_date;
         $job->payment_status=$request->payment_status;
         $job->payment_date=$request->payment_date;
         $job->save();
@@ -322,10 +320,8 @@ class JobCardManagementController extends Controller
         $job=JobRegister::where('id',$job_id)->first();
         $job->bill_date=$request->bill_date;
         $job->bill_no=$request->bill_no;
-        $job->invoice_date=$request->invoice_date;
         $job->sent_date=$request->sent_date;
         $job->po_number=$request->po_number;
-        $job->delivery_date=$request->delivery_date;
         $job->payment_status=$request->payment_status;
         $job->payment_date=$request->payment_date;
         $job->save();

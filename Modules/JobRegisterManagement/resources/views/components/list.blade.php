@@ -102,11 +102,13 @@
                                             title="Edit">
                                             Preview
                                         </button></a>
+                                        @if(Auth::user()->hasRole('Accounts'))
                                         <a href="{{ route('jobregistermanagement.complete', $row->id) }}"
                                             ><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                                 title="Mail">
                                                 Job Completion Letter
                                             </button></a>
+                                        @endif
 
                                     {{--                             
                             <a href="{{route('jobregistermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
