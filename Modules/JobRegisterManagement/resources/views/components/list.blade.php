@@ -97,6 +97,12 @@
                                             Edit
                                         </button></a>
                                     @endif
+                                    
+                                    <a href="{{ route('jobregistermanagement.sendFeedBackForm', $row->id) }}"
+                                        ><button class="btn btn-xs btn-default text-dark mx-1 shadow"
+                                            title="Email Feedback Letter">
+                                            Email Feedback Letter 
+                                        </button></a>
                                     <a href="{{ route('jobregistermanagement.pdf', $row->id) }}"
                                         target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
                                             title="Edit">

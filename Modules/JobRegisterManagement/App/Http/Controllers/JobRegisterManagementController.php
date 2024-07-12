@@ -4,6 +4,7 @@ namespace Modules\JobRegisterManagement\App\Http\Controllers;
 
 use Modules\JobRegisterManagement\App\Sheet\KesenExport;
 use App\Http\Controllers\Controller;
+use App\Mail\JobCompleted;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -205,5 +206,17 @@ class JobRegisterManagementController extends Controller
        
        
     }
-
+    public function sendFeedBackForm($job_id){
+        $job_register = JobRegister::where('id', $job_id)->first();
+        Mail::to($job_register->estimate->client_person->email)->send(new JobCompleted($job_register));
+        Mail::send([], [], function ($message) use ($job_register) {
+            $message->to($job_register->estimate->client_person->email)
+                    ->subject('FeedBack Form')
+                    ->attach(public_path('pdf/feedback_form.pdf'), [
+                        'as' => 'confirmation_letter.pdf',
+                        'mime' => 'application/pdf',
+                    ]);
+        });
+        return redirect('/job-register-management')->with('message', 'email letter has been sent successfully!');
+    }
 }

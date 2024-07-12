@@ -47,6 +47,8 @@
                     fgroup-class="col-md-2" required value="{{$bill_data->bill_date}}" type='date' label="Bill Date" />
                     <x-adminlte-input name="bill_no"  placeholder="Bill Status"
                     fgroup-class="col-md-2" required value="{{$bill_data->bill_no}}" type='text' label="Bill Status" />
+                    <x-adminlte-input name="bill_amount"  placeholder="Bill Amount" 
+                    fgroup-class="col-md-2" required value="{{$bill_data->bill_amount}}" type='number' label="Bill Amount" min="0"/>
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
                     fgroup-class="col-md-2"   type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
@@ -58,11 +60,17 @@
                     value="{{ old('payment_status') }}" label="Payment Status" id="payment_status">
                         <option value="">Select Payment Status</option>
                         <option value="Paid" @if ($bill_data->payment_status == 'Paid') selected @endif>Paid</option>
+                        <option value="Partial" @if ($bill_data->payment_status == 'Partial') selected @endif>Partial</option>
                         <option value="Unpaid" @if ($bill_data->payment_status == 'Unpaid') selected @endif>Unpaid</option>
                     </x-adminlte-select>
                     <span id="status" class="col-md-2">
-                        @if ($bill_data->payment_status == 'Paid')
-                        <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" value="{{ $bill_data->payment_date }}" ></div></div> 
+                        @if ($bill_data->payment_status == 'Paid'||$bill_data->payment_status == 'Partial')
+                        <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="paymentdate">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" value="{{ $bill_data->payment_date }}" ></div></div> 
+                        @endif
+                    </span>
+                    <span id="status" class="col-md-2">
+                        @if ($bill_data->payment_status == 'Paid'||$bill_data->payment_status == 'Partial')
+                        <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0" value="{{ $bill_data->paid_amount }}" ></div></div> 
                         @endif
                     </span>
                     
@@ -76,18 +84,19 @@
 
 </div>
 <script>
-     $(document).on('change', '#payment_status', function() {
-        if(this.value == 'Paid') {
-                
-                $('#status').css("display", "block");
-                    document.getElementById('status').innerHTML =
-                        '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" ></div></div>';
-                
-                    } else {
-                    $('#status').css("display", "none");
-                    
-                }
+    $(document).on('change', '#payment_status', function() {
+       if(this.value == 'Paid' || this.value == 'Partial') {
+           $('#status').css("display", "block");
+           $('#amount_paid').css("display", "block");
+           document.getElementById('status').innerHTML =
+               '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment_date">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" ></div></div>';
+           document.getElementById('amount_paid').innerHTML ='<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0"></div></div>';
+       } else {
+           $('#status').css("display", "none");
+           $('#amount_paid').css("display", "none");
+           
+       }
 
-    });
+   });
 </script>
                     

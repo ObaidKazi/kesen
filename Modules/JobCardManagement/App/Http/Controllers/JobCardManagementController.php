@@ -305,7 +305,8 @@ class JobCardManagementController extends Controller
         $job->bill_date=$request->bill_date;
         $job->bill_no=$request->bill_no;
         $job->sent_date=$request->sent_date;
-
+        $job->bill_amount=$request->bill_amount;
+        $job->paid_amount=$request->paid_amount;
         $job->po_number=$request->po_number;
         $job->payment_status=$request->payment_status;
         $job->payment_date=$request->payment_date;
@@ -322,6 +323,8 @@ class JobCardManagementController extends Controller
         $job->bill_no=$request->bill_no;
         $job->sent_date=$request->sent_date;
         $job->po_number=$request->po_number;
+        $job->bill_amount=$request->bill_amount;
+        $job->paid_amount=$request->paid_amount;
         $job->payment_status=$request->payment_status;
         $job->payment_date=$request->payment_date;
         $job->save();
@@ -343,9 +346,6 @@ class JobCardManagementController extends Controller
                 foreach ($recipients as $recipient) {
                     Mail::to($recipient)->send(new JobCompletedBilling($job_register));
                 }
-                
-                Mail::to($job_register->estimate->client_person->email)->send(new JobCompleted($job_register));
-                
             }
             if($status==1){
                 return redirect('/job-card-management')->with('message', 'Job completed and email has been sent.');    

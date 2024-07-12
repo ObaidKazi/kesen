@@ -116,19 +116,19 @@
                                                     fgroup-class="col-md-2" value="{{ old('t_dv.' . $index, $job->t_dv) }}"
                                                     label="T DV" />
                                                 
-                                                    <x-adminlte-input name="v_unit[{{ $index }}]" placeholder="V Unit" fgroup-class="col-md-2"
-                                                    value="{{ old('v_unit.' . $index, $job->v_unit) }}" label="V Unit" />
+                                                    <x-adminlte-input name="v_unit[{{ $index }}]" placeholder="V1 Unit" fgroup-class="col-md-2"
+                                                    value="{{ old('v_unit.' . $index, $job->v_unit) }}" label="V1 Unit" />
                                                 <x-adminlte-select name="v_employee_code[{{ $index }}]" fgroup-class="col-md-2" 
-                                                    value="{{ old('v_employee_code.' . $index, $job->v_employee_code) }}" label="V Employee">
+                                                    value="{{ old('v_employee_code.' . $index, $job->v_employee_code) }}" label="V1 Employee">
                                                     <option value="">Select Employee</option>
                                                     @foreach ($users as $user)
                                                         <option value="{{ $user->id }}" {{ $job->v_employee_code == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
-                                                <x-adminlte-input name="v_pd[{{ $index }}]" placeholder="V PD" fgroup-class="col-md-2"
-                                                    value="{{ old('v_pd.' . $index, $job->v_pd) }}" label="V PD"  type='date' />
-                                                <x-adminlte-input name="v_cr[{{ $index }}]" placeholder="V CR" fgroup-class="col-md-2"
-                                                    value="{{ old('v_cr.' . $index, $job->v_cr) }}" label="V CR"  type='date' />
+                                                <x-adminlte-input name="v_pd[{{ $index }}]" placeholder="V1 PD" fgroup-class="col-md-2"
+                                                    value="{{ old('v_pd.' . $index, $job->v_pd) }}" label="V1 PD"  type='date' />
+                                                <x-adminlte-input name="v_cr[{{ $index }}]" placeholder="V1 CR" fgroup-class="col-md-2"
+                                                    value="{{ old('v_cr.' . $index, $job->v_cr) }}" label="V1 CR"  type='date' />
                                                     <x-adminlte-input name="v2_unit[{{ $index }}]" placeholder="V2 Unit" fgroup-class="col-md-2"
                                                     value="{{ old('v2_unit.' . $index, $job->v2_unit) }}" label="V2 Unit" />
                                                 <x-adminlte-select name="v2_employee_code[{{ $index }}]" fgroup-class="col-md-2" 
