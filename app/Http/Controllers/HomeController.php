@@ -80,7 +80,7 @@ class HomeController extends Controller
         $max = Carbon::parse(request()->get('to_date'))->endOfDay();
 
     $writer_report = WriterPayment::whereBetween('created_at', [$min, $max])
-        ->selectRaw('writer_id, SUM(performance_charge) as total_performance_charge')
+        ->selectRaw('writer_id, SUM(total_amount) as payment_total_amounts')
         ->groupBy('writer_id')
         ->get();
     $pdf = FacadePdf::loadView('reports.pdf.pdf-writer',compact('writer_report','min','max'));
