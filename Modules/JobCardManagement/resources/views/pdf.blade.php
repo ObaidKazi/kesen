@@ -42,7 +42,7 @@
         .additional-info th,
         .additional-info td {
             border: 1px solid #000;
-            padding: 8px;
+            padding:2px;
             word-wrap: break-word;
         }
 
@@ -154,7 +154,6 @@
             </tr>
         </table>
         <br>
-        <br>
         <table class="job-details">
             <thead>
                 <tr>
@@ -261,10 +260,35 @@
                             <td> </td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
-                        @if($pageBreakIndex % 15 == 0 && $pageBreakIndex == 15 ) <!-- Adjust this number based on your page size and row height -->
+                        @if($pageBreakIndex % 30 == 0 && $pageBreakIndex == 30 ) <!-- Adjust this number based on your page size and row height -->
                                 </tbody>
                             </table>
                             <br>
+                            @if(isset($card->v_unit))
+                                <div class="page-break"></div>
+                                <table class="job-details">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Langs.</th>
+                                            <th>Unit</th>
+                                            <th>Writer Code</th>
+                                            <th>Employee Code</th>
+                                            {{-- <th>Two Way QC Verified By</th> --}}
+                                            <th>PD</th>
+                                            <th>CR</th>
+                                            <th>C/NC</th>
+                                            <th>DV</th>
+                                            <th>F/QC</th>
+                                            <th>Sent Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            @endif 
+                        @elseif($pageBreakIndex % 80 == 0 && $pageBreakIndex == 80 )
+                                </tbody>
+                            </table>
+                            <br>
+                            @if(isset($card->v_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>
@@ -283,10 +307,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex == 45 )
+                            @endif 
+                        @elseif($pageBreakIndex % 50 == 0 && $pageBreakIndex > 80 )
                                 </tbody>
                             </table>
                             <br>
+                            @if(isset($card->v_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>
@@ -305,28 +331,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex > 45 )
-                                </tbody>
-                            </table>
-                            <br>
-                            <div class="page-break"></div>
-                            <table class="job-details">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3">Langs.</th>
-                                        <th>Unit</th>
-                                        <th>Writer Code</th>
-                                        <th>Employee Code</th>
-                                        {{-- <th>Two Way QC Verified By</th> --}}
-                                        <th>PD</th>
-                                        <th>CR</th>
-                                        <th>C/NC</th>
-                                        <th>DV</th>
-                                        <th>F/QC</th>
-                                        <th>Sent Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            @endif 
                         @endif
                     @endforeach
                 @else
