@@ -86,8 +86,8 @@
                 @endphp
                 @foreach ($bill_data as $index => $bill)
                     @php
-                        $total_amount += $bill->bill_amount;
-                        $total_paid += $bill->paid_amount;
+                        $total_amount += $bill->bill_amount??0;
+                        $total_paid += $bill->paid_amount??0;
                     @endphp
                     <tr>
                         <td>{{ $index + 1 }}</td>
@@ -98,8 +98,8 @@
                         <td>{{ $bill->accountant->name }}</td>
                         <td>{{ $bill->handle_by->name }}</td>
                         <td>{{ $bill->payment_status == 'Paid' ? 'Paid' : 'Unpaid' }}</td>
-                        <td>{{ $bill->bill_amount }}</td>
-                        <td>{{ $bill->paid_amount }}</td>
+                        <td>{{ $bill->bill_amount??0 }}</td>
+                        <td>{{ $bill->paid_amount??0 }}</td>
                     </tr>
                 @endforeach
                 @php
