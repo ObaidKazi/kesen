@@ -87,8 +87,8 @@
                                                     label="T PD"  required/>
                                                 <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_cr[0]') }}"
-                                                    label="T CR"  required/>
-                                                <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2" required>
+                                                    label="T CR"/>
+                                                <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2">
                                                         <option value="">Select C/CN</option>
                                                         <option value="C">C</option>
                                                         <option value="CN">CN</option>
@@ -132,7 +132,7 @@
                                                 <x-adminlte-input name="t_sentdate[0]" placeholder="Sent Date"
                                                     fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate[0]') }}"
-                                                    label="T Sent Date"  required/>
+                                                    label="T Sent Date"/>
                                             </div>
                                         </div>
                                     </div>

@@ -32,6 +32,7 @@ class JobCompleted extends Mailable
     public function build()
     {
         return $this->subject('Job Completed')
-                    ->view('jobcardmanagement::emails.jobCompleted')->with('jobDetails', $this->jobDetails);
+                    ->view('jobcardmanagement::emails.jobCompleted')->with('jobDetails', $this->jobDetails)
+                    ->attach(public_path('pdf/feedback_form.pdf'));
     }
 }

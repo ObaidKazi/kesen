@@ -91,7 +91,10 @@
         @endif
         <br><br>
 
-        <div class="card" style="margin:10px">
+        <div class="card card-success" style="margin:10px">
+            <div class="card-header">
+                <h3 style="margin:0">All Estimates</h3>
+            </div>
             <div class="card-body">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <br>
@@ -130,81 +133,73 @@
                                 Export
                             </button></a>
                     @endif
-                    <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config">
-                        @foreach ($estimates as $index => $row)
-                            <tr>
+                    <div class="card">
+                        <div class="card-body">
+                            <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config">
+                                @foreach ($estimates as $index => $row)
+                                    <tr>
 
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $row->estimate_no }}</td>
-                                <td>{{ App\Models\Metrix::where('id', $row->client->metrix)->first()->code }}</td>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $row->estimate_no }}</td>
+                                        <td>{{ App\Models\Metrix::where('id', $row->client->metrix)->first()->code }}</td>
 
-                                <td>{{ Modules\ClientManagement\App\Models\Client::where('id', $row->client_id)->first()->name ?? '' }}
-                                </td>
-                                <td>{{ Modules\ClientManagement\App\Models\ContactPerson::where('id', $row->client_contact_person_id)->first()->name ?? '' }}
-                                </td>
-                                <td>{{ $row->headline }}</td>
-                                {{-- <td>{{ $row->amount }}</td> --}}
-                                <td>{{ $row->currency }}</td>
-                                <td
-                                    class={{ $row->status == 0 ? '' : ($row->status == 1 ? 'bg-success' : 'bg-danger') }}>
-                                    {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
-                                </td>
-                                <td>{{ App\Models\User::where('id', $row->created_by)->first()->name }}</td>
-                                <td width="250px">
+                                        <td>{{ Modules\ClientManagement\App\Models\Client::where('id', $row->client_id)->first()->name ?? '' }}
+                                        </td>
+                                        <td>{{ Modules\ClientManagement\App\Models\ContactPerson::where('id', $row->client_contact_person_id)->first()->name ?? '' }}
+                                        </td>
+                                        <td>{{ $row->headline }}</td>
+                                        {{-- <td>{{ $row->amount }}</td> --}}
+                                        <td>{{ $row->currency }}</td>
+                                        <td
+                                            class={{ $row->status == 0 ? '' : ($row->status == 1 ? 'bg-success' : 'bg-danger') }}>
+                                            {{ $row->status == 0 ? 'Pending' : ($row->status == 1 ? 'Approved' : 'Rejected') }}
+                                        </td>
+                                        <td>{{ App\Models\User::where('id', $row->created_by)->first()->name }}</td>
+                                        <td width="300px">
 
-                                    @if(!Auth::user()->hasRole('Accounts'))
-                                        <a href="{{ route('estimatemanagement.edit', $row->id) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                            Edit
-                                            </button></a>
-                                        @endif
+                                            @if(!Auth::user()->hasRole('Accounts'))
+                                                <a href="{{ route('estimatemanagement.edit', $row->id) }}" class="btn btn-info btn-sm mb-2">
+                                                    Edit</a>
+                                                @endif
 
-                                    {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
-                                    View
-                                </button></a> --}}
-                                
-                                    <a href="{{ route('estimatemanagement.viewPdf', $row->id) }}"
-                                        target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                            title="View">
-                                            Preview
-                                        </button></a>
-                                    @if(!Auth::user()->hasRole('Accounts'))
-                                        @if ($row->status == 0)
-                                            <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
-                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                    Approve
-                                                </button></a>
+                                            {{-- <a href="{{route('estimatemanagement.show', $row->id)}}" target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="View">
+                                            View
+                                        </button></a> --}}
+                                        
+                                            <a href="{{ route('estimatemanagement.viewPdf', $row->id) }}"
+                                                target="_blank" class="btn btn-info btn-sm mb-2">
+                                                    Preview
+                                                </a>
+                                            @if(!Auth::user()->hasRole('Accounts'))
+                                                @if ($row->status == 0)
+                                                    <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}" class="btn btn-info btn-sm mb-2">
+                                                            Approve
+                                                    </a>
 
-                                            <a href="{{ route('estimatemanagement.status', [$row->id, 2]) }}"><button
-                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                    Reject
-                                                </button></a>
-                                         @elseif($row->status == 1)
-                                            <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
-                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                    Pending
-                                                </button></a>
+                                                    <a href="{{ route('estimatemanagement.status', [$row->id, 2]) }}" class="btn btn-info btn-sm mb-2">Reject
+                                                        </a>
+                                                @elseif($row->status == 1)
+                                                    <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}" class="btn btn-info btn-sm mb-2">Pending
+                                                        </a>
 
-                                         @else
-                                            <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}"><button
-                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                    Pending
-                                                </button></a>
+                                                @else
+                                                    <a href="{{ route('estimatemanagement.status', [$row->id, 0]) }}" class="btn btn-info btn-sm mb-2">Pending
+                                                        </a>
 
-                                            <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}"><button
-                                                    class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                    Approve
-                                                </button></a>
-                                        @endif
-                                    @endif
+                                                    <a href="{{ route('estimatemanagement.status', [$row->id, 1]) }}" class="btn btn-info btn-sm mb-2">Approve
+                                                        </a>
+                                                @endif
+                                            @endif
 
 
 
-                                </td>
+                                        </td>
 
-                            </tr>
-                        @endforeach
-                    </x-adminlte-datatable>
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

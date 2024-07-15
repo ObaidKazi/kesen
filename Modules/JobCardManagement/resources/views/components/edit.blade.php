@@ -106,7 +106,7 @@
                                                     value="{{ old('t_pd.' . $index, $job->t_pd) }}" label="T PD"  required/>
                                                 <x-adminlte-input name="t_cr[{{ $index }}]" placeholder="T CR"
                                                     fgroup-class="col-md-2" type='date'
-                                                    value="{{ old('t_cr.' . $index, $job->t_cr) }}" label="T CR" required/>
+                                                    value="{{ old('t_cr.' . $index, $job->t_cr) }}" label="T CR"/>
                                                 
                                                 <x-adminlte-select name="t_cnc[{{ $index }}]" label="T C/CN" fgroup-class="col-md-2">
                                                         <option value="">Select C/CN</option>
@@ -153,7 +153,7 @@
                                                 <x-adminlte-input name="t_sentdate[{{ $index }}]"
                                                     placeholder="T Sent Date" fgroup-class="col-md-2" type='date'
                                                     value="{{ old('t_sentdate.' . $index, $job->t_sentdate) }}"
-                                                    label="T Sent Date" required/>
+                                                    label="T Sent Date"/>
                                                
                                             </div>
                                         </div>

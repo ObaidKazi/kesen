@@ -111,14 +111,12 @@
                         <td>{{ $row->verification_2 }}</td>
                         <td>{{ $row->advertising_charges }}</td>
                         <td>
-                            <a href="{{ route('writermanagement.editLanguageMap', [$writer->id, $row->id]) }}">
-                                <button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                    title="Edit">Edit</button>
+                            <a href="{{ route('writermanagement.editLanguageMap', [$writer->id, $row->id]) }}" class="btn btn-info btn-sm mb-2">Edit
                             </a>
-                            <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
+                            <a class="btn btn-danger btn-sm mb-2" title="Delete"
                                 onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$writer->id, $row->id]) }}')">
-                                Delete
-                            </button>
+                                <i class="fa fa-lg fa-fw fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -139,7 +137,7 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $payment->payment_method }}</td>
-                        <td>{{ $payment->metrix }}</td>
+                        <td>{{ App\Models\Metrix::where('id',$payment->metrix)->first()->name }}</td>
                         <td>{{ $payment->apply_gst ? 'Yes' : 'No' }}</td>
                         <td>{{ $payment->apply_tds ? 'Yes' : 'No' }}</td>
                         <td>{{ $payment->period_from }}</td>
@@ -149,9 +147,7 @@
                         <td>{{ $payment->deductible }}</td>
                         <td>
                             @if(Auth::user()->hasRole('Accounts')||Auth::user()->hasRole('CEO'))
-                                <a href="{{ route('writermanagement.editPaymentView', [$writer->id, $payment->id]) }}">
-                                    <button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                        title="Edit">Edit</button>
+                                <a href="{{ route('writermanagement.editPaymentView', [$writer->id, $payment->id]) }}" class="btn btn-info btn-sm mb-2">Edit
                                 </a>
                             @endif
                             {{-- <a href="{{ route('writermanagement.showPayment', [$writer->id, $payment->id]) }}">

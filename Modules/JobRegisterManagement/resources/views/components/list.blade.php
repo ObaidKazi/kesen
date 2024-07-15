@@ -76,7 +76,10 @@
                 style="float:right;margin:10px">Add Job Register</button></a>
         @endif
         <br><br>
-        <div class="card" style="margin:10px">
+        <div class="card card-success" style="margin:10px">
+            <div class="card-header">
+                <h3 style="margin:0">All Registered Jobs</h3>
+            </div>
             <div class="card-body">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
@@ -90,31 +93,23 @@
                                 <td>{{ \Carbon\Carbon::parse($row->created_at)->format('d-m-Y') }}</td>
                                 <td>{{ $row->handle_by->name }}</td>
                                 <td>{{ $row->client->name }}</td>
-                                <td width="250px">
+                                <td width="500px">
                                     @if(!Auth::user()->hasRole('Accounts'))
-                                    <a href="{{ route('jobregistermanagement.edit', $row->id) }}"><button
-                                            class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                            Edit
-                                        </button></a>
+                                    <a href="{{ route('jobregistermanagement.edit', $row->id) }}" class="btn btn-info btn-sm mb-2">Edit
+                                        </a>
                                     @endif
-                                    
-                                    <a href="{{ route('jobregistermanagement.sendFeedBackForm', $row->id) }}"
-                                        ><button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                            title="Email Feedback Letter">
-                                            Email Feedback Letter 
-                                        </button></a>
-                                    <a href="{{ route('jobregistermanagement.pdf', $row->id) }}"
-                                        target="_blank"><button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                            title="Edit">
-                                            Preview
-                                        </button></a>
-                                        @if(Auth::user()->hasRole('Accounts'))
-                                        <a href="{{ route('jobregistermanagement.complete', $row->id) }}"
-                                            ><button class="btn btn-xs btn-default text-dark mx-1 shadow"
-                                                title="Mail">
-                                                Job Completion Letter
-                                            </button></a>
+                                    <a href="{{ route('jobregistermanagement.pdf', $row->id) }}" class="btn btn-info btn-sm mb-2"
+                                        target="_blank">Preview
+                                    </a>
+                                    @if(!Auth::user()->hasRole('Accounts'))
+                                    <a href="{{ route('jobregistermanagement.complete', $row->id) }}" class="btn btn-info btn-sm mb-2">Job Completion Letter
+                                        </a>
+                                    @endif
+                                    @if(!Auth::user()->hasRole('Accounts'))
+                                        @if ($row->status == 1 || $row->status == "1")
+                                            <a href="{{ route('jobregistermanagement.sendFeedBackForm', $row->id) }}" class="btn btn-info btn-sm mb-2">Email Feedback Letter</a>
                                         @endif
+                                    @endif
 
                                     {{--                             
                             <a href="{{route('jobregistermanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">

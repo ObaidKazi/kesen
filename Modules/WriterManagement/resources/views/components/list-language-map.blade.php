@@ -108,14 +108,11 @@
                                     <td>{{ $row->advertising_charges }}</td>
                                     <td width="250px">
                                         @if(!Auth::user()->hasRole('Accounts'))
-                                        <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Edit
-                                            </button></a>
-                                        <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
+                                        <a href="{{ route('writermanagement.editLanguageMap', [$id, $row->id]) }}" class="btn btn-info btn-sm mb-2">Edit</a>
+                                        <a class="btn btn-danger btn-sm mb-2" title="Delete"
                                             onclick="deleteLanguageMap('{{ route('writermanagement.deleteLanguageMap', [$id, $row->id]) }}')">
-                                            Delete
-                                        </button>
+                                            <i class="fa fa-lg fa-fw fa-trash"></i>
+                                        </a>
                                         @endif
                                     </td>
 

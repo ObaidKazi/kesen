@@ -15,6 +15,7 @@ use Modules\ClientManagement\App\Models\ContactPerson;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
+use Modules\LanguageManagement\App\Models\Language;
 
 class EstimateManagementController extends Controller
 {
@@ -220,12 +221,16 @@ class EstimateManagementController extends Controller
                 ->where('unit', $detail->unit)
                 ->where('rate', $detail->rate)
                 ->first();
-                $languages=EstimatesDetails::where('document_name', $detail->document_name)
-                                                    ->where('unit', $detail->unit)
-                                                    ->where('rate', $detail->rate)
-                                                    ->get('lang')
-                                                    ->pluck('lang')->toArray();
+            $languages=EstimatesDetails::where('document_name', $detail->document_name)
+                                                ->where('unit', $detail->unit)
+                                                ->where('rate', $detail->rate)
+                                                ->get('lang')
+                                                ->pluck('lang')->toArray();
             $detail->languages=$languages;
+            $languagesNames=Language::whereIn('id', $languages)
+                                                ->get('name')
+                                                ->pluck('name')->toArray();
+            $detail->languagesNames=$languagesNames;
             return $detail;
 
         });
@@ -281,6 +286,7 @@ class EstimateManagementController extends Controller
             }
                 for ($i = 0; $i < count($languages); $i++) {
                     EstimatesDetails::updateOrCreate([
+                        'estimate_id' => $estimate->id,
                         'document_name' => $document_name,
                         'lang' => $languages[$i],
                         'unit' => $request['unit'][$index],
@@ -300,9 +306,9 @@ class EstimateManagementController extends Controller
                         'two_way_qc_t' => $request['two_way_qc_t'][$index]??null,
                         'two_way_qc_bt' => $request['two_way_qc_bt'][$index]??null,
                     ]);
+            }
+            
         }
-        
-    }
         Session::flash('message', 'Estimate updated successfully');
         return redirect('/estimate-management');
     }

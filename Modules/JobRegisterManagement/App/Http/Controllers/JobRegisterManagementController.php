@@ -2,6 +2,7 @@
 
 namespace Modules\JobRegisterManagement\App\Http\Controllers;
 
+use App\Mail\JobConfirmationMail;
 use Modules\JobRegisterManagement\App\Sheet\KesenExport;
 use App\Http\Controllers\Controller;
 use App\Mail\JobCompleted;
@@ -117,6 +118,7 @@ class JobRegisterManagementController extends Controller
             return redirect()->back(); 
         }
         $jobRegister = JobRegister::findOrFail($id);
+        $jobRegister->clientName = Client::where('id',$jobRegister->client_id)->first('name')->name;
        
         return view('jobregistermanagement::edit', compact('jobRegister'));
     }
@@ -192,39 +194,34 @@ class JobRegisterManagementController extends Controller
 
     public function sendComplete($id){
         $jobRegister = JobRegister::findOrFail($id);
-        $pdf = Pdf::loadView('jobregistermanagement::job-register-complete-pdf', ['jobRegister' => $jobRegister]);   
-        #$pdf = SnappyPdf::loadView('jobregistermanagement::job-register-complete-pdf', compact('jobRegister'));
-
-        if (!$pdf->output()) {
-          // Handle PDF generation error
-          return back()->withErrors('Failed to generate PDF');
+        try{
+            Mail::to($jobRegister->estimate->client_person->email)->send(new JobConfirmationMail($jobRegister));
+        }catch (\Exception $e) {
+            // Handle email sending error
+            return back()->withErrors('Failed to send confirmation email: ' . $e->getMessage());
         }
+        // $pdf = Pdf::loadView('jobregistermanagement::job-register-complete-pdf', ['jobRegister' => $jobRegister]);   
+        // #$pdf = SnappyPdf::loadView('jobregistermanagement::job-register-complete-pdf', compact('jobRegister'));
+
+        // if (!$pdf->output()) {
+        //   // Handle PDF generation error
+        //   return back()->withErrors('Failed to generate PDF');
+        // }
       
         
-        Mail::send([], [], function ($message) use ($pdf, $jobRegister) {
-            $message->to($jobRegister->estimate->client_person->email)
-                    ->subject('Job Confirmation Letter')
-                    ->attachData($pdf->output(), 'confirmation_letter.pdf', [
-                        'mime' => 'application/pdf',
-                    ]);
-        });
+        // Mail::send([], [], function ($message) use ($pdf, $jobRegister) {
+        //     $message->to($jobRegister->estimate->client_person->email)
+        //             ->subject('Job Confirmation Letter')
+        //             ->attachData($pdf->output(), 'confirmation_letter.pdf', [
+        //                 'mime' => 'application/pdf',
+        //             ]);
+        // });
       
         return redirect('/job-register-management')->with('message', 'Confirmation email sent successfully!');
-       
-       
-       
     }
     public function sendFeedBackForm($job_id){
         $job_register = JobRegister::where('id', $job_id)->first();
         Mail::to($job_register->estimate->client_person->email)->send(new JobCompleted($job_register));
-        Mail::send([], [], function ($message) use ($job_register) {
-            $message->to($job_register->estimate->client_person->email)
-                    ->subject('FeedBack Form')
-                    ->attach(public_path('pdf/feedback_form.pdf'), [
-                        'as' => 'confirmation_letter.pdf',
-                        'mime' => 'application/pdf',
-                    ]);
-        });
         return redirect('/job-register-management')->with('message', 'email letter has been sent successfully!');
     }
 }
