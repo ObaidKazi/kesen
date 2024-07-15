@@ -10,6 +10,9 @@
             'label' => 'Employee Name',
         ],
         [
+            'label' => 'Employee Role',
+        ],
+        [
             'label' => 'Employee Email',
         ],
         [
@@ -85,7 +88,10 @@
                 style="float:right;margin:10px">Add Employee</button></a>
         @endif
         <br><br>
-        <div class="card" style="margin:10px">
+        <div class="card card-success" style="margin:10px">
+            <div class="card-header">
+                <h3 style="margin:0">All Employees</h3>
+            </div>
             <div class="card-body">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
@@ -95,6 +101,11 @@
 
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $row->name }}</td>
+                                <td>
+                                    @foreach($row->roles as $role)
+                                        {{ $role->name }}
+                                    @endforeach
+                                </td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->phone }}</td>
                                 {{-- <td>{{ $row->landline }}</td> --}}
@@ -103,10 +114,7 @@
                                 <td>{{ $row->updated_by }}</td>
                                 <td width="250px">
                                     @if(!Auth::user()->hasRole('Accounts'))
-                                        <a href="{{ route('employeemanagement.edit', $row->id) }}"><button
-                                                class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                                Edit
-                                        </button></a>
+                                        <a href="{{ route('employeemanagement.edit', $row->id) }}" class="btn btn-info btn-sm mb-2">Edit</a>
                                     @endif
                                     {{-- <a href="{{route('employeemanagement.show', $row->id)}}"><button class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
                                 View
@@ -114,13 +122,9 @@
                                     </button>
                                     @if(!Auth::user()->hasRole('Accounts'))
                                     @if ($row->status == 1)
-                                        <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}"><button
-                                                class="btn btn-xs btn-danger mx-1 shadow" title="Disable">
-                                                Disable</button></a>
+                                        <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}" class="btn btn-danger btn-sm mb-2">Disable</a>
                                     @else
-                                        <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}"><button
-                                                class="btn btn-xs btn-success  mx-1 shadow"
-                                                title="Enable">Enable</button>
+                                        <a href="{{ route('employeemanagement.disableEnableClient', $row->id) }}" class="btn btn-success btn-sm mb-2">Enable</a>
                                     @endif
                                     @endif
 

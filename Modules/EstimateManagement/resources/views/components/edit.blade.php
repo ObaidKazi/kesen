@@ -56,8 +56,8 @@
                             <option value="{{ $client->id }}"
                                 {{ $estimate->client_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                         @endforeach
-                    </x-adminlte-select>
-                    <x-adminlte-select name="client_contact_person_id" id="client_contact_person_id"
+                    </x-adminlte-select2>
+                    <x-adminlte-select2 name="client_contact_person_id" id="client_contact_person_id"
                         fgroup-class="col-md-3" required label="Contact Person">
                         <option value="">Select Contact Person</option>
                         @foreach ($contact_persons as $contactPerson)
@@ -65,12 +65,12 @@
                                 {{ $estimate->client_contact_person_id == $contactPerson->id ? 'selected' : '' }}>
                                 {{ $contactPerson->name }}</option>
                         @endforeach
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
                     <x-adminlte-input name="headline" placeholder="Headline" fgroup-class="col-md-3" type="text"
                         value="{{ $estimate->headline }}" required label="Headline" />
 
                     
-                    <x-adminlte-select name="currency" placeholder="Currency" fgroup-class="col-md-3" required
+                    <x-adminlte-select2 name="currency" id="currency" placeholder="Currency" fgroup-class="col-md-3" required
                         value="{{ old('currency', $estimate->currency) }}" label="Currency">
                         <option value="">Select Currency</option>
                         <option value="AFN" @if ($estimate->currency == 'AFN') selected @endif label="Afghan afghani">
@@ -389,12 +389,12 @@
                             label="Zambian kwacha">ZMW</option>
                         <option value="ZWB" @if ($estimate->currency == 'ZWB') selected @endif
                             label="Zimbabwean bonds">ZWB</option>
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
                     <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
                         value="{{ old('date', $estimate->date) }}" required label="Mail Received on" />
                     <x-adminlte-input name="discount" placeholder="Discount" fgroup-class="col-md-3" type="text"
                         value="{{ old('discount', $estimate->discount) }}" label="Discount" />
-                    <x-adminlte-select name="type" fgroup-class="col-md-3" required label="Type">
+                    <x-adminlte-select2 name="type" fgroup-class="col-md-3" required label="Type">
                             <option value="">Select Type</option>
                             <option value="words" {{ old('type.', $estimate->type) == 'words' ? 'selected' : '' }}>Words
                             </option>
@@ -402,13 +402,13 @@
                             </option>
                             <option value="minimum" {{ old('type', $estimate->type) == 'minimum' ? 'selected' : '' }}>
                                 Minimum</option>
-                    </x-adminlte-select>
-                    <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
+                    </x-adminlte-select2>
+                    <x-adminlte-select2 name="status" fgroup-class="col-md-3" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" @if ($estimate->status == '0') selected @endif>Pending</option>
                         <option value="1" @if ($estimate->status == '1') selected @endif>Approve</option>
                         <option value="2" @if ($estimate->status == '2') selected @endif>Reject</option>
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
                     
 
                    
@@ -426,38 +426,36 @@
                                                 placeholder="Document Name" fgroup-class="col-md-3" type="text"
                                                 value="{{ old('document_name.' . $index, $detail->document_name) }}"
                                                 required label="Document Name" readonly />
-
-
                                             <x-adminlte-input name="unit[{{ $index }}]" placeholder="Unit"
-                                                fgroup-class="col-md-3" type="text"
+                                                fgroup-class="col-md-1" type="text"
                                                 value="{{ old('unit.' . $index, $detail->unit) }}" required
                                                 label="Unit" onkeyup="calculateAmount(this)" min="1" />
                                             <x-adminlte-input name="rate[{{ $index }}]" placeholder="Rate"
-                                                fgroup-class="col-md-3" type="text"
+                                                fgroup-class="col-md-2" type="text"
                                                 value="{{ old('rate.' . $index, $detail->rate) }}" required
                                                 label="Translation Rate" onkeyup="calculateAmount(this)" />
                                             <x-adminlte-input name="amount[{{ $index }}]" placeholder="Amount"
-                                                fgroup-class="col-md-3" type="text"
+                                                fgroup-class="col-md-2" type="text"
                                                 value="{{ ceil($detail->unit * $detail->rate) }}" label="Amount"
                                                 readonly />
                                             <x-adminlte-input name="verification[{{ $index }}]"
-                                                placeholder="Verification 1" fgroup-class="col-md-3" type="text"
+                                                placeholder="Verification 1" fgroup-class="col-md-2" type="text"
                                                 value="{{ old('verification.' . $index, $detail->verification) }}"
                                                 label="Verification 1" />
                                             <x-adminlte-input name="two_way_qc_t[{{ $index }}]"
-                                                placeholder="Verification 2" fgroup-class="col-md-3" type="text"
+                                                placeholder="Verification 2" fgroup-class="col-md-2" type="text"
                                                 value="{{ old('two_way_qc_t.' . $index, $detail->two_way_qc_t) }}"
                                                 label="Verification 2" />
                                             <x-adminlte-input name="layout_charges[{{ $index }}]"
-                                                placeholder="Layout Charges" fgroup-class="col-md-3" type="text"
+                                                placeholder="Layout Charges" fgroup-class="col-md-2" type="text"
                                                 value="{{ old('layout_charges.' . $index, $detail->layout_charges) }}"
                                                 label="Layout Charges" />
                                             <x-adminlte-input name="back_translation[{{ $index }}]"
-                                                placeholder="Back Translation" fgroup-class="col-md-3" type="text"
+                                                placeholder="Back Translation" fgroup-class="col-md-2" type="text"
                                                 value="{{ old('back_translation.' . $index, $detail->back_translation) }}"
                                                 label="Back Translation Rate" onkeyup="calculateAmount_2(this)" />
                                             <x-adminlte-input name="amount_bt[{{ $index }}]"
-                                                placeholder="Amount" fgroup-class="col-md-3" type="text"
+                                                placeholder="Amount" fgroup-class="col-md-2" type="text"
                                                 value="{{ $detail->unit * $detail->back_translation }}" label="Amount"
                                                 readonly />
                                             <x-adminlte-input name="verification_2[{{ $index }}]"
@@ -474,10 +472,7 @@
                                                 type="text"
                                                 value="{{ old('layout_charges_second.' . $index, $detail->layout_charges_2) }}"
                                                 label="Back Translation Layout Charges" />
-
-
-
-                                            <x-adminlte-select name="lang_{{ $index }}[]"
+                                            <!-- <x-adminlte-select name="lang_{{ $index }}[]"
                                                 fgroup-class="col-md-3" label="Language" multiple for="lang_{{ $index }}" >
                                                 <option value="">Select Language</option>
                                                 @foreach ($languages as $language)
@@ -485,7 +480,25 @@
                                                         {{ in_array($language->id, $detail->languages) ? 'selected' : '' }}>
                                                         {{ $language->name }}</option>
                                                 @endforeach
-                                            </x-adminlte-select>
+                                            </x-adminlte-select> -->
+                                            <div class="{{ $fgroupClass ?? '' }}">
+                                                <label>Languages</label>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton_{{ $index }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        {{count($detail->languagesNames)>0?implode(', ',$detail->languagesNames):"Select Language"}}
+                                                        <!-- Select Language -->
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton_{{ $index }}" style="max-height: 200px; overflow-y: auto; padding: 5px;">
+                                                        @foreach ($languages as $option)
+                                                            <div class="custom-control custom-checkbox dropdown-item">
+                                                                <input type="checkbox" class="custom-control-input" id="checkbox-{{ $option->id }}" onchange="changeLan(this)" name="lang_{{ $index }}[]" value="{{ $option->id }}" {{ in_array($option->id, $detail->languages) ? 'checked' : '' }}>
+                                                                <label class="custom-control-label" for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback is-invalid" id="requiredMsg_{{ $index }}">Please select at least one language.</div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <input type="button" name="button"
@@ -506,7 +519,7 @@
                 
                 <button type="button" class="btn btn-primary mt-2" id="add-item">Add Document</button>
                 <br>
-                <x-adminlte-button label="Submit" type="submit" class="mt-3" />
+                <x-adminlte-button label="Submit" type="submit" onclick="checkValidLan(event)" class="mt-3" />
             </form>
         </x-adminlte-card>
     </div>
@@ -519,12 +532,15 @@
         $('#add-item').click(function() {
             let newItem = $('.repeater-item.mt-3:first').clone();
             newItem.find('.card-title').html('Document ' + (itemIndex + 1));
-            newItem.find('input, select').each(function() {
-                $(this).val('');
+            newItem.find('input, checkbox').each(function() {
+                $(this).prop('checked', false);
                 let name = $(this).attr('name');
+                if(name !== "lang_"+itemIndex+"[]"){
+                    $(this).val('');
+                }
                 if (name == "button") {
                     $(this).attr('value', 'Remove');
-                    $(this).attr('data-detail-id', '');
+                    $(this).attr('data-detail-estimateid', '');
                 } else {
                     name = name.replace(/\d+/, itemIndex);
                     $(this).attr('name', name);
@@ -532,8 +548,30 @@
                         $(this).removeAttr('readonly');
                     }
                 }
+                // Update the id and 'for' attribute to ensure they are unique
+                let id = $(this).attr('id');
+                if (id) {
+                    id = id.replace(/\d+/, itemIndex);
+                    $(this).attr('id', id);
+                }
+
+                let label = $(this).next('label');
+                if (label.length > 0) {
+                    let labelFor = label.attr('for');
+                    if (labelFor) {
+                        labelFor = labelFor.replace(/\d+/, itemIndex);
+                        label.attr('for', labelFor);
+                    }
+                }
             });
+            newItem.find('#dropdownMenuButton_0').text('Select Language');
+            newItem.find('#dropdownMenuButton_0').attr('id','dropdownMenuButton_'+itemIndex);
+            newItem.find('.dropdown-menu').attr('aria-labelledby','dropdownMenuButton_'+itemIndex);
+            newItem.find('#requiredMsg_0').attr('id','requiredMsg_'+itemIndex);
             newItem.appendTo('#repeater');
+            var script = document.createElement('script');
+            script.textContent = "$('#dropdownMenuButton_"+itemIndex+" + div').on('click', function(e) { e.stopPropagation();});";
+            document.body.appendChild(script);
             itemIndex++;
         });
 
@@ -568,17 +606,49 @@
 
         function updateIndices() {
             itemIndex = 0;
+            // $('.repeater-item').each(function() {
+            //     let newItem = $(this);
+            //     newItem.find('input, select').each(function() {
+            //         let name = $(this).attr('name');
+            //         name = name.replace(/\d+/, itemIndex);
+            //         $(this).attr('name', name);
+            //         if (name == 'document_name[' + itemIndex + ']') {
+            //             $(this).removeAttr('readonly');
+            //         }
+            //     });
+            //     newItem.find('.card-title').html('Document ' + (itemIndex + 1));
+            //     itemIndex++;
+            // });
             $('.repeater-item').each(function() {
                 let newItem = $(this);
-                newItem.find('input, select').each(function() {
+                newItem.find('input, checkbox').each(function() {
                     let name = $(this).attr('name');
                     name = name.replace(/\d+/, itemIndex);
                     $(this).attr('name', name);
                     if (name == 'document_name[' + itemIndex + ']') {
                         $(this).removeAttr('readonly');
                     }
+                    newItem.attr('name', name);
+                    // Update the id and 'for' attribute to ensure they are unique
+                    let id = newItem.attr('id');
+                    if (id) {
+                        id = id.replace(/\d+/, itemIndex);
+                        newItem.attr('id', id);
+                    }
+
+                    let label = newItem.next('label');
+                    if (label.length > 0) {
+                        let labelFor = label.attr('for');
+                        if (labelFor) {
+                            labelFor = labelFor.replace(/\d+/, itemIndex);
+                            label.attr('for', labelFor);
+                        }
+                    }
                 });
                 newItem.find('.card-title').html('Document ' + (itemIndex + 1));
+                newItem.find('.dropdown-toggle').attr('id','dropdownMenuButton_'+itemIndex);
+                newItem.find('.dropdown-menu').attr('aria-labelledby','dropdownMenuButton_'+itemIndex);
+                newItem.find('.invalid-feedback').attr('id','requiredMsg_'+itemIndex);
                 itemIndex++;
             });
         }
@@ -599,6 +669,10 @@
         $('input[name^="unit"], input[name^="rate"], input[name^="back_translation"]').on('input', function() {
             calculateAmount(this);
             calculateAmount_2(this);
+        });
+    
+        $('#dropdownMenuButton_0 + div').on('click', function(e) {
+            e.stopPropagation();
         });
     });
 
@@ -622,5 +696,41 @@
         const rate = parseFloat(document.querySelector(`input[name="back_translation[${index}]"]`).value) || 0;
         const amount = Math.round(unit * rate);
         document.querySelector(`input[name="amount_bt[${index}]"]`).value = amount;
+    }
+
+    function changeLan(input) {
+        const index = input.name.substring(5)[0];
+        var selected = [];
+        $('input[name^="lang_'+index+'"]').each(function() {
+            if ($(this).is(':checked')) {
+                selected.push($(this).next('label').text());
+            }
+        });
+
+        $('#dropdownMenuButton_'+index).text(selected.join(', ') || 'Select Language');
+
+        // Update the hidden input value and validity
+        if (selected.length > 0) {
+            $('#requiredMsg_'+index).hide();
+        } else {
+            $('#requiredMsg_'+index).show();
+        }
+    }
+
+    // Validate form on submit
+    function checkValidLan(e){
+        let i=0;
+        $('.repeater-item').each(function() {
+            console.log($('#dropdownMenuButton_'+i).text());
+            // console.log(i,$('input[name="lang_'+i+'[]"]:checked').val());
+            // if ($('input[name="lang_'+i+'[]"]:checked').val() === '' || $('input[name="lang_'+i+'[]"]:checked').val() === undefined ) {
+            if ($('#dropdownMenuButton_'+i).text() === 'Select Language') {
+                $('#requiredMsg_'+i).show();
+                e.preventDefault();
+            } else {
+                $('#requiredMsg_'+i).hide();
+            }
+            i++;
+        });
     }
 </script>

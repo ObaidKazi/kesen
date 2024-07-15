@@ -59,59 +59,59 @@
             <form action="{{ route('jobregistermanagement.store') }}" method="POST">
                 @csrf
                 <div class="row pt-2">
-                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-3" required :config="$config"
+                    <x-adminlte-select2 name="estimate_id" fgroup-class="col-md-2" required :config="$config"
                         label="Estimate Number" id="estimate_number">
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)
                             <option value="{{ $estimate->id }}">{{ $estimate->estimate_no }}</option>
                         @endforeach
                     </x-adminlte-select2>
-                    <x-adminlte-select name="estimate_document_id" id="estimate_document_id" fgroup-class="col-md-3"
+                    <x-adminlte-select2 name="estimate_document_id" id="estimate_document_id" fgroup-class="col-md-2"
                         required label="Estimate Document">
                         <option value="">Select Estimate Document</option>
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
 
 
-                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-3" required
+                    <x-adminlte-select2 name="handled_by_id" fgroup-class="col-md-2" required
                         value="{{ old('handled_by_id') }}" label="Manager">
                         <option value="">Select Manager</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
 
 
-                    <x-adminlte-select name="category" fgroup-class="col-md-3" id="category" required
+                    <x-adminlte-select2 name="category" fgroup-class="col-md-2" id="category" required
                         value="{{ old('category') }}" label="Category">
-                        <option value="">Category</option>
+                        <option value="">Select Category</option>
                         <option value="1">Protocol</option>
                         <option value="2">Non-Protocol / Advertising - Consolidate CON</option>
-                    </x-adminlte-select>
-                    <span id="type" class="col-md-3" style="display: none;">
+                    </x-adminlte-select2>
+                    <span id="type" class="col-md-2" style="display: none;">
 
                     </span>
 
-                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3"
+                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-2"
                         value="{{ old('protocol_no') }}" label="Protocol Number" />
-                    <x-adminlte-input name="version_name" placeholder="Version Name" fgroup-class="col-md-3"
+                    <x-adminlte-input name="version_name" placeholder="Version Name" fgroup-class="col-md-2"
                         value="{{ old('version_name') }}" label="Version Name" />
-                    <x-adminlte-input name="version_no" placeholder="Version No" fgroup-class="col-md-3"
+                    <x-adminlte-input name="version_no" placeholder="Version No" fgroup-class="col-md-2"
                         value="{{ old('version_no') }}" label="Version No" />
-                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-2" type='date'
                         value="{{ old('date', date('Y-m-d')) }}" required label="Date"
                          />
 
-                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3"
+                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-2"
                         type='text' label="Old Job No" />
 
-                    <x-adminlte-select name="status" fgroup-class="col-md-3" required value="{{ old('status') }}"
+                    <x-adminlte-select2 name="status" fgroup-class="col-md-2" required value="{{ old('status') }}"
                         label="Status">
                         <option value="">Select Status</option>
                         <option value="0" selected>In Progress</option>
                         <option value="1">Completed</option>
                         <option value="2">Cancelled</option>
-                    </x-adminlte-select>
-                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3"  :config="$config"
+                    </x-adminlte-select2>
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-2"  :config="$config"
                         label="Other Estimates" id="other_details" multiple>
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)
@@ -163,7 +163,7 @@
 
                 $('#type').css("display", "block");
                 document.getElementById('type').innerHTML =
-                    '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Job Type</label><br><div class="input-group"><select class="form-control"><option value="">Job Type</option><option value="new">New</option><option value="amendment">Amendment</option><option value="site-specific">Site Specific</option></select></div></div>';
+                    '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="language">Job Type</label><br><div class="input-group"><select name="type" class="form-control"><option value="">Job Type</option><option value="new">New</option><option value="amendment">Amendment</option><option value="site-specific">Site Specific</option></select></div></div>';
             } else {
                 $('#type').css("display", "none");
 

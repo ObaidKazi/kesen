@@ -66,10 +66,10 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-register-management">Job Register </a></li>
-                <li class="breadcrumb-item active">{{ $jobRegister->sr_no}}</li>
+                <li class="breadcrumb-item active"> Job No {{ $jobRegister->sr_no}} of {{ $jobRegister->clientName}}</li>
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Job Register {{ $jobRegister->estimate_document_id }}" theme="success"
+        <x-adminlte-card title="Edit Job Register Document ''{{ $jobRegister->estimate_document_id }}''" theme="success"
             icon="fas fa-lg fa-person">
             <form action="{{ route('jobregistermanagement.update', $jobRegister->id) }}" method="POST">
                 @csrf
@@ -88,25 +88,25 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
                      --}}
 
 
-                    <x-adminlte-select name="handled_by_id" fgroup-class="col-md-3" required label="Manager">
+                    <x-adminlte-select2 name="handled_by_id" fgroup-class="col-md-2" required label="Manager">
                         <option value="">Select Manager</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}"
                                 {{ $jobRegister->handled_by_id == $user->id ? 'selected' : '' }}>{{ $user->name }}
                             </option>
                         @endforeach
-                    </x-adminlte-select>
+                    </x-adminlte-select2>
 
 
 
-                    <x-adminlte-select name="category" fgroup-class="col-md-3" id="category" required
+                    <x-adminlte-select2 name="category" fgroup-class="col-md-2" id="category" required
                         value="{{ old('category') }}" label="Category">
                         <option value="">Category</option>
                         <option value="1" {{ $jobRegister->category == 1 ? 'selected' : '' }}>Protocol</option>
                         <option value="2" {{ $jobRegister->category == 2 ? 'selected' : '' }}>Non-Protocol /
                             Advertising - Consolidate CON</option>
-                    </x-adminlte-select>
-                    <span id="type" class="col-md-3"
+                    </x-adminlte-select2>
+                    <span id="type" class="col-md-2"
                         @if ($jobRegister->category == '1') style="display: block;" @else style="display: none;" @endif>
                         <div class="form-group col-md-12" style="padding: 0px;margin:0px">
                             <label for="language">Job Type</label><br>
@@ -128,26 +128,26 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
 
 
 
-                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-3"
+                    <x-adminlte-input name="protocol_no" placeholder="Protocol Number" fgroup-class="col-md-2"
                         value="{{ old('protocol_no', $jobRegister->protocol_no) }}" label="Protocol Number" />
-                    <x-adminlte-input name="version_name" placeholder="Version Name" fgroup-class="col-md-3"
+                    <x-adminlte-input name="version_name" placeholder="Version Name" fgroup-class="col-md-2"
                         value="{{ old('version_name', $jobRegister->version_name) }}" label="Version Name" />
-                    <x-adminlte-input name="version_no" placeholder="Version No" fgroup-class="col-md-3"
+                    <x-adminlte-input name="version_no" placeholder="Version No" fgroup-class="col-md-2"
                         value="{{ old('version_no', $jobRegister->version_no) }}" label="Version No" />
 
 
-                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-3" type='date'
+                    <x-adminlte-input name="date" placeholder="Date" fgroup-class="col-md-2" type='date'
                         value="{{ old('date', $jobRegister->date) }}" required label="Date" />
-                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-3" 
+                    <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-2" 
                         value="{{ $jobRegister->old_job_no }}" type='text' label="Old Job No" />
 
-                    <x-adminlte-select name="status" fgroup-class="col-md-3" required label="Status">
+                    <x-adminlte-select2 name="status" fgroup-class="col-md-2" required label="Status">
                         <option value="">Select Status</option>
                         <option value="0" {{ $jobRegister->status == 0 ? 'selected' : '' }}>In Progress</option>
                         <option value="1" {{ $jobRegister->status == 1 ? 'selected' : '' }}>Completed</option>
                         <option value="2" {{ $jobRegister->status == 2 ? 'selected' : '' }}>Cancelled</option>
-                    </x-adminlte-select>
-                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-3"  :config="$config"
+                    </x-adminlte-select2>
+                    <x-adminlte-select2 name="other_details[]" fgroup-class="col-md-2"  :config="$config"
                         label="Other Estimates" id="other_details" multiple>
                         <option value="">Select Estimate</option>
                         @foreach ($estimates as $estimate)

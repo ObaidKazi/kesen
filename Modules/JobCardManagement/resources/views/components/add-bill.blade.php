@@ -29,8 +29,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/job-card-management">Job Card </a></li>
-                <li class="breadcrumb-item ">Job {{$job_no}}</li>
-                <li class="breadcrumb-item ">Add Bill</li>
+                <!-- <li class="breadcrumb-item ">Job {{$job_no}}</li> -->
+                <li class="breadcrumb-item ">Add Bill for Job {{$job_no}}</li>
             </ol>
         </nav>
         <x-adminlte-card title="Bill Details" theme="success"  icon="fas fa-lg fa-language">
@@ -43,8 +43,8 @@
                     fgroup-class="col-md-2" required value="{{$job->estimate->client->name ?? '' }}" type='text' label="Client Name" disabled/>
                 <x-adminlte-input name="bill_date"  placeholder="Bill Date"
                     fgroup-class="col-md-2" required value="{{ old('bill_date') }}" type='date' label="Bill Date" />
-                    <x-adminlte-input name="bill_no"  placeholder="Bill Status" 
-                    fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='text' label="Bill Status" />
+                    <x-adminlte-input name="bill_no"  placeholder="Bill No" 
+                    fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='text' label="Bill No" />
                     <x-adminlte-input name="bill_amount"  placeholder="Bill Amount" 
                     fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='number' label="Bill Amount" min="0"/>
                     

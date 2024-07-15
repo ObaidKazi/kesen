@@ -45,8 +45,8 @@
                     fgroup-class="col-md-2" required value="{{$bill_data->estimate->client->name ?? '' }}" type='text' label="Client Name" disabled/>
                 <x-adminlte-input name="bill_date"  placeholder="Bill Date"
                     fgroup-class="col-md-2" required value="{{$bill_data->bill_date}}" type='date' label="Bill Date" />
-                    <x-adminlte-input name="bill_no"  placeholder="Bill Status"
-                    fgroup-class="col-md-2" required value="{{$bill_data->bill_no}}" type='text' label="Bill Status" />
+                    <x-adminlte-input name="bill_no"  placeholder="Bill No"
+                    fgroup-class="col-md-2" required value="{{$bill_data->bill_no}}" type='text' label="Bill No" />
                     <x-adminlte-input name="bill_amount"  placeholder="Bill Amount" 
                     fgroup-class="col-md-2" required value="{{$bill_data->bill_amount}}" type='number' label="Bill Amount" min="0"/>
                     

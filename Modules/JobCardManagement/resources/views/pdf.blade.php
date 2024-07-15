@@ -100,6 +100,9 @@
         .page-break {
             page-break-before: always;
         }
+        .client-info td{
+            padding-left: 10px;
+        }
     </style>
 </head>
 
@@ -123,9 +126,9 @@
         <table class="client-info">
             <tr>
                 <th>Client</th>
-                <td><b>{{ $job->estimate->client->name ?? '' }}</b></td>
+                <td style="font-size:20px"><b>{{ $job->estimate->client->name ?? '' }}</b></td>
                 <th>Job No.</th>
-                <td><b>{{ $job->sr_no ?? '' }}</b></td>
+                <td style="font-size:20px"><b>{{ $job->sr_no ?? '' }}</b></td>
             </tr>
             <tr>
                 <th>Document Name</th>
@@ -152,7 +155,7 @@
                 <td><b>{{ $job->estimate->client_person->phone_no ?? '' }}</b></td>
             </tr>
             <tr>
-                <th>Quot No.</th>
+                <th>Add. Quot. No.</th>
                 <td>{{ $job->other_details!=null?\Modules\EstimateManagement\App\Models\Estimates::whereIn('id', explode(',', $job->other_details))->get()->pluck('estimate_no')->implode(', ') ?? '':"" }}</td>
                 <th>Project Manager</th>
                 <td><b>{{ $job->handle_by->name ?? '' }}</b></td>
@@ -211,7 +214,7 @@
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
                         <tr>
-                            <td>V</td>
+                            <td>V1</td>
                             <td>{{ $card->v_unit }}</td>
                             <td></td>
                             <td>{{ App\Models\User::where('id', $card->v_employee_code)->first()->code ?? '' }}</td>
