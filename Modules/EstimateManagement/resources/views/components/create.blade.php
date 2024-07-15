@@ -216,7 +216,7 @@ $config = [
                     $(this).val('');
                     name = 'verification_2[' + itemIndex + ']';
                 } else if (name === "lang_0[]") {
-                    name = 'lang_' + itemIndex + "[]";                   
+                    name = 'lang_' + itemIndex + "[]";               
                 } else {
                     $(this).val('');
                     if (name) {

@@ -280,7 +280,6 @@ class EstimateManagementController extends Controller
         $estimate->status = $request->status;
         $estimate->updated_by = Auth()->user()->id;
         $estimate->save();
-        
         foreach ($request['document_name'] as $index => $document_name) {
             $languages=$request['lang_' . $index];
             $previous_lang=EstimatesDetails::where('document_name', $document_name)->where('unit', $request['unit'][$index])->where('rate', $request['rate'][$index])->where('estimate_id', $estimate->id)->get('lang')->pluck('lang')->toArray();

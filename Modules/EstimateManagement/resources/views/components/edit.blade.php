@@ -535,7 +535,7 @@
             newItem.find('input, checkbox').each(function() {
                 $(this).prop('checked', false);
                 let name = $(this).attr('name');
-                if(name !== "lang_"+itemIndex+"[]"){
+                if(name != "lang_0[]"){
                     $(this).val('');
                 }
                 if (name == "button") {
