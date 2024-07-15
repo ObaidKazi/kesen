@@ -70,8 +70,8 @@
                         <td>{{$index+1}}</td>
                         <td>{{$writer->writer->writer_name}}</td>
                         <td>{{$writer->writer->code}}</td>
-                        <td>{{$writer->payment_total_amounts}}</td>
-                        @php $total+=$writer->payment_total_amounts; @endphp
+                        <td>{{$writer->payment_total_amounts??0}}</td>
+                        @php $total+=$writer->payment_total_amounts??0; @endphp
                     </tr>
                  
                 @endforeach
