@@ -60,14 +60,14 @@
                         @endforeach
                     </x-adminlte-select>
                     <x-adminlte-select  id="apply_gst" name="apply_gst" placeholder="Apply GST" fgroup-class="col-md-3" required
-                        label="Apply GST">
+                        label="Apply GST" onchange="onDateChange()">
                         <option value="0" {{ old('apply_gst', $payment->apply_gst) == 0 ? 'selected' : '' }}>No
                         </option>
                         <option value="1" {{ old('apply_gst', $payment->apply_gst) == 1 ? 'selected' : '' }}>Yes
                         </option>
                     </x-adminlte-select>
                     <x-adminlte-select id="apply_tds" name="apply_tds" placeholder="Apply TDS" fgroup-class="col-md-3" required
-                        label="Apply TDS">
+                        label="Apply TDS" onchange="onDateChange()">
                         <option value="0" {{ old('apply_tds', $payment->apply_tds) == 0 ? 'selected' : '' }}>No
                         </option>
                         <option value="1" {{ old('apply_tds', $payment->apply_tds) == 1 ? 'selected' : '' }}>Yes
@@ -75,7 +75,7 @@
                     </x-adminlte-select>
                     <x-adminlte-input id="period_from" name="period_from" label="Period From" fgroup-class="col-md-3" type="date"
                         required value="{{ old('period_from', $payment->period_from) }}" 
-                         />
+                        onchange="onDateChange()" />
                     <x-adminlte-input id="period_to" name="period_to" label="Period To" fgroup-class="col-md-3" type="date" required
                         value="{{ old('period_to', $payment->period_to) }}" 
                          onchange="onDateChange()"/>

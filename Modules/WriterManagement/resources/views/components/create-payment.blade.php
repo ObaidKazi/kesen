@@ -57,20 +57,20 @@
                     </x-adminlte-select>
 
                     <x-adminlte-select  id="apply_gst" name="apply_gst" placeholder="Apply GST" fgroup-class="col-md-3" required
-                        label="Apply GST">
+                        label="Apply GST" onchange="onDateChange()">
                         <option value="">Apply GST</option>
                         <option value="0" {{ old('apply_gst', '') == 0 ? 'selected' : '' }}>No</option>
                         <option value="1" {{ old('apply_gst', '') == 1 ? 'selected' : '' }}>Yes</option>
                     </x-adminlte-select>
                     <x-adminlte-select id="apply_tds" name="apply_tds" placeholder="Apply TDS" fgroup-class="col-md-3" required
-                        label="Apply TDS">
+                        label="Apply TDS" onchange="onDateChange()">
                         <option value="">Apply TDS</option>
                         <option value="0" {{ old('apply_tds', '') == 0 ? 'selected' : '' }}>No</option>
                         <option value="1" {{ old('apply_tds', '') == 1 ? 'selected' : '' }}>Yes</option>
                     </x-adminlte-select>
                     <x-adminlte-input id="period_from" name="period_from" placeholder="Period From" fgroup-class="col-md-3"
                         type="date" required value="{{ old('period_from') }}" label="Period From"
-                         />
+                        onchange="onDateChange()"/>
                     <x-adminlte-input id="period_to" name="period_to" placeholder="Period To" fgroup-class="col-md-3" type="date"
                         required value="{{ old('period_to') }}" label="Period To"
                         onchange="onDateChange()"/>
