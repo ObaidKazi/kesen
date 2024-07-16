@@ -491,8 +491,8 @@
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton_{{ $index }}" style="max-height: 200px; overflow-y: auto; padding: 5px;">
                                                         @foreach ($languages as $option)
                                                             <div class="custom-control custom-checkbox dropdown-item">
-                                                                <input type="checkbox" class="custom-control-input" id="checkbox-{{ $option->id }}" onchange="changeLan(this)" name="lang_{{ $index }}[]" value="{{ $option->id }}" {{ in_array($option->id, $detail->languages) ? 'checked' : '' }}>
-                                                                <label class="custom-control-label" for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
+                                                                <input type="checkbox" class="custom-control-input" id="checkbox-{{ $index }}-{{ $option->id }}" onclick="changeLan(this)" name="lang_{{ $index }}[]" value="{{ $option->id }}" {{ in_array($option->id, $detail->languages) ? 'checked' : '' }}>
+                                                                <label class="custom-control-label" for="checkbox-{{ $index }}-{{ $option->id }}">{{ $option->name }}</label>
                                                             </div>
                                                         @endforeach
                                                     </div>
@@ -696,6 +696,7 @@
     }
 
     function changeLan(input) {
+        console.log(input);
         const index = input.name.substring(5).replace("[]", "");
         var selected = [];
         $('input[name^="lang_'+index+'"]').each(function() {
