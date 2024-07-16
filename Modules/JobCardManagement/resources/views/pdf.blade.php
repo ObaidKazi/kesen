@@ -126,13 +126,13 @@
         <table class="client-info">
             <tr>
                 <th>Client</th>
-                <td style="font-size:20px"><b>{{ $job->estimate->client->name ?? '' }}</b></td>
+                <td style="font-size:25px"><b>{{ $job->estimate->client->name ?? '' }}</b></td>
                 <th>Job No.</th>
-                <td style="font-size:20px"><b>{{ $job->sr_no ?? '' }}</b></td>
+                <td style="font-size:25px"><b>{{ $job->sr_no ?? '' }}</b></td>
             </tr>
             <tr>
                 <th>Document Name</th>
-                <td>{{ $job->estimate_document_id ?? '' }}</td>
+                <td><b>{{ $job->estimate_document_id ?? '' }}</b></td>
                 <th>Date</th>
                 <td><b>{{ $job->date ? \Carbon\Carbon::parse($job->created_at)->format('j M Y') : '' }}</b></td>
             </tr>
@@ -146,13 +146,13 @@
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
                 <th>Contact Name</th>
-                <td><b>{{ $job->estimate->client_person->name ?? '' }}</b></td>
+                <td>{{ $job->estimate->client_person->name ?? '' }}</td>
             </tr>
             <tr>
                 <th>Estimate No.</th>
                 <td>{{ $job->estimate->estimate_no ?? '' }}</td>
                 <th>Contact Number</th>
-                <td><b>{{ $job->estimate->client_person->phone_no ?? '' }}</b></td>
+                <td>{{ $job->estimate->client_person->phone_no ?? '' }}</td>
             </tr>
             <tr>
                 <th>Add. Quot. No.</th>
