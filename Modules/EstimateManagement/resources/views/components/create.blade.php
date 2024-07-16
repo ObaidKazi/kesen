@@ -341,7 +341,7 @@ $config = [
     }
 
     function changeLan(input) {
-        const index = input.name.substring(5)[0];
+        const index = input.name.substring(5).replace("[]", "");
         var selected = [];
         $('input[name^="lang_'+index+'"]').each(function() {
             if ($(this).is(':checked')) {

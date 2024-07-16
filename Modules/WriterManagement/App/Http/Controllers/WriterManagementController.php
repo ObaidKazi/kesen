@@ -319,18 +319,19 @@ class WriterManagementController extends Controller
                 $total+=WriterLanguageMap::where('writer_id',$request->id)->where('language_id',$job->estimateDetail->language->id)->first()->checking_charges*$job->v_unit;
             }
         }
-        if($request->deductible){
-            $total-=intval($request->deductible);
-        }
-        if($request->performance_charge){
-            $total+=$request->performance_charge;
-        }
-        if($request->apply_gst){
-            $total+=$total*0.18;
-        }
-        if($request->apply_tds){
-            $total=$total-($total*0.1);
-        }
+        // if($request->deductible){
+        //     $total-=intval($request->deductible);
+        // }
+        // if($request->performance_charge){
+        //     $total+=$request->performance_charge;
+        // }
+        // if($request->apply_gst){
+        //     $total+=$total*0.18;
+        // }
+        // if($request->apply_tds){
+        //     $total=$total-($total*0.1);
+        // }
+        $total = $total + ($request->apply_gst?$total*0.18:0) - ($request->apply_tds?$total*0.1:0) + ($request->performance_charge??0) - ($request->deductible ?? 0);
         return round($total);
     }
 }

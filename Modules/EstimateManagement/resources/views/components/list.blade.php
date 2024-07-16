@@ -85,31 +85,37 @@
             </ol>
         </nav>
         @include('components.notification')
-        @if(!Auth::user()->hasRole('Accounts'))
+        <!-- @if(!Auth::user()->hasRole('Accounts'))
         <a href="{{ route('estimatemanagement.create') }}"><button class="btn btn-md btn-success "
                 style="float:right;margin:10px">Add Estimate</button></a>
         @endif
-        <br><br>
+        <br><br> -->
 
-        <div class="card card-success" style="margin:10px">
+        <div class="card card-success">
             <div class="card-header">
                 <h3 style="margin:0">All Estimates</h3>
             </div>
             <div class="card-body">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    <br>
                     <table border="0" cellspacing="5" cellpadding="5">
                         <tbody>
                             <tr>
-                                <td>From Date:</td>
-                                <form action="estimate-management">
-                                    <td><input type="date" id="min" name="min"></td>
-                                    <td>To Date:</td>
-                                    <td><input type="date" id="max" name="max"></td>
-                                    <td><input type="submit" value="Filter"></td>
-                                    <td><input type="submit" value="Reset" name="reset"></td>
-                                </form>
-
+                                <td width="90%">
+                                    <form action="estimate-management">
+                                        From Date:
+                                        <input type="date" id="min" name="min">
+                                        To Date:
+                                        <input type="date" id="max" name="max">
+                                        <input type="submit" value="Filter">
+                                        <input type="submit" value="Reset" name="reset">
+                                    </form>
+                                </td>
+                                @if(!Auth::user()->hasRole('Accounts'))
+                                    <td>
+                                        <a href="{{ route('estimatemanagement.create') }}"><button class="btn btn-md btn-success "
+                                            style="margin:10px;width:120px;">Add Estimate</button></a>
+                                    </td>
+                                @endif
                             </tr>
                         </tbody>
                     </table>
