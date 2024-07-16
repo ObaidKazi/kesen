@@ -525,7 +525,8 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {        
+    $(document).ready(function() {      
+        addLangScripts();  
         let tempIndex = {{ count($estimate_details) }};
         let itemIndex = {{ count($estimate_details) }};
 
@@ -670,10 +671,6 @@
             calculateAmount(this);
             calculateAmount_2(this);
         });
-    
-        $('#dropdownMenuButton_0 + div').on('click', function(e) {
-            e.stopPropagation();
-        });
     });
 
     function calculateAmount(input) {
@@ -731,6 +728,16 @@
                 $('#requiredMsg_'+i).hide();
             }
             i++;
+        });
+    }
+
+    function addLangScripts(){
+        let scriptIndex = 0;
+        $('.repeater-item').each(function() {
+            var script = document.createElement('script');
+            script.textContent = "$('#dropdownMenuButton_"+scriptIndex+" + div').on('click', function(e) { e.stopPropagation();});";
+            document.body.appendChild(script);
+            scriptIndex++;
         });
     }
 </script>
