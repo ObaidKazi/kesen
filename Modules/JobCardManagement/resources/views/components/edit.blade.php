@@ -62,7 +62,7 @@
         </nav>
         <x-adminlte-card title="Edit Job Card" theme="success" icon="fas fa-lg fa-person">
 
-            <form action="{{ route('jobcardmanagement.update', $job_register->sr_no) }}" method="POST"
+            <form action="{{ route('jobcardmanagement.update', $job_register->id.'|'.$job_register->estimate_document_id) }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 @method('PUT')

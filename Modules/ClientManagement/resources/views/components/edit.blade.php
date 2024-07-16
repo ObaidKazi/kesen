@@ -152,27 +152,21 @@
                             {{-- <td>{{ $row->landline }}</td> --}}
                             <td>{{ $row->designation }}</td>
                             <td width="250px">
-                                <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}"><button
-                                        class="btn btn-xs btn-default text-dark mx-1 shadow" title="Edit">
-                                        Edit
-                                    </button></a>
+                                <a href="{{ route('clientmanagement.editContactForm', [$client->id, $row->id]) }}" class="btn btn-info btn-sm mb-2">Edit</a>
                                 @if ($row->status == 1)
                                     <a
-                                        href="{{ route('clientmanagement.disableEnableContact', [$client->id, $row->id]) }}"><button
-                                            class="btn btn-xs btn-danger  mx-1 shadow" title="Disable">
-                                            Disable
-                                        </button></a>
+                                        href="{{ route('clientmanagement.disableEnableContact', [$client->id, $row->id]) }}" class="btn btn-danger btn-sm mb-2">Disable</a>
                                 @else
                                     <a
-                                        href="{{ route('clientmanagement.disableEnableContact', [$client->id, $row->id]) }}"><button
-                                            class="btn btn-xs btn-success  mx-1 shadow" title="Enable">
-                                            Enable
-                                        </button></a>
+                                        href="{{ route('clientmanagement.disableEnableContact', [$client->id, $row->id]) }}" class="btn btn-success btn-sm mb-2">Enable</a>
                                 @endif
-                                <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
+                                <!-- <button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete"
                                     onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$client->id, $row->id]) }}')">
                                    Delete
-                                </button>
+                                </button> -->
+                                <a class="btn btn-danger btn-sm mb-2" title="Delete" onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$client->id, $row->id]) }}')">
+                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                </a>
                             </td>
 
                         </tr>

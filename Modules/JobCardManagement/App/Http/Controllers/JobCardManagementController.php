@@ -64,7 +64,8 @@ class JobCardManagementController extends Controller
         $job = JobRegister::with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])
         ->where('id', $job_id)
         ->first();
-        #return view('jobcardmanagement::pdf', compact('job'));
+
+        // return view('jobcardmanagement::pdf', compact('job'));
         $pdf = FacadePdf::loadView('jobcardmanagement::pdf', compact('job'));
 
        return  $pdf->stream();
@@ -137,8 +138,9 @@ class JobCardManagementController extends Controller
             $jobCard->save();
 
         }
-
-        return redirect(route('jobcardmanagement.index'))->with('message', 'Job Card created successfully.');;
+        $jobId = JobRegister::where('sr_no',$request['job_no'][0])->first('id')->id;
+        $docName = EstimatesDetails::where('id',$request['estimate_detail_id'][0])->first('document_name')->document_name;
+        return redirect()->route('jobcardmanagement.manage.list', ['job_id' => $jobId, 'estimate_detail_id' => $docName])->with('message', 'Job Card updated successfully.');
     }
 
     public function show($id)
@@ -152,7 +154,7 @@ class JobCardManagementController extends Controller
         return view('jobcardmanagement::show')->with('jobCard', $jobCard);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $job_register_id_and_doc_mame)
     {
         if(!(Auth::user()->hasRole('Admin')||Auth::user()->hasRole('CEO')||Auth::user()->hasRole('Project Manager'))){
             return redirect()->back(); 
@@ -219,7 +221,8 @@ class JobCardManagementController extends Controller
         }
 
 
-        return redirect(route('jobcardmanagement.index'))->with('message', 'Job Card updated successfully.');;
+        $param = explode("|",$job_register_id_and_doc_mame);
+        return redirect()->route('jobcardmanagement.manage.list', ['job_id' => $param[0], 'estimate_detail_id' => $param[1]])->with('message', 'Job Card updated successfully.');
     }
 
     public function edit($id){
@@ -279,7 +282,7 @@ class JobCardManagementController extends Controller
 
     public function listEstimateDetailsLanguage($job_id,$estimate_detail_id){
         $job_register = JobRegister::where('id',$job_id)->first();
-        $estimate_detail=EstimatesDetails::where('document_name',$estimate_detail_id)->get();
+        $estimate_detail=EstimatesDetails::where('estimate_id',$job_register->estimate_id)->where('document_name',$estimate_detail_id)->get();
         $list_estimate_language=true;
         if($estimate_detail!=null){
             return view('jobcardmanagement::manage',compact('job_id','estimate_detail','list_estimate_language','job_register'));

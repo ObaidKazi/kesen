@@ -27,7 +27,7 @@
     $heads_manage = [
             ['label' => '#'],
             ['label' => 'Document Name'],
-            ['label' => 'Job No'],
+            //['label' => 'Job No'],
             ['label' => 'Language'],
             ['label' => 'Action'],
         ];
@@ -95,7 +95,6 @@
                                         <td><input type="submit" value="Filter"></td>
                                         <td><input type="submit" value="Reset" name="reset"></td>
                                     </form>
-
                                 </tr>
                             </tbody>
                         </table>
@@ -126,18 +125,18 @@
                                                 </a>
                                                 <a href="{{ route('jobcardmanagement.pdf', ['job_id' => $row->id]) }}"  target="_blank" class="btn btn-info btn-sm mb-2">Preview</a>
                                                 @if(!Auth::user()->hasRole('Accounts'))
-                                                @if($row->status == 0)
-                                                
-                                                        <a href="{{route('jobcardmanagement.status', [$row->id,1])}}" class="btn btn-info btn-sm mb-2">Completed</a>
-                                                @elseif($row->status == 1)
-                    
-                                                    <a href="{{route('jobcardmanagement.status', [$row->id,0])}}" class="btn btn-info btn-sm mb-2">In Progress</a>
-                                                @else
-                    
-                                                    <a href="{{route('jobcardmanagement.status', [$row->id,0])}}" class="btn btn-info btn-sm mb-2">In Progress</a>
+                                                    @if($row->status == 0)
+                                                    
+                                                            <a href="{{route('jobcardmanagement.status', [$row->id,1])}}" class="btn btn-info btn-sm mb-2">Completed</a>
+                                                    @elseif($row->status == 1)
                         
-                                                    <a href="{{route('jobcardmanagement.status', [$row->id,1])}}" class="btn btn-info btn-sm mb-2">Completed</a>
-                                                @endif
+                                                        <a href="{{route('jobcardmanagement.status', [$row->id,0])}}" class="btn btn-info btn-sm mb-2">In Progress</a>
+                                                    @else
+                        
+                                                        <a href="{{route('jobcardmanagement.status', [$row->id,0])}}" class="btn btn-info btn-sm mb-2">In Progress</a>
+                            
+                                                        <a href="{{route('jobcardmanagement.status', [$row->id,1])}}" class="btn btn-info btn-sm mb-2">Completed</a>
+                                                    @endif
         
                                                 @endif
                                                 
@@ -204,7 +203,7 @@
             <br><br>
             <div class="card" style="margin:10px">
                 <div class="card-header">
-                    <h3 style="margin:0">All Languages of job no "{{$job_register->sr_no}}"</h3>
+                    <h3 style="margin:0">All languages of job no "{{$job_register->sr_no}}"</h3>
                 </div>
                 <div class="card-body">
                     <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
@@ -213,12 +212,12 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $detail->document_name }}</td>
-                                    <td>{{ $detail->jobRegister->sr_no }}</td>
+                                    <!-- <td>{{ $detail->jobRegister->sr_no }}</td> -->
                                     <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
                                     
                                     <td width="250px">
                                         @if(!Auth::user()->hasRole('Accounts'))
-                                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $detail->jobRegister->id, 'estimate_detail_id' => $detail->id])}}" class="btn btn-info btn-sm mb-2">Edit</a>
+                                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $job_register->id, 'estimate_detail_id' => $detail->id])}}" class="btn btn-info btn-sm mb-2">Edit</a>
                                         @endif
                                     </td>
                                 </tr>

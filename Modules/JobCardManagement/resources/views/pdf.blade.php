@@ -137,10 +137,10 @@
                 <td><b>{{ $job->date ? \Carbon\Carbon::parse($job->created_at)->format('j M Y') : '' }}</b></td>
             </tr>
             <tr>
-                <th>Verion Name.</th>
-                <td>{{ $job->version_name ?? '' }}</td>
                 <th>Verion no</th>
                 <td><b>{{ $job->version_no?? '' }}</b></td>
+                <th>Verion Date.</th>
+                <td>{{ $job->version_date ?? '' }}</td>
             </tr>
             <tr>
                 <th>Protocol No.</th>
@@ -272,7 +272,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($job->jobCard[$index+1]->v_unit))
+                            @if(isset($job->jobCard[$index+1]->t_unit))
                                 <div class="page-break"></div>
                                 <table class="job-details">
                                     <thead>
@@ -296,7 +296,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($job->jobCard[$index+1]->v_unit))
+                            @if(isset($job->jobCard[$index+1]->t_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>
@@ -320,7 +320,7 @@
                                 </tbody>
                             </table>
                             <br>
-                            @if(isset($job->jobCard[$index+1]->v_unit))
+                            @if(isset($job->jobCard[$index+1]->t_unit))
                             <div class="page-break"></div>
                             <table class="job-details">
                                 <thead>
@@ -343,7 +343,7 @@
                         @endif
                     @endforeach
                 @else
-                    @foreach (\Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $job->estimate_id)->get() as $card)
+                    @foreach (\Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $job->estimate_id)->where('document_name',$job->estimate_document_id)->get() as $card) 
                         <tr>
                             @if (!in_array($card->id, $estimate_details_list))
                                 @php $estimate_details_list[] = $card->id; @endphp
@@ -428,7 +428,7 @@
                             <td style="font-size: 8pt"></td>
                             @php $pageBreakIndex+=1;@endphp
                         </tr>
-                        @if($pageBreakIndex % 15 == 0 && $pageBreakIndex == 15 ) <!-- Adjust this number based on your page size and row height -->
+                        @if($pageBreakIndex % 32 == 0 && $pageBreakIndex == 32 ) <!-- Adjust this number based on your page size and row height -->
                                 </tbody>
                             </table>
                             <br>
@@ -450,7 +450,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex == 45 )
+                        @elseif($pageBreakIndex % 32 == 0 && $pageBreakIndex == 64 )
                                 </tbody>
                             </table>
                             <br>
@@ -472,7 +472,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                        @elseif($pageBreakIndex % 30 == 0 && $pageBreakIndex > 45 )
+                        @elseif($pageBreakIndex % 32 == 0 && $pageBreakIndex > 64 )
                                 </tbody>
                             </table>
                             <br>

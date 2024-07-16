@@ -54,7 +54,7 @@ class JobRegisterManagementController extends Controller
             'date' => 'required|date',
             'description' => 'nullable|string',
             'protocol_no' => 'nullable|string',
-            'version_name' => 'nullable|string',
+            'version_date' => 'nullable|string',
             'version_no' => 'nullable|string',
             'status' => 'required|integer',
             'cancel_reason' => 'nullable|string',
@@ -84,7 +84,7 @@ class JobRegisterManagementController extends Controller
         $job_register->date = $request->date;
         $job_register->description = $request->estimate_document_id;
         $job_register->protocol_no = $request->protocol_no;
-        $job_register->version_name = $request->version_name;
+        $job_register->version_date = $request->version_date;
         $job_register->version_no = $request->version_no;
         $job_register->status = $request->status;
         $job_register->cancel_reason = $request->cancel_reason;
@@ -135,7 +135,7 @@ class JobRegisterManagementController extends Controller
             'type' => 'nullable|string',
             'date' => 'required|date',
             'protocol_no' => 'nullable|string',
-            'version_name' => 'nullable|string',
+            'version_date' => 'nullable|string',
             'version_no' => 'nullable|string',
             'status' => 'required|integer',
             'cancel_reason' => 'nullable|string',
@@ -159,7 +159,7 @@ class JobRegisterManagementController extends Controller
         $jobRegister->old_job_no=$request->old_job_no??'';
         $jobRegister->description = $request->estimate_document_id;
         $jobRegister->protocol_no = $request->protocol_no;
-        $jobRegister->version_name = $request->version_name;
+        $jobRegister->version_date = $request->version_date;
         $jobRegister->version_no = $request->version_no;
         $jobRegister->status = $request->status;
         $jobRegister->cancel_reason = $request->cancel_reason;
