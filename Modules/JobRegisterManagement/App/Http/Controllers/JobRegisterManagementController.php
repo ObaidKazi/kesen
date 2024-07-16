@@ -48,7 +48,7 @@ class JobRegisterManagementController extends Controller
             'estimate_id' => 'required|string',
             'handled_by_id' => 'required|string',
             'other_details' => 'nullable|array',
-            'estimate_document_id' => 'required|string|unique:job_register,estimate_document_id',
+            'estimate_document_id' => 'required',
             'category' => 'required|integer',
             'type' => 'nullable|string',
             'date' => 'required|date',
