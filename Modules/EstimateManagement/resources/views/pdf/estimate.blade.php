@@ -237,11 +237,11 @@
                 @php $net_total=($sub_total-($estimate->discount)) @endphp
                 <tr class="financials">
                     <td colspan="{{ $counter - 1 }}">GST (18%)</td>
-                    <td colspan="1" style="font-size: 6px;">{{ number_format((($net_total / 100) * 18),2) }}</td>
+                    <td colspan="1" style="font-size: 6px;">{{ number_format(ceil((($net_total / 100) * 18)),2) }}</td>
                 </tr>
                 <tr class="financials" style="background-color: #f0f0f0">
                     <td colspan="{{ $counter - 1 }}" style="font-size: 14px;font-weight: bold">Total</td>
-                    <td colspan="1" style="font-size: 6px;font-weight: bold">{{ number_format(($net_total + ($net_total / 100) * 18),2) }}
+                    <td colspan="1" style="font-size: 6px;font-weight: bold">{{ number_format(ceil(($net_total + ($net_total / 100) * 18)),2) }}
                     </td>
                 </tr>
             </tbody>
