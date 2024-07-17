@@ -35,7 +35,7 @@
             </ol>
         </nav>
         @include('components.notification')
-        <x-adminlte-card title="Edit Language Map" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Language Map" theme="info">
             <form action="{{ route('writermanagement.updateLanguageMap', [$id, $language_map->id]) }}" method="POST">
                 @csrf
                 @method('PUT')

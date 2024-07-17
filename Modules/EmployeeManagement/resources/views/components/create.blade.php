@@ -33,7 +33,7 @@
                 <li class="breadcrumb-item ">Add Employee</li>     
             </ol>
         </nav>
-        <x-adminlte-card title="New Employee" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Employee" theme="info" icon="fas fa-lg fa-person">
 
             <form action="{{ route('employeemanagement.store') }}" method="POST">
                 @csrf

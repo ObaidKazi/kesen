@@ -139,12 +139,12 @@
             <tr>
                 <th>Verion no</th>
                 <td><b>{{ $job->version_no?? '' }}</b></td>
-                <th>Verion Date.</th>
-                <td>{{ $job->version_date ?? '' }}</td>
-            </tr>
-            <tr>
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
+            </tr>
+            <tr>
+                <th>Verion Date.</th>
+                <td>{{ $job->version_date ? \Carbon\Carbon::parse($job->version_date)->format('j M Y') : '' }}</td>
                 <th>Contact Name</th>
                 <td>{{ $job->estimate->client_person->name ?? '' }}</td>
             </tr>

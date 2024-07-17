@@ -33,7 +33,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Add Payment</li>
             </ol>
         </nav>
-        <x-adminlte-card title="New Payment" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Payment" theme="info">
             <form action="{{ route('writermanagement.addPayment', $id) }}" method="POST">
                 @method('POST')
                 @csrf

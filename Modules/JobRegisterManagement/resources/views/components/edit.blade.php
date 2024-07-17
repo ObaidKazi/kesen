@@ -69,7 +69,7 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
                 <li class="breadcrumb-item active"> Job No {{ $jobRegister->sr_no}} of {{ $jobRegister->clientName}}</li>
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Job Register Document ''{{ $jobRegister->estimate_document_id }}''" theme="success"
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Job Register Document ''{{ $jobRegister->estimate_document_id }}''" theme="info"
             icon="fas fa-lg fa-person">
             <form action="{{ route('jobregistermanagement.update', $jobRegister->id) }}" method="POST">
                 @csrf

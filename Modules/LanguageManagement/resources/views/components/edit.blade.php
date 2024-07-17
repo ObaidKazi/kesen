@@ -32,7 +32,7 @@
                 <li class="breadcrumb-item ">{{ $language->name }}</li>
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Language" theme="success" icon="fas fa-lg fa-language">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Language" theme="info" icon="fas fa-lg fa-language">
 
             <form action="{{ route('language-management.update', $language->id) }}" method="POST">
                 @method('PUT')

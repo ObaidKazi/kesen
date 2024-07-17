@@ -34,7 +34,7 @@
                 <li class="breadcrumb-item ">Add Contact Person</li>  
             </ol>
         </nav>
-        <x-adminlte-card title="New Contact" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Contact" theme="info">
             <form action="{{ route('clientmanagement.storeContact', $id) }}" method="POST">
                 @method('POST')
                 @csrf

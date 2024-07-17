@@ -34,7 +34,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Add Language</li>
             </ol>
         </nav>
-        <x-adminlte-card title="New Language Map" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Language Map" theme="info">
             
             <form action="{{ route('writermanagement.addLanguageMap', $id) }}" method="POST">
                 @method('POST')

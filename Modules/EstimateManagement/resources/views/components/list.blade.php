@@ -91,11 +91,11 @@
         @endif
         <br><br> -->
 
-        <div class="card card-success">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 style="margin:0">All Estimates</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="background-color: #eaecef;">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <table border="0" cellspacing="5" cellpadding="5">
                         <tbody>
@@ -106,8 +106,8 @@
                                         <input type="date" id="min" name="min">
                                         To Date:
                                         <input type="date" id="max" name="max">
-                                        <input type="submit" value="Filter">
-                                        <input type="submit" value="Reset" name="reset">
+                                        <input class="btn btn-info" type="submit" value="Filter">
+                                        <input class="btn btn-info" type="submit" value="Reset" name="reset">
                                     </form>
                                 </td>
                                 @if(!Auth::user()->hasRole('Accounts'))
@@ -128,13 +128,13 @@
                     @if (request()->input('min') || request()->input('max'))
                         <a
                             href="{{ route('estimatemanagement.exporteestimate') }}?min={{ request()->input('min') }}&max={{ request()->input('max') }}" target="_blank"><button
-                                class="btn btn-sm btn-default text-dark" title="Edit"
+                                class="btn btn-sm btn-info" title="Edit"
                                 style="width:132px;margin-left:5px;height:33px" > 
                                 Export
                             </button></a>
                     @else
                         <a href="{{ route('estimatemanagement.exporteestimate') }}" target="_blank"><button
-                                class="btn btn-sm btn-default text-dark " title="Edit"
+                                class="btn btn-sm btn-info " title="Edit"
                                 style="width:132px;margin-left:5px;height:33px" >
                                 Export
                             </button></a>

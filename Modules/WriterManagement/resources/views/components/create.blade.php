@@ -33,7 +33,7 @@
                 
             </ol>
         </nav>
-        <x-adminlte-card title="New Writer" theme="success" icon="fas fa-lg fa-language">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Writer" theme="info" icon="fas fa-lg fa-language">
 
 
             <form action="{{ route('writermanagement.store') }}" method="POST">

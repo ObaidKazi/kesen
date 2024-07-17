@@ -67,7 +67,7 @@
                 <li class="breadcrumb-item ">{{$client->name}}</li>     
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Client" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Client" theme="info" icon="fas fa-lg fa-person">
             <form action="{{ route('clientmanagement.update', $client->id) }}" method="POST">
                 @method('PUT')
                 @csrf

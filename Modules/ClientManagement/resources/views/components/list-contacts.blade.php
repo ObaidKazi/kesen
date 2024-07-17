@@ -71,7 +71,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item "><a href="/client-management">Client </a></li>     
                 <li class="breadcrumb-item "><a href="/client-management/{{$id}}/edit">{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}</a></li>
-                <li class="breadcrumb-item ">View Contacts</li> 
+                <li class="breadcrumb-item ">Contacts</li> 
             </ol>
         </nav>
         @include('components.notification')
@@ -80,8 +80,11 @@
                 style="float:right;margin:10px">Add Contact</button></a>
         @endif
         <br><br>
-        <div class="card" style="margin:10px">
-            <div class="card-body">
+        <div class="card card-info" style="margin:10px">
+            <div class="card-header">
+                <h3 style="margin:0">All Contacts of "{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}"</h3>
+            </div>
+            <div class="card-body" style="background-color: #eaecef;">
                 <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
                         with-buttons>

@@ -58,7 +58,7 @@
                 <li class="breadcrumb-item ">{{$estimate_detail->language->name}}</li>
             </ol>
         </nav>
-        <x-adminlte-card title="Job Card" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Job Card" theme="info" icon="fas fa-lg fa-person">
            
             <form action="{{ route('jobcardmanagement.store') }}" method="POST">
                 @csrf
@@ -68,7 +68,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">Part Copy 1</h3>
                             </div>
-                            <div class="card-body" style="padding-bottom: 0;">
+                            <div class="card-body" style="padding-bottom: 0;background-color: #eaecef;">
                                 <div class="row pt-2">
                                     <div class="card">
                                         <div class="card-body">

@@ -40,7 +40,7 @@
                     <li class="breadcrumb-item ">Add Client</li>     
                 </ol>
             </nav>
-        <x-adminlte-card title="New Client" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Client" theme="info" icon="fas fa-lg fa-person">
             <form action="{{ route('clientmanagement.store') }}" method="POST">
                 @csrf
                 <div class="row pt-2">

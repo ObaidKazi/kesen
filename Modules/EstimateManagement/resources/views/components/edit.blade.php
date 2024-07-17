@@ -45,7 +45,7 @@
                 
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Estimate" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Estimate" theme="info" icon="fas fa-lg fa-person">
             <form action="{{ route('estimatemanagement.update', $estimate->id) }}" method="POST">
                 @method('PUT')
                 @csrf

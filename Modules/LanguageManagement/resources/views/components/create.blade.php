@@ -32,7 +32,7 @@
                 <li class="breadcrumb-item ">Add Language</li>
             </ol>
         </nav>
-        <x-adminlte-card title="New Language" theme="success" icon="fas fa-lg fa-language">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Language" theme="info" icon="fas fa-lg fa-language">
 
 
             <form action="{{ route('language-management.store') }}" method="POST">

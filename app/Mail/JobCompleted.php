@@ -33,6 +33,6 @@ class JobCompleted extends Mailable
     {
         return $this->subject('Job Completed')
                     ->view('jobcardmanagement::emails.jobCompleted')->with('jobDetails', $this->jobDetails)
-                    ->attach(public_path('pdf/CUSTOMER-SATISFACTION-SURVEY.pdf'));
+                    ->attach(public_path('pdf/Feedback-Form.docx'));
     }
 }

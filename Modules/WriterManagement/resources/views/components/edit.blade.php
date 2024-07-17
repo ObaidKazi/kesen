@@ -70,7 +70,7 @@
                 <li class="breadcrumb-item active" >{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}</li>
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Writer" theme="success" icon="fas fa-lg fa-language">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Writer" theme="info" icon="fas fa-lg fa-language">
             <form action="{{ route('writermanagement.update', $writer->id) }}" method="POST">
                 @method('PUT')
                 @csrf

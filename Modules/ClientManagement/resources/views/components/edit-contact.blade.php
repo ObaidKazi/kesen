@@ -34,7 +34,7 @@
                 <li class="breadcrumb-item ">{{$contact_person->name}}</li>  
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Contact" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Contact" theme="info">
             <form action="{{ route('clientmanagement.editContact', [$id, $contact_person->id]) }}" method="POST">
                 @method('PUT')
                 @csrf

@@ -33,7 +33,7 @@
                 <li class="breadcrumb-item ">{{$user->name}}</li>     
             </ol>
         </nav>
-        <x-adminlte-card title="Edit Employee" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Employee" theme="info" icon="fas fa-lg fa-person">
 
             <form action="{{ route('employeemanagement.update', $user->id) }}" method="POST">
                 @method('PUT')

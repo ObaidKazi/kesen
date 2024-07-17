@@ -90,8 +90,11 @@
                     style="float:right;margin:10px">Add Language Map</button></a>
             @endif
             <br><br>
-            <div class="card" style="margin:10px">
-                <div class="card-body">
+            <div class="card card-info" style="margin:10px">
+                <div class="card-header">
+                    <h3 style="margin:0">All languages of "{{Modules\WriterManagement\App\Models\Writer::where('id',$id)->first()->writer_name}}"</h3>
+                </div>
+                <div class="card-body" style="background-color: #eaecef;">
                     <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                         <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped
                             :config="$config" with-buttons>

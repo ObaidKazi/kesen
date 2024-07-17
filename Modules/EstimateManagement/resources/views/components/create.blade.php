@@ -45,7 +45,7 @@ $config = [
                 
             </ol>
         </nav>
-        <x-adminlte-card title="New Estimate" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Estimate" theme="info" icon="fas fa-lg fa-person">
             <form action="{{ route('estimatemanagement.store') }}" method="POST">
                 @csrf
                 <div class="row pt-2">

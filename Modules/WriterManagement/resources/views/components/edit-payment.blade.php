@@ -35,7 +35,7 @@
             </ol>
         </nav>
         @include('components.notification')
-        <x-adminlte-card title="Edit Payment" theme="success">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Payment" theme="info">
             <form action="{{ route('writermanagement.editPayment', [$id, $payment->id]) }}" method="POST">
 
                 @csrf

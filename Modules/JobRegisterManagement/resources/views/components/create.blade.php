@@ -54,7 +54,7 @@
                 <li class="breadcrumb-item active">Add Job Register</li>
             </ol>
         </nav>
-        <x-adminlte-card title="New Job Register" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="New Job Register" theme="info" icon="fas fa-lg fa-person">
 
             <form action="{{ route('jobregistermanagement.store') }}" method="POST">
                 @csrf

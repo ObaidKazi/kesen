@@ -31,7 +31,7 @@
                 
             </ol>
         </nav>
-        <x-adminlte-card title="Bill Export" theme="success" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Bill Export" theme="info" icon="fas fa-lg fa-person">
             <form action="{{ route('report.bills') }}" method="POST" target="_blank">
                 @csrf
                 <div class="row pt-2">

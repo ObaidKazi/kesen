@@ -78,11 +78,11 @@
             </nav>
             @include('components.notification')
 
-            <div class="card card-success" style="margin:10px">
+            <div class="card card-info" style="margin:10px">
                 <div class="card-header">
                     <h3 style="margin:0">All Job Cards</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="background-color: #eaecef;">
                     <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                         <table border="0" cellspacing="5" cellpadding="5">
                             <tbody>
@@ -92,8 +92,8 @@
                                         <td><input type="date" id="min" name="min"></td>
                                         <td>To Date:</td>
                                         <td><input type="date" id="max" name="max"></td>
-                                        <td><input type="submit" value="Filter"></td>
-                                        <td><input type="submit" value="Reset" name="reset"></td>
+                                        <td><input class="btn btn-info" type="submit" value="Filter"></td>
+                                        <td><input class="btn btn-info" type="submit" value="Reset" name="reset"></td>
                                     </form>
                                 </tr>
                             </tbody>
@@ -201,28 +201,32 @@
             @include('components.notification')
 
             <br><br>
-            <div class="card" style="margin:10px">
+            <div class="card card-info" style="margin:10px">
                 <div class="card-header">
                     <h3 style="margin:0">All languages of job no "{{$job_register->sr_no}}"</h3>
                 </div>
-                <div class="card-body">
-                    <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                        <x-adminlte-datatable id="table8" :heads="$heads_manage" head-theme="dark" striped :config="$config_manage" with-buttons>
-                            @foreach ($estimate_detail as $index => $detail)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $detail->document_name }}</td>
-                                    <!-- <td>{{ $detail->jobRegister->sr_no }}</td> -->
-                                    <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
-                                    
-                                    <td width="250px">
-                                        @if(!Auth::user()->hasRole('Accounts'))
-                                            <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $job_register->id, 'estimate_detail_id' => $detail->id])}}" class="btn btn-info btn-sm mb-2">Edit</a>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </x-adminlte-datatable>
+                <div class="card-body" style="background-color: #eaecef;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                                <x-adminlte-datatable id="table8" :heads="$heads_manage" head-theme="dark" striped :config="$config_manage" with-buttons>
+                                    @foreach ($estimate_detail as $index => $detail)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $detail->document_name }}</td>
+                                            <!-- <td>{{ $detail->jobRegister->sr_no }}</td> -->
+                                            <td>{{ Modules\LanguageManagement\App\Models\Language::where('id', $detail->lang)->first()->name }}</td>
+                                            
+                                            <td width="250px">
+                                                @if(!Auth::user()->hasRole('Accounts'))
+                                                    <a href="{{route('jobcardmanagement.manage.add', ['job_id' => $job_register->id, 'estimate_detail_id' => $detail->id])}}" class="btn btn-info btn-sm mb-2">Edit</a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </x-adminlte-datatable>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
