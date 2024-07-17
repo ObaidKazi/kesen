@@ -124,6 +124,10 @@
                 </tr>
                 @endif
             @endforeach
+
+            @php 
+                $subtotal=$total;
+            @endphp
             
             
             <tr class="total-row">
@@ -133,57 +137,74 @@
             @if($writer_payment->apply_gst == 1)
                 <tr class="total-row">
                     <td colspan="6">GST 18%</td>
-                    <td>{{round($total*0.18)}}</td>
+                    <td>{{round($subtotal*0.18)}}</td>
                 </tr>
-                @php $total+=$total*0.18 @endphp
+                @php $total+=$subtotal*0.18 @endphp
             @endif
             @if($writer_payment->apply_tds == 1)
                 <tr class="total-row">
                     <td colspan="6">TDS 10%</td>
-                    <td>{{round($total*0.1)}}</td>
+                    <td>{{round($subtotal*0.1)}}</td>
                 </tr>
+                @php
+                $total-=$subtotal*0.1
+            @endphp
                 @if($writer_payment->performance_charge)
                 <tr class="total-row">
                     <td colspan="6">Performance</td>
                     <td>{{($writer_payment->performance_charge)}}</td>
                 </tr>
+                @php
+                    $total+=$writer_payment->performance_charge
+                @endphp
                 @endif
                 @if($writer_payment->deductible)
                 <tr class="total-row">
                     <td colspan="6">Deductible</td>
                     <td>{{($writer_payment->deductible)}}</td>
                 </tr>
+                    @php
+                        $total-=$writer_payment->deductible
+                    @endphp
                 @endif
             
                 <tr class="total-row">
                     <td colspan="6">Total</td>
-                    <td>{{round($total-($total*0.1))}}</td>
+                    <td>{{round($total)}}</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="6">Grand Total</td>
-                    <td>{{round($total-($total*0.1))}}</td>
+                    <td>{{round($total)}}</td>
                 </tr>
             @else
             @if($writer_payment->performance_charge)
                 <tr class="total-row">
                     <td colspan="6">Performance</td>
                     <td>{{($writer_payment->performance_charge)}}</td>
+                
                 </tr>
+                @php
+                    $total+=$writer_payment->performance_charge
+                @endphp
+            
             @endif
             @if($writer_payment->deductible)
                 <tr class="total-row">
                     <td colspan="6">Deductible</td>
                     <td>{{($writer_payment->deductible)}}</td>
                 </tr>
+                @php
+                    $total-=$writer_payment->deductible
+                @endphp
             @endif
             
                 <tr class="total-row">
                     <td colspan="6">Total</td>
-                    <td>{{round($number)}}</td>
+                    <td>{{round($total)}}</td>
                 </tr>
                 <tr class="total-row">
                     <td colspan="6">Grand Total</td>
-                    <td>{{round($number)}}</td>
+                    <td>{{round($total)}}</td>
                 </tr>
             @endif
 

@@ -49,7 +49,7 @@ class HomeController extends Controller
     {
         $min = Carbon::parse(request()->get('from_date'))->startOfDay();
         $max = Carbon::parse(request()->get('to_date'))->endOfDay();
-        $bill_data=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("from_date"))->startOfDay())->where('created_at', '<=',Carbon::parse(request()->get("to_date"))->endOfDay())->get();
+        $bill_data=JobRegister::where('status','!=', 2)->where('created_at', '>=',Carbon::parse(request()->get("from_date"))->startOfDay())->where('created_at', '<=',Carbon::parse(request()->get("to_date"))->endOfDay())->get();
         $pdf = FacadePdf::loadView('reports.pdf.pdf-bill',compact('bill_data','max','min'));
         return $pdf->stream();
         

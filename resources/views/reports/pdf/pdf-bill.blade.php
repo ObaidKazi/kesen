@@ -97,7 +97,7 @@
                         <td>{{ $bill->client_person->name }}</td>
                         <td>{{ $bill->accountant->name }}</td>
                         <td>{{ $bill->handle_by->name }}</td>
-                        <td>{{ $bill->payment_status == 'Paid' ? 'Paid' : 'Unpaid' }}</td>
+                        <td>{{ $bill->payment_status == 'Paid' ? 'Paid' : ($bill->payment_status == 'Unpaid' ? 'Unpaid' : 'Partial') }}</td>
                         <td>{{ $bill->bill_amount??0 }}</td>
                         <td>{{ $bill->paid_amount??0 }}</td>
                     </tr>
