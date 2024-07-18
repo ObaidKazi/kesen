@@ -13,6 +13,7 @@
         ->whereHas('roles', function ($query) {
             $query->where('name', 'Quality Control Executive');
         })
+        ->where('language_id',$estimate_detail->language->id)
         ->get();
 @endphp
 @php
@@ -208,7 +209,7 @@
                                                 <x-adminlte-select name="btv_employee_code[{{ $index }}]" fgroup-class="col-md-2" 
                                                      label="BTV Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}" {{ $job->btv_employee_code == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
@@ -220,7 +221,7 @@
                                                     value="{{ old('bt_fqc.' . $index, $job->bt_fqc) }}" label="BT F/QC">
                                                     <option value="">BT F/QC</option>
                                                     @foreach ($qce_users as $btfc_user)
-                                                        <option value="{{ $btfc_user->id }}" {{ $job->bt_fqc == $btfc_user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                        <option value="{{ $btfc_user->id }}" {{ $job->bt_fqc == $btfc_user->id ? 'selected' : '' }}>{{ $btfc_user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="bt_sentdate[{{ $index }}]"

@@ -15,6 +15,7 @@
         ->whereHas('roles', function ($query) {
             $query->where('name', 'Quality Control Executive');
         })
+        ->where('language_id',$estimate_detail->language->id)
         ->get();
 @endphp
 @php
@@ -170,7 +171,7 @@
                                                 <x-adminlte-select name="btv_employee_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('btv_employee_code[0]') }}" label="BTV Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
