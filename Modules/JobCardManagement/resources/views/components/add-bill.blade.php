@@ -46,7 +46,7 @@
                     <x-adminlte-input name="bill_no"  placeholder="Bill No" 
                     fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='text' label="Bill No" />
                     <x-adminlte-input name="bill_amount"  placeholder="Bill Amount" 
-                    fgroup-class="col-md-2" required value="{{ old('bill_no') }}" type='number' label="Bill Amount" min="0"/>
+                    fgroup-class="col-md-2" value="{{ old('bill_no') }}" type='number' label="Bill Amount" min="0"/>
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
                     fgroup-class="col-md-2"   type='text' label="PO Number" />
@@ -60,7 +60,7 @@
                         <option value="">Select Payment Status</option>
                         <option value="Paid">Paid</option>
                         <option value="Partial">Partial</option>
-                        <option value="Unpaid">Unpaid</option>
+                        <option value="Unpaid" selected>Unpaid</option>
                     </x-adminlte-select>
                     <span id="status" class="col-md-2">
 
@@ -85,7 +85,7 @@
             $('#amount_paid').css("display", "block");
             document.getElementById('status').innerHTML =
                 '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment_date">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" ></div></div>';
-            document.getElementById('amount_paid').innerHTML ='<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0"></div></div>';
+            document.getElementById('amount_paid').innerHTML ='<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" placeholder="Payment Amount" class="form-control" required type="number" min="0"></div></div>';
         } else {
             $('#status').css("display", "none");
             $('#amount_paid').css("display", "none");

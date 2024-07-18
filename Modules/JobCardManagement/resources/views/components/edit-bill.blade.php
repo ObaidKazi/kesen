@@ -48,7 +48,7 @@
                     <x-adminlte-input name="bill_no"  placeholder="Bill No"
                     fgroup-class="col-md-2" required value="{{$bill_data->bill_no}}" type='text' label="Bill No" />
                     <x-adminlte-input name="bill_amount"  placeholder="Bill Amount" 
-                    fgroup-class="col-md-2" required value="{{$bill_data->bill_amount}}" type='number' label="Bill Amount" min="0"/>
+                    fgroup-class="col-md-2" value="{{$bill_data->bill_amount}}" type='number' label="Bill Amount" min="0"/>
                     
                     <x-adminlte-input name="po_number"  placeholder="PO Number"
                     fgroup-class="col-md-2"   type='text' label="PO Number" value="{{$bill_data->po_number}}"/>
@@ -70,7 +70,7 @@
                     </span>
                     <span id="amount_paid" class="col-md-2">
                         @if ($bill_data->payment_status == 'Paid'||$bill_data->payment_status == 'Partial')
-                        <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0" value="{{ $bill_data->paid_amount }}" ></div></div> 
+                        <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0" value="{{ $bill_data->paid_amount }}" placeholder="Payment Amount"></div></div> 
                         @endif
                     </span>
                     
@@ -90,7 +90,7 @@
            $('#amount_paid').css("display", "block");
            document.getElementById('status').innerHTML =
                '<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment_date">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" ></div></div>';
-           document.getElementById('amount_paid').innerHTML ='<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0"></div></div>';
+           document.getElementById('amount_paid').innerHTML ='<div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0" placeholder="Payment Amount"></div></div>';
        } else {
            $('#status').css("display", "none");
            $('#amount_paid').css("display", "none");

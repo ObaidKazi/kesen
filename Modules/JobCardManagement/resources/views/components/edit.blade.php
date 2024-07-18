@@ -60,7 +60,7 @@
                 <li class="breadcrumb-item ">{{$estimate_detail->language->name}}</li>
             </ol>
         </nav>
-        <x-adminlte-card style="background-color: #eaecef;" title="Edit Job Card" theme="info" icon="fas fa-lg fa-person">
+        <x-adminlte-card style="background-color: #eaecef;" title="Edit Part Copy for {{$estimate_detail->document_name}}" theme="info" icon="fas fa-lg fa-person">
 
             <form action="{{ route('jobcardmanagement.update', $job_register->id.'|'.$job_register->estimate_document_id) }}" method="POST"
                 enctype="multipart/form-data">

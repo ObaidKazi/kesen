@@ -69,9 +69,9 @@
                 <tr>
                     <th>Sr No.</th>
                     <th>Date</th>
-                    <th>Job number</th>
-                    <th>Client name</th>
-                    <th>Client Contact person</th>
+                    <th>Job Number</th>
+                    <th>Client Name</th>
+                    <th>Client Person</th>
                     <th>Accountant</th>
                     <th>Handled by</th>
                     <th>Billed Status</th>
@@ -91,13 +91,13 @@
                     @endphp
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $bill->date }}</td>
+                        <td>{{ \Carbon\Carbon::parse($bill->date)->format('j M Y') }}</td>
                         <td>{{ $bill->sr_no }}</td>
                         <td>{{ $bill->client->name }}</td>
                         <td>{{ $bill->client_person->name }}</td>
                         <td>{{ $bill->accountant->name }}</td>
                         <td>{{ $bill->handle_by->name }}</td>
-                        <td>{{ $bill->payment_status == 'Paid' ? 'Paid' : ($bill->payment_status == 'Unpaid' ? 'Unpaid' : 'Partial') }}</td>
+                        <td>{{ $bill->payment_status == 'Paid' ? 'Paid' : ($bill->payment_status == 'Partial' ? 'Partial' : 'Unpaid') }}</td>
                         <td>{{ $bill->bill_amount??0 }}</td>
                         <td>{{ $bill->paid_amount??0 }}</td>
                     </tr>
