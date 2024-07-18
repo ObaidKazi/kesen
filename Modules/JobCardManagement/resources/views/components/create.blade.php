@@ -101,7 +101,7 @@
                                                 <x-adminlte-select name="v_employee_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('v_employee_code[0]') }}" label="V1 Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
@@ -114,7 +114,7 @@
                                                     <x-adminlte-select name="v2_employee_code[0]" fgroup-class="col-md-2" 
                                                     value="{{ old('v2_employee_code[0]') }}" label="V2 Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>

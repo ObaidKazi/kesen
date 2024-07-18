@@ -18,6 +18,9 @@
 @php
     $users = App\Models\User::where('email', '!=', 'developer@kesen.com')
         ->where('id', '!=', Auth()->user()->id)
+        ->whereHas('roles', function ($query) {
+            $query->where('name', 'Quality Control Executive');
+        })
         ->get();
 @endphp
 @php
@@ -122,7 +125,7 @@
                                                 <x-adminlte-select name="v_employee_code[{{ $index }}]" fgroup-class="col-md-2" 
                                                     value="{{ old('v_employee_code.' . $index, $job->v_employee_code) }}" label="V1 Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}" {{ $job->v_employee_code == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
@@ -135,7 +138,7 @@
                                                 <x-adminlte-select name="v2_employee_code[{{ $index }}]" fgroup-class="col-md-2" 
                                                      label="V2 Employee">
                                                     <option value="">Select Employee</option>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($qce_users as $user)
                                                         <option value="{{ $user->id }}" {{ $job->v2_employee_code == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                     @endforeach
                                                 </x-adminlte-select>
