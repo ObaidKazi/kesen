@@ -98,6 +98,26 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <span class="right badge badge-primary p-2 fs-6 mt-2 mb-2">Total Job Card:
+                            {{ $job_register->count() }}</span>
+                        <span class="right badge badge-success p-2 fs-6">Total Completed:
+                            {{ $job_register->complete_count }}</span>
+                        <span class="right badge badge-danger p-2 fs-6">Total Canceled:
+                            {{ $job_register->cancel_count }}</span>
+                        @if (request()->input('min') || request()->input('max'))
+                            <a
+                                href="{{ route('jobcardmanagement.exportJobCard') }}?min={{ request()->input('min') }}&max={{ request()->input('max') }}" target="_blank"><button
+                                    class="btn btn-sm btn-info" title="Edit"
+                                    style="width:132px;margin-left:5px;height:33px" > 
+                                    Export
+                                </button></a>
+                        @else
+                            <a href="{{ route('jobcardmanagement.exportJobCard') }}" target="_blank"><button
+                                    class="btn btn-sm btn-info " title="Edit"
+                                    style="width:132px;margin-left:5px;height:33px" >
+                                    Export
+                                </button></a>
+                        @endif
                         <div class="card">
                             <div class="card-body">
                                 <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config" with-buttons>

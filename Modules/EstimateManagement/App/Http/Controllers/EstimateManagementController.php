@@ -22,25 +22,25 @@ class EstimateManagementController extends Controller
     public function index()
     {
         if(!request()->get("reset")){
-        if(request()->get("min")&&request()->get("max")==null) {
-            
-            $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->get();    
-        }
-        elseif(request()->get("min")!=''&&request()->get("max")!='') {
-            
-            $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
-        }
-        elseif(request()->get("min")==null&&request()->get("max")){
-            
-            $estimates = Estimates::where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
+            if(request()->get("min")&&request()->get("max")==null) {
+                
+                $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->get();    
+            }
+            elseif(request()->get("min")!=''&&request()->get("max")!='') {
+                
+                $estimates = Estimates::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
+            }
+            elseif(request()->get("min")==null&&request()->get("max")){
+                
+                $estimates = Estimates::where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
+            }else{
+                $min=Carbon::now()->startOfMonth();
+                $max=Carbon::now()->endOfMonth();
+                $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->orderBy('created_at', 'desc')->get();    
+            }
         }else{
-            $min=Carbon::now()->startOfMonth();
-            $max=Carbon::now()->endOfMonth();
-            $estimates = Estimates::where('created_at', '>=', $min)->where('created_at', '<=', $max)->orderBy('created_at', 'desc')->get();    
+            return redirect('/estimate-management');
         }
-    }else{
-       return redirect('/estimate-management');
-    }
 
         
         $estimates_approved_count=$estimates->where('status',1)->count();

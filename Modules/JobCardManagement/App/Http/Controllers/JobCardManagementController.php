@@ -22,24 +22,21 @@ class JobCardManagementController extends Controller
         if(!request()->get("reset")){
             if(request()->get("min")&&request()->get("max")==null) {
                 $job_register=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
-            }
-            elseif(request()->get("min")!=''&&request()->get("max")!='') {
-                
-                $job_register=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=',Carbon::parse(request()->get("max"))->endOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
-                
-            }
-            elseif(request()->get("min")==null&&request()->get("max")){
+            }elseif(request()->get("min")!=''&&request()->get("max")!='') {
+                $job_register=JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=',Carbon::parse(request()->get("max"))->endOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();    
+            }elseif(request()->get("min")==null&&request()->get("max")){
                 $job_register=JobRegister::where('created_at', '<=',Carbon::parse(request()->get("max"))->endOfDay())->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->get();
-            
+            }else{
+                $min=Carbon::now()->startOfMonth();
+                $max=Carbon::now()->endOfMonth();
+                $job_register=JobRegister::where('created_at', '>=', $min)->where('created_at', '<=', $max)->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->orderBy('created_at', 'desc')->get();
+            }
         }else{
-            $min=Carbon::now()->startOfMonth();
-            $max=Carbon::now()->endOfMonth();
-            $job_register=JobRegister::where('created_at', '>=', $min)->where('created_at', '<=', $max)->with(['estimateDetail', 'jobCard', 'client', 'handle_by', 'client_person'])->orderBy('created_at', 'desc')->get();
+            return redirect('/job-card-management');
         }
-    }else{
-       return redirect('/job-card-management');
-    }
         
+        $job_register->complete_count=$job_register->where('status',1)->count();
+        $job_register->cancel_count=$job_register->where('status',2)->count();
         return view('jobcardmanagement::manage',compact('job_register'));
         
     }
@@ -356,5 +353,30 @@ class JobCardManagementController extends Controller
                 return redirect('/job-card-management')->with('message', 'Status changed successfully.');    
             }
         }   
+    }
+
+    public function exportJobCard()
+    {
+        if(!request()->get("reset")){
+            if(request()->get("min")&&request()->get("max")==null) {
+                $jobCard = JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->get();    
+            }elseif(request()->get("min")!=''&&request()->get("max")!='') {
+                $jobCard = JobRegister::where('created_at', '>=',Carbon::parse(request()->get("min"))->startOfDay())->where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
+            }elseif(request()->get("min")==null&&request()->get("max")){
+                $jobCard = JobRegister::where('created_at', '<=', Carbon::parse(request()->get("max"))->endOfDay())->get();    
+            }else{
+                $min=Carbon::now()->startOfMonth();
+                $max=Carbon::now()->endOfMonth();
+                $jobCard = JobRegister::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+            }
+        }else{
+            $min=Carbon::now()->startOfMonth();
+            $max=Carbon::now()->endOfMonth();
+            $jobCard = JobRegister::where('created_at', '>=', $min)->where('created_at', '<=', $max)->get();    
+        }
+        $jobCard->complete_count=$jobCard->where('status',1)->count();
+        $jobCard->cancel_count=$jobCard->where('status',2)->count();
+        $pdf = FacadePdf::loadView('jobcardmanagement::pdf.export-job-card', ['jobCard'=> $jobCard]);
+        return $pdf->stream();
     }
 }
