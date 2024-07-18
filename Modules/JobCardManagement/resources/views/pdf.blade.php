@@ -525,7 +525,7 @@
             </tr>
             <tr>
                 <td>Checked with Operator</td>
-                <td style="border-left-style: hidden;"></td>
+                <td style="border-left-style: hidden;font-weight: bold;">{{ $job->operator ?? '' }}</td>
                 <td>Informed To</td>
                 <td style="border-left-style: hidden;font-weight: bold;">{{ $job->client_person->name ?? '' }}</td>
             </tr>

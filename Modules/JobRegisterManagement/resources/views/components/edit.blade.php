@@ -140,6 +140,11 @@ $accountants = App\Models\User::where('email', '!=', 'developer@kesen.com')
                         value="{{ old('date', $jobRegister->date) }}" required label="Delivery Date" />
                     <x-adminlte-input name="old_job_no" placeholder="Old Job No" fgroup-class="col-md-2" 
                         value="{{ $jobRegister->old_job_no }}" type='text' label="Old Job No" />
+                    <x-adminlte-select2 name="operator" fgroup-class="col-md-2" label="Checked with Operator">
+                        <option value="">Select Yes/No</option>
+                        <option value="Yes" {{ $jobRegister->operator == "Yes" ? 'selected' : '' }}>Yes</option>
+                        <option value="No" {{ $jobRegister->operator == "No" ? 'selected' : '' }}>No</option>
+                    </x-adminlte-select2>
 
                     <x-adminlte-select2 name="status" fgroup-class="col-md-2" required label="Status">
                         <option value="">Select Status</option>

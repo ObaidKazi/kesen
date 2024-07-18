@@ -63,6 +63,7 @@ class JobRegisterManagementController extends Controller
             'informed_to' => 'nullable|string|max:255',
             'invoice_date' => 'nullable|date',
             'sent_date' => 'nullable|date',
+            'operator' => 'nullable|string',
             #'site_specific' => 'nullable|string|max:255',
         ]);
 
@@ -93,6 +94,7 @@ class JobRegisterManagementController extends Controller
         $job_register->informed_to = $request->client_contact_person_id;
         $job_register->invoice_date = $request->invoice_date;
         $job_register->sent_date = $request->sent_date;
+        $job_register->operator = $request->operator;
         #$job_register->site_specific = $request->site_specific;
 
         $job_register->save();
@@ -143,6 +145,7 @@ class JobRegisterManagementController extends Controller
             'bill_date' => 'nullable|date',
             'invoice_date' => 'nullable|date',
             'sent_date' => 'nullable|date',
+            'operator' => 'nullable|string',
             #'site_specific' => 'nullable|string|max:255',
         ]);
 
@@ -167,6 +170,7 @@ class JobRegisterManagementController extends Controller
         $jobRegister->bill_date = $request->bill_date;
         $jobRegister->invoice_date = $request->invoice_date;
         $jobRegister->sent_date = $request->sent_date;
+        $jobRegister->operator = $request->operator;
            # 'site_specific' => $request->site_specific,
         $jobRegister->save();        
 
