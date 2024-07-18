@@ -68,7 +68,7 @@
                         <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="paymentdate">Payment Date</label><br><div class="input-group"><input name="payment_date" class="form-control" required type="date" value="{{ $bill_data->payment_date }}" ></div></div> 
                         @endif
                     </span>
-                    <span id="status" class="col-md-2">
+                    <span id="amount_paid" class="col-md-2">
                         @if ($bill_data->payment_status == 'Paid'||$bill_data->payment_status == 'Partial')
                         <div class="form-group col-md-12" style="padding: 0px;margin:0px"><label for="payment">Payment Amount</label><br><div class="input-group"><input name="paid_amount" class="form-control" required type="number" min="0" value="{{ $bill_data->paid_amount }}" ></div></div> 
                         @endif
