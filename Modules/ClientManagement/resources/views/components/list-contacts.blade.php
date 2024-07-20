@@ -85,38 +85,42 @@
                 <h3 style="margin:0">All Contacts of "{{Modules\ClientManagement\App\Models\Client::where('id',$id)->first()->name}}"</h3>
             </div>
             <div class="card-body" style="background-color: #eaecef;">
-                <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
-                    <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
-                        with-buttons>
-                        @foreach ($contact_persons as $index => $row)
-                            <tr>
-
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $row->name }}</td>
-                                <td>{{ $row->email }}</td>
-                                <td>{{ $row->phone_no }}</td>
-                                {{-- <td>{{ $row->landline }}</td> --}}
-                                <td>{{ $row->designation }}</td>
-                                <td width="250px">
-                                    @if(!Auth::user()->hasRole('Accounts'))
-                                    <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}" class="btn btn-info btn-sm mb-2">Edit</a>
-                                    @if ($row->status == 1)
-                                        <a
-                                            href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}" class="btn btn-danger btn-sm mb-2">Disable</a>
-                                    @else
-                                        <a
-                                            href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}" class="btn btn-success btn-sm mb-2">Enable</a>
-                                    @endif
-                                    <a class="btn btn-danger btn-sm mb-2" title="Delete"
-                                        onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$id, $row->id]) }}')">
-                                        <i class="fa fa-lg fa-fw fa-trash"></i>
-                                    </a>
-                                    @endif
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </x-adminlte-datatable>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
+                            <x-adminlte-datatable id="table8" :heads="$heads" head-theme="dark" striped :config="$config"
+                                with-buttons>
+                                @foreach ($contact_persons as $index => $row)
+                                    <tr>
+        
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $row->name }}</td>
+                                        <td>{{ $row->email }}</td>
+                                        <td>{{ $row->phone_no }}</td>
+                                        {{-- <td>{{ $row->landline }}</td> --}}
+                                        <td>{{ $row->designation }}</td>
+                                        <td width="250px">
+                                            @if(!Auth::user()->hasRole('Accounts'))
+                                            <a href="{{ route('clientmanagement.editContactForm', [$id, $row->id]) }}" class="btn btn-info btn-sm mb-2">Edit</a>
+                                            @if ($row->status == 1)
+                                                <a
+                                                    href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}" class="btn btn-danger btn-sm mb-2">Disable</a>
+                                            @else
+                                                <a
+                                                    href="{{ route('clientmanagement.disableEnableContact', [$id, $row->id]) }}" class="btn btn-success btn-sm mb-2">Enable</a>
+                                            @endif
+                                            <a class="btn btn-danger btn-sm mb-2" title="Delete"
+                                                onclick="disableEnable('{{ route('clientmanagement.deleteContact', [$id, $row->id]) }}')">
+                                                <i class="fa fa-lg fa-fw fa-trash"></i>
+                                            </a>
+                                            @endif
+                                        </td>
+        
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

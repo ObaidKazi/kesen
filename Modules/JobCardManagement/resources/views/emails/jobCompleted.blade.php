@@ -16,67 +16,85 @@
             margin: 0 auto;
             background-color: #fff;
             border: 1px solid #ccc;
-            padding: 20px;
+            padding: 0 10px;
         }
         .header {
-            background-color: #4CAF50;
+            background-color: #108f45;
             color: white;
-            padding: 10px;
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: block;
+            width: 80%;
+            height: 50px;
         }
         .content {
             padding: 20px;
-            border: 1px solid #4CAF50;
+            /* border: 1px solid #108f45; */
             margin-top: 20px;
         }
-        .content h1 {
+        .content h2 {
             text-align: center;
             background-color: #E8F5E9;
             padding: 10px;
-            border-bottom: 2px solid #4CAF50;
+            margin-left:  0 0 0 -20px;
+            padding-left: 20px;
         }
         .content p {
             margin: 15px 0;
         }
         .footer {
             text-align: center;
-            background-color: #4CAF50;
+            background-color: #108f45;
             color: white;
             padding: 10px;
-            margin-top: 20px;
+            margin: 0 auto;
+            width: 80%;
+        }
+        .left-line{
+            border-left: 2px solid #108f45;
+            margin-left: -20px;
+            padding-left: 20px;
+        }
+        .email{
+            border-left: 2px solid white;
+            margin-left: -20px;
+            padding-left: 20px;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <div style="float:left;" style="width: 70%">
+            <p>Call Us: <a style="text-decoration: none;color: white;" href="tel:2240348888">+91 22 40348888</a></p>
+        </div>
+        <div style="float:right;" >
+            <p>Mail Us: <a style="text-decoration: none;color: white;" href="mailto:kesen@kesen.in">kesen@kesen.in</a></p>
+        </div>
+    </div>
     <div class="container">
-        <div class="header">
-            <div class="left" style="width: 70%">
-                <p style="float: left;">Call Us: 98210 22327</p>
-            </div>
-            <div class="right" >
-                <p style="float:right;">Mail Us: klanguagebureau@gmail.com</p>
-            </div>
-        </div>
         <div class="content">
-            <h1>FINALIZED JOB CONFIRMATION LETTER</h1>
-            <p style="float:right">Date: {{date('d-M-Y')}}</p><br>
-            <p>{{$jobDetails->estimate->client_person->name ?? ''}}<br>
-                Protocol No.: {{$jobDetails->protocol_no ?? ''}}<br>
-                Job Code: {{$jobDetails->sr_no ?? ''  ?? ''}}</p>
-            <p>Dear {{$jobDetails->estimate->client_person->name ?? ''}},</p>
-            <p>With reference to the above document, kindly send us a mail, confirming that the task undertaken is complete and satisfactory.</p>
-            <p><strong style="color:#4CAF50">Thanking You in advance for your early reply.</strong></p>
-            <p>If we do not receive a communication from you within 7 working days, we will presume that the job is accepted.</p>
-            <p>Kindly complete the feedback form to help us, to serve you better.</p>
-            <p>Looking forward to work with you in the near future.</p>
-            <p>Warm Regards<br><b>Keith Myers</b></p>
+            <center><img src="{{$message->embed(public_path('img/logo.png'))}}" alt="Kesen Logo" width="30%" style="display:block"></center>
+            <div class="left-line">
+                <h2>JOB COMPLETION LETTER & FEEDBACK FORM</h2>
+                <p style="float:right">Date: {{date('d-M-Y')}}</p><br>
+                <p>To:</p>
+                <p>{{$jobDetails->estimate->client_person->name ?? ''}}<br>
+                    {{$jobDetails->estimate->client->name ?? ''}}<br>
+                    Job No: <b>{{$jobDetails->sr_no ?? ''}}</b></p>
+                <p>Dear Sir/Madam,</p>
+            </div>
+            <div class="email">
+                <p>We confirm that Job No: <b>{{$jobDetails->sr_no ?? ''}}</b> is completed and delivered to you.</p>
+                <p>Kindly send us a confirmation that the job is complete and satisfactory from your end. If we do not receive a confirmation from you in the next 2 working days, we will presume that the job is accepted.</p>
+                <p>You are requested to kindly complete the <b>attached Feedback Form</b> to help us serve you better.</p>
+                <p>Thanking You in advance for your early reply. <br>
+                    Looking forward to working with you again soon.</p>
+                <p>Warm Regards<br><b>KeSen Group of Companies</b></p>
+            </div>
         </div>
-        <div class="footer">
-            <p>©2024-25 Kesen. All rights reserved.<br>
-        </div>
+    </div>
+    <div class="footer">
+        <p>©2024-25 Kesen. All rights reserved.<br>
     </div>
 </body>
 </html>
