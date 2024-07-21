@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Confirmation Letter</title>
+    <title>JOB COMPLETION LETTER & FEEDBACK FORM</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,6 +49,7 @@
             padding: 10px;
             margin: 0 auto;
             width: 80%;
+            height: 30px;
         }
         .left-line{
             border-left: 2px solid #108f45;
@@ -94,7 +95,6 @@
         </div>
     </div>
     <div class="footer">
-        <p>©2024-25 Kesen. All rights reserved.<br>
     </div>
 </body>
 </html>

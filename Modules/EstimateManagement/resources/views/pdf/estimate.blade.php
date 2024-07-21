@@ -113,8 +113,8 @@
         <div>
             <hr style="opacity: 0.5;">
         </div>
-        <p style="font-size: 12px"> {{ $estimate->client_person->name }}<span style="font-size: 12px;float:right;width:300px"><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</span></p>
-        <p style="font-size: 12px"> {{ $estimate->client->name }}<span style="font-size: 12px;float:right;width:300px"><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</span></p>
+        <p style="font-size: 12px"> <strong>{{ $estimate->client_person->name }}</strong><span style="font-size: 12px;float:right;width:300px"><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</span></p>
+        <p style="font-size: 12px"> <strong>{{ $estimate->client->name }}</strong><span style="font-size: 12px;float:right;width:300px"><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</span></p>
         <p style="font-size: 12px">{{ $estimate->client->address }}</p>
         <!-- <p style="font-size: 12px"><strong>Ref:</strong> Quotation for {{ $estimate->headline }}</p>
         <p style="font-size: 12px"><strong>Mail Received on:</strong> {{ $estimate->date?\Carbon\Carbon::parse($estimate->date)->format('j M Y'):'' }}</p> -->
@@ -230,8 +230,8 @@
                         <td colspan="1" style="font-size: 6px;">{{ number_format($estimate->discount,2) ?? 0 }}</td>
                     </tr>
                     <tr class="financials" style="background-color: #f0f0f0">
-                        <td colspan="{{ $counter - 1 }}">Net Total</td>
-                        <td colspan="1" style="font-size: 6px;">{{  number_format(($sub_total - $estimate->discount),2) }}</td>
+                        <td colspan="{{ $counter - 1 }}"><strong>Net Total</strong></td>
+                        <td colspan="1" style="font-size: 6px;"><strong>{{  number_format(($sub_total - $estimate->discount),2) }}</strong></td>
                     </tr>
                 @endif
                 @php $net_total=($sub_total-($estimate->discount)) @endphp
@@ -255,7 +255,7 @@
         <p style="font-size: 12px">Kindly let us have your approval.</p>
         <p style="font-size: 12px"> In case you need any clarification, please do not hesitate to call the undersigned.
         </p>
-        <p style="font-size: 12px">Assuring you of our best services at all times.</p>
+        <p style="font-size: 12px">Assuring you of our best services at all times.</p><br>
         <div>
             <div style="display: block">
                 <p style="display: inline">For </p>
@@ -266,7 +266,7 @@
             </div>
             <br>
             <div >
-                <span style="display: inline;padding-left: 35px;">Authorized Signatory</span>
+                <span style="display: inline;padding-left: 35px;"><strong>Authorized Signatory</strong></span>
                 <span style="float: right;font-weight: bold;font-size: 12px;display: inline">Help us to Serve you Better
                 </span>
             </div>

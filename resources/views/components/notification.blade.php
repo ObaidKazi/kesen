@@ -4,7 +4,7 @@
     </x-adminlte-alert>
 @endif
 @if (Session::has('alert'))
-    <x-adminlte-alert theme="danger" title="" dismissable id="alert-msg" class="mt-3">
+    <x-adminlte-alert theme="danger" title="Error" dismissable id="alert-msg" class="mt-3">
         {{ Session::get('alert') }}
     </x-adminlte-alert>
 @endif

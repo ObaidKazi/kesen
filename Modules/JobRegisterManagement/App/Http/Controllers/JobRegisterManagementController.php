@@ -3,6 +3,7 @@
 namespace Modules\JobRegisterManagement\App\Http\Controllers;
 
 use App\Mail\JobConfirmationMail;
+use Modules\EstimateManagement\App\Models\EstimatesDetails;
 use Modules\JobRegisterManagement\App\Sheet\KesenExport;
 use App\Http\Controllers\Controller;
 use App\Mail\JobCompleted;
@@ -16,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Modules\ClientManagement\App\Models\Client;
 use Modules\EstimateManagement\App\Models\Estimates;
 use Modules\JobRegisterManagement\App\Models\JobRegister;
+use Modules\LanguageManagement\App\Models\Language;
 
 class JobRegisterManagementController extends Controller
 {
@@ -198,11 +200,16 @@ class JobRegisterManagementController extends Controller
 
     public function sendComplete($id){
         $jobRegister = JobRegister::findOrFail($id);
+        
+        // to get all languages of current document
+        $language_ids = EstimatesDetails::where('estimate_id', $jobRegister->estimate_id)->where('document_name',$jobRegister->estimate_document_id)->pluck('lang')->toArray();
+        $jobRegister->languages = Language::whereIn('id', $language_ids)->pluck('name')->toArray();
+        
         try{
             Mail::to($jobRegister->estimate->client_person->email)->send(new JobConfirmationMail($jobRegister));
         }catch (\Exception $e) {
             // Handle email sending error
-            return back()->withErrors('Failed to send confirmation email: ' . $e->getMessage());
+            return back()->with('alert', 'Failed to send confirmation email: ' . $e->getMessage());
         }
         // $pdf = Pdf::loadView('jobregistermanagement::job-register-complete-pdf', ['jobRegister' => $jobRegister]);   
         // #$pdf = SnappyPdf::loadView('jobregistermanagement::job-register-complete-pdf', compact('jobRegister'));

@@ -137,7 +137,7 @@
                 <td><b>{{ $job->date ? \Carbon\Carbon::parse($job->created_at)->format('j M Y') : '' }}</b></td>
             </tr>
             <tr>
-                <th>Verion no</th>
+                <th>Version no</th>
                 <td><b>{{ $job->version_no?? '' }}</b></td>
                 <th>Protocol No.</th>
                 <td>{{ $job->protocol_no ?? '' }}</td>
@@ -155,7 +155,7 @@
                 <td>{{ $job->estimate->client_person->phone_no ?? '' }}</td>
             </tr>
             <tr>
-                <th>Add. Quot. No.</th>
+                <th>Add. Estimate No.</th>
                 <td>{{ $job->other_details!=null?\Modules\EstimateManagement\App\Models\Estimates::whereIn('id', explode(',', $job->other_details))->get()->pluck('estimate_no')->implode(', ') ?? '':"" }}</td>
                 <th>Project Manager</th>
                 <td><b>{{ $job->handle_by->name ?? '' }}</b></td>
@@ -192,7 +192,7 @@
                                 @php $estimate_details_list[] = $card->estimate_detail_id; @endphp
                                 <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px":"background-color:lightgrey;width:50px"}}>
                              
-                                    {{ $card->estimateDetail->language->name??'' }}
+                                    <b>{{ $card->estimateDetail->language->name??'' }}</b>
                                 </td>
                             @else
                                 <td rowspan="5" style={{$lanIndex == 0?"background-color:#fff;width:50px;border-top-style:hidden;":"background-color:lightgrey;width:50px;border-top-style:hidden;"}}></td>
@@ -347,7 +347,7 @@
                         <tr>
                             @if (!in_array($card->id, $estimate_details_list))
                                 @php $estimate_details_list[] = $card->id; @endphp
-                                <td rowspan="4" style="font-size: 8pt">{{ $card->language->name }}</td>
+                                <td rowspan="4" style="font-size: 8pt"><b>{{ $card->language->name }}</b></td>
                             @endif
 
                             <td rowspan="4">PC</td>
