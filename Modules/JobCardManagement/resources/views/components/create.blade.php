@@ -75,9 +75,9 @@
                                         <div class="card-body">
                                             <div class="row pt-2">
                                                 <x-adminlte-input name="t_unit[0]" placeholder="Unit" fgroup-class="col-md-2"
-                                                value="{{ old('t_unit[0]') }}" label="T Unit" required />
+                                                value="{{ old('t_unit[0]') }}" label="T Unit*" required />
                                                 <x-adminlte-select name="t_writer[0]" fgroup-class="col-md-2" required
-                                                    value="{{ old('t_writer[0]') }}" label="T Writer">
+                                                    value="{{ old('t_writer[0]') }}" label="T Writer*">
                                                     <option value="">Select Writer</option>
                                                     @foreach ($writers as $writer)
                                                         <option value="{{ $writer->id }}">{{ $writer->writer_name }}</option>
@@ -85,14 +85,14 @@
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_pd[0]" placeholder="PD" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_pd[0]') }}"
-                                                    label="T PD"  required/>
+                                                    label="T PD*"  required/>
                                                 <x-adminlte-input name="t_cr[0]" placeholder="CR" fgroup-class="col-md-2"
                                                     type='date' value="{{ old('t_cr[0]') }}"
                                                     label="T CR"/>
-                                                <x-adminlte-select name="t_cnc[0]" label="T C/CN" fgroup-class="col-md-2">
-                                                        <option value="">Select C/CN</option>
+                                                <x-adminlte-select name="t_cnc[0]" label="T C/NC" fgroup-class="col-md-2">
+                                                        <option value="">Select C/NC</option>
                                                         <option value="C">C</option>
-                                                        <option value="CN">CN</option>
+                                                        <option value="NC">NC</option>
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="t_dv[0]" placeholder="DV" fgroup-class="col-md-2"
                                                     value="{{ old('t_dv[0]') }}" label="T DV" />
@@ -158,10 +158,10 @@
                                                     type='date' value="{{ old('bt_cr[0]') }}"
                                                     label="BT CR"  />
                                                 
-                                                <x-adminlte-select name="bt_cnc[0]" label="BT C/CN" fgroup-class="col-md-2">
-                                                    <option value="">Select C/CN</option>
+                                                <x-adminlte-select name="bt_cnc[0]" label="BT C/NC" fgroup-class="col-md-2">
+                                                    <option value="">Select C/NC</option>
                                                     <option value="C">C</option>
-                                                    <option value="CN">CN</option>
+                                                    <option value="NC">NC</option>
                                                 </x-adminlte-select>
                                                 <x-adminlte-input name="bt_dv[0]" placeholder="DV" fgroup-class="col-md-2"
                                                     value="{{ old('bt_dv[0]') }}" label="BT DV" />

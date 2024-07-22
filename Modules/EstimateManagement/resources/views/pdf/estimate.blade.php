@@ -230,7 +230,7 @@
                         <td colspan="1" style="font-size: 6px;">{{ number_format($estimate->discount,2) ?? 0 }}</td>
                     </tr>
                     <tr class="financials" style="background-color: #f0f0f0">
-                        <td colspan="{{ $counter - 1 }}"><strong>Net Total</strong></td>
+                        <td colspan="{{ $counter - 1 }}"><strong>Gross Total</strong></td>
                         <td colspan="1" style="font-size: 6px;"><strong>{{  number_format(($sub_total - $estimate->discount),2) }}</strong></td>
                     </tr>
                 @endif
@@ -240,7 +240,7 @@
                     <td colspan="1" style="font-size: 6px;">{{ number_format(ceil((($net_total / 100) * 18)),2) }}</td>
                 </tr>
                 <tr class="financials" style="background-color: #f0f0f0">
-                    <td colspan="{{ $counter - 1 }}" style="font-size: 14px;font-weight: bold">Total</td>
+                    <td colspan="{{ $counter - 1 }}" style="font-size: 14px;font-weight: bold">Net Total</td>
                     <td colspan="1" style="font-size: 6px;font-weight: bold">{{ number_format(ceil(($net_total + ($net_total / 100) * 18)),2) }}
                     </td>
                 </tr>

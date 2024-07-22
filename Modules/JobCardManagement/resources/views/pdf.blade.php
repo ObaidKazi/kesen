@@ -259,7 +259,7 @@
                             <td>BTV</td>
                             <td>{{ $card->btv_unit }}</td>
                             <td></td>
-                            <td>{{ App\Models\User::where('id', $card->btv_emp_code)->first()->code ?? '' }}</td>
+                            <td>{{ App\Models\User::where('id', $card->btv_employee_code)->first()->code ?? '' }}</td>
                             <td>{{ $card->btv_pd ? \Carbon\Carbon::parse($card->btv_pd)->format('j M Y') : '' }}</td>
                             <td>{{ $card->btv_cr ? \Carbon\Carbon::parse($card->btv_cr)->format('j M Y') : '' }}</td>
                             <td></td>
