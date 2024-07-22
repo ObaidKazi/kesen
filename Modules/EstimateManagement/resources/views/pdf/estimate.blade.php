@@ -184,7 +184,7 @@
                         <td>{{ $detail->document_name }}</td>
                         <td class="nowrap">{{ $detail->unit != 1 ? $detail->unit : 'Min'}}</td>
                         <td class="nowrap">{{ $detail->rate }}</td>
-                        <td class="nowrap">{{ round($detail->unit * $detail->rate) }}</td>
+                        <td class="nowrap">{{ $detail->unit * $detail->rate }}</td>
                         @if ($estimate->details[0]->verification)
                             <td class="nowrap">{{ $detail->verification }}</td>
                         @endif
@@ -211,10 +211,10 @@
                         @endphp
                         <td>{{ Modules\LanguageManagement\App\Models\Language::whereIn('id', $languages_ids)->pluck('code')->implode('/') }}</td>
                         <td class="nowrap">
-                            {{ number_format( (round(($detail->unit * $detail->rate)) + ($detail->layout_charges) + ($detail->unit*($detail->back_translation??0)) + ($detail->verification??0) + ($detail->two_way_qc_t??0) + ($detail->two_way_qc_bt??0) + ($detail->verification_2??0) + ($detail->layout_charges_2??0) ) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $detail->estimate_id)->where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()),2) }}
+                            {{ number_format( (($detail->unit * $detail->rate) + ($detail->layout_charges) + ($detail->unit*($detail->back_translation??0)) + ($detail->verification??0) + ($detail->two_way_qc_t??0) + ($detail->two_way_qc_bt??0) + ($detail->verification_2??0) + ($detail->layout_charges_2??0) ) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $detail->estimate_id)->where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()),2) }}
                         </td>
                         @php
-                            $sub_total = ($sub_total + (round(($detail->unit * $detail->rate)) + ($detail->layout_charges) +  ($detail->unit*($detail->back_translation??0)) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $detail->estimate_id)->where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()));
+                            $sub_total = ($sub_total + (($detail->unit * $detail->rate) + ($detail->layout_charges) +  ($detail->unit*($detail->back_translation??0)) + ($detail->verification) + ($detail->two_way_qc_t) + ($detail->two_way_qc_bt) + ($detail->verification_2) + ($detail->layout_charges_2)) * (Modules\EstimateManagement\App\Models\EstimatesDetails::where('estimate_id', $detail->estimate_id)->where('document_name', $detail->document_name)->where('unit', $detail->unit)->where('rate', $detail->rate)->count()));
                         @endphp
                     </tr>
                 @endif
