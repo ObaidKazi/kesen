@@ -88,13 +88,13 @@
 <body>
     <header>
         @if ($estimate->client->client_metric->code == 'KCP')
-            <img src="{{ public_path('img/kesen-communication.jpeg') }}" alt="Iceberg Image" width="100%">
+            <img src="{{ public_path('img/kesen-communication.jpeg') }}" alt="Kesen Communication" width="100%">
         @elseif ($estimate->client->client_metric->code == 'KLB')
-            <img src="{{ public_path('img/kesen-language-buea.jpeg') }}" alt="Iceberg Image" width="100%">
+            <img src="{{ public_path('img/kesen-language-buea.jpeg') }}" alt="Kesen Language Bureau" width="100%">
         @elseif ($estimate->client->client_metric->code == 'LGS')
-            <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Iceberg Image" width="100%">
+            <img src="{{ public_path('img/kesen-linguist-system.jpeg') }}" alt="Kesen Linguist Systems" width="100%">
         @else
-            <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Iceberg Image" width="100%">
+            <img src="{{ public_path('img/kesen-linguist-Servi-llp.jpeg') }}" alt="Kesen Linguist Services" width="100%">
         @endif
 
        
@@ -261,7 +261,16 @@
                 <p style="display: inline">For </p>
                 <p style="font-weight: bold;display: inline">{{ $estimate->client->client_metric->name }}</p>
             </div>
-            <div style="margin-top:35px;">
+            @if (Auth::user()->code == 'RIT')
+                <img src="{{ public_path('img/ritesh.png') }}" alt="Ritesh Jadhav" width="120px" style="margin-left:20px;margin-bottom:-10px;">
+            @elseif (Auth::user()->code == 'SHA')
+                <img src="{{ public_path('img/shanti.png') }}" alt="Shanti Pillai" width="120px" style="margin-left:20px;margin-bottom:-10px;">
+            @elseif (Auth::user()->code == 'ANG')
+                <img src="{{ public_path('img/angela.png') }}" alt="Angela Mitra" width="120px" style="margin-left:20px;margin-bottom:-10px;">
+            @else
+                <div style="height: 50px;"></div>
+            @endif
+            <div>
                 _________________________
             </div>
             <br>
